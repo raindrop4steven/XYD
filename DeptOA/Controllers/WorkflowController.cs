@@ -148,16 +148,11 @@ namespace DeptOA.Controllers
             Worksheet worksheet = doc.Worksheet;
             Message message = mgr.GetMessage(MessageId);
 
-            //公文标题
-            var documentTitleName = WorkflowUtil.GetCellValue(worksheet, 6, 4, 0);
-
-            //附件信息
-            var attachments = WorkflowUtil.GetCellValue(worksheet, 15, 4, 10);
+            var deptInfo = WorkflowUtil.GetCellValue(worksheet, 13, 4, 1);
 
             return ResponseUtil.OK(new
             {
-                documentTitleName = documentTitleName,
-                attachments = attachments
+                deptInfo = deptInfo
             });
         }
         #endregion

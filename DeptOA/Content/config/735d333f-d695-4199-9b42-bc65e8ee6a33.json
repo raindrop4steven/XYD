@@ -93,14 +93,6 @@
                 "type": 10
             },
             {
-                "key": "detpAttachments",
-                "value": {
-                    "row": 15,
-                    "col": 4
-                },
-                "type": 10
-            },
-            {
                 "key": "nibanOpinion",
                 "value": {
                     "row": 9,
@@ -123,6 +115,30 @@
                     "col": 8
                 },
                 "type": 0
+            },
+            {
+                "key": "leaderOpinion",
+                "value": {
+                    "row": 11,
+                    "col": 4
+                },
+                "type": 1
+            },
+            {
+                "key": "deptOpinion",
+                "value": {
+                    "row": 13,
+                    "col": 4
+                },
+                "type": 1
+            },
+            {
+                "key": "detpAttachments",
+                "value": {
+                    "row": 15,
+                    "col": 4
+                },
+                "type": 10
             }
         ]
     }

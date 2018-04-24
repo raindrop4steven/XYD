@@ -1,4 +1,5 @@
 ﻿using Appkiz.Apps.Workflow.Library;
+using Appkiz.Library.Security;
 using DeptOA.Entity;
 using Newtonsoft.Json;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Xml;
 
 namespace DeptOA.Common
 {
@@ -14,6 +16,7 @@ namespace DeptOA.Common
         /*
          * 变量定义
          */
+        private static OrgMgr orgMgr = new OrgMgr();
         private static WorkflowMgr mgr = new WorkflowMgr();
 
         /*
@@ -175,6 +178,30 @@ namespace DeptOA.Common
                     {
                         var workcell = worksheet.GetWorkcell(row, col);
                         cellValue = workcell == null ? string.Empty : workcell.WorkcellValue;
+                    }
+                    break;
+                case 1:
+                    {
+                        List<object> deptHistoryInfo = new List<object>();
+
+                        var workcellValue = worksheet.GetWorkcell(row, col);
+                        XmlNodeList deptHistory = workcellValue.History;
+                        foreach (XmlNode node in deptHistory)
+                        {
+                            var emplId = node.Attributes.GetNamedItem("emplId").InnerText;
+                            var value = node.Attributes.GetNamedItem("Value").InnerText;
+                            var updateTime = node.Attributes.GetNamedItem("UpdateTime").InnerText;
+                            var historyDeptInfo = new
+                            {
+                                EmplId = emplId,
+                                EmplName = orgMgr.GetEmployee(emplId).EmplName,
+                                Value = value,
+                                UpdateTime = updateTime
+                            };
+                            deptHistoryInfo.Add(historyDeptInfo);
+                        }
+
+                        cellValue = deptHistoryInfo;
                     }
                     break;
                 case 10:
