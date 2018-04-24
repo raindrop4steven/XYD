@@ -99,6 +99,30 @@
                     "col": 4
                 },
                 "type": 10
+            },
+            {
+                "key": "nibanOpinion",
+                "value": {
+                    "row": 9,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "nibanUser",
+                "value": {
+                    "row": 10,
+                    "col": 5
+                },
+                "type": 0
+            },
+            {
+                "key": "nibanTime",
+                "value": {
+                    "row": 10,
+                    "col": 8
+                },
+                "type": 0
             }
         ]
     }
