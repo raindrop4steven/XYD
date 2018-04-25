@@ -22,6 +22,8 @@ namespace DeptOA.Entity
         public List<DEP_Action> actions { get; set; }
         // 详情
         public List<DEP_Detail> details { get; set; }
+        // 属性
+        public object control { get; set; }
     }
     #endregion
 

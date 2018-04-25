@@ -166,6 +166,7 @@ namespace DeptOA.Common
          * 
          * dataSource:
          * 0 Text
+         * 1 MultiUserText
          * 10 Attachment
          */
         public static object GetCellValue(Worksheet worksheet, int row, int col, int dataSource)

@@ -39,8 +39,23 @@
                             "targetNodeKey": ""
                         }
                     }
+                ],
+                "control": [
+                    {
+                        "saveCell": [
+                            {
+                                "type": "name",
+                                "row": 9,
+                                "col": 5
+                            },
+                            {
+                                "type": "date",
+                                "row": 9,
+                                "col": 8
+                            }
+                        ]
+                    }
                 ]
-            }
         },
         {
             "key": "NODE0002",
