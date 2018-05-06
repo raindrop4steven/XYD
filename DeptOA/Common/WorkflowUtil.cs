@@ -314,8 +314,8 @@ namespace DeptOA.Common
         }
         #endregion
 
-        #region 根据用户获得对应工作流
-        public static List<string>GetWorkflowByUser(string emplID)
+        #region 根据用户获得对应映射表
+        public static List<string>GetTablesByUser(string emplID)
         {
             var sql = string.Format(@"SELECT
 	                                    DISTINCT(DeptID)

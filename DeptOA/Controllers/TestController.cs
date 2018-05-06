@@ -24,7 +24,7 @@ namespace DeptOA.Controllers
         #region 测试获得某个人的工作流
         public ActionResult GetWorkflowByUser(string uid)
         {
-            return ResponseUtil.OK(WorkflowUtil.GetWorkflowByUser(uid));
+            return ResponseUtil.OK(WorkflowUtil.GetTablesByUser(uid));
         }
         #endregion
 
