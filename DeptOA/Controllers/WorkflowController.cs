@@ -248,7 +248,12 @@ namespace DeptOA.Controllers
             }
 
             /*
-             * 根据当前用户获得对应的子节点流程配置
+             * 获得消息
+             */
+            var message = mgr.GetMessage(MessageID);
+
+            /*
+             * 根据当前用户部门获得对应的子节点流程配置
              */
             var subflowList = WorkflowUtil.GetSubflowByUser(employee.EmplID);
             if (subflowList.Count == 0)
@@ -260,11 +265,14 @@ namespace DeptOA.Controllers
                 /*
                  * 启动新流程
                  */
-                var sublfowConfig = subflowList.ElementAtOrDefault(0);
-                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-subflow.json", sublfowConfig));
-                using (StreamReader sr = new StreamReader(filePathName))
+                var subflow = subflowList.ElementAtOrDefault(0);
+                SubflowConfig subflowConfig = WorkflowUtil.GetSubflowConfig(subflow, message.FromTemplate);
+                if (subflowConfig == null)
                 {
-                    SubflowConfig subflowConfig = JsonConvert.DeserializeObject<SubflowConfig>(sr.ReadToEnd());
+                    return ResponseUtil.Error("当前用户没有子流程配置信息");
+                }
+                else
+                {
                     // 获得当前节点信息
                     var node = mgr.GetNode(MessageID, NodeID);
                     var retNode = WorkflowUtil.StartSubflow(node, subflowConfig, employee.EmplID, HandlerEmplId);

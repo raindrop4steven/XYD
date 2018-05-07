@@ -350,7 +350,7 @@ namespace DeptOA.Common
         }
         #endregion
 
-        #region 根据用户获得对应子流程配置
+        #region 根据用户获得对应子流程
         public static List<string> GetSubflowByUser(string emplID)
         {
             var sql = string.Format(@"SELECT
@@ -382,6 +382,33 @@ namespace DeptOA.Common
                 }
 
                 return subflowList;
+            }
+        }
+        #endregion
+
+        #region 根据消息模板获得子流程配置
+        public static SubflowConfig GetSubflowConfig(string subflow, string templateId)
+        {
+            SubflowConfig subflowConfig = null;
+
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-subflow.json", subflow));
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                Subflows subflows = JsonConvert.DeserializeObject<Subflows>(sr.ReadToEnd());
+                foreach(SubWorkflowRelation relation in subflows.subflows)
+                {
+                    if (relation.TemplateId == templateId)
+                    {
+                        subflowConfig = relation.Config;
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+                return subflowConfig;
             }
         }
         #endregion

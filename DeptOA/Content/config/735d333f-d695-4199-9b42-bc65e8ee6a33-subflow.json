@@ -1,34 +1,116 @@
 {
-    "SubflowId": "735d333f-d695-4199-9b42-bc65e8ee6a33",
-    "SubflowTitle": "上级来文办件",
-    "StartAtNode": "NODE0001",
-    "MappingOut": [
+    "subflows": [
         {
-            "From": "办件收文.D4",
-            "To": "公文流转表单.D4"
-        },
-        {
-            "From": "办件收文.D5",
-            "To": "公文流转表单.D5"
-        },
-        {
-            "From": "办件收文.H5",
-            "To": "公文流转表单.H5"
-        },
-        {
-            "From": "办件收文.I5",
-            "To": "公文流转表单.I5"
-        },
-        {
-            "From": "办件收文.D6",
-            "To": "公文流转表单.D7"
-        },
-        {
-            "From": "办件收文.D7",
-            "To": "公文流转表单.D8"
-        }
-    ],
-    "MappingIn": [
+            "TemplateId": "f90b3ea8-21ee-4239-9a8f-f7698c7ae027",
+            "Config": {
+                "SubflowId": "735d333f-d695-4199-9b42-bc65e8ee6a33",
+                "SubflowTitle": "上级来文办件",
+                "StartAtNode": "NODE0001",
+                "MappingOut": [
+                    {
+                        "From": "办件收文.D4",
+                        "To": "公文流转表单.D4"
+                    },
+                    {
+                        "From": "办件收文.D5",
+                        "To": "公文流转表单.D5"
+                    },
+                    {
+                        "From": "办件收文.H5",
+                        "To": "公文流转表单.H5"
+                    },
+                    {
+                        "From": "办件收文.I5",
+                        "To": "公文流转表单.I5"
+                    },
+                    {
+                        "From": "办件收文.D6",
+                        "To": "公文流转表单.D7"
+                    },
+                    {
+                        "From": "办件收文.D7",
+                        "To": "公文流转表单.D8"
+                    }
+                ],
+                "MappingIn": [
 
+                ]
+            }
+        },
+        {
+            "TemplateId": "b5378e8f-392d-43be-bb10-a681577a0973",
+            "Config": {
+                "SubflowId": "735d333f-d695-4199-9b42-bc65e8ee6a33",
+                "SubflowTitle": "下级来文办件",
+                "StartAtNode": "NODE0001",
+                "MappingOut": [
+                    {
+                        "From": "办件收文.D4",
+                        "To": "公文流转表单.D4"
+                    },
+                    {
+                        "From": "办件收文.D5",
+                        "To": "公文流转表单.D5"
+                    },
+                    {
+                        "From": "办件收文.H5",
+                        "To": "公文流转表单.H5"
+                    },
+                    {
+                        "From": "办件收文.I5",
+                        "To": "公文流转表单.I5"
+                    },
+                    {
+                        "From": "办件收文.D6",
+                        "To": "公文流转表单.D7"
+                    },
+                    {
+                        "From": "办件收文.D7",
+                        "To": "公文流转表单.D8"
+                    }
+                ],
+                "MappingIn": [
+
+                ]
+            }
+        },
+        {
+            "TemplateId": "8f9ed0d5-c00c-44d4-9ad1-cc472a78cf98",
+            "Config": {
+                "SubflowId": "735d333f-d695-4199-9b42-bc65e8ee6a33",
+                "SubflowTitle": "阅件收文流程",
+                "StartAtNode": "NODE0001",
+                "MappingOut": [
+                    {
+                        "From": "阅件收文.D4",
+                        "To": "公文流转表单.D4"
+                    },
+                    {
+                        "From": "阅件收文.D5",
+                        "To": "公文流转表单.D5"
+                    },
+                    {
+                        "From": "阅件收文.H5",
+                        "To": "公文流转表单.H5"
+                    },
+                    {
+                        "From": "阅件收文.I5",
+                        "To": "公文流转表单.I5"
+                    },
+                    {
+                        "From": "阅件收文.D6",
+                        "To": "公文流转表单.D7"
+                    },
+                    {
+                        "From": "阅件收文.D7",
+                        "To": "公文流转表单.D8"
+                    }
+                ],
+                "MappingIn": [
+
+                ]
+            }
+        }
     ]
+    
 }

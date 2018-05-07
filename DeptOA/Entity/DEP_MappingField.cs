@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Appkiz.Apps.Workflow.Library;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -37,6 +38,20 @@ namespace DeptOA.Entity
     public class DeptSubflowRelatoin
     {
         public List<Subflow> subflows { get; set; }
+    }
+    #endregion
+
+    #region 党办子节点关系
+
+    public class Subflows
+    {
+        public List<SubWorkflowRelation> subflows { get; set; }
+    }
+
+    public class SubWorkflowRelation
+    {
+        public string TemplateId { get; set; }
+        public SubflowConfig Config { get; set; }
     }
     #endregion
 
