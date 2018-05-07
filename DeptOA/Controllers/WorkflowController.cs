@@ -226,13 +226,13 @@ namespace DeptOA.Controllers
             // 节点ID
             var NodeID = collection["nid"];
             // 子节点的处理人
-            var HandlerEmplId = collection["handlerEmplId"];
+            var HandlerEmplId = employee.EmplID;
 
             /*
              * 参数校验
              */
             // 消息ID
-            if(string.IsNullOrEmpty(MessageID))
+            if (string.IsNullOrEmpty(MessageID))
             {
                 return ResponseUtil.Error("消息ID不能为空");
             }
