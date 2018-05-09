@@ -24,45 +24,14 @@
             <div class="search-condition">
                 <div class="form-inline">
                     <div class="form-group">
-                        <label for="lwwh">来文文号：</label>
-                        <input type="text" class="form-control form-control-sm middle" id="lwwh" ng-model="pageSearch.DocumentNumber" ng-keyup="enterEvent($event)">
-                    </div>
-                    <div class="form-group">
-                        <label for="lwdw">来文单位：</label>
-                        <input type="text" class="form-control form-control-sm middle" id="lwdw" ng-model="pageSearch.DocumentUnit" ng-keyup="enterEvent($event)">
-                    </div>
-                    <div class="form-group">
                         <label for="title">公文标题：</label>
                         <input type="text" class="form-control form-control-sm large" id="title" ng-model="pageSearch.Title" ng-keyup="enterEvent($event)">
                     </div>
                     <div class="form-group">
-                        <label for="sfwrq">收/发文日期：</label>
+                        <label for="sfwrq">公文日期：</label>
                         <input type="text" class="form-control select-date form-control-sm middle" id="sfwrq" readonly="readonly" ng-model="sfwrq">
                         <input type="text" class="hide" id="sfwrqStart" ng-model="pageSearch.StartClosedOrHairTime">
                         <input type="text" class="hide" id="sfwrqEnd" ng-model="pageSearch.EndClosedOrHairTime">
-                    </div>
-                    <!--<div class="form-group">
-        <label for="swxl">收文序列：</label>
-        <select class="form-control form-control-sm" id="swxl" ng-model="pageSearch.SequenceName">
-            <option value="{{null}}">全选</option>
-            <option ng-repeat="item in swxl" value="{{item.Name}}">{{item.Name}}</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="swxl">收文文号：</label>
-        <input type="text" class="form-control form-control-sm" id="swxl" ng-model="pageSearch.SequenceNumber">
-    </div>-->
-                    <div ng-show="pageConfig.activeNav !== 'needDo'" class="form-group">
-                        <label for="fqsj">发起时间：</label>
-                        <input type="text" class="form-control select-date form-control-sm middle" id="fqsj" readonly="readonly" ng-model="fqsj">
-                        <input type="text" class="hide" id="fqsjStart" ng-model="pageSearch.StartCreatedTime" />
-                        <input type="text" class="hide" id="fqsjEnd" ng-model="pageSearch.EndCreatedTime" />
-                    </div>
-                    <div ng-show="pageConfig.activeNav === 'iStop'" class="form-group">
-                        <label for="zzsj">终止时间：</label>
-                        <input type="text" class="form-control select-date form-control-sm middle" id="zzsj" readonly="readonly" ng-model="zzsj">
-                        <input type="text" class="hide" id="zzsjStart" ng-model="pageSearch.StartEndTime" />
-                        <input type="text" class="hide" id="zzsjEnd" ng-model="pageSearch.EndEndTime" />
                     </div>
                     <div class="form-group">
                         <label for="wkfType">公文类型：</label>
@@ -89,7 +58,6 @@
                 <tr ng-if="pageConfig.activeNav === 'needDo' && activeTableData.length > 0" ng-repeat="row in activeTableData">
                     <td>{{($index+1)+(pageSearch.PageNumber-1)*pageSearch.PageSize}}</td>
                     <td>{{row.MessageTitle}}</td>
-                    <td>{{row.DocumentNumber || '----'}}</td>
                     <td title="{{row.DocumentTitle}}" class="item-lg">
                         <a class="text-info" href="/Apps/Workflow/Running/Open?mid={{row.MessageId}}" target="_blank">{{row.DocumentTitle || '----'}}</a>
                     </td>
@@ -97,67 +65,56 @@
                     <td>{{row.ReceiveTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td>{{row.InitiateEmplName | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td>{{row.MyTask}}</td>
-                    <!--<td>{{row.SequenceName}}&nbsp;&nbsp;{{row.SequenceNumber}}</td>-->
                 </tr>
                 <tr ng-if="pageConfig.activeNav === 'iDone' && activeTableData.length > 0" ng-repeat="row in activeTableData">
                     <td>{{($index+1)+(pageSearch.PageNumber-1)*pageSearch.PageSize}}</td>
                     <td>{{row.MessageTitle}}</td>
-                    <td>{{row.DocumentNumber || '----'}}</td>
                     <td title="{{row.DocumentTitle}}" class="item-lg">
                         <a class="text-info" href="/Apps/Workflow/Running/Open?mid={{row.MessageId}}" target="_blank">{{row.DocumentTitle || '----'}}</a>
                     </td>
                     <td>{{row.ClosedOrHairTime.split(' ')[0]}}</td>
                     <td>{{row.ReceiveTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td>{{row.CreateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <!--<td>{{row.SequenceName}}&nbsp;&nbsp;{{row.SequenceNumber}}</td>-->
                 </tr>
                 <tr ng-if="pageConfig.activeNav === 'mineDoing' && activeTableData.length > 0" ng-repeat="row in activeTableData">
                     <td>{{($index+1)+(pageSearch.PageNumber-1)*pageSearch.PageSize}}</td>
                     <td>{{row.MessageTitle}}</td>
-                    <td>{{row.DocumentNumber || '----'}}</td>
                     <td title="{{row.DocumentTitle}}" class="item-lg">
                         <a class="text-info" href="/Apps/Workflow/Running/Open?mid={{row.MessageId}}" target="_blank">{{row.DocumentTitle || '----'}}</a>
                     </td>
                     <td>{{row.ClosedOrHairTime.split(' ')[0]}}</td>
-                    <td>{{row.CreateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{row.ReceiveTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td>{{row.MyTask}}</td>
-                    <!--<td>{{row.SequenceName}}&nbsp;&nbsp;{{row.SequenceNumber}}</td>-->
                 </tr>
                 <tr ng-if="pageConfig.activeNav === 'mineDone' && activeTableData.length > 0" ng-repeat="row in activeTableData">
                     <td>{{($index+1)+(pageSearch.PageNumber-1)*pageSearch.PageSize}}</td>
                     <td>{{row.MessageTitle}}</td>
-                    <td>{{row.DocumentNumber || '----'}}</td>
                     <td title="{{row.DocumentTitle}}" class="item-lg">
                         <a class="text-info" href="/Apps/Workflow/Running/Open?mid={{row.MessageId}}" target="_blank">{{row.DocumentTitle || '----'}}</a>
                     </td>
                     <td>{{row.ClosedOrHairTime.split(' ')[0]}}</td>
                     <td>{{row.CreateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td>{{row.FinishTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <!--<td>{{row.SequenceName}}&nbsp;&nbsp;{{row.SequenceNumber}}</td>-->
+                    <td>{{row.ReceiveTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 </tr>
                 <tr ng-if="pageConfig.activeNav === 'iStop' && activeTableData.length > 0" ng-repeat="row in activeTableData">
                     <td>{{($index+1)+(pageSearch.PageNumber-1)*pageSearch.PageSize}}</td>
                     <td>{{row.MessageTitle}}</td>
-                    <td>{{row.DocumentNumber || '----'}}</td>
                     <td title="{{row.DocumentTitle}}" class="item-lg">
                         <a class="text-info" href="/Apps/Workflow/Running/Open?mid={{row.MessageId}}" target="_blank">{{row.DocumentTitle || '----'}}</a>
                     </td>
                     <td>{{row.ClosedOrHairTime.split(' ')[0]}}</td>
                     <td>{{row.CreateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td>{{row.FinishTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <!--<td>{{row.SequenceName}}&nbsp;&nbsp;{{row.SequenceNumber}}</td>-->
                 </tr>
                 <tr ng-if="pageConfig.activeNav === 'mineDraft' && activeTableData.length > 0" ng-repeat="row in activeTableData">
                     <td>{{($index+1)+(pageSearch.PageNumber-1)*pageSearch.PageSize}}</td>
                     <td>{{row.MessageTitle}}</td>
-                    <td>{{row.DocumentNumber || '----'}}</td>
                     <td title="{{row.DocumentTitle}}" class="item-lg">
                         <a class="text-info" href="/Apps/Workflow/Running/Open?mid={{row.MessageId}}" target="_blank">{{row.DocumentTitle || '----'}}</a>
                     </td>
                     <td>{{row.ClosedOrHairTime.split(' ')[0]}}</td>
                     <td>{{row.CreateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td>{{row.CreateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <!--<td>{{row.SequenceName}}&nbsp;&nbsp;{{row.SequenceNumber}}</td>-->
                 </tr>
                 <tr ng-if="!activeTableData.length">
                     <td colspan="{{titleObj[pageConfig.activeNav].length}}">无【{{pageHeader[pageConfig.activeNav]}}】</td>

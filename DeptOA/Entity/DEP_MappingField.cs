@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DeptOA.Entity
 {
-    #region 部门-公文关系
+    #region 部门-公文映射表关系
     public class RelationItem
     {
         /// <summary>
@@ -25,6 +25,19 @@ namespace DeptOA.Entity
         /// 
         /// </summary>
         public List<RelationItem> relations { get; set; }
+    }
+    #endregion
+
+    #region 部门-公文关系
+    public class Workflow
+    {
+        public string dept { get; set; }
+        public List<string> flows { get; set; }
+    }
+
+    public class Workflows
+    {
+        public List<Workflow> workflows { get; set; }
     }
     #endregion
 

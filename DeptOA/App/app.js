@@ -137,11 +137,11 @@
         //获取所有工作流模板
         function GetTempList() {
             httpService.post(
-                '/Apps/Archives/WorkflowQuery/GetTempList',
+                '/Apps/DEP/WorkflowPage/GetTempList',
                 null,
                 function (data) {
                     //console.log('callback', data);
-                    $scope.wkfDefaultTempList = data;
+                    $scope.wkfDefaultTempList = data.Data;
                 },
                 function (data) {
                     //console.log('error', data);
@@ -383,17 +383,17 @@
         function init() {
             $scope.titleObj = {
                 //待处理
-                needDo: ['序号', '公文类型', '来文文号', '公文标题', '收/发文日期', '接收时间', '发起人', '当前环节'],
+                needDo: ['序号', '公文类型', '公文标题', '公文日期', '接收时间', '发起人', '当前环节'],
                 //我发出未完成
-                mineDoing: ['序号', '公文类型', '来文文号', '公文标题', '收/发文日期', '发起时间', '当前环节'],
+                mineDoing: ['序号', '公文类型', '公文标题', '公文日期', '发起时间', '当前环节'],
                 //我发出已完成
-                mineDone: ['序号', '公文类型', '来文文号', '公文标题', '收/发文日期', '发起时间', '完成时间'],
+                mineDone: ['序号', '公文类型', '公文标题', '公文日期', '发起时间', '完成时间'],
                 //我处理过的
-                iDone: ['序号', '公文类型', '来文文号', '公文标题', '收/发文日期', '接收时间', '发起时间'],
+                iDone: ['序号', '公文类型', '公文标题', '公文日期', '接收时间', '发起时间'],
                 //我终止的
-                iStop: ['序号', '公文类型', '来文文号', '公文标题', '收/发文日期', '发起时间', '终止时间'],
+                iStop: ['序号', '公文类型', '公文标题', '公文日期', '发起时间', '终止时间'],
                 //我的草稿
-                mineDraft: ['序号', '公文类型', '来文文号', '公文标题', '收/发文日期', '发起时间', '起草时间']
+                mineDraft: ['序号', '公文类型', '公文标题', '公文日期', '发起时间', '起草时间']
             }
 
             $scope.pageHeader = {
@@ -439,11 +439,11 @@
         //获取所有工作流模板
         function GetTempList() {
             httpService.post(
-                '/Apps/Archives/WorkflowQuery/GetTempList',
+                '/Apps/DEP/WorkflowPage/GetTempList',
                 null,
                 function (data) {
                     //console.log('callback', data);
-                    $scope.wkfDefaultTempList = data;
+                    $scope.wkfDefaultTempList = data.Data;
                 },
                 function (data) {
                     //console.log('error', data);
@@ -700,7 +700,7 @@
             }
         }
         function init() {
-            $scope.titleObj = ['序号', '公文类型', '来文文号', '公文标题', '收/发文日期', '收文文号', '发起部门', '发起人', '流程状态'];
+            $scope.titleObj = ['序号', '公文类型',  '公文标题', '公文日期', '收文文号', '发起部门', '发起人', '流程状态'];
             $scope.wkfStateList = [
                 { value: 0, text: '草稿' },
                 { value: 1, text: '运行中' },

@@ -414,6 +414,42 @@ namespace DeptOA.Common
         }
         #endregion
 
+        #region 根据用户获得所在部门所有流程
+        public static List<string> GetWorkflowsByUser(string emplID)
+        {
+            var sql = string.Format(@"SELECT
+	                                    DISTINCT(DeptID)
+                                    FROM
+	                                    ORG_Department a 
+                                    WHERE
+	                                    a.DeptHierarchyCode IN (
+	                                    SELECT SUBSTRING
+		                                    ( DeptHierarchyCode, 1, 5 )
+	                                    FROM
+		                                    ORG_Department b 
+                                    WHERE
+	                                    b.DeptID IN ( SELECT DeptID FROM ORG_EmplDept c WHERE c.EmplID = '{0}' ))", emplID);
+            var deptList = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetWorkflowByUser);
+
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "workflow"));
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var workflowList = new List<string>();
+                var workflows = JsonConvert.DeserializeObject<Workflows>(sr.ReadToEnd());
+
+                foreach (Workflow item in workflows.workflows)
+                {
+                    if (deptList.Contains(item.dept))
+                    {
+                        workflowList.AddRange(item.flows);
+                    }
+                }
+
+                return workflowList;
+            }
+        }
+        #endregion
+
         #region 根据消息模板获得子流程配置
         public static SubflowConfig GetSubflowConfig(string subflow, string templateId)
         {

@@ -6,11 +6,15 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using DeptOA.Common;
+using Appkiz.Apps.Workflow.Library;
 
 namespace DeptOA.Controllers
 {
     public class WorkflowPageController : Controller
     {
+
+        WorkflowMgr mgr = new WorkflowMgr();
+
         #region 待处理公文
         [HttpPost]
         public ActionResult GetPendingInfo(QueryInfo query)
@@ -804,6 +808,41 @@ namespace DeptOA.Controllers
                 });
             }
                     
+        }
+        #endregion
+
+        #region 获得模板列表
+        public ActionResult GetTempList()
+        {
+            /*
+             * 变量定义
+             */
+            // 公文表列表
+            var resultList = new List<object>();
+
+            // 当前用户
+            var emplId = (User.Identity as Appkiz.Library.Security.Authentication.AppkizIdentity).Employee.EmplID;
+
+            /*
+             * 根据用户获得该用户部门对应的公文
+             */
+            var workflowList = WorkflowUtil.GetWorkflowsByUser(emplId);
+
+            foreach(var workflowId in workflowList)
+            {
+                var message = mgr.GetMessage(workflowId);
+                if (message != null)
+                {
+                    resultList.Add(new
+                    {
+                        ID = message.MessageID,
+                        Title = message.MessageTypeKey
+                    });
+                }
+            }
+
+            return ResponseUtil.OK(resultList);
+
         }
         #endregion
     }
