@@ -20,6 +20,9 @@ namespace DeptOA.Entity
 
     public class DEP_MappingFields
     {
+        // 数据库表
+        public string table { get; set; }
+        // 对应的字段
         public List<DEP_MappingField> fields { get; set; }
     }
 

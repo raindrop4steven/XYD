@@ -30,13 +30,8 @@
 				"key": "SequenceNumber",
 				"row": 5,
 				"col": 9
-			},
-			{
-				"key": "DocumentTitle",
-				"row": 7,
-				"col": 4
 			}
 		],
-		"table": "DPT_ZHUJIAN_RECEIVE_FILE"
+		"table": "DEP_ReceiveFile_ZhuJian"
 	}
 }
