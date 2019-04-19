@@ -18,6 +18,7 @@ namespace DeptOA.Common
         /// <returns></returns>
         public delegate List<object> DataHandler(SqlDataReader reader);
         public delegate string SingleDataHandler(SqlDataReader reader);
+        public delegate int IntSingleDataHandler(SqlDataReader reader);
 
         /// 查询第三方表数据
         /// </summary>
@@ -118,6 +119,11 @@ namespace DeptOA.Common
         #endregion
 
         #region 实例委托方法
+        /// <summary>
+        /// 查找映射数据是否存在对应记录
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
         public static List<object>SearchInformation(SqlDataReader reader)
         {
             var ResultList = new List<object>();
@@ -125,6 +131,46 @@ namespace DeptOA.Common
             {
                 string Id = reader.GetString(0);
                 ResultList.Add(Id);
+            }
+
+            return ResultList;
+        }
+
+        public static List<object> GetPendingResult(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                int number = reader.GetInt32(0);
+                string DocumentNumber = reader.GetString(1);
+                string DocumentTilte = reader.GetString(2);
+                string ClosedOrHairTime = reader.GetString(3);
+                string MessageId = reader.GetString(4);
+                string WorkflowId = reader.GetString(5);
+                string SequenceName = reader.GetString(6);
+                string SequenceNumber = reader.GetString(7);
+                string InitiateEmplId = reader.GetString(8);
+                string InitiateEmplName = reader.GetString(9);
+                string MessageTitle = reader.GetString(10);
+                string MyTask = reader.GetString(11);
+                string ReceiveTime = reader.GetString(12);
+
+                ResultList.Add(new
+                {
+                    number = number,
+                    DocumentNumber = DocumentNumber,
+                    DocumentTitle = DocumentTilte,
+                    ClosedOrHairTime = ClosedOrHairTime,
+                    MessageId = MessageId,
+                    WorkflowId = WorkflowId,
+                    SequenceName = SequenceName,
+                    SequenceNumber = SequenceNumber,
+                    InitiateEmplId = InitiateEmplId,
+                    InitiateEmplName = InitiateEmplName,
+                    MessageTitle = MessageTitle,
+                    MyTask = MyTask,
+                    ReceiveTime = ReceiveTime
+                });
             }
 
             return ResultList;

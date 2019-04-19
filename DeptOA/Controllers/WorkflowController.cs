@@ -71,6 +71,11 @@ namespace DeptOA.Controllers
         }
         #endregion
 
+        #region 列表展示
+
+        #endregion
+
+        #region 测试Json解析
         public ActionResult Config()
         {
             using (StreamReader sr = new StreamReader(Server.MapPath("~/mapping.json")))
@@ -80,5 +85,6 @@ namespace DeptOA.Controllers
                 return ResponseUtil.OK(mappingModel);
             }
         }
+        #endregion
     }
 }

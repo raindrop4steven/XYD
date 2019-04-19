@@ -162,11 +162,14 @@
     <Compile Include="Common\WorkflowUtil.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\WorkflowController.cs" />
+    <Compile Include="Entity\BaseQueryInfo.cs" />
     <Compile Include="Entity\DEP_MappingField.cs" />
+    <Compile Include="Entity\QueryInfo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\WorkflowPageController.cs" />
     <Compile Include="Services\WorkflowService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -196,10 +199,12 @@
     <Folder Include="Content\static\js\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="Views\WorkflowPage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="appkiz.config" />
     <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33.json" />
+    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750.json" />
     <None Include="packages.config" />
     <Content Include="Views\Workflow\GetDeptPeople.cshtml" />
   </ItemGroup>
