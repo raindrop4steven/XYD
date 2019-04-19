@@ -1,37 +1,100 @@
 {
-	"mapping": {
-		"fields": [
-			{
-				"key": "DocumentTitle",
-				"row": 7,
-				"col": 4
-			},
-            {
-                "key": "ReceivedDocumentUnit",
-                "row": 4,
-                "col": 4
-            },
-			{
-				"key": "ClosedOrHairTime",
-				"row": 4,
-				"col": 8
-			},
-			{
-				"key": "DocumentNumber",
-				"row": 5,
-				"col": 4
-			},
-			{
-				"key": "SequenceName",
-				"row": 5,
-				"col": 8
-			},
-			{
-				"key": "SequenceNumber",
-				"row": 5,
-				"col": 9
-			}
-		],
-		"table": "DEP_ReceiveFile_ZhuJian"
-	}
+    "table": "DEP_ReceiveFile_ZhuJian",
+    "nodes": [
+        {
+            "key": "NODE0001",
+            "value": {
+                "mappings": [
+                    {
+                        "key": "DocumentTitle",
+                        "value": {
+                            "row": 7,
+                            "col": 4
+                        }
+                    },
+                    {
+                        "key": "ReceivedDocumentUnit",
+                        "value": {
+                            "row": 4,
+                            "col": 4
+                        }
+                    },
+                    {
+                        "key": "ClosedOrHairTime",
+                        "value": {
+                            "row": 4,
+                            "col": 8
+                        }
+                    },
+                    {
+                        "key": "DocumentNumber",
+                        "value": {
+                            "row": 5,
+                            "col": 4
+                        }
+                    },
+                    {
+                        "key": "SequenceName",
+                        "value": {
+                            "row": 5,
+                            "col": 8
+                        }
+                    },
+                    {
+                        "key": "SequenceNumber",
+                        "value": {
+                            "row": 5,
+                            "col": 9
+                        }
+                    }
+                ],
+                "actions": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": true,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "key": "NODE0002",
+            "value": {
+                "mapping": [],
+                "actions": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": true,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            }
+        }
+    ]
 }
