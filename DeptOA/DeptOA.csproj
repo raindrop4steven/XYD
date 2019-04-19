@@ -159,6 +159,7 @@
     <Compile Include="Common\DbUtil.cs" />
     <Compile Include="Common\JsonNetResult.cs" />
     <Compile Include="Common\ResponseUtil.cs" />
+    <Compile Include="Common\WorkflowUtil.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\WorkflowController.cs" />
     <Compile Include="Entity\DEP_MappingField.cs" />
@@ -166,6 +167,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\WorkflowService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\sdk\sdk.js" />
@@ -197,7 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="appkiz.config" />
-    <Content Include="mapping.json" />
+    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33.json" />
     <None Include="packages.config" />
     <Content Include="Views\Workflow\GetDeptPeople.cshtml" />
   </ItemGroup>
