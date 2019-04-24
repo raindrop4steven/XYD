@@ -102,13 +102,15 @@ namespace DeptOA.Common
             
         }
 
-        public static DEP_Action GetNodeAction(string mid, string nid)
+        public static Dictionary<string, object> GetNodeAction(string mid, string nid)
         {
             try
             {
                 /*
                  * 根据模板ID获得对应的配置
                  */
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+
                 DEP_Action resultAction = null;
 
                 Message message = mgr.GetMessage(mid);
@@ -132,7 +134,21 @@ namespace DeptOA.Common
                             continue;
                         }
                     }
-                    return resultAction;
+                    
+                    // 判断动作配置是否为空
+                    if (resultAction == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        foreach(var actionField in resultAction.value)
+                        {
+                            dict.Add(actionField.key, actionField.value);
+                        }
+
+                        return dict;
+                    }
                 }
             }
             catch (Exception e)

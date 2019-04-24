@@ -96,7 +96,7 @@ namespace DeptOA.Controllers
                  */
                 string tableName = WorkflowUtil.GetTableName(MessageID);
                 List<DEP_Detail> details = WorkflowUtil.GetNodeDetail(MessageID);
-                DEP_Action action = WorkflowUtil.GetNodeAction(MessageID, NodeID);
+                var action = WorkflowUtil.GetNodeAction(MessageID, NodeID);
 
                 // 判断是否存在对应配置
                 if (details == null)
