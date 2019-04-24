@@ -16,14 +16,14 @@ namespace DeptOA.Services
         OrgMgr orgMgr = new OrgMgr();
 
         #region 新增或更新映射记录
-        public bool AddOrUpdateRecord(string MessageID, string tableName, DEP_NodeValue nodeConfig)
+        public bool AddOrUpdateRecord(string MessageID, string tableName, DEP_Mapping mappings)
         {
             Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
             Worksheet worksheet = doc.Worksheet;
             Message message = mgr.GetMessage(MessageID);
 
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            foreach (var mapping in nodeConfig.mappings)
+            foreach (var mapping in mappings.value)
             {
                 //公文标题
                 var FieldValue = worksheet.GetWorkcell(mapping.value.row, mapping.value.col);
@@ -65,6 +65,32 @@ namespace DeptOA.Services
             bool runResult = DbUtil.ExecuteSqlCommand(sql.ToString());
 
             return runResult;
+        }
+        #endregion
+
+        #region 获得详情
+        public object GetDetailInfo(string MessageID, List<DEP_Detail> details)
+        {
+            /*
+             * 变量定义
+             */
+            // 字典存储
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            /*
+             * 获取表单详情
+             */
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
+            Worksheet worksheet = doc.Worksheet;
+            Message message = mgr.GetMessage(MessageID);
+
+            foreach(var detail in details)
+            {
+                var value = WorkflowUtil.GetCellValue(worksheet, detail.value.row, detail.value.col, detail.type);
+                dict.Add(detail.key, value);
+            }
+
+            return dict;
         }
         #endregion
     }

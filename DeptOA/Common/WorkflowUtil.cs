@@ -19,13 +19,13 @@ namespace DeptOA.Common
         /*
          * 获得配置
          */
-        public static DEP_NodeValue GetNodeConfig(string mid, string nid)
+        public static DEP_Mapping GetNodeMappings(string mid, string nid)
         {
             /*
              * 变量定义
              */
             // 节点配置
-            DEP_NodeValue nodeConfig = null;
+            DEP_Mapping mappings = null;
 
             /*
              * 根据模板ID获得对应的配置
@@ -39,22 +39,22 @@ namespace DeptOA.Common
             {
                 var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
                 // 根据nid获取对应配置
-                foreach (var nodeAction in config.nodes)
+                foreach (var nodeAction in config.values.mappings)
                 {
                     if (nodeAction.key == nid)
                     {
-                        nodeConfig = nodeAction.value;
+                        mappings = nodeAction;
                     }
                     else
                     {
                         continue;
                     }
                 }
-                return nodeConfig;
+                return mappings;
             }
         }
 
-        public static string GetTableName(string mid, string nid)
+        public static string GetTableName(string mid)
         {
             /*
              * 根据模板ID获得对应的配置
@@ -71,38 +71,78 @@ namespace DeptOA.Common
             }
         }
 
+        /// <summary>
+        /// 获得详情配置
+        /// </summary>
+        /// <param name="mid"></param>
+        /// <returns></returns>
+        public static List<DEP_Detail> GetNodeDetail(string mid)
+        {
+            try
+            {
+                /*
+             * 根据模板ID获得对应的配置
+             */
+                Message message = mgr.GetMessage(mid);
+                var templateID = message.FromTemplate;
+
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
+
+                using (StreamReader sr = new StreamReader(filePathName))
+                {
+                    var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
+
+                    return config.values.details;
+                }
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            
+        }
         /*
          * 获得Cell的值
          * 目前支持Text及Attachment类型
          * 
+         * dataSource:
+         * 0 Text
+         * 10 Attachment
          */
-        public static object GetCellValue(Worksheet worksheet, int row, int col, Enum_WorkcellDataSource dataSource)
+        public static object GetCellValue(Worksheet worksheet, int row, int col, int dataSource)
         {
             object cellValue = null;
 
             switch(dataSource)
             {
-                case Enum_WorkcellDataSource.Text:
+                case 0:
                     {
                         var workcell = worksheet.GetWorkcell(row, col);
-                        cellValue = workcell == null ? null : workcell.WorkcellValue;
+                        cellValue = workcell == null ? string.Empty : workcell.WorkcellValue;
                     }
                     break;
-                case Enum_WorkcellDataSource.Attachment:
+                case 10:
                     {
                         var workcell = worksheet.GetWorkcell(row, col);
                         if(workcell == null)
                         {
-                            cellValue = workcell;
+                            throw new Exception(string.Format("{0},{1}值为NULL", row, col));
                         }
                         else
                         {
-                            var fileInternalValues = workcell.WorkcellInternalValue.Split(';').ToList();
                             var attachments = new List<object>();
-                            foreach (var attachId in fileInternalValues)
+                            var internalAttachs = workcell.WorkcellInternalValue.Split(';').ToList();
+                            foreach (var attachId in internalAttachs)
                             {
-                                var attachment = mgr.GetAttachment(attachId);
-                                attachments.Add(attachment);
+                                if (string.IsNullOrEmpty(attachId))
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    var attachment = mgr.GetAttachment(attachId);
+                                    attachments.Add(attachment);
+                                }
                             }
                             cellValue = attachments;
                         }

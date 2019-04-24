@@ -203,7 +203,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="appkiz.config" />
-    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33.json" />
+    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750.json" />
     <None Include="packages.config" />
     <Content Include="Views\Workflow\GetDeptPeople.cshtml" />
@@ -234,6 +236,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties Content_4config_4735d333f-d695-4199-9b42-bc65e8ee6a33_1json__JSONSchema="http://json.schemastore.org/2.0.0-csd.2.beta.2018-10-10.json" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -8,35 +8,39 @@ namespace DeptOA.Entity
     #region 节点
     public class DEP_Node
     {
-        // 表明
+        // 表名
         public string table { get; set; }
-        // 节点列表
-        public List<DEP_NodeAction> nodes { get; set; }
+        // 属性
+        public DEP_NodeAction values { get; set; }
     }
 
     public class DEP_NodeAction
     {
-        public string key { get; set; }
-        public DEP_NodeValue value { get; set; }
-    }
-
-    public class DEP_NodeValue
-    {
-        public List<DEP_MappingField> mappings { get; set; }
+        // 映射
+        public List<DEP_Mapping> mappings { get; set; }
+        // 动作
         public List<DEP_Action> actions { get; set; }
+        // 详情
+        public List<DEP_Detail> details { get; set; }
     }
     #endregion
 
     #region 映射
-    public class DEP_MappingField
+    public class DEP_Mapping
     {
         // 键
         public string key { get; set; }
         // 值
-        public DEP_CellField value { get; set; }
+        public List<DEP_CellField> value { get; set; }
     }
 
     public class DEP_CellField
+    {
+        public string key { get; set; }
+        public DEP_CellPos value { get; set; }
+    }
+
+    public class DEP_CellPos
     {
         // 行
         public int row { get; set; }
@@ -51,7 +55,13 @@ namespace DeptOA.Entity
         // 键
         public string key { get; set; }
         // 值
-        public DEP_DetailAction value { get; set; }
+        public List<DEP_ActionField> value { get; set; }
+    }
+
+    public class DEP_ActionField
+    {
+        public string key { get; set; }
+        public DEP_DetailAction value;
     }
 
     public class DEP_DetailAction
@@ -67,6 +77,20 @@ namespace DeptOA.Entity
     }
     #endregion
 
+    #region 详情
+    public class DEP_Detail
+    {
+        public string key { get; set; }
+        public DEP_DetailPos value { get; set; }
+        public int type { get; set; }
+    }
+
+    public class DEP_DetailPos
+    {
+        public int row { get; set; }
+        public int col { get; set; }
+    }
+    #endregion
 
 
 }

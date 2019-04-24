@@ -1,10 +1,10 @@
 {
     "table": "DEP_ReceiveFile_ZhuJian",
-    "nodes": [
-        {
-            "key": "NODE0001",
-            "value": {
-                "mappings": [
+    "values": {
+        "mappings": [
+            {
+                "key": "NODE0001",
+                "value": [
                     {
                         "key": "DocumentTitle",
                         "value": {
@@ -19,8 +19,17 @@
                             "col": 8
                         }
                     }
-                ],
-                "actions": [
+                ]
+            },
+            {
+                "key": "NODE0002",
+                "value": []
+            }
+        ],
+        "actions": [
+            {
+                "key": "NODE0001",
+                "value": [
                     {
                         "key": "showReadedButton",
                         "value": {
@@ -41,32 +50,56 @@
                     }
                 ]
             }
-        },
-        {
-            "key": "NODE0002",
-            "value": {
-                "mapping": [],
-                "actions": [
-                    {
-                        "key": "showReadedButton",
-                        "value": {
-                            "show": true,
-                            "col": 0,
-                            "row": 0,
-                            "targetNodeKey": ""
-                        }
-                    },
-                    {
-                        "key": "needOpinion",
-                        "value": {
-                            "show": true,
-                            "col": 0,
-                            "row": 0,
-                            "targetNodeKey": ""
-                        }
-                    }
-                ]
+        ],
+        "details": [
+            {
+                "key": "ReceivedDocumentUnit",
+                "value": {
+                    "row": 4,
+                    "col": 2
+                },
+                "type": 0
+            },
+            {
+                "key": "DocumentNumber",
+                "value": {
+                    "row": 5,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "ClosedOrHairTime",
+                "value": {
+                    "row": 4,
+                    "col": 8
+                },
+                "type": 0
+            },
+            {
+                "key": "DocumentTitle",
+                "value": {
+                    "row": 7,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "attachments",
+                "value": {
+                    "row": 8,
+                    "col": 4
+                },
+                "type": 10
+            },
+            {
+                "key": "detpAttachments",
+                "value": {
+                    "row": 15,
+                    "col": 4
+                },
+                "type": 10
             }
-        }
-    ]
+        ]
+    }
 }
