@@ -101,6 +101,46 @@ namespace DeptOA.Common
             }
             
         }
+
+        public static DEP_Action GetNodeAction(string mid, string nid)
+        {
+            try
+            {
+                /*
+                 * 根据模板ID获得对应的配置
+                 */
+                DEP_Action resultAction = null;
+
+                Message message = mgr.GetMessage(mid);
+                var templateID = message.FromTemplate;
+
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
+
+                using (StreamReader sr = new StreamReader(filePathName))
+                {
+                    var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
+
+                    foreach(var action in config.values.actions)
+                    {
+                        if(action.key == nid)
+                        {
+                            resultAction = action;
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    return resultAction;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         /*
          * 获得Cell的值
          * 目前支持Text及Attachment类型

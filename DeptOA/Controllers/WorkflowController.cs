@@ -86,6 +86,8 @@ namespace DeptOA.Controllers
              */
             // 消息ID
             var MessageID = collection["mid"];
+            // 节点ID
+            var NodeID = collection["nid"];
 
             try
             {
@@ -94,6 +96,7 @@ namespace DeptOA.Controllers
                  */
                 string tableName = WorkflowUtil.GetTableName(MessageID);
                 List<DEP_Detail> details = WorkflowUtil.GetNodeDetail(MessageID);
+                DEP_Action action = WorkflowUtil.GetNodeAction(MessageID, NodeID);
 
                 // 判断是否存在对应配置
                 if (details == null)
@@ -105,7 +108,10 @@ namespace DeptOA.Controllers
                     // 获取表单详情
                     var detail = wkfService.GetDetailInfo(MessageID, details);
 
-                    return ResponseUtil.OK(detail);
+                    return ResponseUtil.OK(new {
+                        detail = detail,
+                        control = action
+                    });
                 }
             }
             catch (Exception e)

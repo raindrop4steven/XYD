@@ -236,7 +236,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties Content_4config_4735d333f-d695-4199-9b42-bc65e8ee6a33_1json__JSONSchema="http://json.schemastore.org/2.0.0-csd.2.beta.2018-10-10.json" />
+      <UserProperties Content_4config_4735d333f-d695-4199-9b42-bc65e8ee6a33_1json__JSONSchema="http://json.schemastore.org/bowerrc" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
