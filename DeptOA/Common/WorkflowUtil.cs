@@ -70,5 +70,49 @@ namespace DeptOA.Common
                 return config.table;
             }
         }
+
+        /*
+         * 获得Cell的值
+         * 目前支持Text及Attachment类型
+         * 
+         */
+        public static object GetCellValue(Worksheet worksheet, int row, int col, Enum_WorkcellDataSource dataSource)
+        {
+            object cellValue = null;
+
+            switch(dataSource)
+            {
+                case Enum_WorkcellDataSource.Text:
+                    {
+                        var workcell = worksheet.GetWorkcell(row, col);
+                        cellValue = workcell == null ? null : workcell.WorkcellValue;
+                    }
+                    break;
+                case Enum_WorkcellDataSource.Attachment:
+                    {
+                        var workcell = worksheet.GetWorkcell(row, col);
+                        if(workcell == null)
+                        {
+                            cellValue = workcell;
+                        }
+                        else
+                        {
+                            var fileInternalValues = workcell.WorkcellInternalValue.Split(';').ToList();
+                            var attachments = new List<object>();
+                            foreach (var attachId in fileInternalValues)
+                            {
+                                var attachment = mgr.GetAttachment(attachId);
+                                attachments.Add(attachment);
+                            }
+                            cellValue = attachments;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+            
+            return cellValue;
+        }
     }
 }

@@ -71,10 +71,6 @@ namespace DeptOA.Controllers
         }
         #endregion
 
-        #region 列表展示
-
-        #endregion
-
         #region 测试Json解析
         public ActionResult Config()
         {
@@ -84,6 +80,34 @@ namespace DeptOA.Controllers
 
                 return ResponseUtil.OK(mappingModel);
             }
+        }
+        #endregion
+
+        #region 详情测试
+        [HttpPost]
+        public ActionResult ShowDetail(FormCollection collection)
+        {
+            /*
+             * 参数获取
+             */
+            // 消息ID
+            var MessageId = collection["mid"];
+
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageId));
+            Worksheet worksheet = doc.Worksheet;
+            Message message = mgr.GetMessage(MessageId);
+
+            //公文标题
+            var documentTitleName = WorkflowUtil.GetCellValue(worksheet, 6, 4, Enum_WorkcellDataSource.Text);
+
+            //附件信息
+            var attachments = WorkflowUtil.GetCellValue(worksheet, 7, 4, Enum_WorkcellDataSource.Attachment);
+
+            return ResponseUtil.OK(new
+            {
+                documentTitleName = documentTitleName,
+                attachments = attachments
+            });
         }
         #endregion
     }

@@ -116,6 +116,34 @@ namespace DeptOA.Common
                 throw new Exception(string.Format("存储过程出错：{0}, 详细信息:{1}", procName, e.Message));
             }
         }
+
+        public static int ExecuteScalar(string sqlText)
+        {
+            try
+            {
+                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                var sqlConnection = new SqlConnection(connectionString);
+
+                SqlCommand cmd = new SqlCommand();
+
+                // 基本的查询
+                cmd.CommandText = sqlText;
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = sqlConnection;
+
+                sqlConnection.Open();
+
+                int count = (int)(cmd.ExecuteScalar());
+
+
+                sqlConnection.Close();
+                return count;
+            }
+            catch(Exception exception)
+            {
+                throw exception;
+            }
+        }
         #endregion
 
         #region 实例委托方法
@@ -136,39 +164,178 @@ namespace DeptOA.Common
             return ResultList;
         }
 
+        /// <summary>
+        /// 待办
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
         public static List<object> GetPendingResult(SqlDataReader reader)
         {
             var ResultList = new List<object>();
             while (reader.Read())
             {
-                int number = reader.GetInt32(0);
-                string DocumentNumber = reader.GetString(1);
-                string DocumentTilte = reader.GetString(2);
-                string ClosedOrHairTime = reader.GetString(3);
-                string MessageId = reader.GetString(4);
-                string WorkflowId = reader.GetString(5);
-                string SequenceName = reader.GetString(6);
-                string SequenceNumber = reader.GetString(7);
-                string InitiateEmplId = reader.GetString(8);
-                string InitiateEmplName = reader.GetString(9);
-                string MessageTitle = reader.GetString(10);
-                string MyTask = reader.GetString(11);
-                string ReceiveTime = reader.GetString(12);
+                long number = reader.GetInt64(0);
+                string DocumentTilte = reader.GetString(1);
+                string ClosedOrHairTime = reader.GetString(2);
+                string MessageId = reader.GetString(3);
+                string WorkflowId = reader.GetString(4);
+                string InitiateEmplId = reader.GetString(5);
+                string InitiateEmplName = reader.GetString(6);
+                string MessageTitle = reader.GetString(7);
+                string MyTask = reader.GetString(8);
+                string ReceiveTime = reader.GetString(9);
 
                 ResultList.Add(new
                 {
                     number = number,
-                    DocumentNumber = DocumentNumber,
                     DocumentTitle = DocumentTilte,
                     ClosedOrHairTime = ClosedOrHairTime,
                     MessageId = MessageId,
                     WorkflowId = WorkflowId,
-                    SequenceName = SequenceName,
-                    SequenceNumber = SequenceNumber,
                     InitiateEmplId = InitiateEmplId,
                     InitiateEmplName = InitiateEmplName,
                     MessageTitle = MessageTitle,
                     MyTask = MyTask,
+                    ReceiveTime = ReceiveTime
+                });
+            }
+
+            return ResultList;
+        }
+
+        /// <summary>
+        /// 已处理
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static List<object> GetDealResult(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                long number = reader.GetInt64(0);
+                string DocumentTilte = reader.GetString(1);
+                string ClosedOrHairTime = reader.GetString(2);
+                string MessageId = reader.GetString(3);
+                string WorkflowId = reader.GetString(4);
+                string MessageTitle = reader.GetString(5);
+                string CreateTime = reader.GetString(6);
+                string ReceiveTime = reader.GetString(7);
+
+                ResultList.Add(new
+                {
+                    number = number,
+                    DocumentTitle = DocumentTilte,
+                    ClosedOrHairTime = ClosedOrHairTime,
+                    MessageId = MessageId,
+                    WorkflowId = WorkflowId,
+                    MessageTitle = MessageTitle,
+                    CreateTime = CreateTime,
+                    ReceiveTime = ReceiveTime
+                });
+            }
+
+            return ResultList;
+        }
+
+        /// <summary>
+        /// 发出未完成
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static List<object> GetNoCompleteResult(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                long number = reader.GetInt64(0);
+                string DocumentTilte = reader.GetString(1);
+                string ClosedOrHairTime = reader.GetString(2);
+                string MessageId = reader.GetString(3);
+                string WorkflowId = reader.GetString(4);
+                string MessageTitle = reader.GetString(5);
+                string MyTask = reader.GetString(6);
+                string ReceiveTime = reader.GetString(7);
+
+                ResultList.Add(new
+                {
+                    number = number,
+                    DocumentTitle = DocumentTilte,
+                    ClosedOrHairTime = ClosedOrHairTime,
+                    MessageId = MessageId,
+                    WorkflowId = WorkflowId,
+                    MessageTitle = MessageTitle,
+                    MyTask = MyTask,
+                    ReceiveTime = ReceiveTime
+                });
+            }
+
+            return ResultList;
+        }
+
+        /// <summary>
+        /// 已完成
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static List<object> GetCompleteResult(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                long number = reader.GetInt64(0);
+                string DocumentTilte = reader.GetString(1);
+                string ClosedOrHairTime = reader.GetString(2);
+                string MessageId = reader.GetString(3);
+                string WorkflowId = reader.GetString(4);
+                string MessageTitle = reader.GetString(5);
+                string CreateTime = reader.GetString(6);
+                string ReceiveTime = reader.GetString(7);
+
+                ResultList.Add(new
+                {
+                    number = number,
+                    DocumentTitle = DocumentTilte,
+                    ClosedOrHairTime = ClosedOrHairTime,
+                    MessageId = MessageId,
+                    WorkflowId = WorkflowId,
+                    MessageTitle = MessageTitle,
+                    CreateTime = CreateTime,
+                    ReceiveTime = ReceiveTime
+                });
+            }
+
+            return ResultList;
+        }
+
+        /// <summary>
+        /// 获得草稿信息
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static List<object> GetDraftResult(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                long number = reader.GetInt64(0);
+                string DocumentTilte = reader.GetString(1);
+                string ClosedOrHairTime = reader.GetString(2);
+                string MessageId = reader.GetString(3);
+                string WorkflowId = reader.GetString(4);
+                string MessageTitle = reader.GetString(5);
+                string CreateTime = reader.GetString(6);
+                string ReceiveTime = reader.GetString(7);
+
+                ResultList.Add(new
+                {
+                    number = number,
+                    DocumentTitle = DocumentTilte,
+                    ClosedOrHairTime = ClosedOrHairTime,
+                    MessageId = MessageId,
+                    WorkflowId = WorkflowId,
+                    MessageTitle = MessageTitle,
+                    CreateTime = CreateTime,
                     ReceiveTime = ReceiveTime
                 });
             }

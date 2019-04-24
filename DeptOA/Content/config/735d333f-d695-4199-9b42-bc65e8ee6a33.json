@@ -13,38 +13,10 @@
                         }
                     },
                     {
-                        "key": "ReceivedDocumentUnit",
-                        "value": {
-                            "row": 4,
-                            "col": 4
-                        }
-                    },
-                    {
                         "key": "ClosedOrHairTime",
                         "value": {
                             "row": 4,
                             "col": 8
-                        }
-                    },
-                    {
-                        "key": "DocumentNumber",
-                        "value": {
-                            "row": 5,
-                            "col": 4
-                        }
-                    },
-                    {
-                        "key": "SequenceName",
-                        "value": {
-                            "row": 5,
-                            "col": 8
-                        }
-                    },
-                    {
-                        "key": "SequenceNumber",
-                        "value": {
-                            "row": 5,
-                            "col": 9
                         }
                     }
                 ],

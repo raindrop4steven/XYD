@@ -15,13 +15,7 @@ namespace DeptOA.Services
         WorkflowMgr mgr = new WorkflowMgr();
         OrgMgr orgMgr = new OrgMgr();
 
-        /// <summary>
-        /// 新增或更新映射记录
-        /// </summary>
-        /// <param name="MessageID"></param>
-        /// <param name="tableName"></param>
-        /// <param name="nodeConfig"></param>
-        /// <returns></returns>
+        #region 新增或更新映射记录
         public bool AddOrUpdateRecord(string MessageID, string tableName, DEP_NodeValue nodeConfig)
         {
             Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
@@ -72,5 +66,6 @@ namespace DeptOA.Services
 
             return runResult;
         }
+        #endregion
     }
 }
