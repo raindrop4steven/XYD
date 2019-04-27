@@ -11,6 +11,7 @@ using DeptOA.Services;
 using Appkiz.Apps.Workflow.Library;
 using Appkiz.Library.Security;
 using System.Text;
+using Appkiz.Library.Security.Authentication;
 
 namespace DeptOA.Controllers
 {
@@ -80,23 +81,38 @@ namespace DeptOA.Controllers
              */
             // 工作流Service
             WorkflowService wkfService = new WorkflowService();
+            var employee = (User.Identity as AppkizIdentity).Employee;
+            var NodeID = string.Empty;
 
             /*
              * 参数获取
              */
             // 消息ID
             var MessageID = collection["mid"];
-            // 节点ID
-            var NodeID = collection["nid"];
 
             try
             {
+                List<Node> source = mgr.ListNodeToBeHandle(employee.EmplID, "");
+                foreach (Node node in source)
+                {
+                    if (node.MessageID == MessageID)
+                    {
+                        NodeID = node.NodeKey;
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
                 /*
                  * 配置读取
                  */
                 string tableName = WorkflowUtil.GetTableName(MessageID);
                 List<DEP_Detail> details = WorkflowUtil.GetNodeDetail(MessageID);
                 var action = WorkflowUtil.GetNodeAction(MessageID, NodeID);
+                var control = WorkflowUtil.GetNodeControl(MessageID, NodeID);
 
                 // 判断是否存在对应配置
                 if (details == null)
@@ -106,11 +122,17 @@ namespace DeptOA.Controllers
                 else
                 {
                     // 获取表单详情
-                    var detail = wkfService.GetDetailInfo(MessageID, details);
+                    var detail = wkfService.GetDetailInfo(MessageID, NodeID, details);
 
-                    return ResponseUtil.OK(new {
-                        detail = detail,
-                        control = action
+                    return new JsonNetResult(new
+                    {
+                        Succeed = true,
+                        Data = new
+                        {
+                            detail = detail,
+                            control = action,
+                            action = control
+                        }
                     });
                 }
             }

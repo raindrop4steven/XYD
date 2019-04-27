@@ -98,10 +98,10 @@ namespace DeptOA.Controllers
             var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", sql, startPage, endPage);
 
             var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetPendingResult);
-            return ResponseUtil.OK(new
-            {
-                totalCount = totalCount,
-                data = result
+            
+            return Json(new {
+                TotalInfo = totalCount,
+                Data = result
             });
         }
         #endregion

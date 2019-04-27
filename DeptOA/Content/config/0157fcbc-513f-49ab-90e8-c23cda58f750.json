@@ -1,14 +1,14 @@
 {
     "table": "DEP_ReceiveFile_ZhuJian",
-    "nodes": [
-        {
-            "key": "NODE0001",
-            "value": {
-                "mappings": [
+    "values": {
+        "mappings": [
+            {
+                "key": "NODE0001",
+                "value": [
                     {
                         "key": "DocumentTitle",
                         "value": {
-                            "row": 7,
+                            "row": 6,
                             "col": 4
                         }
                     },
@@ -16,56 +16,20 @@
                         "key": "ClosedOrHairTime",
                         "value": {
                             "row": 4,
-                            "col": 8
+                            "col": 9
                         }
-                    }
-                ],
-                "actions": [
-                    {
-                        "key": "showReadedButton",
-                        "value": {
-                            "show": true,
-                            "col": 0,
-                            "row": 0,
-                            "targetNodeKey": ""
-                        }
-                    },
-                    {
-                        "key": "needOpinion",
-                        "value": {
-                            "show": true,
-                            "col": 0,
-                            "row": 0,
-                            "targetNodeKey": ""
-                        }
-                    }
-                ],
-                "control": [
-                    {
-                        "saveCell": [
-                            {
-                                "type": "name",
-                                "row": 9,
-                                "col": 5
-                            },
-                            {
-                                "type": "date",
-                                "row": 9,
-                                "col": 8
-                            }
-                        ]
                     }
                 ]
-        },
-        {
-            "key": "NODE0002",
-            "value": {
-                "mapping": [],
-                "actions": [
+            }
+        ],
+        "actions": [
+            {
+                "key": "NODE0002",
+                "value": [
                     {
                         "key": "showReadedButton",
                         "value": {
-                            "show": true,
+                            "show": false,
                             "col": 0,
                             "row": 0,
                             "targetNodeKey": ""
@@ -75,13 +39,176 @@
                         "key": "needOpinion",
                         "value": {
                             "show": true,
+                            "col": 6,
+                            "row": 8,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0003",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
                             "col": 0,
                             "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 6,
+                            "row": 10,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0004",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0005",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 4,
+                            "row": 13,
+                            "targetNodeKey": "NODE0003"
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": false,
+                            "col": 4,
+                            "row": 13,
                             "targetNodeKey": ""
                         }
                     }
                 ]
             }
-        }
-    ]
+        ],
+        "details": [
+            {
+                "key": "ApplyUser",
+                "value": {
+                    "row": 4,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "ApplyDate",
+                "value": {
+                    "row": 5,
+                    "col": 9
+                },
+                "type": 0
+            },
+            {
+                "key": "OutDate",
+                "value": {
+                    "row": 5,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "Destination",
+                "value": {
+                    "row": 5,
+                    "col": 9
+                },
+                "type": 0
+            },
+            {
+                "key": "DocumentTitle",
+                "value": {
+                    "row": 6,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "deptOpinion",
+                "value": {
+                    "row": 8,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "leaderOpinion",
+                "value": {
+                    "row": 10,
+                    "col": 6
+                },
+                "type": 0
+            }
+        ],
+        "controls": [
+            {
+                "key": "NODE0002",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 7,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 7,
+                            "col": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "NODE0003",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 9,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 9,
+                            "col": 10
+                        }
+                    ]
+                }
+            }
+        ]
+    }
 }

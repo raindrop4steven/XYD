@@ -23,7 +23,7 @@ namespace DeptOA.Entity
         // 详情
         public List<DEP_Detail> details { get; set; }
         // 属性
-        public object control { get; set; }
+        public List<DEP_Control> controls { get; set; }
     }
     #endregion
 
@@ -91,6 +91,14 @@ namespace DeptOA.Entity
     {
         public int row { get; set; }
         public int col { get; set; }
+    }
+    #endregion
+
+    #region 控制
+    public class DEP_Control
+    {
+        public string key { get; set; }
+        public object value { get; set; }
     }
     #endregion
 

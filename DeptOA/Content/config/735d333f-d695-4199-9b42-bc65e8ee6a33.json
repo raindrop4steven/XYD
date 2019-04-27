@@ -28,12 +28,12 @@
         ],
         "actions": [
             {
-                "key": "NODE0001",
+                "key": "NODE0002",
                 "value": [
                     {
                         "key": "showReadedButton",
                         "value": {
-                            "show": true,
+                            "show": false,
                             "col": 0,
                             "row": 0,
                             "targetNodeKey": ""
@@ -43,6 +43,121 @@
                         "key": "needOpinion",
                         "value": {
                             "show": true,
+                            "col": 4,
+                            "row": 9,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0003",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0004",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": true,
+                            "col": 4,
+                            "row": 11,
+                            "targetNodeKey": "NODE0003"
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 4,
+                            "row": 11,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0005",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": true,
+                            "col": 4,
+                            "row": 13,
+                            "targetNodeKey": "NODE0003"
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 4,
+                            "row": 13,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0007",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0009",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": false,
                             "col": 0,
                             "row": 0,
                             "targetNodeKey": ""
@@ -141,20 +256,23 @@
                 "type": 10
             }
         ],
-        "control": [
+        "controls": [
             {
-                "saveCell": [
-                    {
-                        "type": "name",
-                        "row": 9,
-                        "col": 5
-                    },
-                    {
-                        "type": "date",
-                        "row": 9,
-                        "col": 8
-                    }
-                ]
+                "key": "NODE0002",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 10,
+                            "col": 5
+                        },
+                        {
+                            "type": "date",
+                            "row": 10,
+                            "col": 8
+                        }
+                    ]
+                }
             }
         ]
     }
