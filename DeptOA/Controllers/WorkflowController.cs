@@ -72,7 +72,7 @@ namespace DeptOA.Controllers
         }
         #endregion
 
-        #region 公文详情
+        #region 移动端公文详情
         [HttpPost]
         public ActionResult GetDetailInfo(FormCollection collection)
         {
@@ -124,15 +124,11 @@ namespace DeptOA.Controllers
                     // 获取表单详情
                     var detail = wkfService.GetDetailInfo(MessageID, NodeID, details);
 
-                    return new JsonNetResult(new
+                    return ResponseUtil.OK(new
                     {
-                        Succeed = true,
-                        Data = new
-                        {
-                            detail = detail,
-                            control = action,
-                            action = control
-                        }
+                        detail = detail,
+                        control = action,
+                        action = control
                     });
                 }
             }
