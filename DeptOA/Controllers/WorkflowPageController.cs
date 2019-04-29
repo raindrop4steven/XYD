@@ -99,7 +99,7 @@ namespace DeptOA.Controllers
 
             var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetPendingResult);
             
-            return Json(new {
+            return new JsonNetResult(new {
                 TotalInfo = totalCount,
                 Data = result
             });
@@ -198,10 +198,10 @@ namespace DeptOA.Controllers
             var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", sql, startPage, endPage);
 
             var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetDealResult);
-            return ResponseUtil.OK(new
+            return new JsonNetResult(new
             {
-                totalCount = totalCount,
-                data = result
+                TotalInfo = totalCount,
+                Data = result
             });
         }
         #endregion
@@ -292,10 +292,10 @@ namespace DeptOA.Controllers
             var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", sql, startPage, endPage);
 
             var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetNoCompleteResult);
-            return ResponseUtil.OK(new
+            return new JsonNetResult(new
             {
-                totalCount = totalCount,
-                data = result
+                TotalInfo = totalCount,
+                Data = result
             });
         }
         #endregion
@@ -379,10 +379,10 @@ namespace DeptOA.Controllers
             var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", sql, startPage, endPage);
 
             var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetDraftResult);
-            return ResponseUtil.OK(new
+            return new JsonNetResult(new
             {
-                totalCount = totalCount,
-                data = result
+                TotalInfo = totalCount,
+                Data = result
             });
         }
         #endregion
@@ -467,10 +467,10 @@ namespace DeptOA.Controllers
             var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", sql, startPage, endPage);
 
             var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetDraftResult);
-            return ResponseUtil.OK(new
+            return new JsonNetResult(new
             {
-                totalCount = totalCount,
-                data = result
+                TotalInfo = totalCount,
+                Data = result
             });
         }
         #endregion

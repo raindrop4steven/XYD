@@ -20,11 +20,8 @@ namespace DeptOA.Common
         {
             return new JsonNetResult(new
             {
-                status = 200,
-                data = new
-                {
-                    message = message
-                } 
+                Succeed = true,
+                Message = message
             });
         }
 
@@ -38,11 +35,8 @@ namespace DeptOA.Common
         {
             return new JsonNetResult(new
             {
-                status = 400,
-                data = new
-                {
-                    message = message
-                }
+                Succeed = false,
+                Message = message
             });
         }
 
@@ -56,8 +50,8 @@ namespace DeptOA.Common
         {
             return new JsonNetResult(new
             {
-                status = 200,
-                data = data
+                Succeed = true,
+                Data = data
             });
         }
     }
