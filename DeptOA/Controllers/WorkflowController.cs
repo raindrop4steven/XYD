@@ -12,6 +12,7 @@ using Appkiz.Apps.Workflow.Library;
 using Appkiz.Library.Security;
 using System.Text;
 using Appkiz.Library.Security.Authentication;
+using Appkiz.Library.Common;
 
 namespace DeptOA.Controllers
 {
@@ -202,6 +203,53 @@ namespace DeptOA.Controllers
         }
         #endregion
 
+        #region 启动子流程
+        [HttpPost]
+        public ActionResult StartSubflow(FormCollection collection)
+        {
+            /*
+             * 变量定义
+             */
+            var employee = (User.Identity as AppkizIdentity).Employee;
+
+            /*
+             * 参数获取
+             */
+            // 消息ID
+            var MessageID = collection["mid"];
+            // 节点ID
+            var NodeID = collection["nid"];
+            // 子节点的处理人
+            var HandlerEmplId = collection["handlerEmplId"];
+
+            /*
+             * 参数校验
+             */
+
+            /*
+             * 启动新流程
+             */
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "735d333f-d695-4199-9b42-bc65e8ee6a33-subflow"));
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                SubflowConfig subflowConfig = JsonConvert.DeserializeObject<SubflowConfig>(sr.ReadToEnd());
+                // 获得当前节点信息
+                var node = mgr.GetNode(MessageID, NodeID);
+                var retNode = WorkflowUtil.StartSubflow(node, subflowConfig, employee.EmplID, HandlerEmplId);
+
+                return ResponseUtil.OK(new
+                {
+                    MessageID = retNode.MessageID,
+                    NodeKey = retNode.NodeKey,
+                    NewWin = true,
+                    Url = ("/Apps/Workflow/Running/Open?mid=" + retNode.MessageID + "&nid=" + retNode.NodeKey)
+                });
+            }
+        }
+
+        
+        #endregion
+
         #region 测试Json解析
         public ActionResult Config()
         {
@@ -234,6 +282,23 @@ namespace DeptOA.Controllers
             return ResponseUtil.OK(new
             {
                 deptInfo = deptInfo
+            });
+        }
+
+        [HttpPost]
+        public ActionResult TestCellID(FormCollection collection)
+        {
+            var CellID = collection["cellID"];
+
+            int row, col;
+
+            Worksheet worksheet = new Worksheet();
+            worksheet.TranslateWorkcellName(CellID, out row, out col);
+
+            return ResponseUtil.OK(new
+            {
+                row = row,
+                col = col
             });
         }
         #endregion

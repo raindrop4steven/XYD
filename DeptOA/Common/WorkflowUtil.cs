@@ -1,4 +1,5 @@
 ﻿using Appkiz.Apps.Workflow.Library;
+using Appkiz.Library.Common;
 using Appkiz.Library.Security;
 using DeptOA.Entity;
 using Newtonsoft.Json;
@@ -19,9 +20,7 @@ namespace DeptOA.Common
         private static OrgMgr orgMgr = new OrgMgr();
         private static WorkflowMgr mgr = new WorkflowMgr();
 
-        /*
-         * 获得配置
-         */
+        #region 获得配置
         public static DEP_Mapping GetNodeMappings(string mid, string nid)
         {
             /*
@@ -56,7 +55,9 @@ namespace DeptOA.Common
                 return mappings;
             }
         }
+        #endregion
 
+        #region 获得表名
         public static string GetTableName(string mid)
         {
             /*
@@ -73,12 +74,9 @@ namespace DeptOA.Common
                 return config.table;
             }
         }
+        #endregion
 
-        /// <summary>
-        /// 获得详情配置
-        /// </summary>
-        /// <param name="mid"></param>
-        /// <returns></returns>
+        #region 获得详情配置
         public static List<DEP_Detail> GetNodeDetail(string mid)
         {
             try
@@ -102,9 +100,10 @@ namespace DeptOA.Common
             {
                 throw e;
             }
-            
         }
+        #endregion
 
+        #region 获得节点动作
         public static Dictionary<string, object> GetNodeAction(string mid, string nid)
         {
             try
@@ -159,7 +158,9 @@ namespace DeptOA.Common
                 throw e;
             }
         }
+        #endregion
 
+        #region 获得节点权限
         public static object GetNodeControl(string mid, string nid)
         {
             try
@@ -201,7 +202,9 @@ namespace DeptOA.Common
                 throw e;
             }
         }
+        #endregion
 
+        #region 获得Cell的值
         /*
          * 获得Cell的值
          * 目前支持Text及Attachment类型
@@ -280,5 +283,52 @@ namespace DeptOA.Common
             
             return cellValue;
         }
+        #endregion
+
+        #region 启动子流程
+        public static Node StartSubflow(Node baseNode, SubflowConfig subflowConfig, string currentEmplId, string handlerEmplId)
+        {
+            Message theMessage = mgr.StartWorkflow(subflowConfig.SubflowId, currentEmplId, (HttpContext)null);
+            theMessage.DataSourceID = baseNode.Message.ToString() + ":" + baseNode.NodeKey;
+            theMessage.MessageStatus = 1;
+            mgr.UpdateMessage(theMessage);
+            SheetMgr sheetMgr = new SheetMgr();
+            foreach (SubflowMapping subflowMapping in subflowConfig.MappingOut)
+            {
+                string[] strArray1 = subflowMapping.From.Split('.');
+                string[] strArray2 = subflowMapping.To.Split('.');
+                Doc docByName1 = mgr.GetDocByName(baseNode.MessageID, strArray1[0]);
+                Worksheet worksheet1 = sheetMgr.GetWorksheet(docByName1.DocHelperID);
+                Doc docByName2 = mgr.GetDocByName(theMessage.MessageID, strArray2[0]);
+                Worksheet worksheet2 = sheetMgr.GetWorksheet(docByName2.DocHelperID);
+                Workcell workcell = worksheet1.GetWorkcell(strArray1[1]);
+                worksheet2.SetCellValue(strArray2[1], workcell.WorkcellValue, workcell.WorkcellInternalValue);
+                worksheet2.Save();
+            }
+            string initNodeKey = theMessage.InitNodeKey;
+            if (!(subflowConfig.StartAtNode != theMessage.InitNodeKey))
+                ;
+            Node node = mgr.GetNode(theMessage.MessageID, initNodeKey);
+            BECommand beCommand = new BECommand("update WKF_MessageHandle set UserID=@p1 where MessageID=@p2 and NodeKey=@p3 and UserID=@p4");
+            beCommand.SetParameters("@p1", (object)handlerEmplId);
+            beCommand.SetParameters("@p2", (object)theMessage.MessageID);
+            beCommand.SetParameters("@p3", (object)initNodeKey);
+            beCommand.SetParameters("@p4", (object)currentEmplId);
+            beCommand.ExecuteNonQuery();
+            beCommand.Close();
+            mgr.AddWorkflowHistory(new WorkflowHistory()
+            {
+                MessageID = theMessage.MessageID,
+                NodeKey = "",
+                NodeName = "[启动]",
+                HandledBy = currentEmplId,
+                HandledTime = DateTime.Now,
+                DelegateTo = "",
+                ProcType = 0,
+                Note = string.Format("由“{0}”的节点“{1}”启动子流程", (object)baseNode.Message.MessageTitle, (object)baseNode.NodeName)
+            });
+            return node;
+        }
+        #endregion
     }
 }
