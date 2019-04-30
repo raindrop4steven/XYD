@@ -204,6 +204,35 @@ namespace DeptOA.Common
         }
         #endregion
 
+        #region 获得流程转换配置
+        public static string GetTransformer(string mid)
+        {
+            try
+            {
+                /*
+                 * 根据模板ID获得对应的配置
+                 */
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+
+                Message message = mgr.GetMessage(mid);
+                var templateID = message.FromTemplate;
+
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-transformer.json", templateID));
+
+                using (StreamReader sr = new StreamReader(filePathName))
+                {
+                    var transformer = sr.ReadToEnd();
+
+                    return transformer;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        #endregion
+
         #region 获得Cell的值
         /*
          * 获得Cell的值
@@ -307,7 +336,9 @@ namespace DeptOA.Common
             }
             string initNodeKey = theMessage.InitNodeKey;
             if (!(subflowConfig.StartAtNode != theMessage.InitNodeKey))
-                ;
+            {
+                initNodeKey = subflowConfig.StartAtNode;
+            }
             Node node = mgr.GetNode(theMessage.MessageID, initNodeKey);
             BECommand beCommand = new BECommand("update WKF_MessageHandle set UserID=@p1 where MessageID=@p2 and NodeKey=@p3 and UserID=@p4");
             beCommand.SetParameters("@p1", (object)handlerEmplId);

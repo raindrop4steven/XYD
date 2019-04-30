@@ -54,7 +54,13 @@
     <Reference Include="Appkiz.Library">
       <HintPath>..\Appkiz.Library.dll</HintPath>
     </Reference>
+    <Reference Include="JUST.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JUST.5.1.3\lib\net452\JUST.NET.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json.Schema, Version=3.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.Schema.3.0.1\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -210,6 +216,7 @@
     </Content>
     <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750.json" />
     <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-subflow.json" />
+    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-transformer.json" />
     <None Include="packages.config" />
     <Content Include="Views\Workflow\GetDeptPeople.cshtml" />
   </ItemGroup>

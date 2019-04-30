@@ -68,7 +68,7 @@ namespace DeptOA.Services
         }
         #endregion
 
-        #region 获得详情
+        #region 获得公文页面详情数据
         public object GetDetailInfo(string MessageID, string nodeKey, List<DEP_Detail> details)
         {
             /*
@@ -77,58 +77,6 @@ namespace DeptOA.Services
             // 字典存储
             List<object> attachments = new List<object>();
             List<object> resultAttachments = new List<object>();
-            Dictionary<string, object> resultDict = new Dictionary<string, object>();
-            Dictionary<string, object> dict = new Dictionary<string, object>();
-
-            /*
-             * 获取表单详情
-             */
-            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
-            Worksheet worksheet = doc.Worksheet;
-            Message message = mgr.GetMessage(MessageID);
-
-            foreach(var detail in details)
-            {
-                var value = WorkflowUtil.GetCellValue(worksheet, detail.value.row, detail.value.col, detail.type);
-                // 判断是否是附件
-                if(detail.type == 10 && ((List<object>)value).Count > 0)
-                {
-                    attachments.Add(value);
-                }
-                else
-                {
-                    dict.Add(detail.key, value);
-                }
-            }
-
-            foreach(var attach in attachments)
-            {
-                resultAttachments.Add(new
-                {
-                    documentTitle = dict["DocumentTitle"],
-                    data = attach
-                });
-            }
-            //resultDict.Add("data", dict);
-            resultDict.Add("mid", MessageID);
-            resultDict.Add("nid", nodeKey);
-            resultDict.Add("sid", worksheet.WorksheetID);
-            resultDict.Add("attachments", resultAttachments);
-
-            return resultDict;
-        }
-        #endregion
-
-        #region 获得公文页面详情数据
-        public object GetPageInfo(string MessageID, string nodeKey, List<DEP_Detail> details)
-        {
-            /*
-             * 变量定义
-             */
-            // 字典存储
-            List<object> attachments = new List<object>();
-            List<object> resultAttachments = new List<object>();
-            Dictionary<string, object> resultDict = new Dictionary<string, object>();
             Dictionary<string, object> dict = new Dictionary<string, object>();
 
             /*
@@ -144,12 +92,11 @@ namespace DeptOA.Services
                 dict.Add(detail.key, value);
             }
 
-            resultDict.Add("data", dict);
-            resultDict.Add("mid", MessageID);
-            resultDict.Add("nid", nodeKey);
-            resultDict.Add("sid", worksheet.WorksheetID);
+            dict.Add("mid", MessageID);
+            dict.Add("nid", nodeKey);
+            dict.Add("sid", worksheet.WorksheetID);
 
-            return resultDict;
+            return dict;
         }
         #endregion
     }

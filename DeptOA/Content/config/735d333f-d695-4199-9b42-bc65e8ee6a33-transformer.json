@@ -1,0 +1,15 @@
+{
+    "mid": "#valueof($.mid)",
+    "nid": "#valueof($.nid)",
+    "sid": "#valueof($.sid)",
+    "attachments": [
+        {
+            "documentTitle": "#valueof($.DocumentTitle)",
+            "data": "#valueof($.attachments)"
+        },
+        {
+            "documentTitle": "科室承办",
+            "data": "#valueof($.detpAttachments)"
+        }
+    ]
+}
