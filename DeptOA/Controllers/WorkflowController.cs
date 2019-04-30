@@ -29,8 +29,7 @@ namespace DeptOA.Controllers
         #endregion
 
         #region 映射数据
-        [HttpPost]
-        public ActionResult MappingData(FormCollection collection)
+        public ActionResult MappingData()
         {
             /*
              * 变量定义
@@ -42,9 +41,9 @@ namespace DeptOA.Controllers
              * 参数获取
              */
             // 消息ID
-            var MessageID = collection["mid"];
+            var MessageID = Request.Params["mid"];
             // 节点ID
-            var NodeID = collection["nid"];
+            var NodeID = Request.Params["node"];
 
             try
             {
