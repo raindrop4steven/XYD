@@ -1,0 +1,12 @@
+{
+    "relations": [
+        {
+            "dept": "5564aaf9-f660-432a-bab8-4c76bbcb166d",
+            "tableName": "DEP_ReceiveFile_ZhuJian"
+        },
+        {
+            "dept": "587fe11e-32f8-4450-abd3-b5aaadd532d1",
+            "tableName": "DEP_ReceiveFile_DangBan"
+        }
+    ]
+}

@@ -5,6 +5,28 @@ using System.Web;
 
 namespace DeptOA.Entity
 {
+    #region 部门-公文关系
+    public class RelationItem
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public string dept { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string tableName { get; set; }
+    }
+
+    public class DeptFlowRelation
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<RelationItem> relations { get; set; }
+    }
+    #endregion
+
     #region 节点
     public class DEP_Node
     {

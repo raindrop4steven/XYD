@@ -314,6 +314,42 @@ namespace DeptOA.Common
         }
         #endregion
 
+        #region 根据用户获得对应工作流
+        public static List<string>GetWorkflowByUser(string emplID)
+        {
+            var sql = string.Format(@"SELECT
+	                                    DISTINCT(DeptID)
+                                    FROM
+	                                    ORG_Department a 
+                                    WHERE
+	                                    a.DeptHierarchyCode IN (
+	                                    SELECT SUBSTRING
+		                                    ( DeptHierarchyCode, 1, 5 )
+	                                    FROM
+		                                    ORG_Department b 
+                                    WHERE
+	                                    b.DeptID IN ( SELECT DeptID FROM ORG_EmplDept c WHERE c.EmplID = '{0}' ))", emplID);
+            var deptList = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetWorkflowByUser);
+
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "global"));
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var tableList = new List<string>();
+                var DeptRelation = JsonConvert.DeserializeObject<DeptFlowRelation>(sr.ReadToEnd());
+
+                foreach (RelationItem item in DeptRelation.relations)
+                {
+                    if (deptList.Contains(item.dept))
+                    {
+                        tableList.Add(item.tableName);
+                    }
+                }
+
+                return tableList;
+            }
+        }
+        #endregion
+
         #region 启动子流程
         public static Node StartSubflow(Node baseNode, SubflowConfig subflowConfig, string currentEmplId, string handlerEmplId)
         {

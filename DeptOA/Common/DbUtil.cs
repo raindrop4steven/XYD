@@ -342,6 +342,24 @@ namespace DeptOA.Common
 
             return ResultList;
         }
+
+        /// <summary>
+        /// 根据用户获得工作流
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static List<object> GetWorkflowByUser(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                string deptId = reader.GetString(0);
+
+                ResultList.Add(deptId);
+            }
+
+            return ResultList;
+        }
         #endregion
 
     }
