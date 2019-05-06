@@ -339,7 +339,7 @@ namespace DeptOA.Common
         }
 
         /// <summary>
-        /// 根据用户获得工作流
+        /// 根据用户获得顶级部门
         /// </summary>
         /// <param name="reader"></param>
         /// <returns></returns>

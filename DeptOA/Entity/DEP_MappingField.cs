@@ -27,6 +27,19 @@ namespace DeptOA.Entity
     }
     #endregion
 
+    #region 部门-子流程关系
+    public class Subflow
+    {
+        public string dept { get; set; }
+        public string subflowId { get; set; }
+    }
+
+    public class DeptSubflowRelatoin
+    {
+        public List<Subflow> subflows { get; set; }
+    }
+    #endregion
+
     #region 节点
     public class DEP_Node
     {

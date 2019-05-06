@@ -231,29 +231,54 @@ namespace DeptOA.Controllers
             /*
              * 参数校验
              */
+            // 消息ID
+            if(string.IsNullOrEmpty(MessageID))
+            {
+                return ResponseUtil.Error("消息ID不能为空");
+            }
+            // 节点ID
+            if (string.IsNullOrEmpty(NodeID))
+            {
+                return ResponseUtil.Error("节点ID不能为空");
+            }
+            // 子节点处理人
+            if (string.IsNullOrEmpty(HandlerEmplId))
+            {
+                return ResponseUtil.Error("子节点处理人不能为空");
+            }
 
             /*
-             * 启动新流程
+             * 根据当前用户获得对应的子节点流程配置
              */
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "735d333f-d695-4199-9b42-bc65e8ee6a33-subflow"));
-            using (StreamReader sr = new StreamReader(filePathName))
+            var subflowList = WorkflowUtil.GetSubflowByUser(employee.EmplID);
+            if (subflowList.Count == 0)
             {
-                SubflowConfig subflowConfig = JsonConvert.DeserializeObject<SubflowConfig>(sr.ReadToEnd());
-                // 获得当前节点信息
-                var node = mgr.GetNode(MessageID, NodeID);
-                var retNode = WorkflowUtil.StartSubflow(node, subflowConfig, employee.EmplID, HandlerEmplId);
-
-                return ResponseUtil.OK(new
+                return ResponseUtil.Error("当前用户没有子流程配置信息");
+            }
+            else
+            {
+                /*
+                 * 启动新流程
+                 */
+                var sublfowConfig = subflowList.ElementAtOrDefault(0);
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-subflow.json", sublfowConfig));
+                using (StreamReader sr = new StreamReader(filePathName))
                 {
-                    MessageID = retNode.MessageID,
-                    NodeKey = retNode.NodeKey,
-                    NewWin = true,
-                    Url = ("/Apps/Workflow/Running/Open?mid=" + retNode.MessageID + "&nid=" + retNode.NodeKey)
-                });
+                    SubflowConfig subflowConfig = JsonConvert.DeserializeObject<SubflowConfig>(sr.ReadToEnd());
+                    // 获得当前节点信息
+                    var node = mgr.GetNode(MessageID, NodeID);
+                    var retNode = WorkflowUtil.StartSubflow(node, subflowConfig, employee.EmplID, HandlerEmplId);
+
+                    return ResponseUtil.OK(new
+                    {
+                        MessageID = retNode.MessageID,
+                        NodeKey = retNode.NodeKey,
+                        NewWin = true,
+                        Url = ("/Apps/Workflow/Running/Open?mid=" + retNode.MessageID + "&nid=" + retNode.NodeKey)
+                    });
+                }
             }
         }
-
-
         #endregion
 
     }

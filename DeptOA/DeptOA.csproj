@@ -219,6 +219,7 @@
     <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-subflow.json" />
     <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-transformer.json" />
     <Content Include="Content\config\global.json" />
+    <Content Include="Content\config\subflow.json" />
     <None Include="packages.config" />
     <Content Include="Views\Workflow\GetDeptPeople.cshtml" />
   </ItemGroup>
@@ -248,7 +249,6 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties Content_4config_4735d333f-d695-4199-9b42-bc65e8ee6a33_1json__JSONSchema="http://json.schemastore.org/bungee-plugin" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

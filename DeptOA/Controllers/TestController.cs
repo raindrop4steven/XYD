@@ -154,5 +154,14 @@ namespace DeptOA.Controllers
             }
         }
         #endregion
+
+        #region 测试获得某个人的子流程
+        public ActionResult GetSubflowByUser(string uid)
+        {
+            var subflowList = WorkflowUtil.GetSubflowByUser(uid);
+
+            return ResponseUtil.OK(subflowList);
+        }
+        #endregion
     }
 }
