@@ -386,6 +386,23 @@ namespace DeptOA.Common
         }
         #endregion
 
+        #region 检查用户是否在角色中
+        /// <summary>
+        /// 检查用户是否在对应角色组中
+        /// </summary>
+        /// <param name="EmplID"></param>
+        /// <param name="GroupName"></param>
+        /// <returns></returns>
+        public static bool CheckInGroup(string EmplID, string GroupName)
+        {
+            List<Role> RoleList = orgMgr.FindRoleForEmplID(EmplID);
+
+            var role = RoleList.Where(n => n.RoleName == GroupName).FirstOrDefault();
+
+            return (role != null);
+        }
+        #endregion
+
         #region 启动子流程
         public static Node StartSubflow(Node baseNode, SubflowConfig subflowConfig, string currentEmplId, string handlerEmplId)
         {

@@ -281,5 +281,28 @@ namespace DeptOA.Controllers
         }
         #endregion
 
+        #region 判断当前用户是否可以发起子流程
+        public ActionResult CheckSubflowPerm()
+        {
+            /*
+             * 变量定义
+             */
+            var employee = (User.Identity as AppkizIdentity).Employee;
+
+            /*
+             * 判断用户是否属于文电管理员
+             */
+            // 获得部门领导组
+            string DeptWendianGroup = System.Configuration.ConfigurationManager.AppSettings["DeptWendianGroup"];
+
+            var havePermission = WorkflowUtil.CheckInGroup(employee.EmplID, DeptWendianGroup);
+
+            return ResponseUtil.OK(new
+            {
+                havePermission = havePermission
+            });
+        }
+        #endregion
+
     }
 }
