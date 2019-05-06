@@ -187,7 +187,6 @@ namespace DeptOA.Common
 
                 ResultList.Add(new
                 {
-                    number = number,
                     DocumentTitle = DocumentTilte,
                     ClosedOrHairTime = ClosedOrHairTime,
                     MessageId = MessageId,
@@ -224,7 +223,6 @@ namespace DeptOA.Common
 
                 ResultList.Add(new
                 {
-                    number = number,
                     DocumentTitle = DocumentTilte,
                     ClosedOrHairTime = ClosedOrHairTime,
                     MessageId = MessageId,
@@ -259,7 +257,6 @@ namespace DeptOA.Common
 
                 ResultList.Add(new
                 {
-                    number = number,
                     DocumentTitle = DocumentTilte,
                     ClosedOrHairTime = ClosedOrHairTime,
                     MessageId = MessageId,
@@ -294,7 +291,6 @@ namespace DeptOA.Common
 
                 ResultList.Add(new
                 {
-                    number = number,
                     DocumentTitle = DocumentTilte,
                     ClosedOrHairTime = ClosedOrHairTime,
                     MessageId = MessageId,
@@ -329,7 +325,6 @@ namespace DeptOA.Common
 
                 ResultList.Add(new
                 {
-                    number = number,
                     DocumentTitle = DocumentTilte,
                     ClosedOrHairTime = ClosedOrHairTime,
                     MessageId = MessageId,

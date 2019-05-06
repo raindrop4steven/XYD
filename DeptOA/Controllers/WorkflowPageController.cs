@@ -130,14 +130,22 @@ namespace DeptOA.Controllers
                 //结束位置
                 var endPage = startPage + query.PageSize;
 
-                int totalCount = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+                // 总数
+                int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+                //总页数
+                var totalPages = totalRecouds % query.PageSize == 0 ? totalRecouds / query.PageSize : totalRecouds / query.PageSize + 1;
+
                 var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", finalSql, startPage, endPage);
 
                 var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetPendingResult);
 
                 return new JsonNetResult(new
                 {
-                    TotalInfo = totalCount,
+                    TotalInfo = new
+                    {
+                        TotalPages = totalPages,
+                        TotalRecouds = totalRecouds
+                    },
                     Data = result
                 });
             }
@@ -179,7 +187,11 @@ namespace DeptOA.Controllers
             {
                 return new JsonNetResult(new
                 {
-                    TotalInfo = 0,
+                    TotalInfo = new
+                    {
+                        TotalPages = 0,
+                        TotalRecouds = 0
+                    },
                     Data = new List<object>()
                 });
             }
@@ -270,13 +282,22 @@ namespace DeptOA.Controllers
                 //结束位置
                 var endPage = startPage + query.PageSize;
 
-                int totalCount = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+                // 总数
+                int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+                //总页数
+                var totalPages = totalRecouds % query.PageSize == 0 ? totalRecouds / query.PageSize : totalRecouds / query.PageSize + 1;
+
                 var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", finalSql, startPage, endPage);
 
                 var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetDealResult);
+
                 return new JsonNetResult(new
                 {
-                    TotalInfo = totalCount,
+                    TotalInfo = new
+                    {
+                        TotalPages = totalPages,
+                        TotalRecouds = totalRecouds
+                    },
                     Data = result
                 });
             }
@@ -317,7 +338,11 @@ namespace DeptOA.Controllers
             {
                 return new JsonNetResult(new
                 {
-                    TotalInfo = 0,
+                    TotalInfo = new
+                    {
+                        TotalPages = 0,
+                        TotalRecouds = 0
+                    },
                     Data = new List<object>()
                 });
             }
@@ -402,13 +427,22 @@ namespace DeptOA.Controllers
                 var unionSql = string.Join(" UNION ", statements);
                 var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.CreateTime DESC) number, t.* from ({0}) t", unionSql);
 
-                int totalCount = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+                // 总数
+                int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+                //总页数
+                var totalPages = totalRecouds % query.PageSize == 0 ? totalRecouds / query.PageSize : totalRecouds / query.PageSize + 1;
+
                 var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", finalSql, startPage, endPage);
 
                 var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetNoCompleteResult);
+
                 return new JsonNetResult(new
                 {
-                    TotalInfo = totalCount,
+                    TotalInfo = new
+                    {
+                        TotalPages = totalPages,
+                        TotalRecouds = totalRecouds
+                    },
                     Data = result
                 });
             }  
@@ -449,7 +483,11 @@ namespace DeptOA.Controllers
             {
                 return new JsonNetResult(new
                 {
-                    TotalInfo = 0,
+                    TotalInfo = new
+                    {
+                        TotalPages = 0,
+                        TotalRecouds = 0
+                    },
                     Data = new List<object>()
                 });
             }
@@ -527,13 +565,22 @@ namespace DeptOA.Controllers
                 //结束位置
                 var endPage = startPage + query.PageSize;
 
-                int totalCount = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+                // 总数
+                int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+                //总页数
+                var totalPages = totalRecouds % query.PageSize == 0 ? totalRecouds / query.PageSize : totalRecouds / query.PageSize + 1;
+
                 var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", finalSql, startPage, endPage);
 
-                var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetDraftResult);
+                var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetCompleteResult);
+
                 return new JsonNetResult(new
                 {
-                    TotalInfo = totalCount,
+                    TotalInfo = new
+                    {
+                        TotalPages = totalPages,
+                        TotalRecouds = totalRecouds
+                    },
                     Data = result
                 });
             }
@@ -574,7 +621,11 @@ namespace DeptOA.Controllers
             {
                 return new JsonNetResult(new
                 {
-                    TotalInfo = 0,
+                    TotalInfo = new
+                    {
+                        TotalPages = 0,
+                        TotalRecouds = 0
+                    },
                     Data = new List<object>()
                 });
             }
@@ -653,13 +704,22 @@ namespace DeptOA.Controllers
                 //结束位置
                 var endPage = startPage + query.PageSize;
 
-                int totalCount = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+                // 总数
+                int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+                //总页数
+                var totalPages = totalRecouds % query.PageSize == 0 ? totalRecouds / query.PageSize : totalRecouds / query.PageSize + 1;
+
                 var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", finalSql, startPage, endPage);
 
                 var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetDraftResult);
+
                 return new JsonNetResult(new
                 {
-                    TotalInfo = totalCount,
+                    TotalInfo = new
+                    {
+                        TotalPages = totalPages,
+                        TotalRecouds = totalRecouds
+                    },
                     Data = result
                 });
             }

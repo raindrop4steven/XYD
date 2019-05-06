@@ -146,7 +146,7 @@ namespace DeptOA.Controllers
         }
         #endregion
 
-        #region 移动端公文详情
+        #region 移动端公文页面详情
         [HttpPost]
         public ActionResult GetPageInfo(FormCollection collection)
         {
