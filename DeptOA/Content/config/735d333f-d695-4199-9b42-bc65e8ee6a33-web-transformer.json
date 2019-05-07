@@ -1,0 +1,56 @@
+{
+    "title": "住建局公文处理单",
+    "header": [
+        {
+            "key": "公文标题",
+            "value": "#valueof($.DocumentTitle)"
+        },
+        {
+            "key": "来文单位",
+            "value": "#valueof($.ReceivedDocumentUnit)"
+        },
+        {
+            "key": "收文日期",
+            "value": "#valueof($.ClosedOrHairTime)"
+        },
+        {
+            "key": "来文文号",
+            "value": "#valueof($.DocumentNumber)"
+        }
+    ],
+    "sections": [
+        {
+            "multiple": false,
+            "key": "党政办拟办",
+            "data": [
+                {
+                    "user": "#valueof($.nibanUser)",
+                    "text": "#valueof($.nibanOpinion)",
+                    "time": "#valueof($.nibanTime)"
+                }
+            ]
+        },
+        {
+            "multiple": true,
+            "key": "领导批示",
+            "data": {
+                "#loop($.leaderOpinion)": {
+                    "user": "#currentvalueatpath($.EmplName)",
+                    "text": "#currentvalueatpath($.Value)",
+                    "time": "#currentvalueatpath($.UpdateTime)"
+                }
+            }
+        },
+        {
+            "multiple": true,
+            "key": "部门承办",
+            "data": {
+                "#loop($.leaderOpinion)": {
+                    "user": "#currentvalueatpath($.EmplName)",
+                    "text": "#currentvalueatpath($.Value)",
+                    "time": "#currentvalueatpath($.UpdateTime)"
+                }
+            }
+        }
+    ]
+}

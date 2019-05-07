@@ -5,11 +5,11 @@
     "attachments": [
         {
             "documentTitle": "#valueof($.DocumentTitle)",
-            "data": "#valueof($.attachments)"
+            "data": "#customfunction(DeptOA, DeptOA.Common.TransformUtil.TransformArray, #valueof($.attachments))"
         },
         {
             "documentTitle": "科室承办",
-            "data": "#valueof($.detpAttachments)"
+            "data": "#customfunction(DeptOA, DeptOA.Common.TransformUtil.TransformArray,#valueof($.detpAttachments))"
         }
     ]
 }

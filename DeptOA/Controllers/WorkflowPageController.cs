@@ -726,5 +726,20 @@ namespace DeptOA.Controllers
             
         }
         #endregion
+
+        #region 待处理总数
+        [HttpPost]
+        public ActionResult TodoNumber()
+        {
+            return Json(new
+            {
+                Succeed = true,
+                Data = new
+                {
+                    Total = 3
+                }
+            });
+        }
+        #endregion
     }
 }

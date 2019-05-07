@@ -115,7 +115,7 @@ namespace DeptOA.Controllers
                 List<DEP_Detail> details = WorkflowUtil.GetNodeDetail(MessageID);
                 var action = WorkflowUtil.GetNodeAction(MessageID, NodeID);
                 var control = WorkflowUtil.GetNodeControl(MessageID, NodeID);
-                var transformer = WorkflowUtil.GetTransformer(MessageID);
+                var transformer = WorkflowUtil.GetAppTransformer(MessageID);
 
                 // 判断是否存在对应配置
                 if (details == null)
@@ -183,6 +183,8 @@ namespace DeptOA.Controllers
                 /*
                  * 配置读取
                  */
+                var transformer = WorkflowUtil.GetWebTransformer(MessageID);
+
                 string tableName = WorkflowUtil.GetTableName(MessageID);
                 List<DEP_Detail> details = WorkflowUtil.GetNodeDetail(MessageID);
 
@@ -195,10 +197,13 @@ namespace DeptOA.Controllers
                 {
                     // 获取表单详情
                     var detail = wkfService.GetDetailInfo(MessageID, NodeID, details);
+                    var stringDetail = JsonConvert.SerializeObject(detail);
+                    string transformedString = JsonTransformer.Transform(transformer, stringDetail);
 
+                    JObject result = JObject.Parse(transformedString);
                     return ResponseUtil.OK(new
                     {
-                        detail = detail
+                        detail = result
                     });
                 }
             }

@@ -163,5 +163,77 @@ namespace DeptOA.Controllers
             return ResponseUtil.OK(subflowList);
         }
         #endregion
+
+        #region 测试自定义方法
+        [HttpPost]
+        public ActionResult GetDetailInfo(FormCollection collection)
+        {
+            /*
+             * 变量定义
+             */
+            // 工作流Service
+            WorkflowService wkfService = new WorkflowService();
+            var employee = (User.Identity as AppkizIdentity).Employee;
+            var NodeID = string.Empty;
+
+            /*
+             * 参数获取
+             */
+            // 消息ID
+            var MessageID = collection["mid"];
+
+            try
+            {
+                List<Node> source = mgr.ListNodeToBeHandle(employee.EmplID, "");
+                foreach (Node node in source)
+                {
+                    if (node.MessageID == MessageID)
+                    {
+                        NodeID = node.NodeKey;
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+                /*
+                 * 配置读取
+                 */
+                string tableName = WorkflowUtil.GetTableName(MessageID);
+                List<DEP_Detail> details = WorkflowUtil.GetNodeDetail(MessageID);
+                var action = WorkflowUtil.GetNodeAction(MessageID, NodeID);
+                var control = WorkflowUtil.GetNodeControl(MessageID, NodeID);
+                var transformer = WorkflowUtil.GetAppTransformer(MessageID);
+
+                // 判断是否存在对应配置
+                if (details == null)
+                {
+                    return ResponseUtil.Error(string.Format("流程{0}没有对应详情配置", MessageID));
+                }
+                else
+                {
+                    // 获取表单详情
+                    var detail = wkfService.GetDetailInfo(MessageID, NodeID, details);
+                    var stringDetail = JsonConvert.SerializeObject(detail);
+                    string transformedString = JsonTransformer.Transform(transformer, stringDetail);
+
+                    JObject result = JObject.Parse(transformedString);
+
+                    return ResponseUtil.OK(new
+                    {
+                        detail = result,
+                        control = action,
+                        action = control
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }

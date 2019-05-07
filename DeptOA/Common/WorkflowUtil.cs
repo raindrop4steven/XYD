@@ -205,7 +205,7 @@ namespace DeptOA.Common
         #endregion
 
         #region 获得流程转换配置
-        public static string GetTransformer(string mid)
+        public static string GetAppTransformer(string mid)
         {
             try
             {
@@ -217,7 +217,36 @@ namespace DeptOA.Common
                 Message message = mgr.GetMessage(mid);
                 var templateID = message.FromTemplate;
 
-                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-transformer.json", templateID));
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-app-transformer.json", templateID));
+
+                using (StreamReader sr = new StreamReader(filePathName))
+                {
+                    var transformer = sr.ReadToEnd();
+
+                    return transformer;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        #endregion
+
+        #region 获得流程web转换配置
+        public static string GetWebTransformer(string mid)
+        {
+            try
+            {
+                /*
+                 * 根据模板ID获得对应的配置
+                 */
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+
+                Message message = mgr.GetMessage(mid);
+                var templateID = message.FromTemplate;
+
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-web-transformer.json", templateID));
 
                 using (StreamReader sr = new StreamReader(filePathName))
                 {

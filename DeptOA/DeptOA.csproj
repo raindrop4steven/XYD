@@ -165,6 +165,7 @@
     <Compile Include="Common\DbUtil.cs" />
     <Compile Include="Common\JsonNetResult.cs" />
     <Compile Include="Common\ResponseUtil.cs" />
+    <Compile Include="Common\TransformUtil.cs" />
     <Compile Include="Common\WorkflowUtil.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -217,9 +218,10 @@
     </Content>
     <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750.json" />
     <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-subflow.json" />
-    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-transformer.json" />
+    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-app-transformer.json" />
     <Content Include="Content\config\global.json" />
     <Content Include="Content\config\subflow.json" />
+    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-web-transformer.json" />
     <None Include="packages.config" />
     <Content Include="Views\Workflow\GetDeptPeople.cshtml" />
   </ItemGroup>
