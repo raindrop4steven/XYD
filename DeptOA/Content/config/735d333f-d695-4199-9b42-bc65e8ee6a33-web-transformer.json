@@ -33,24 +33,12 @@
         {
             "multiple": true,
             "key": "领导批示",
-            "data": {
-                "#loop($.leaderOpinion)": {
-                    "user": "#currentvalueatpath($.EmplName)",
-                    "text": "#currentvalueatpath($.Value)",
-                    "time": "#currentvalueatpath($.UpdateTime)"
-                }
-            }
+            "data": "#customfunction(DeptOA, DeptOA.Common.TransformUtil.TransformArray, #valueof($.leaderOpinion))"
         },
         {
             "multiple": true,
             "key": "部门承办",
-            "data": {
-                "#loop($.leaderOpinion)": {
-                    "user": "#currentvalueatpath($.EmplName)",
-                    "text": "#currentvalueatpath($.Value)",
-                    "time": "#currentvalueatpath($.UpdateTime)"
-                }
-            }
+            "data": "#customfunction(DeptOA, DeptOA.Common.TransformUtil.TransformArray, #valueof($.deptOpinion))"
         }
     ]
 }

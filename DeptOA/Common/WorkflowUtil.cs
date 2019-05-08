@@ -297,10 +297,9 @@ namespace DeptOA.Common
                             var updateTime = node.Attributes.GetNamedItem("UpdateTime").InnerText;
                             var historyDeptInfo = new
                             {
-                                EmplId = emplId,
-                                EmplName = orgMgr.GetEmployee(emplId).EmplName,
-                                Value = value,
-                                UpdateTime = updateTime
+                                user = orgMgr.GetEmployee(emplId).EmplName,
+                                text = value,
+                                time = updateTime
                             };
                             deptHistoryInfo.Add(historyDeptInfo);
                         }
