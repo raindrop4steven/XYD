@@ -30,6 +30,25 @@ namespace DeptOA.Controllers
         }
         #endregion
 
+        #region 展示公文详情页面
+        public ActionResult ShowDetailPage(string mid)
+        {
+            /*
+             * 参数校验
+             */
+            // 消息ID
+            if (string.IsNullOrEmpty(mid))
+            {
+                return ResponseUtil.Error("消息ID不能为空");
+            }
+
+            /*
+             * 渲染详情页面
+             */
+            return PartialView("DetailPage");
+        }
+        #endregion
+
         #region 映射数据
         public ActionResult MappingData()
         {
