@@ -1,0 +1,53 @@
+span,p,h4{
+	font-size: 14px;
+	font-family: 'FZXBSJW--GB1-0';
+}
+span,p,h3{
+	color: #333333;
+}
+h3{
+	font-family: 'fzxbsjw--gb1-0';
+	text-align: center;
+}
+h4{
+	font-family: Microsoft YaHei
+}
+#head,.mulF,.mulT{
+	border-top: 2px solid #c7c7cc;
+}
+h3,h4{
+	font-weight: normal;
+}
+h4{
+	color: #999;
+}
+p{
+	margin: 0 40px 10px 30px;
+}
+span,h4{
+	display: inline-block;
+	margin:8px 10px 8px 10px;
+}
+#head h4,#head span{
+	margin-right:10px ;
+	float:left
+}
+#head br{
+	clear: both;
+}
+.mulF span{
+	color:#999999;
+}
+.mulF__UT{
+	float: right;
+}
+.mulF br{
+	clear: both;
+}
+.mulT span{
+	margin: 2px 3px 2px 3px;
+	
+}
+.mulT  .mulT__value{
+	margin-left: 28px;
+}

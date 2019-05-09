@@ -1,0 +1,130 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width,user-scalable=no" name="viewport">
+    <title></title>
+    <link rel="stylesheet" href="~/Content/static/css/gw__css.css" />
+    <script type="text/javascript" src="~/Content/static/js/jquery-3.3.1.min.js"></script>
+</head>
+	<body>
+		<div id="title">
+			<h3 id="data-title"></h3>
+		</div>
+		<div id="head">
+		</div>
+		<div id="sections">
+		</div>
+	<script>
+		$(document).ready(function(){
+			// todo: 从连接中取得mid参数
+            var mid = getQueryString("mid");
+			GetPageInfo(mid);
+		});
+
+        // 获取url中的参数
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); // 匹配目标参数
+            var result = window.location.search.substr(1).match(reg); // 对querystring匹配目标参数
+            if (result != null) {
+                return decodeURIComponent(result[2]);
+            } else {
+                return null;
+            }
+        };
+
+		// 根据消息ID获取消息详情
+		function GetPageInfo(mid){
+			$.ajax({
+			type: 'POST',
+			url: '/Apps/DEP/Workflow/GetPageInfo',
+			data:{
+				'mid':mid
+			},
+			success:function(data){
+				// 替换标题
+				$('#data-title').text(data.Data.detail.title);
+				// 插入表头数据
+				var headers = data.Data.detail.header;
+				headers.forEach(d => {
+					$('#head').append('<h4>'+ `
+					` + d.key + '&nbsp:</h4>\
+					<span class="value">' + `
+					` + d.value + `
+					` + '</span>\
+					<br>');
+				});
+				// section
+				var sections = data.Data.detail.sections;
+				sections.forEach(d => {
+					// 判断意见是否为单条
+					if (d.multiple){//——————————————————————————多条
+						var key = d.key;
+						var data = d.data;
+						var inner_html = '';
+						if(data != null){
+							data.forEach(c => {     //通过forEach   循环 +=拼接 元素 数据,形成文本内容
+								inner_html += '<div><span>' + `
+								` + c.user + `
+								` + '</span>\
+								<span>(' + `
+								` + c.time + `
+								` + ' )&nbsp:</span>\
+								<span class="mulT__text">' + `
+								` + c.text + `
+								` + '</span></div>';
+							});
+							//将元素 标题 内容 拼接,形成 多条意见板块
+							var html_string = "";
+							html_string = '<div class="mulT"><h4>' + `
+							` + key + `
+							` + ':</h4>\
+							<div class="mulT__value">' + `
+							` + inner_html + `
+							` + '<br></div></div>';
+							$('#sections').append(html_string);
+						}else {
+							html_string = '<div class="mulF"><h4>' + `
+									 ` + d.key + `
+									 ` + '&nbsp:</h4><br></div>';
+							$('#sections').append(html_string);
+						}
+					} else {
+						var inner_htmll = "";
+						var data = d.data;
+						if (data != null) {
+							data.forEach(c =>{
+										inner_html = '<p >' + `
+										` + c.text + `
+										` + '</p>\
+										<div class="mulF__UT">\
+										<span>签办人：' + `
+										` + c.user + `
+										` + '</span>\
+										<span>签办时间：' + `
+										` + c.time + `
+										` + '</span>\
+										</div>'
+										
+									html_string = '<div class="mulF"><h4>' + `
+									 ` + d.key + `
+									 ` + '&nbsp:</h4>' + `
+									 ` + inner_html + `
+									 ` + '<br></div>';
+									});
+							$('#sections').append(html_string);
+						} else {
+							html_string = '<div class="mulF"><h4>' + `
+									 ` + d.key + `
+									 ` + '&nbsp:</h4><br></div>';
+							$('#sections').append(html_string);
+						}
+					}
+				});
+			},
+			error:function(error){
+				console.log(error);
+			}});
+		}
+	</script>
+	</body>
+</html>

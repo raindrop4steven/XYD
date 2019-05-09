@@ -196,6 +196,8 @@
     <Content Include="Content\css\Site.css" />
     <Content Include="Content\images\appicon.png" />
     <Content Include="Content\sdk\sdk.js" />
+    <Content Include="Content\static\css\gw__css.css" />
+    <Content Include="Content\static\js\jquery-3.3.1.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
@@ -222,6 +224,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\Lodash.js" />
     <Content Include="Scripts\Moment.js" />
+    <None Include="Views\Home\gw_html.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -238,10 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\static\css\" />
-    <Folder Include="Content\static\js\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Home\" />
     <Folder Include="Views\WorkflowPage\" />
   </ItemGroup>
   <ItemGroup>

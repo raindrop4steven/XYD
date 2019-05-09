@@ -12,5 +12,10 @@ namespace DeptOA.Controllers
         {
             return Redirect("/Apps/DEP/index.html#/index");
         }
+
+        public ActionResult DetailPage(string mid)
+        {
+            return PartialView("gw_html");
+        }
     }
 }
