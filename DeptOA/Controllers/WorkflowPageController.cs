@@ -731,14 +731,79 @@ namespace DeptOA.Controllers
         [HttpPost]
         public ActionResult TodoNumber()
         {
-            return Json(new
+            /*
+             * 变量定义
+             */
+            // SQL语句列表
+            var statements = new List<StringBuilder>();
+            // 当前用户
+            var emplId = (User.Identity as Appkiz.Library.Security.Authentication.AppkizIdentity).Employee.EmplID;
+
+            /*
+             * 构造SQL语句
+             */
+            // 根据当前用户获取对应的映射表
+            var tableList = WorkflowUtil.GetTablesByUser(emplId);
+
+            // 判断映射表数量
+            if (tableList.Count == 0)
             {
-                Succeed = true,
-                Data = new
+                return new JsonNetResult(new
                 {
-                    Total = 3
+                    TotalInfo = 0,
+                    Data = new List<object>()
+                });
+            }
+            else
+            {
+                foreach (var tableName in tableList)
+                {
+                    StringBuilder sql = new StringBuilder();
+                    sql.Append(string.Format(@"SELECT
+                                    b.DocumentTitle,
+                                    CONVERT(varchar(100), b.ClosedOrHairTime, 20) as ClosedOrHairTime,
+                                    b.MessageId,
+                                    b.WorkFlowId,
+                                    --流程发起人
+                                    a.MessageIssuedBy AS InitiateEmplId,
+                                    d.EmplName AS InitiateEmplName,
+                                    --流程类型
+                                    a.MessageTitle,
+                                    --环节
+                                    c.NodeName AS MyTask,
+                                    CONVERT(varchar(100), c.CreateTime, 20) as ReceiveTime
+                                     FROM WKF_Message a
+                                    INNER JOIN {0} b
+                                    ON a.MessageID = b.MessageId
+                                    INNER JOIN WKF_MessageHandle c
+                                    ON a.MessageID = c.MessageID
+                                    INNER JOIN ORG_Employee d
+                                    ON a.MessageIssuedBy = d.EmplID
+                                    WHERE c.HandleStatus != 0
+                                    and a.MessageStatus != 3 
+                                    and (c.UserID = '{1}' or (c.EntrustBy = '{1}' and c.EntrustBy <> ''))", tableName, emplId));
+
+                    // 将SQL语句添加进列表
+                    statements.Add(sql);
                 }
-            });
+
+                // 获得Union语句
+                var unionSql = string.Join(" UNION ", statements);
+                var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.ReceiveTime DESC) number, t.* from ({0}) t", unionSql);
+
+                // 总数
+                int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+
+                return Json(new
+                {
+                    Succeed = true,
+                    Data = new
+                    {
+                        Total = totalRecouds
+                    }
+                });
+            }
+                    
         }
         #endregion
     }
