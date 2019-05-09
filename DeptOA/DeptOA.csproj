@@ -181,12 +181,46 @@
     <Compile Include="Services\WorkflowService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\app.js" />
+    <Content Include="App\content_tm_pagination.html" />
+    <Content Include="App\home.html" />
+    <Content Include="App\search.html" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\deptMonitor.css" />
+    <Content Include="Content\css\deptStatistics.css" />
+    <Content Include="Content\css\home.css" />
+    <Content Include="Content\css\leaderNotify.css" />
+    <Content Include="Content\css\search.css" />
+    <Content Include="Content\css\Site.css" />
+    <Content Include="Content\images\appicon.png" />
     <Content Include="Content\sdk\sdk.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="index.html" />
+    <Content Include="Plugins\loading-master\example\index.html" />
+    <Content Include="Plugins\loading-master\example\loading.jpg" />
+    <Content Include="Plugins\loading-master\gulpfile.js" />
+    <Content Include="Plugins\loading-master\http.js" />
+    <Content Include="Plugins\loading-master\src\jquery-1.11.2.js" />
+    <Content Include="Plugins\loading-master\src\loading.css" />
+    <Content Include="Plugins\loading-master\src\loading.gif" />
+    <Content Include="Plugins\loading-master\src\loading.js" />
+    <Content Include="Scripts\angular-animate.js" />
+    <Content Include="Scripts\angular-animate.min.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\Lodash.js" />
+    <Content Include="Scripts\Moment.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -224,6 +258,11 @@
     <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-web-transformer.json" />
     <None Include="packages.config" />
     <Content Include="Views\Workflow\GetDeptPeople.cshtml" />
+    <Content Include="Plugins\loading-master\README.md" />
+    <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -10,7 +10,7 @@ namespace DeptOA.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return Redirect("/Apps/DEP/index.html#/index");
         }
     }
 }
