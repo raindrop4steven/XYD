@@ -845,5 +845,150 @@ namespace DeptOA.Controllers
 
         }
         #endregion
+
+        #region 公文搜索
+        public ActionResult GetWorkflowQueryInfo(Entity.WorkflowQuery query)
+        {
+            /*
+             * 变量定义
+             */
+            // SQL语句列表
+            var statements = new List<StringBuilder>();
+            // 当前用户
+            var emplId = (User.Identity as Appkiz.Library.Security.Authentication.AppkizIdentity).Employee.EmplID;
+
+            /*
+             * 参数校验
+             */
+            if (query.PageNumber <= 0)
+            {
+                query.PageNumber = 1;
+            }
+            if (query.PageSize <= 0)
+            {
+                query.PageSize = 20;
+            }
+
+            /*
+             * 构造SQL语句
+             */
+            // 根据当前用户获取对应的映射表
+            var tableList = WorkflowUtil.GetTablesByUser(emplId);
+
+            // 判断映射表数量
+            if (tableList.Count == 0)
+            {
+                return new JsonNetResult(new
+                {
+                    TotalInfo = 0,
+                    Data = new List<object>()
+                });
+            }
+            else
+            {
+                foreach (var tableName in tableList)
+                {
+                    StringBuilder sql = new StringBuilder();
+                    sql.Append(string.Format(@"SELECT
+	                                                a.MessageId,
+	                                                a.WorkFlowId,
+	                                                CONVERT(varchar(100), a.ClosedOrHairTime, 20) as ClosedOrHairTime,
+	                                                a.DocumentTitle,
+	                                                b.MessageIssuedBy,
+	                                                c.EmplName as MessageIssuedName,
+	                                                b.MessageIssuedDept,
+	                                                d.DeptName as MessageIssuedDeptName,
+	                                                d.DeptName,
+	                                                b.MessageTitle,
+	                                                b.MessageStatus,
+	                                                CONVERT(varchar(100), b.MessageCreateTime, 20) as MessageCreateTime,
+                                                CASE
+		                                                WHEN b.MessageStatus = 0 THEN
+		                                                '草稿' 
+		                                                WHEN b.MessageStatus = 1 THEN
+		                                                '运行中' 
+		                                                WHEN b.MessageStatus = 2 THEN
+		                                                '已完成' 
+		                                                WHEN b.MessageStatus = 3 THEN
+		                                                '终止信息' ELSE NULL 
+	                                                END AS MessageStatusName 
+                                                FROM
+	                                                {0} a
+	                                                INNER JOIN WKF_Message b ON b.MessageStatus != 3 
+	                                                AND b.FromTemplate = a.WorkFlowId 
+	                                                AND a.MessageId = b.MessageID
+	                                                INNER JOIN ORG_Employee c ON b.MessageIssuedBy = c.EmplID
+	                                                INNER JOIN ORG_Department d ON b.MessageIssuedDept = d.DeptID
+                                                WHERE
+	                                                1 = 1", tableName));
+                    // 标题搜索
+                    if (!string.IsNullOrEmpty(query.QueryCondition))
+                    {
+                        sql.Append(string.Format(@" and a.DocumentTitle like '%{0}%'", query.QueryCondition));
+                    }
+                    //流程类型
+                    if (!string.IsNullOrWhiteSpace(query.WorkFlowId))
+                    {
+                        sql.Append(string.Format(@" and a.WorkflowId = '{0}'", query.WorkFlowId));
+                    }
+                    //流程状态
+                    if (query.MessageStatus.HasValue)
+                    {
+                        sql.Append(string.Format(@" and b.MessageStatus = '{0}'", query.MessageStatus.Value));
+                    }
+                    //开始收发文时间
+                    if (query.StartClosedOrHairTime.HasValue)
+                    {
+                        sql.Append(string.Format(@" and a.ClosedOrHairTime >= '{0}'", query.StartClosedOrHairTime.Value));
+                    }
+                    //结束收发文时间
+                    if (query.EndClosedOrHairTime.HasValue)
+                    {
+                        sql.Append(string.Format(@" and a.ClosedOrHairTime <= '{0}'", query.EndClosedOrHairTime.Value));
+                    }
+                    //发起部门
+                    if (!string.IsNullOrWhiteSpace(query.MessageIssuedDept))
+                    {
+                        sql.Append(string.Format(@" and b.MessageIssuedDept = '{0}'", query.MessageIssuedDept));
+                    }
+                    //发起人
+                    if (!string.IsNullOrWhiteSpace(query.MessageIssuedBy))
+                    {
+                        sql.Append(string.Format(@" and b.MessageIssuedBy = '{0}'", query.MessageIssuedBy));
+                    }
+                    // 将SQL语句添加进列表
+                    statements.Add(sql);
+                }
+
+                // 获得Union语句
+                var unionSql = string.Join(" UNION ", statements);
+                var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.MessageCreateTime DESC) number, t.* from ({0}) t", unionSql);
+
+                //开始位置
+                var startPage = query.PageSize * (query.PageNumber - 1) + 1;
+                //结束位置
+                var endPage = startPage + query.PageSize;
+
+                // 总数
+                int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+                //总页数
+                var totalPages = totalRecouds % query.PageSize == 0 ? totalRecouds / query.PageSize : totalRecouds / query.PageSize + 1;
+
+                var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", finalSql, startPage, endPage);
+
+                var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetSearchResult);
+
+                return new JsonNetResult(new
+                {
+                    TotalInfo = new
+                    {
+                        TotalPages = totalPages,
+                        TotalRecouds = totalRecouds
+                    },
+                    Data = result
+                });
+            }
+        }
+        #endregion
     }
 }

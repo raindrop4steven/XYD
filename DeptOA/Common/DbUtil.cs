@@ -339,6 +339,51 @@ namespace DeptOA.Common
         }
 
         /// <summary>
+        /// 搜索公文
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static List<object> GetSearchResult(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                long number = reader.GetInt64(0);
+                string MessageId = reader.GetString(1);
+                string WorkFlowId = reader.GetString(2);
+                string ClosedOrHairTime = reader.GetString(3);
+                string DocumentTitle = reader.GetString(4);
+                string MessageIssuedBy = reader.GetString(5);
+                string EmplName = reader.GetString(6);
+                string MessageIssuedDept = reader.GetString(7);
+                string MessageIssuedDeptName = reader.GetString(8);
+                string DeptName = reader.GetString(9);
+                string MessageTitle = reader.GetString(10);
+                int MessageStatus = reader.GetInt32(11);
+                string MessageCreateTime = reader.GetString(12);
+                string MessageStatusName = reader.GetString(13);
+
+                ResultList.Add(new
+                {
+                    MessageId = MessageId,
+                    WorkFlowId = WorkFlowId,
+                    ClosedOrHairTime = ClosedOrHairTime,
+                    DocumentTitle = DocumentTitle,
+                    MessageIssuedBy = MessageIssuedBy,
+                    MessageIssuedName = EmplName,
+                    MessageIssuedDept = MessageIssuedDept,
+                    MessageIssuedDeptName = MessageIssuedDeptName,
+                    DeptName = DeptName,
+                    MessageTitle = MessageTitle,
+                    MessageStatus = MessageStatus,
+                    MessageCreateTime = MessageCreateTime,
+                    MessageStatusName = MessageStatusName
+                });
+            }
+
+            return ResultList;
+        }
+        /// <summary>
         /// 根据用户获得顶级部门
         /// </summary>
         /// <param name="reader"></param>

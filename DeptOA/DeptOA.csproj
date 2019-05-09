@@ -173,6 +173,7 @@
     <Compile Include="Entity\BaseQueryInfo.cs" />
     <Compile Include="Entity\DEP_MappingField.cs" />
     <Compile Include="Entity\QueryInfo.cs" />
+    <Compile Include="Entity\WorkflowQuery.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

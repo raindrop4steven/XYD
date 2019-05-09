@@ -632,7 +632,7 @@
             $scope.pageSearch.PageNumber = $scope.paginationConf.currentPage;
 
             httpService.post(
-                '/Apps/Archives/WorkflowQuery/GetWorkflowQueryInfo',
+                '/Apps/DEP/WorkflowPage/GetWorkflowQueryInfo',
                 $scope.pageSearch,
                 function (result) {
                     //console.log('callback->', result);
@@ -700,7 +700,7 @@
             }
         }
         function init() {
-            $scope.titleObj = ['序号', '公文类型',  '公文标题', '公文日期', '收文文号', '发起部门', '发起人', '流程状态'];
+            $scope.titleObj = ['序号', '公文类型',  '公文标题', '公文日期', '发起部门', '发起人', '流程状态'];
             $scope.wkfStateList = [
                 { value: 0, text: '草稿' },
                 { value: 1, text: '运行中' },
