@@ -80,7 +80,7 @@ namespace DeptOA.Controllers
                                     INNER JOIN ORG_Employee d
                                     ON a.MessageIssuedBy = d.EmplID
                                     WHERE c.HandleStatus != 0
-                                    and a.MessageStatus != 3 
+                                    and a.MessageStatus not in (0, 3) 
                                     and (c.UserID = '{1}' or (c.EntrustBy = '{1}' and c.EntrustBy <> ''))", tableName, emplId));
                     if (!string.IsNullOrWhiteSpace(query.SortDirection))
                     {
@@ -220,7 +220,7 @@ namespace DeptOA.Controllers
 									where NodeKey != 'NODE0001' group by MessageID,HandledBy) as d
                                     ON a.MessageID = d.MessageID
                                     WHERE d.HandledBy = '{1}'  
-                                    and a.MessageStatus != 3", tableName, emplId));
+                                    and a.MessageStatus not in (0, 3)", tableName, emplId));
 
                     //公文标题
                     if (!string.IsNullOrWhiteSpace(query.Title))
@@ -372,7 +372,7 @@ namespace DeptOA.Controllers
                                     ON a.MessageID = c.MessageID
                                     WHERE a.MessageStatus != 2
                                     AND c.HandleStatus != 0
-                                    and a.MessageStatus != 3
+                                    and a.MessageStatus not in (0, 3)
                                     and a.MessageIssuedBy = '{1}'", tableName, emplId));
                     var groupInfo = string.Format(@" GROUP BY a.MessageID, a.MessageCreateTime,
                                      b.DocumentTitle,
