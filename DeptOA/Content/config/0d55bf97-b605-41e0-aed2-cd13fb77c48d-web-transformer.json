@@ -1,0 +1,64 @@
+﻿{
+    "title": "发文表单",
+    "header": [
+        {
+            "key": "公文标题",
+            "value": "#valueof($.DocumentTitle)"
+        },
+        {
+            "key": "发文编号",
+            "value": "#valueof($.SendDocumentNumber)"
+        },
+        {
+            "key": "发文日期",
+            "value": "#valueof($.ClosedOrHairTime)"
+        },
+        {
+            "key": "发文类型",
+            "value": "#valueof($.DocumentType)"
+        },
+        {
+            "key": "文号",
+            "value": "#valueof($.DocumentNumber)"
+        },
+        {
+            "key": "密级",
+            "value": "#valueof($.ClassifedLevel)"
+        },
+        {
+            "key": "紧急程度",
+            "value": "#valueof($.Emergency)"
+        },
+        {
+            "key": "保管期限",
+            "value": "#valueof($.Preserve)"
+        },
+        {
+            "key": "归档类目",
+            "value": "#valueof($.Category)"
+        }
+    ],
+    "sections": [
+        {
+            "multiple": false,
+            "key": "拟办",
+            "data": [
+                {
+                    "user": "#valueof($.nibanUser)",
+                    "text": "#valueof($.nibanOpinion)",
+                    "time": "#valueof($.nibanTime)"
+                }
+            ]
+        },
+        {
+            "multiple": true,
+            "key": "会签",
+            "data": "#customfunction(DeptOA, DeptOA.Common.TransformUtil.TransformArray, #valueof($.counterSign))"
+        },
+        {
+            "multiple": true,
+            "key": "主要领导审批",
+            "data": "#customfunction(DeptOA, DeptOA.Common.TransformUtil.TransformArray, #valueof($.leaderOpinion))"
+        }
+    ]
+}

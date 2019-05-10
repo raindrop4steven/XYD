@@ -1,0 +1,284 @@
+﻿{
+    "table": "DEP_ReceiveFile_ZhuJian",
+    "values": {
+        "mappings": [
+            {
+                "key": "NODE0001",
+                "value": [
+                    {
+                        "key": "DocumentTitle",
+                        "value": {
+                            "row": 8,
+                            "col": 4
+                        }
+                    },
+                    {
+                        "key": "ClosedOrHairTime",
+                        "value": {
+                            "row": 4,
+                            "col": 9
+                        }
+                    }
+                ]
+            }
+        ],
+        "actions": [
+            {
+                "key": "NODE0002",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 4,
+                            "row": 10,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0003",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 4,
+                            "row": 12,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0004",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 4,
+                            "row": 14,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0005",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0006",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            }
+        ],
+        "details": [
+            {
+                "key": "SendDocumentNumber",
+                "value": {
+                    "row": 4,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "ClosedOrHairTime",
+                "value": {
+                    "row": 4,
+                    "col": 9
+                },
+                "type": 0
+            },
+            {
+                "key": "DocumentType",
+                "value": {
+                    "row": 4,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "DocumentNumber",
+                "value": {
+                    "row": 5,
+                    "col": 9
+                },
+                "type": 0
+            },
+            {
+                "key": "ClassifedLevel",
+                "value": {
+                    "row": 6,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "Emergency",
+                "value": {
+                    "row": 6,
+                    "col": 9
+                },
+                "type": 0
+            },
+            {
+                "key": "Preserve",
+                "value": {
+                    "row": 7,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "Category",
+                "value": {
+                    "row": 7,
+                    "col": 9
+                },
+                "type": 0
+            },
+            {
+                "key": "DocumentTitle",
+                "value": {
+                    "row": 8,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "Attachments",
+                "value": {
+                    "row": 9,
+                    "col": 4
+                },
+                "type": 10
+            },
+            {
+                "key": "nibanOpinion",
+                "value": {
+                    "row": 10,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "nibanUser",
+                "value": {
+                    "row": 11,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "nibanTime",
+                "value": {
+                    "row": 11,
+                    "col": 10
+                },
+                "type": 0
+            },
+            {
+                "key": "counterSign",
+                "value": {
+                    "row": 12,
+                    "col": 4
+                },
+                "type": 1
+            },
+            {
+                "key": "leaderOpinion",
+                "value": {
+                    "row": 14,
+                    "col": 4
+                },
+                "type": 1
+            }
+        ],
+        "controls": [
+            {
+                "key": "NODE0002",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 11,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 11,
+                            "col": 10
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

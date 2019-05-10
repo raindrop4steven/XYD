@@ -224,6 +224,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\Lodash.js" />
     <Content Include="Scripts\Moment.js" />
+    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d.json" />
+    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-app-transformer.json" />
+    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-web-transformer.json" />
     <None Include="Views\Home\gw_html.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

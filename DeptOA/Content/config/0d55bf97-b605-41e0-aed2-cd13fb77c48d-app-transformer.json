@@ -1,0 +1,11 @@
+﻿{
+    "mid": "#valueof($.mid)",
+    "nid": "#valueof($.nid)",
+    "sid": "#valueof($.sid)",
+    "attachments": [
+        {
+            "documentTitle": "#valueof($.DocumentTitle)",
+            "data": "#customfunction(DeptOA, DeptOA.Common.TransformUtil.TransformArray, #valueof($.Attachments))"
+        }
+    ]
+}
