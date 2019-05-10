@@ -1,0 +1,149 @@
+﻿<style type="text/css">
+    .widget-archives-header {
+        width:100%;
+        height:35px;
+        border-bottom:1px solid #ddd;
+    }
+    .widget-archives-info-list {
+    overflow: hidden;
+    background-color: #fff;
+    line-height: 150%;
+    width: 100%;
+}
+    .widget-archives-info-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.widget-archives-info-list ul li {
+    overflow: hidden;
+    padding: 0px 2px 2px 20px;
+    color: #999;
+    border-bottom: 1px solid #ddd;
+}
+.widget-archives-info-list ul li a {
+    position:relative;
+    text-decoration: none;
+    display: block;
+    color: #000;
+    padding: 2px 2px 2px 0;
+    line-height: 22px;
+}
+.widget-archives-info-list ul li:hover {
+    background:#efefef;
+}
+.widget-archives-info-list ul li dfn {
+    float: right;
+    color: #32b3c5;
+    font-style: normal;
+}
+.widget-archives-info-list ul li.read b {
+    display:block;
+    font-weight: normal;
+    color: #444;
+    width: 100%;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+.widget-archives-info-list ul li em {
+    overflow: hidden;
+    color: #aaa;
+    display: inline-block;
+    font-style: normal;
+    height: 1.5em;
+}
+    .widget-archives-summary {
+        float: left;
+        /*padding-bottom:15px;*/
+        font-size:16px;
+        color:#444;
+    }
+    .widget-archives-tools {
+        float: right;
+        /*padding-bottom:15px;*/
+        font-size:16px;
+    }
+     .widget-archives-tools a{
+        color: #428bca;
+        text-decoration: none;
+    }
+      .widget-archives-tools a:hover{
+         color: #2a6496;
+        text-decoration: underline;
+        background-color: transparent;
+    }
+
+     div.handle-status-2 {
+        float: left;
+        width: 15px;
+        height: 15px;
+        margin: 4px 4px 4px -20px;
+        background: url(/Apps/Workflow/images/wkf-handler-2.png);
+        border-radius: 5px;
+    }
+</style>
+<div class="widget-archives-header">
+    <div class="widget-archives-summary"></div>
+    <div class="widget-archives-tools">
+        <a href="/Apps/DEP/index.html#/index" target="_blank"><i class="fa fa-search" style="font-size:16px; color:#5199d5; margin:4px;"></i></a>
+    </div>
+</div>
+
+<div class="widget-archives-info-list">
+    <ul>
+
+    </ul>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+    var defaultPageSearch = {
+        // 公文标题
+        Title: null,
+        // 来文文号
+        DocumentNumber: null,
+        // 开始收/发文日期
+        StartClosedOrHairTime: null,
+        // 结束收/发文日期
+        EndClosedOrHairTime: null,
+        // 序列编号
+        SequenceNumber: null,
+        // 开始发起时间
+        StartCreatedTime: null,
+        // 结束发起时间
+        EndCreatedTime: null,
+        // 开始终止时间
+        StartEndTime: null,
+        // 结束终止时间
+        EndEndTime: null,
+        // 开始接收时间
+        StartReceiveTime: null,
+        // 结束接收时间
+        EndReceiveTime: null,
+        // 收文序列名称
+        SequenceName: null,
+        // 收文序列号
+        SequenceNumber: null,
+        SortColumn: null,
+        SortDirection: null,
+        PageSize: 10,
+        PageNumber: 1,
+        QueryCondition: null,
+        WorkFlowId: '',
+    }
+	var __widget_js__ = {
+		init: function (id) {
+			$.post('/Apps/DEP/WorkFlowPage/GetPendingInfo', defaultPageSearch, function (r) {
+			    console.log('Widget->', r);
+			    var totalCount = r.Data.length;
+			    $('#' + id).find('div.widget-archives-summary').append('<span>共计' + totalCount + '</span>项待办事项');
+			    for (var i = 0; i < totalCount; i++) {
+			        var row = r.Data[i];
+			        var title = row.DocumentTitle || row.DocumentTitle !== '' ? row.DocumentTitle : '------';
+			        var temp = '<li class="read"><div class="handle-status-2"></div><a class="text-info" href="/Apps/Workflow/Running/Open?mid=' + row.MessageId + '" target="_blank"><b>' + title + '</b><em>当前环节：' + row.MyTask + '</em><dfn>' + row.ReceiveTime.split(' ')[0] + '</dfn></a></li>'
+			        $('#' + id).find('div.widget-archives-info-list ul').append(temp);
+			    }
+			});
+		}
+	}
+</script>

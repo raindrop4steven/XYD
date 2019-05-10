@@ -1,3 +1,7 @@
+*{
+	margin: 0;
+	padding: 0;
+}
 span,p,h4{
 	font-size: 14px;
 	font-family: 'FZXBSJW--GB1-0';
@@ -6,7 +10,7 @@ span,p,h3{
 	color: #333333;
 }
 h3{
-	margin:12px 0 12px 30px; 
+	margin:12px 15px 12px 15px; 
 	font-family: 'fzxbsjw--gb1-0';
 	text-align: center;
 }
@@ -25,9 +29,6 @@ h4{
 span,h4,p{
 	display: inline;
 }
-#head h4,#head span{
-	margin-right:8px ;
-}
 #head br{
 	clear: both;
 }
@@ -38,17 +39,17 @@ span,h4,p{
 	text-align: right;
 }
  .mulT__value{
-	margin-left: 22px;
+	margin:0 20px 0 20px;
 }
 body{
 	word-wrap: break-word;
 	word-break: break-all;
 	overflow: auto;
-	margin:5px 30px 5px 0px;
+	margin:5px 0x 5px 0px;
 	line-height: 27px;
 }
 .margin{
-	margin-left: 15px;
+	margin:0 20px 0 15px;
 }
 .color{
 	color:#048ab1;

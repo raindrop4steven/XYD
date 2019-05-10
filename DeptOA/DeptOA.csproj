@@ -242,6 +242,7 @@
     <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d.json" />
     <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-app-transformer.json" />
     <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-web-transformer.json" />
+    <Content Include="Widget\ToDo.html" />
     <None Include="Views\Home\gw_html.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
