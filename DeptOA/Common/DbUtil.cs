@@ -434,5 +434,20 @@ namespace DeptOA.Common
             return ResultList;
         }
         #endregion
+
+        #region 获取通知人员列表
+        public static List<object> GetNotifyReceivers(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+
+            while (reader.Read())
+            {
+                var HandledBy = reader.GetString(0);
+                
+                ResultList.Add(HandledBy);
+            }
+            return ResultList;
+        }
+        #endregion
     }
 }

@@ -267,6 +267,7 @@
     <Content Include="Widget\ToDo.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\config\notify.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <None Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

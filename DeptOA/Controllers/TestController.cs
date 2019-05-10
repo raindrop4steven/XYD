@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -232,6 +233,126 @@ namespace DeptOA.Controllers
             catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 测试通用通知方法
+        /// <summary>
+        /// 目前针对的是已经处理过公文的用户通知
+        /// </summary>
+        /// <param name="mid"></param>
+        /// <param name="nid"></param>
+        /// <returns></returns>
+        public ActionResult GeneralNotify(string mid, string nid, string uid)
+        {
+            /*
+             * 变量定义
+             */
+            // 当前用户
+            //var employee = (User.Identity as AppkizIdentity).Employee;
+            // SQL语句
+            var sql = string.Empty;
+
+            /*
+             * 读取配置
+             */
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "notify"));
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                List<Receiver> receivers = null;
+
+                var notifies = JsonConvert.DeserializeObject<DEP_Notifies>(sr.ReadToEnd());
+
+                foreach(var notify in notifies.notify)
+                {
+                    if(notify.originNode == nid)
+                    {
+                        receivers = notify.receivers;
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                // 判断是否有通知节点
+                if (receivers == null)
+                {
+                    return ResponseUtil.Error(string.Format("消息{0} 节点{1} 无通知配置", mid, nid));
+                }
+                else
+                {
+                    // 如果配置为空，则默认所有人员都会收到通知
+                    if(receivers.Count == 0)
+                    {
+                        // 所有其他人
+                        sql = string.Format(@"select 
+                                                        DISTINCT HandledBy
+                                                    from 
+	                                                    WKF_WorkflowHistory a
+                                                    inner join
+	                                                    ORG_Employee b
+                                                    on
+	                                                    a.MessageID='{0}'
+                                                    and
+	                                                    a.HandlerDeptID <> ''
+                                                    AND
+	                                                    a.HandledBy = b.EmplID
+                                                    AND
+                                                        a.HandledBy <> '{1}'", mid, uid);
+                    }
+                    else
+                    {
+                        var statements = new List<StringBuilder>();
+
+                        foreach(var receiver in receivers)
+                        {
+                            string nodeKey = receiver.nid;
+                            int scope = receiver.scope;
+
+                            StringBuilder sb = new StringBuilder();
+
+                            sb.Append(string.Format(@"select 
+                                                          DISTINCT HandledBy
+                                                        from 
+	                                                        WKF_WorkflowHistory a
+                                                        inner join
+	                                                        ORG_Employee b
+                                                        on
+	                                                        a.MessageID='{0}'
+                                                        and
+	                                                        a.HandlerDeptID <> ''
+                                                        AND
+	                                                        a.HandledBy = b.EmplID
+                                                        AND
+                                                          a.HandledBy <> '{1}'
+                                                        and
+	                                                        a.NodeKey = '{2}'", mid, uid, nodeKey));
+                            // 判断是否有等级
+                            if (scope == 1) // 等级高
+                            {
+                                sb.Append(string.Format(@" and b.GlobalSortNo > (select GlobalSortNo from ORG_Employee WHERE EmplID='{0}')", uid));
+                            }
+                            else if (scope == 2)
+                            {
+                                sb.Append(string.Format(@" and b.GlobalSortNo < (select GlobalSortNo from ORG_Employee WHERE EmplID='{0}')", uid));
+                            }
+                            else
+                            {
+                                // 无等级或不支持的等级
+                            }
+
+                            statements.Add(sb);
+                        }
+
+                        sql = string.Join(" UNION ", statements);
+                    }
+
+                    var receiverList = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetNotifyReceivers);
+
+                    return ResponseUtil.OK(receiverList);
+                }
             }
         }
         #endregion

@@ -68,6 +68,25 @@ namespace DeptOA.Entity
     }
     #endregion
 
+    #region 节点与通知范围关系
+    public class Receiver
+    {
+        public string nid { get; set; }
+        public int scope { get; set; }
+    }
+
+    public class Notify
+    {
+        public string originNode { get; set; }
+        public List<Receiver> receivers { get; set; }
+    }
+
+    public class DEP_Notifies
+    {
+        public List<Notify> notify { get; set; }
+    }
+    #endregion
+
     #region 节点
     public class DEP_Node
     {
