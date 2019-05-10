@@ -402,5 +402,37 @@ namespace DeptOA.Common
         }
         #endregion
 
+        #region 已收藏列表
+        public static List<object> WKF_FavoriteList(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+
+            while (reader.Read())
+            {
+                var MessageId = reader.GetString(1);
+                var ClosedOrHairTime = reader.GetDateTime(2);
+                var DocumentTitle = reader.GetString(3);
+                var InitiateEmplId = reader.GetString(4);
+                var InitiateEmplName = reader.GetString(5);
+                var MessageTitle = reader.GetString(6);
+                var MyTask = reader.GetString(7);
+                var ReceiveTime = reader.GetString(8);
+                var WorkFlowId = reader.GetString(9);
+                ResultList.Add(new
+                {
+                    MessageId = MessageId,
+                    ClosedOrHairTime = ClosedOrHairTime,
+                    DocumentTitle = DocumentTitle,
+                    InitiateEmplId = InitiateEmplId,
+                    InitiateEmplName = InitiateEmplName,
+                    MessageTitle = MessageTitle,
+                    MyTask = MyTask,
+                    ReceiveTime = ReceiveTime,
+                    WorkFlowId = WorkFlowId
+                });
+            }
+            return ResultList;
+        }
+        #endregion
     }
 }
