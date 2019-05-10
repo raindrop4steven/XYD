@@ -41,62 +41,61 @@
 				'mid':mid
 			},
 			success:function(data){
-				// 替换标题
-				$('#data-title').text(data.Data.detail.title);
-				// 插入表头数据
-				var headers = data.Data.detail.header;
-				headers.forEach(d => {
-					$('#head').append('<h4>'+ `
+			    // 替换标题
+			    $('#data-title').text(data.Data.detail.title);
+			    // 插入表头数据
+			    var headers = data.Data.detail.header;
+			    headers.forEach(d => {
+			        $('#head').append('<div class = "margin"><h4>' + `
 					` + d.key + '&nbsp:</h4>\
 					<span class="value">' + `
 					` + d.value + `
 					` + '</span>\
-					<br>');
-				});
-				// section
-				var sections = data.Data.detail.sections;
-				sections.forEach(d => {
-					// 判断意见是否为单条
-					if (d.multiple){//——————————————————————————多条
-						var key = d.key;
-						var data = d.data;
-						var inner_html = '';
-						if(data != null){
-							data.forEach(c => {     //通过forEach   循环 +=拼接 元素 数据,形成文本内容
-								inner_html += '<div><span>' + `
+					</div>');
+			    });
+			    // section
+			    var sections = data.Data.detail.sections;
+			    sections.forEach(d => {
+			        // 判断意见是否为单条
+			        if (d.multiple) {//——————————————————————————多条
+			            var key = d.key;
+			            var data = d.data;
+			            var inner_html = '';
+			            if (data != null) {
+			                data.forEach(c => {     //通过forEach   循环 +=拼接 元素 数据,形成文本内容
+			                    inner_html += '<div><span class = "color">' + `
 								` + c.user + `
-								` + '</span>\
-								<span>(' + `
+								` + '(' + `
 								` + c.time + `
 								` + ' )&nbsp:</span>\
 								<span class="mulT__text">' + `
 								` + c.text + `
 								` + '</span></div>';
-							});
-							//将元素 标题 内容 拼接,形成 多条意见板块
-							var html_string = "";
-							html_string = '<div class="mulT"><h4>' + `
+			                });
+			                //将元素 标题 内容 拼接,形成 多条意见板块
+			                var html_string = "";
+			                html_string = '<div class="mulT"><div class="margin"><h4>' + `
 							` + key + `
-							` + ':</h4>\
+							` + ':</h4></div>\
 							<div class="mulT__value">' + `
 							` + inner_html + `
 							` + '<br></div></div>';
-							$('#sections').append(html_string);
-						}else {
-							html_string = '<div class="mulF"><h4>' + `
+			                $('#sections').append(html_string);
+			            } else {
+			                html_string = '<div class="mulF"><h4>' + `
 									 ` + d.key + `
 									 ` + '&nbsp:</h4><br></div>';
-							$('#sections').append(html_string);
-						}
-					} else {
-						var inner_htmll = "";
-						var data = d.data;
-						if (data != null) {
-							data.forEach(c =>{
-										inner_html = '<p >' + `
+			                $('#sections').append(html_string);
+			            }
+			        } else {
+			            var inner_htmll = "";
+			            var data = d.data;
+			            if (data != null) {
+			                data.forEach(c => {
+			                    inner_html = '<p class = "max">' + `
 										` + c.text + `
 										` + '</p>\
-										<div class="mulF__UT">\
+										<div class="mulF__UT"><br>\
 										<span>签办人：' + `
 										` + c.user + `
 										` + '</span>\
@@ -104,22 +103,22 @@
 										` + c.time + `
 										` + '</span>\
 										</div>'
-										
-									html_string = '<div class="mulF"><h4>' + `
+
+			                    html_string = '<div class="mulF"><div class = "margin"><h4>' + `
 									 ` + d.key + `
 									 ` + '&nbsp:</h4>' + `
 									 ` + inner_html + `
-									 ` + '<br></div>';
-									});
-							$('#sections').append(html_string);
-						} else {
-							html_string = '<div class="mulF"><h4>' + `
+									 ` + '</div></div>';
+			                });
+			                $('#sections').append(html_string);
+			            } else {
+			                html_string = '<div class="mulF"><h4>' + `
 									 ` + d.key + `
 									 ` + '&nbsp:</h4><br></div>';
-							$('#sections').append(html_string);
-						}
-					}
-				});
+			                $('#sections').append(html_string);
+			            }
+			        }
+			    });
 			},
 			error:function(error){
 				console.log(error);

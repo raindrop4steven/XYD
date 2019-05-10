@@ -6,6 +6,7 @@ span,p,h3{
 	color: #333333;
 }
 h3{
+	margin:12px 0 12px 30px; 
 	font-family: 'fzxbsjw--gb1-0';
 	text-align: center;
 }
@@ -21,16 +22,11 @@ h3,h4{
 h4{
 	color: #999;
 }
-p{
-	margin: 0 40px 10px 30px;
-}
-span,h4{
-	display: inline-block;
-	margin:8px 10px 8px 10px;
+span,h4,p{
+	display: inline;
 }
 #head h4,#head span{
-	margin-right:10px ;
-	float:left
+	margin-right:8px ;
 }
 #head br{
 	clear: both;
@@ -39,15 +35,21 @@ span,h4{
 	color:#999999;
 }
 .mulF__UT{
-	float: right;
+	text-align: right;
 }
-.mulF br{
-	clear: both;
+ .mulT__value{
+	margin-left: 22px;
 }
-.mulT span{
-	margin: 2px 3px 2px 3px;
-	
+body{
+	word-wrap: break-word;
+	word-break: break-all;
+	overflow: auto;
+	margin:5px 30px 5px 0px;
+	line-height: 27px;
 }
-.mulT  .mulT__value{
-	margin-left: 28px;
+.margin{
+	margin-left: 15px;
+}
+.color{
+	color:#048ab1;
 }
