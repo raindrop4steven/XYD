@@ -197,10 +197,18 @@
     <Compile Include="Services\WorkflowService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App\app.js" />
-    <Content Include="App\content_tm_pagination.html" />
-    <Content Include="App\home.html" />
-    <Content Include="App\search.html" />
+    <Content Include="App\app.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App\content_tm_pagination.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App\home.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App\search.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\deptMonitor.css" />
@@ -209,16 +217,24 @@
     <Content Include="Content\css\leaderNotify.css" />
     <Content Include="Content\css\search.css" />
     <Content Include="Content\css\Site.css" />
-    <Content Include="Content\images\appicon.png" />
+    <Content Include="Content\images\appicon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\sdk\sdk.js" />
-    <Content Include="Content\static\css\gw__css.css" />
-    <Content Include="Content\static\js\jquery-3.3.1.min.js" />
+    <Content Include="Content\static\css\gw__css.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\static\js\jquery-3.3.1.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="index.html" />
+    <Content Include="index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Plugins\loading-master\example\index.html" />
     <Content Include="Plugins\loading-master\example\loading.jpg" />
     <Content Include="Plugins\loading-master\gulpfile.js" />
@@ -239,11 +255,22 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\Lodash.js" />
     <Content Include="Scripts\Moment.js" />
-    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d.json" />
-    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-app-transformer.json" />
-    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-web-transformer.json" />
-    <Content Include="Widget\ToDo.html" />
-    <None Include="Views\Home\gw_html.cshtml" />
+    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-app-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-web-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Widget\ToDo.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\PublishProfiles\production.pubxml" />
+    <None Include="Views\Home\gw_html.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -270,13 +297,27 @@
     <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750.json" />
-    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-subflow.json" />
-    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-app-transformer.json" />
-    <Content Include="Content\config\global.json" />
-    <Content Include="Content\config\subflow.json" />
-    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-web-transformer.json" />
-    <Content Include="Content\config\workflow.json" />
+    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-subflow.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-app-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\global.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\subflow.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-web-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\workflow.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <Content Include="Views\Workflow\GetDeptPeople.cshtml" />
     <Content Include="Plugins\loading-master\README.md" />
