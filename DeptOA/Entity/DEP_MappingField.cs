@@ -98,6 +98,7 @@ namespace DeptOA.Entity
     {
         public string node { get; set; }
         public string key { get; set; }
+        public string order { get; set; }
         public OpinionValue value { get; set; }
         public int type { get; set; }
     }

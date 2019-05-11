@@ -367,10 +367,6 @@ namespace DeptOA.Controllers
              */
             // 修改意见列表
             var opinionList = new List<object>();
-            // 是否可以修改意见
-            var canChaneOpinion = true;
-            // TODO: 多人审批的排序规则，放到每个意见里面
-            var Order = "ASC";
             // 当前用户
             var employee = (User.Identity as AppkizIdentity).Employee;
 
@@ -514,7 +510,7 @@ namespace DeptOA.Controllers
                                 }
                                 if (list.Count > 0)
                                 {
-                                    var sql = @"SELECT EmplID, EmplName FROM ORG_Employee WHERE EmplID IN ({0}) ORDER BY GlobalSortNo " + Order;
+                                    var sql = @"SELECT EmplID, EmplName FROM ORG_Employee WHERE EmplID IN ({0}) ORDER BY GlobalSortNo " + opinion.order;
                                     var results = DbUtil.ExecuteSqlCommand(string.Format(sql, string.Join(",", list)), DbUtil.WKF_GlobalSortNo);
                                     Dictionary<string, string> orderredDict = (Dictionary<string, string>)results.ElementAt(0);
                                     StringBuilder sb = new StringBuilder();
