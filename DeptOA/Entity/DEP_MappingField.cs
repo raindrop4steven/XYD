@@ -87,6 +87,27 @@ namespace DeptOA.Entity
     }
     #endregion
 
+    #region 公文意见修改配置
+    public class OpinionValue
+    {
+        public int row { get; set; }
+        public int col { get; set; }
+    }
+
+    public class Opinion
+    {
+        public string node { get; set; }
+        public string key { get; set; }
+        public OpinionValue value { get; set; }
+        public int type { get; set; }
+    }
+
+    public class DEP_Opinions
+    {
+        public List<Opinion> opinions { get; set; }
+    }
+    #endregion
+
     #region 节点
     public class DEP_Node
     {

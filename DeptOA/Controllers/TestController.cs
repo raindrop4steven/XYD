@@ -3,6 +3,7 @@ using Appkiz.Library.Security;
 using Appkiz.Library.Security.Authentication;
 using DeptOA.Common;
 using DeptOA.Entity;
+using DeptOA.Models;
 using DeptOA.Services;
 using JUST;
 using Newtonsoft.Json;
@@ -14,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 
 namespace DeptOA.Controllers
 {
@@ -353,6 +355,442 @@ namespace DeptOA.Controllers
 
                     return ResponseUtil.OK(receiverList);
                 }
+            }
+        }
+        #endregion
+
+        #region 获得Cell中意见
+        public ActionResult GeneralOpinion(string mid)
+        {
+            /*
+             * 变量定义
+             */
+            // 修改意见列表
+            var opinionList = new List<object>();
+            // 是否可以修改意见
+            var canChaneOpinion = true;
+            // TODO: 多人审批的排序规则，放到每个意见里面
+            var Order = "ASC";
+            // 当前用户
+            var employee = (User.Identity as AppkizIdentity).Employee;
+
+            /*
+             * 获取流程表单
+             */
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+            Worksheet worksheet = doc.Worksheet;
+
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "opinion"));
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                Opinion resultOpinion = null;
+                var opinions = JsonConvert.DeserializeObject<DEP_Opinions>(sr.ReadToEnd());
+                foreach(var opinion in opinions.opinions)
+                {
+                    var history = string.Empty;
+                    var editIcon = string.Empty;
+
+                    List<WorkflowHistory> workflowHistory = mgr.FindWorkflowHistory(mid, opinion.node);
+
+                    if (workflowHistory.Count == 0)
+                    {
+                        //节点没有未处理
+                        continue;
+                    }
+                    else
+                    {
+                        // 判断这个节点
+                        foreach (var wkhistory in workflowHistory)
+                        {
+                            if (wkhistory.HandledBy == employee.EmplID)
+                            {
+                                editIcon = "fa fa-edit";
+                                break;
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+
+                        if (opinion.type == 0)
+                        {
+                            // 普通意见
+                            var workcell = worksheet.GetWorkcell(resultOpinion.value.row, resultOpinion.value.col);
+                            var cellValue = workcell == null ? string.Empty : workcell.WorkcellValue;
+
+                            using (var db = new DefaultConnection())
+                            {
+                                var nibanOpinion = db.Opinion.Where(n => n.MessageID == mid && n.NodeKey == opinion.node && n.EmplID == employee.EmplID).OrderByDescending(n => n.order).FirstOrDefault();
+                                // 获得最新的意见
+                                if (nibanOpinion != null)
+                                {
+                                    history = "<div class=\"my-niban-opinion\"><span style =\"word-wrap: break-word;\">" + nibanOpinion.Opinion + "</span><i class=\"" + editIcon + "\" style=\"margin-left:8px\"></i></div>";
+                                }
+                                else
+                                {
+                                    history = "<div class=\"my-niban-opinion\"><span style =\"word-wrap: break-word;\">" + cellValue + "</span><i class=\"" + editIcon + "\" style=\"margin-left:8px\"></i></div>";
+                                }
+                            }
+                        }
+                        else if (opinion.type == 1)
+                        {
+                            // 多人意见
+                            // 排序(默认从1开始)
+                            var nodeOrderDict = new Dictionary<string, int>();
+                            // 每个用户对应签批数量
+                            var nodeDict = new Dictionary<string, int>();
+                            List<KeyValuePair<string, string>> itemList = new List<KeyValuePair<string, string>>();
+                            List<string> list = new List<string>();
+
+                            using (var db = new DefaultConnection())
+                            {
+                                // 新意见
+                                var newOpinionList = db.Opinion.Where(n => n.MessageID == mid && n.NodeKey == opinion.node).OrderBy(n => n.order).ToList();
+                                // 原始意见，并替换对应新意见
+                                var workcellValue = worksheet.GetWorkcell(resultOpinion.value.row, resultOpinion.value.col);
+                                XmlNodeList deptHistory = workcellValue.History;
+
+                                foreach (XmlNode node in deptHistory)
+                                {
+                                    var emplId = node.Attributes.GetNamedItem("emplId").InnerText;
+                                    // 更新排序
+                                    if (nodeDict.ContainsKey(emplId))
+                                    {
+                                        int order = nodeDict[emplId];
+                                        nodeDict[emplId] = order + 1;
+                                    }
+                                    else
+                                    {
+                                        nodeDict.Add(emplId, 1);
+                                    }
+                                }
+
+                                foreach (XmlNode node in deptHistory)
+                                {
+                                    var emplId = node.Attributes.GetNamedItem("emplId").InnerText;
+                                    var value = node.Attributes.GetNamedItem("Value").InnerText;
+                                    var updateTime = node.Attributes.GetNamedItem("UpdateTime").InnerText;
+
+                                    // 更新排序
+                                    if (nodeOrderDict.ContainsKey(emplId))
+                                    {
+                                        int order = nodeOrderDict[emplId];
+                                        nodeOrderDict[emplId] = order + 1;
+                                    }
+                                    else
+                                    {
+                                        nodeOrderDict.Add(emplId, 1);
+                                    }
+
+                                    var currentClass = "";
+                                    var orderString = string.Empty;
+                                    // 查找是否有对应的新意见，使用新意见替换旧意见
+                                    foreach (DEP_Opinion newOpinion in newOpinionList)
+                                    {
+                                        // 同一个人的意见，且顺序相同就替换对应的签批意见
+                                        if (newOpinion.EmplID == emplId && nodeOrderDict[emplId] == newOpinion.order)
+                                        {
+                                            value = newOpinion.Opinion;
+                                            updateTime = newOpinion.UpdatedTime.Value.ToString("yyyy-%M-dd HH:mm");
+                                            orderString = Convert.ToString(newOpinion.order);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
+                                    }
+                                    // 如果是当前用户，且是最后一条记录，则设置可修改
+                                    // 流程未结束，可以修改的情况下才可以修改
+                                    if (emplId == employee.EmplID && nodeDict[emplId] == nodeOrderDict[emplId])
+                                    {
+                                        currentClass = "my-opinion";
+                                        editIcon = "fa fa-edit";
+                                    }
+
+                                    itemList.Add(new KeyValuePair<string, string>(emplId, "<div class=\"history - item " + currentClass + "\" order=\"" + orderString + "\"><div class=\"history-people\">{0}(" + updateTime + "):</div><span style=\"word-wrap: break-word;\">" + value + "</span><i class=\"" + editIcon + "\" style=\"margin-left:8px\"></i></div>"));
+                                    list.Add(emplId);
+                                }
+                                if (list.Count > 0)
+                                {
+                                    var sql = @"SELECT EmplID, EmplName FROM ORG_Employee WHERE EmplID IN ({0}) ORDER BY GlobalSortNo " + Order;
+                                    var results = DbUtil.ExecuteSqlCommand(string.Format(sql, string.Join(",", list)), DbUtil.WKF_GlobalSortNo);
+                                    Dictionary<string, string> orderredDict = (Dictionary<string, string>)results.ElementAt(0);
+                                    StringBuilder sb = new StringBuilder();
+
+                                    foreach (KeyValuePair<string, string> item in orderredDict)
+                                    {
+                                        foreach (KeyValuePair<string, string> innerItem in itemList)
+                                        {
+                                            if (innerItem.Key == item.Key)
+                                            {
+                                                sb.Append(string.Format(innerItem.Value, item.Value));
+                                            }
+                                        }
+                                    }
+
+                                    history = sb.ToString();
+                                    opinionList.Add(history);
+                                }
+                                else
+                                {
+                                    // 已有处理记录而xml中并无意见，理论上不会出现
+                                    history = string.Empty;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return ResponseUtil.Error(string.Format("不支持的意见类型{0}", resultOpinion.type));
+                        }
+                        // 将节点与签批记录统一返回到前端
+                        opinionList.Add(new
+                        {
+                            node = opinion.node,
+                            history = history
+                        });
+                    }
+                }
+                
+                return ResponseUtil.OK(opinionList);
+            }
+        }
+        #endregion
+
+        #region 根据流程mid获得对应的Nodekey
+        [HttpPost]
+        public ActionResult GetHandledNodeKey(FormCollection collection)
+        {
+            try
+            {
+                /*
+                 * 变量定义
+                 */
+                // 获得当前用户
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                // 工作流Manager
+                var workflowMgr = new WorkflowMgr();
+                // 当前人处理节点列表
+                var nodeKeyList = new List<string>();
+
+                /*
+                 * 参数获取
+                 */
+                // 流程ID
+                var mid = collection["mid"];
+
+                /*
+                 * 参数校验
+                 */
+                // 流程ID
+                if (string.IsNullOrEmpty(mid))
+                {
+                    return new JsonNetResult(new
+                    {
+                        Succeed = false,
+                        Message = "流程ID不能为空"
+                    });
+                }
+
+                /*
+                 * 获取对应的流程处理记录
+                 */
+                Message message = workflowMgr.GetMessage(mid);
+                if (message == null)
+                {
+                    return new JsonNetResult(new
+                    {
+                        Succeed = false,
+                        Message = "流程不存在"
+                    });
+                }
+                else
+                {
+                    // 获得对应的工作流历史
+                    List<WorkflowHistory> workflowHistoryList = message.History;
+                    foreach (WorkflowHistory history in workflowHistoryList)
+                    {
+                        // 判断是否是当前用户的节点
+                        if (history.HandledBy == employee.EmplID)
+                        {
+                            nodeKeyList.Add(history.NodeKey);
+                        }
+                    }
+                    return new JsonNetResult(new
+                    {
+                        Succeed = true,
+                        Data = new
+                        {
+                            nodekeys = nodeKeyList
+                        }
+                    });
+                }
+            }
+            catch
+            {
+                return new JsonNetResult(new
+                {
+                    Succeed = false,
+                    Message = "用户未登录"
+                });
+            }
+        }
+        #endregion
+
+        #region 添加意见修改记录
+        /// <summary>
+        /// url: /Apps/Tiger/Workflow/AddNewOpinion
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult AddNewOpinion(FormCollection collection)
+        {
+            try
+            {
+                /*
+                 * 变量定义
+                 */
+                // 当前用户
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                // 流程管理
+                WorkflowMgr mgr = new WorkflowMgr();
+                // 当前用户评论总数
+                int userTotalClount = 0;
+                // 顺序
+                int order = 0;
+
+                /*
+                 * 参数获取
+                 */
+                // 流程ID
+                var mid = collection["mid"];
+                // 节点ID
+                var nid = collection["nid"];
+                // 意见
+                var opinion = collection["opinion"];
+                // 顺序
+                var orderString = collection["order"];
+
+                /*
+                 * 参数校验
+                 */
+                // 流程ID
+                if (string.IsNullOrEmpty(mid))
+                {
+                    return new JsonNetResult(new
+                    {
+                        Succeed = false,
+                        Message = "消息ID不能为空"
+                    });
+                }
+                // 节点ID
+                if (string.IsNullOrEmpty(nid))
+                {
+                    return new JsonNetResult(new
+                    {
+                        Succeed = false,
+                        Message = "节点ID不能为空"
+                    });
+                }
+                // 意见
+                if (string.IsNullOrEmpty(opinion))
+                {
+                    return new JsonNetResult(new
+                    {
+                        Succeed = false,
+                        Message = "意见不能为空"
+                    });
+                }
+                // 排序
+                if (!string.IsNullOrEmpty(orderString))
+                {
+                    if (!int.TryParse(orderString, out order))
+                    {
+                        return new JsonNetResult(new
+                        {
+                            Succeed = false,
+                            Message = "排序应为数字"
+                        });
+                    }
+                }
+                /*
+                 * 插入意见
+                 */
+                Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+                Worksheet worksheet = doc.Worksheet;
+                Workcell workcell = worksheet.GetWorkcell(10, 4);
+                XmlNodeList history = workcell.History;
+                foreach (XmlNode node in history)
+                {
+                    var emplId = node.Attributes.GetNamedItem("emplId").InnerText;
+                    // 统计总数
+                    if (employee.EmplID == emplId)
+                    {
+                        userTotalClount = userTotalClount + 1;
+                    }
+                }
+                // 排序字段为空，则插入新的记录，新纪录的排序字段和总数保持一致（最新）
+                // 由于是修改，且无法删除，所以userTotalCount总是会大于0
+                var db = new DefaultConnection();
+
+                if (string.IsNullOrEmpty(orderString))
+                {
+                    DEP_Opinion insertOpinion = new DEP_Opinion();
+                    insertOpinion.EmplID = employee.EmplID;
+                    insertOpinion.MessageID = mid;
+                    insertOpinion.NodeKey = nid;
+                    insertOpinion.Opinion = opinion;
+                    insertOpinion.order = userTotalClount;
+                    insertOpinion.CreateTime = DateTime.Now;
+                    insertOpinion.UpdatedTime = DateTime.Now;
+                    db.Opinion.Add(insertOpinion);
+                }
+                else
+                {
+                    // 更新已有记录
+                    var newOpinion = db.Opinion.Where(n => n.MessageID == mid && n.EmplID == employee.EmplID && n.order == order).FirstOrDefault();
+                    if (newOpinion == null)
+                    {
+                        return new JsonNetResult(new
+                        {
+                            Succeed = false,
+                            Message = "更新的记录不存在"
+                        });
+                    }
+                    else
+                    {
+                        newOpinion.Opinion = opinion;
+                        newOpinion.UpdatedTime = DateTime.Now;
+                    }
+                }
+
+                db.SaveChanges();
+
+                /*
+                 * 修改后发送通知
+                 */
+                //SendChangeNotify(collection);
+                //// 意见不为【已阅】时，发送给文电科通知
+                //if (opinion.Trim() != WHConstants.Workflow_Opinion_Read)
+                //{
+                //    SendLeaderNotify(mid, nid, employee);
+                //}
+
+                return new JsonNetResult(new
+                {
+                    Succeed = true,
+                    Message = "修改成功"
+                });
+            }
+            catch
+            {
+                return new JsonNetResult(new
+                {
+                    Succeed = false,
+                    Message = "添加意见失败"
+                });
             }
         }
         #endregion

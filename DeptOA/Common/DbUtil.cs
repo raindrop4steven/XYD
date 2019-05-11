@@ -449,5 +449,24 @@ namespace DeptOA.Common
             return ResultList;
         }
         #endregion
+
+        #region 根据用户排序获得用户列表
+        public static List<object> WKF_GlobalSortNo(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            var dict = new Dictionary<string, string>();
+
+            while (reader.Read())
+            {
+                string EmplID = reader.GetString(0);
+                string EmplName = reader.GetString(1);
+                dict.Add(EmplID, EmplName);
+            }
+
+            ResultList.Add(dict);
+
+            return ResultList;
+        }
+        #endregion
     }
 }

@@ -190,6 +190,10 @@
     <Compile Include="Migrations\201905100652296_add favorite message.Designer.cs">
       <DependentUpon>201905100652296_add favorite message.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905110546239_add new opinion.cs" />
+    <Compile Include="Migrations\201905110546239_add new opinion.Designer.cs">
+      <DependentUpon>201905110546239_add new opinion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -268,6 +272,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\config\notify.json" />
+    <Content Include="Content\config\opinion.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <None Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -330,6 +335,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905100652296_add favorite message.resx">
       <DependentUpon>201905100652296_add favorite message.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905110546239_add new opinion.resx">
+      <DependentUpon>201905110546239_add new opinion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

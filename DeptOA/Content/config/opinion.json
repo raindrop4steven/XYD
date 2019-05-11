@@ -1,0 +1,31 @@
+﻿{
+    "opinions": [
+        {
+            "node": "NODE0002",
+            "key": "nibanOpinion",
+            "value": {
+                "row": 9,
+                "col": 4
+            },
+            "type": 0
+        },
+        {
+            "node": "NODE0004",
+            "key": "leaderOpinion",
+            "value": {
+                "row": 11,
+                "col": 4
+            },
+            "type": 1
+        },
+        {
+            "node": "NODE0005",
+            "key": "deptOpinion",
+            "value": {
+                "row": 13,
+                "col": 4
+            },
+            "type": 1
+        },
+    ]
+}
