@@ -379,7 +379,6 @@ namespace DeptOA.Controllers
             var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "opinion"));
             using (StreamReader sr = new StreamReader(filePathName))
             {
-                Opinion resultOpinion = null;
                 var opinions = JsonConvert.DeserializeObject<DEP_Opinions>(sr.ReadToEnd());
                 foreach(var opinion in opinions.opinions)
                 {
@@ -395,24 +394,23 @@ namespace DeptOA.Controllers
                     }
                     else
                     {
-                        // 判断这个节点
-                        foreach (var wkhistory in workflowHistory)
-                        {
-                            if (wkhistory.HandledBy == employee.EmplID)
-                            {
-                                editIcon = "fa fa-edit";
-                                break;
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-
                         if (opinion.type == 0)
                         {
+                            // 判断这个节点
+                            foreach (var wkhistory in workflowHistory)
+                            {
+                                if (wkhistory.HandledBy == employee.EmplID)
+                                {
+                                    editIcon = "fa fa-edit";
+                                    break;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
                             // 普通意见
-                            var workcell = worksheet.GetWorkcell(resultOpinion.value.row, resultOpinion.value.col);
+                            var workcell = worksheet.GetWorkcell(opinion.value.row, opinion.value.col);
                             var cellValue = workcell == null ? string.Empty : workcell.WorkcellValue;
 
                             using (var db = new DefaultConnection())
@@ -444,7 +442,7 @@ namespace DeptOA.Controllers
                                 // 新意见
                                 var newOpinionList = db.Opinion.Where(n => n.MessageID == mid && n.NodeKey == opinion.node).OrderBy(n => n.order).ToList();
                                 // 原始意见，并替换对应新意见
-                                var workcellValue = worksheet.GetWorkcell(resultOpinion.value.row, resultOpinion.value.col);
+                                var workcellValue = worksheet.GetWorkcell(opinion.value.row, opinion.value.col);
                                 XmlNodeList deptHistory = workcellValue.History;
 
                                 foreach (XmlNode node in deptHistory)
@@ -527,7 +525,6 @@ namespace DeptOA.Controllers
                                     }
 
                                     history = sb.ToString();
-                                    opinionList.Add(history);
                                 }
                                 else
                                 {
@@ -538,7 +535,7 @@ namespace DeptOA.Controllers
                         }
                         else
                         {
-                            return ResponseUtil.Error(string.Format("不支持的意见类型{0}", resultOpinion.type));
+                            return ResponseUtil.Error(string.Format("不支持的意见类型{0}", opinion.type));
                         }
                         // 将节点与签批记录统一返回到前端
                         opinionList.Add(new
