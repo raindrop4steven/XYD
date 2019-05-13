@@ -415,15 +415,16 @@ namespace DeptOA.Controllers
 
                             using (var db = new DefaultConnection())
                             {
-                                var nibanOpinion = db.Opinion.Where(n => n.MessageID == mid && n.NodeKey == opinion.node && n.EmplID == employee.EmplID).OrderByDescending(n => n.order).FirstOrDefault();
+                                var nibanOpinion = db.Opinion.Where(n => n.MessageID == mid && n.NodeKey == opinion.node && n.EmplID == employee.EmplID).FirstOrDefault();
                                 // 获得最新的意见
                                 if (nibanOpinion != null)
                                 {
-                                    history = "<div class=\"my-niban-opinion\"><span style =\"word-wrap: break-word;\">" + nibanOpinion.Opinion + "</span><i class=\"" + editIcon + "\" style=\"margin-left:8px\"></i></div>";
+                                    history = "<div class=\"my-opinion\" order=\"0\"><span style =\"word-wrap: break-word;\">" + nibanOpinion.Opinion + "</span><i class=\"" + editIcon + "\" style=\"margin-left:8px\"></i></div>";
                                 }
                                 else
                                 {
-                                    history = "<div class=\"my-niban-opinion\"><span style =\"word-wrap: break-word;\">" + cellValue + "</span><i class=\"" + editIcon + "\" style=\"margin-left:8px\"></i></div>";
+                                    // 配合AddNewOpinion接口使用，如果没有修改意见，则order字段为undefined，后台会新增；如果有则固定为0，用于更新。
+                                    history = "<div class=\"my-opinion\"><span style =\"word-wrap: break-word;\">" + cellValue + "</span><i class=\"" + editIcon + "\" style=\"margin-left:8px\"></i></div>";
                                 }
                             }
                         }
@@ -483,7 +484,7 @@ namespace DeptOA.Controllers
                                     foreach (DEP_Opinion newOpinion in newOpinionList)
                                     {
                                         // 同一个人的意见，且顺序相同就替换对应的签批意见
-                                        if (newOpinion.EmplID == emplId && nodeOrderDict[emplId] == newOpinion.order)
+                                        if (newOpinion.EmplID == emplId && nodeOrderDict[emplId] == newOpinion.order && newOpinion.NodeKey == opinion.node)
                                         {
                                             value = newOpinion.Opinion;
                                             updateTime = newOpinion.UpdatedTime.Value.ToString("yyyy-%M-dd HH:mm");
@@ -503,7 +504,7 @@ namespace DeptOA.Controllers
                                         editIcon = "fa fa-edit";
                                     }
 
-                                    itemList.Add(new KeyValuePair<string, string>(emplId, "<div class=\"history - item " + currentClass + "\" order=\"" + orderString + "\"><div class=\"history-people\">{0}(" + updateTime + "):</div><span style=\"word-wrap: break-word;\">" + value + "</span><i class=\"" + editIcon + "\" style=\"margin-left:8px\"></i></div>"));
+                                    itemList.Add(new KeyValuePair<string, string>(emplId, "<div class=\"history-item " + currentClass + "\" order=\"" + orderString + "\"><div class=\"history-people\">{0}(" + updateTime + "):</div><span style=\"word-wrap: break-word;\">" + value + "</span><i class=\"" + editIcon + "\" style=\"margin-left:8px\"></i></div>"));
                                     list.Add(emplId);
                                 }
                                 if (list.Count > 0)
@@ -541,6 +542,8 @@ namespace DeptOA.Controllers
                         opinionList.Add(new
                         {
                             node = opinion.node,
+                            type = opinion.type,
+                            cellId = string.Format("#C-{0}-{1}", opinion.value.row, opinion.value.col),
                             history = history
                         });
                     }
@@ -653,7 +656,11 @@ namespace DeptOA.Controllers
                 int userTotalClount = 0;
                 // 顺序
                 int order = 0;
-
+                // 类型
+                int type = -1;
+                // 单元格行/列
+                int row = 0;
+                int col = 0;
                 /*
                  * 参数获取
                  */
@@ -661,8 +668,12 @@ namespace DeptOA.Controllers
                 var mid = collection["mid"];
                 // 节点ID
                 var nid = collection["nid"];
+                // CellId
+                var cellId = collection["cellId"];
                 // 意见
                 var opinion = collection["opinion"];
+                // 意见类型 0:单条，1:多条
+                var typeString = collection["type"];
                 // 顺序
                 var orderString = collection["order"];
 
@@ -672,58 +683,74 @@ namespace DeptOA.Controllers
                 // 流程ID
                 if (string.IsNullOrEmpty(mid))
                 {
-                    return new JsonNetResult(new
-                    {
-                        Succeed = false,
-                        Message = "消息ID不能为空"
-                    });
+                    return ResponseUtil.Error("消息ID不能为空");
                 }
                 // 节点ID
                 if (string.IsNullOrEmpty(nid))
                 {
-                    return new JsonNetResult(new
-                    {
-                        Succeed = false,
-                        Message = "节点ID不能为空"
-                    });
+                    return ResponseUtil.Error("节点ID不能为空");
                 }
                 // 意见
                 if (string.IsNullOrEmpty(opinion))
                 {
-                    return new JsonNetResult(new
+                    return ResponseUtil.Error("意见不能为空");
+                }
+                // 单元格
+                if (string.IsNullOrEmpty(cellId))
+                {
+                    return ResponseUtil.Error("单元格不能为空");
+                }
+                else
+                {
+                    var cellArray = cellId.Split('-').ToList();
+                    row = int.Parse(cellArray[1]);
+                    col = int.Parse(cellArray[2]);
+                }
+                // 意见类型
+                if (string.IsNullOrEmpty(typeString))
+                {
+                    return ResponseUtil.Error("意见类型不能为空");
+                }
+                else
+                {
+                    if(!int.TryParse(typeString, out type))
                     {
-                        Succeed = false,
-                        Message = "意见不能为空"
-                    });
+                        return ResponseUtil.Error("意见类型必须为数字");
+                    }
                 }
                 // 排序
                 if (!string.IsNullOrEmpty(orderString))
                 {
                     if (!int.TryParse(orderString, out order))
                     {
-                        return new JsonNetResult(new
-                        {
-                            Succeed = false,
-                            Message = "排序应为数字"
-                        });
+                        return ResponseUtil.Error("排序应为数字");
                     }
                 }
                 /*
                  * 插入意见
                  */
-                Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
-                Worksheet worksheet = doc.Worksheet;
-                Workcell workcell = worksheet.GetWorkcell(10, 4);
-                XmlNodeList history = workcell.History;
-                foreach (XmlNode node in history)
+                // 区别类型，如果是单意见，则直接插入或替换，否则需要进行计数。
+                if (type == 0) // 单用户
                 {
-                    var emplId = node.Attributes.GetNamedItem("emplId").InnerText;
-                    // 统计总数
-                    if (employee.EmplID == emplId)
+                    userTotalClount = 0; // 特殊标志，表示无顺序，只有1条
+                }
+                else // 多用户
+                {
+                    Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+                    Worksheet worksheet = doc.Worksheet;
+                    Workcell workcell = worksheet.GetWorkcell(row, col);
+                    XmlNodeList history = workcell.History;
+                    foreach (XmlNode node in history)
                     {
-                        userTotalClount = userTotalClount + 1;
+                        var emplId = node.Attributes.GetNamedItem("emplId").InnerText;
+                        // 统计总数
+                        if (employee.EmplID == emplId)
+                        {
+                            userTotalClount = userTotalClount + 1;
+                        }
                     }
                 }
+                
                 // 排序字段为空，则插入新的记录，新纪录的排序字段和总数保持一致（最新）
                 // 由于是修改，且无法删除，所以userTotalCount总是会大于0
                 var db = new DefaultConnection();
@@ -743,7 +770,7 @@ namespace DeptOA.Controllers
                 else
                 {
                     // 更新已有记录
-                    var newOpinion = db.Opinion.Where(n => n.MessageID == mid && n.EmplID == employee.EmplID && n.order == order).FirstOrDefault();
+                    var newOpinion = db.Opinion.Where(n => n.MessageID == mid && n.EmplID == employee.EmplID && n.order == order && n.NodeKey == nid).FirstOrDefault();
                     if (newOpinion == null)
                     {
                         return new JsonNetResult(new
