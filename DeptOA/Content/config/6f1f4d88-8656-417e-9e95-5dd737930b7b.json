@@ -1,0 +1,608 @@
+﻿{
+    "table": "DEP_ReceiveFile_ZhuJian",
+    "values": {
+        "mappings": [
+            {
+                "key": "NODE0001",
+                "value": [
+                    {
+                        "key": "DocumentTitle",
+                        "value": {
+                            "row": 11,
+                            "col": 4
+                        }
+                    },
+                    {
+                        "key": "ClosedOrHairTime",
+                        "value": {
+                            "row": 9,
+                            "col": 9
+                        }
+                    }
+                ]
+            }
+        ],
+        "actions": [
+            {
+                "key": "NODE0002",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 6,
+                            "row": 13,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0003",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 6,
+                            "row": 15,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0004",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 6,
+                            "row": 17,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0005",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 6,
+                            "row": 19,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0006",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 6,
+                            "row": 20,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0007",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 6,
+                            "row": 23,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0008",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 6,
+                            "row": 25,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0009",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 6,
+                            "row": 27,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            }
+        ],
+        "details": [
+            {
+                "key": "CaseSource",
+                "value": {
+                    "row": 7,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "CaseNo",
+                "value": {
+                    "row": 7,
+                    "col": 9
+                },
+                "type": 0
+            },
+            {
+                "key": "ComplaintUser",
+                "value": {
+                    "row": 8,
+                    "col": 2
+                },
+                "type": 0
+            },
+            {
+                "key": "ReceiveUser",
+                "value": {
+                    "row": 8,
+                    "col": 9
+                },
+                "type": 0
+            },
+            {
+                "key": "ContactInfo",
+                "value": {
+                    "row": 9,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "ReceiveDate",
+                "value": {
+                    "row": 9,
+                    "col": 9
+                },
+                "type": 0
+            },
+            {
+                "key": "AlarmDate",
+                "value": {
+                    "row": 10,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "Issue",
+                "value": {
+                    "row": 11,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "OfficeUser",
+                "value": {
+                    "row": 12,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "OfficeDate",
+                "value": {
+                    "row": 12,
+                    "col": 10
+                },
+                "type": 0
+            },
+            {
+                "key": "OfficeOpinion",
+                "value": {
+                    "row": 13,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "LeaderUser",
+                "value": {
+                    "row": 14,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "LeaderDate",
+                "value": {
+                    "row": 14,
+                    "col": 10
+                },
+                "type": 0
+            },
+            {
+                "key": "LeaderOpinion",
+                "value": {
+                    "row": 15,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "SubLeaderUser",
+                "value": {
+                    "row": 16,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "SubLeaderDate",
+                "value": {
+                    "row": 16,
+                    "col": 10
+                },
+                "type": 0
+            },
+            {
+                "key": "SubLeaderOpinion",
+                "value": {
+                    "row": 17,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "DeptDistUser",
+                "value": {
+                    "row": 18,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "DeptDistDate",
+                "value": {
+                    "row": 18,
+                    "col": 10
+                },
+                "type": 0
+            },
+            {
+                "key": "DeptDistOpinion",
+                "value": {
+                    "row": 19,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "HandleUser",
+                "value": {
+                    "row": 21,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "HandleDate",
+                "value": {
+                    "row": 21,
+                    "col": 10
+                },
+                "type": 0
+            },
+            {
+                "key": "HandleOpinion",
+                "value": {
+                    "row": 20,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "DeptAuditUser",
+                "value": {
+                    "row": 22,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "DeptAuditDate",
+                "value": {
+                    "row": 22,
+                    "col": 10
+                },
+                "type": 0
+            },
+            {
+                "key": "DeptAuditOpinion",
+                "value": {
+                    "row": 23,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "SubLeaderAuditUser",
+                "value": {
+                    "row": 24,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "SubLeaderAuditDate",
+                "value": {
+                    "row": 24,
+                    "col": 10
+                },
+                "type": 0
+            },
+            {
+                "key": "SubLeaderAuditOpinion",
+                "value": {
+                    "row": 25,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "OfficeAuditUser",
+                "value": {
+                    "row": 26,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "OfficeAuditDate",
+                "value": {
+                    "row": 26,
+                    "col": 10
+                },
+                "type": 0
+            },
+            {
+                "key": "OfficeAuditOpinion",
+                "value": {
+                    "row": 27,
+                    "col": 6
+                },
+                "type": 0
+            }
+        ],
+        "controls": [
+            {
+                "key": "NODE0002",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 12,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 12,
+                            "col": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "NODE0003",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 14,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 14,
+                            "col": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "NODE0004",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 16,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 16,
+                            "col": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "NODE0005",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 18,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 18,
+                            "col": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "NODE0006",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 21,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 21,
+                            "col": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "NODE0007",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 22,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 22,
+                            "col": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "NODE0008",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 24,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 24,
+                            "col": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "NODE0009",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 26,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 26,
+                            "col": 10
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
