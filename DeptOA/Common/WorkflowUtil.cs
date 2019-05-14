@@ -233,6 +233,35 @@ namespace DeptOA.Common
         }
         #endregion
 
+        #region 获得公文个人意见配置
+        public static object GetPrivateOpinionConfig(string mid)
+        {
+            try
+            {
+                /*
+                 * 根据模板ID获得对应的配置
+                 */
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+
+                Message message = mgr.GetMessage(mid);
+                var templateID = message.FromTemplate;
+
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-opinion.json", templateID));
+
+                using (StreamReader sr = new StreamReader(filePathName))
+                {
+                    var config = JsonConvert.DeserializeObject<DEP_PrivateOpinions>(sr.ReadToEnd());
+
+                    return config;
+                }
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+        #endregion
+
         #region 获得流程web转换配置
         public static string GetWebTransformer(string mid)
         {

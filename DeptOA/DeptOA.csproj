@@ -278,6 +278,7 @@
     <Content Include="Content\config\6f1f4d88-8656-417e-9e95-5dd737930b7b-web-transformer.json" />
     <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-app-transformer.json" />
     <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-web-transformer.json" />
+    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-opinion.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <None Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

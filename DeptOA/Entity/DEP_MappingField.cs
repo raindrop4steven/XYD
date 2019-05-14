@@ -109,6 +109,25 @@ namespace DeptOA.Entity
     }
     #endregion
 
+    #region 个人意见插入配置
+    public class PrivateOpinionValue
+    {
+        public string valueCellId { get; set; }
+        public string optionCellId { get; set; }
+    }
+
+    public class PrivateOpinion
+    {
+        public string key { get; set; }
+        public PrivateOpinionValue value { get; set; }
+    }
+
+    public class DEP_PrivateOpinions
+    {
+        public List<PrivateOpinion> opinions { get; set; }
+    }
+    #endregion
+
     #region 节点
     public class DEP_Node
     {

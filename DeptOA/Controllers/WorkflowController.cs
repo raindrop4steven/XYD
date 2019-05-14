@@ -233,6 +233,28 @@ namespace DeptOA.Controllers
         }
         #endregion
 
+        #region 获取个人意见配置
+        [HttpPost]
+        public ActionResult GetPrivateOpinionConfig(FormCollection collection)
+        {
+            /*
+             * 变量定义
+             */
+            // 工作流Service
+            var employee = (User.Identity as AppkizIdentity).Employee;
+
+            /*
+             * 参数获取
+             */
+            // 消息ID
+            var MessageID = collection["mid"];
+
+            var config = WorkflowUtil.GetPrivateOpinionConfig(MessageID);
+
+            return ResponseUtil.OK(config);
+        }
+        #endregion
+
         #region 启动子流程
         [HttpPost]
         public ActionResult StartSubflow(FormCollection collection)
