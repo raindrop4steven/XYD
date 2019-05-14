@@ -129,7 +129,7 @@ namespace DeptOA.Controllers
              * 变量定义
              */
             // 分页页数
-            int PageNumber = 0;
+            int PageNumber = 1;
             // 分页大小
             int PageSize = 10;
             // 获得今年年份
@@ -159,9 +159,9 @@ namespace DeptOA.Controllers
              * 参数校验
              */
             // 分页页数
-            if (!int.TryParse(PageNumberStr, out PageNumber) || PageNumber < 0)
+            if (!int.TryParse(PageNumberStr, out PageNumber) || PageNumber < 1)
             {
-                PageNumber = 0;
+                PageNumber = 1;
             }
             // 分页大小
             if (!int.TryParse(PageSizeStr, out PageSize) || PageSize < 0)
@@ -229,7 +229,7 @@ namespace DeptOA.Controllers
             var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.ClosedOrHairTime DESC) number, t.* from ({0}) t", unionSql);
 
             //开始位置
-            var startPage = PageSize * PageNumber;
+            var startPage = PageSize * (PageNumber-1);
             //结束位置
             var endPage = startPage + PageSize;
 
