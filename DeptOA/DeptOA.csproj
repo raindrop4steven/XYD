@@ -224,7 +224,9 @@
     <Content Include="Content\images\appicon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\sdk\sdk.js" />
+    <Content Include="Content\sdk\sdk.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\static\css\gw__css.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -271,18 +273,37 @@
     <Content Include="Widget\ToDo.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\config\notify.json" />
-    <Content Include="Content\config\opinion.json" />
-    <Content Include="Content\config\6f1f4d88-8656-417e-9e95-5dd737930b7b.json" />
-    <Content Include="Content\config\6f1f4d88-8656-417e-9e95-5dd737930b7b-app-transformer.json" />
-    <Content Include="Content\config\6f1f4d88-8656-417e-9e95-5dd737930b7b-web-transformer.json" />
-    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-app-transformer.json" />
-    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-web-transformer.json" />
-    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-opinion.json" />
-    <None Include="Properties\PublishProfiles\production.pubxml" />
-    <None Include="Views\Home\gw_html.cshtml">
+    <Content Include="Content\config\notify.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="Content\config\opinion.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\6f1f4d88-8656-417e-9e95-5dd737930b7b.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\6f1f4d88-8656-417e-9e95-5dd737930b7b-app-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\6f1f4d88-8656-417e-9e95-5dd737930b7b-web-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-app-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-web-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-opinion.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-dropdown.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\PublishProfiles\production.pubxml" />
+    <Content Include="Views\Home\gw_html.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -294,8 +315,12 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Shared\_Layout.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -331,7 +356,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
-    <Content Include="Views\Workflow\GetDeptPeople.cshtml" />
+    <Content Include="Views\Workflow\GetDeptPeople.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Plugins\loading-master\README.md" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />

@@ -23,6 +23,29 @@ namespace DeptOA.Controllers
         WorkflowMgr mgr = new WorkflowMgr();
         OrgMgr orgMgr = new OrgMgr();
 
+        #region 根据用户判断是否有部门表单配置
+        public ActionResult CheckHasDept()
+        {
+            /*
+             * 变量定义
+             */
+            // 当前用户
+            var employee = (User.Identity as AppkizIdentity).Employee;
+
+            /*
+             * 检查当前用户是否有对应的表单配置，如果没有，则表明该用户没有被配置部门权限。
+             * 如果有，则表明该用户有对应的部门权限。
+             */
+            // 根据当前用户获取对应的映射表
+            var tableList = WorkflowUtil.GetTablesByUser(employee.EmplID);
+
+            return ResponseUtil.OK(new
+            {
+                haveDeptConfig = (tableList.Count > 0)
+            });
+        }
+        #endregion
+
         #region 展示部门指派页面
         public ActionResult ShowDepts()
         {
