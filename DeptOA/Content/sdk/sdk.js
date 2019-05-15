@@ -347,6 +347,51 @@ function ShowUnitList(divId, choiceLeft, choiceTop, choiceWidth, buttonHeight, b
 }
 
 /*************************************************************************
+ * FUNC 自定义部门选择弹出
+ ************************************************************************/
+function ShowDeptList(divId, buttonHeight, buttonRight, posCellId, valueCellId) {
+    $("#tbSheet").css('position', 'relative');
+    // 添加按钮
+    var showUnitButton = document.createElement('BUTTON');
+    showUnitButton.id = "showUnitButton";
+    showUnitButton.style = 'height:' + buttonHeight + ';position:absolute;right:' + buttonRight + ';border:none;outline:none;padding:3px 12px;font-size:14px; background: url(/Apps/Workflow/images/drop.png) no-repeat right center;';
+    showUnitButton.onclick = function () {
+        $('#' + divId).empty().load('/Apps/People/Shared/GetDepartment.aspx?cr=0&rp=&cbx=true').dialog('open');
+        return;
+    };
+    $(posCellId).after(showUnitButton);
+
+    //添加选择部门的页面
+    $(document.body).append('<div id=' + divId + '></div>')
+    $('#' + divId).dialog({
+        title: '选择部门', autoOpen: false, modal: true, width: 750, height: 600, resizable: false,
+        beforeClose: function () { $('#divDept').empty(); },
+        buttons: [{
+            text: '确定', click: function () {
+                try {
+                    var depts = getSelectedDept();
+                    var resultDepts = [];
+                    for (i = 0 ; i < depts.length ; i++) {
+                        resultDepts.push(depts[i].name);
+                    }
+                    var deptstr = resultDepts.join(',');
+                    $(valueCellId).text(deptstr);
+                    SaveCellData(worksheet_id, getQueryString('nid'), valueCellId.split('-')[1], valueCellId.split('-')[2], deptstr, '');
+                    $('#' + divId).dialog('close');
+                } catch (e) {
+                    alert('出错，请刷新页面。' + '\r\n' + e.message);
+                    location.reload();
+                }
+            }
+        },
+			{
+			    text: '取消', click: function () {
+			        $('#' + divId).dialog('close');
+			    }
+			}]
+    });
+}
+/*************************************************************************
  *  FUNC 审批意见修改
  **************************************************************************/
 // 通用修改Cell
