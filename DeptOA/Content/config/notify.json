@@ -2,20 +2,26 @@
     "notify": [
         {
             "originNode": "NODE0004",
-            "receivers": [
+            "notifications": [
                 {
-                    "nid": "NODE0003",
-                    "scope": 0
-                },
-                {
-                    "nid": "NODE0004",
-                    "scope": 1
-                },
-                {
-                    "nid": "NODE0005",
-                    "scope": 2
+                    "eventType": "ChangeOpinion",
+                    "receivers": [
+                        {
+                            "nid": "NODE0003",
+                            "scope": 0
+                        },
+                        {
+                            "nid": "NODE0004",
+                            "scope": 1
+                        },
+                        {
+                            "nid": "NODE0005",
+                            "scope": 2
+                        }
+                    ]
                 }
             ]
+
         }
     ]
 }

@@ -246,7 +246,7 @@ namespace DeptOA.Controllers
         /// <param name="mid"></param>
         /// <param name="nid"></param>
         /// <returns></returns>
-        public ActionResult GeneralNotify(string mid, string nid, string uid)
+        public ActionResult GeneralNotify(string mid, string nid, string uid, string eventType)
         {
             /*
              * 变量定义
@@ -270,7 +270,18 @@ namespace DeptOA.Controllers
                 {
                     if(notify.originNode == nid)
                     {
-                        receivers = notify.receivers;
+                        foreach(var notification in notify.notifications)
+                        {
+                            if (notification.eventType == eventType)
+                            {
+                                receivers = notification.receivers;
+                                break;
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
                         break;
                     }
                     else

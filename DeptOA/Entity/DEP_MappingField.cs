@@ -75,10 +75,16 @@ namespace DeptOA.Entity
         public int scope { get; set; }
     }
 
+    public class Notification
+    {
+        public string eventType { get; set; }
+        public List<Receiver> receivers { get; set; }
+    }
+
     public class Notify
     {
         public string originNode { get; set; }
-        public List<Receiver> receivers { get; set; }
+        public List<Notification> notifications { get; set; }
     }
 
     public class DEP_Notifies
