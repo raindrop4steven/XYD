@@ -300,6 +300,7 @@
     <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-dropdown.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\config\README.md" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
