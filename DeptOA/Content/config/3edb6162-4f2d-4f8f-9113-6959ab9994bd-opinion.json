@@ -1,0 +1,18 @@
+﻿{
+    "opinions": [
+        {
+            "key": "NODE0005",
+            "value": {
+                "valueCellId": "#C-10-4",
+                "optionCellId": "#C-11-8"
+            }
+        },
+        {
+            "key": "NODE0006",
+            "value": {
+                "valueCellId": "#C-12-4",
+                "optionCellId": "#C-13-8"
+            }
+        }
+    ]
+}

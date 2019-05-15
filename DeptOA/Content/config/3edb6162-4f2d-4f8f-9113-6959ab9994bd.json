@@ -1,4 +1,4 @@
-{
+﻿{
     "table": "DEP_ReceiveFile_ZhuJian",
     "values": {
         "mappings": [
@@ -8,7 +8,7 @@
                     {
                         "key": "DocumentTitle",
                         "value": {
-                            "row": 7,
+                            "row": 6,
                             "col": 4
                         }
                     },
@@ -20,36 +20,9 @@
                         }
                     }
                 ]
-            },
-            {
-                "key": "NODE0002",
-                "value": []
             }
         ],
         "actions": [
-            {
-                "key": "NODE0002",
-                "value": [
-                    {
-                        "key": "showReadedButton",
-                        "value": {
-                            "show": false,
-                            "col": 0,
-                            "row": 0,
-                            "targetNodeKey": ""
-                        }
-                    },
-                    {
-                        "key": "needOpinion",
-                        "value": {
-                            "show": true,
-                            "col": 4,
-                            "row": 9,
-                            "targetNodeKey": ""
-                        }
-                    }
-                ]
-            },
             {
                 "key": "NODE0003",
                 "value": [
@@ -65,9 +38,9 @@
                     {
                         "key": "needOpinion",
                         "value": {
-                            "show": false,
-                            "col": 0,
-                            "row": 0,
+                            "show": true,
+                            "col": 4,
+                            "row": 8,
                             "targetNodeKey": ""
                         }
                     }
@@ -79,18 +52,18 @@
                     {
                         "key": "showReadedButton",
                         "value": {
-                            "show": true,
-                            "col": 4,
-                            "row": 11,
-                            "targetNodeKey": "NODE0003"
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
                         }
                     },
                     {
                         "key": "needOpinion",
                         "value": {
-                            "show": true,
-                            "col": 4,
-                            "row": 11,
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
                             "targetNodeKey": ""
                         }
                     }
@@ -104,8 +77,8 @@
                         "value": {
                             "show": true,
                             "col": 4,
-                            "row": 13,
-                            "targetNodeKey": "NODE0003"
+                            "row": 10,
+                            "targetNodeKey": "NODE0004"
                         }
                     },
                     {
@@ -113,14 +86,37 @@
                         "value": {
                             "show": true,
                             "col": 4,
-                            "row": 13,
+                            "row": 10,
                             "targetNodeKey": ""
                         }
                     }
                 ]
             },
             {
-                "key": "NODE0007",
+                "key": "NODE0006",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": true,
+                            "col": 4,
+                            "row": 12,
+                            "targetNodeKey": "NODE0004"
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 4,
+                            "row": 12,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0008",
                 "value": [
                     {
                         "key": "showReadedButton",
@@ -142,8 +138,8 @@
                     }
                 ]
             },
-            {
-                "key": "NODE0009",
+             {
+                "key": "NODE0010",
                 "value": [
                     {
                         "key": "showReadedButton",
@@ -176,14 +172,6 @@
                 "type": 0
             },
             {
-                "key": "DocumentNumber",
-                "value": {
-                    "row": 5,
-                    "col": 4
-                },
-                "type": 0
-            },
-            {
                 "key": "ClosedOrHairTime",
                 "value": {
                     "row": 4,
@@ -192,9 +180,33 @@
                 "type": 0
             },
             {
+                "key": "DocumentNumber",
+                "value": {
+                    "row": 5,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "ReceivedDocumentNumber",
+                "value": {
+                    "row": 5,
+                    "col": 8
+                },
+                "type": 0
+            },
+            {
+                "key": "ReceivedSequenceNumber",
+                "value": {
+                    "row": 5,
+                    "col": 9
+                },
+                "type": 0
+            },
+            {
                 "key": "DocumentTitle",
                 "value": {
-                    "row": 7,
+                    "row": 6,
                     "col": 4
                 },
                 "type": 0
@@ -202,7 +214,7 @@
             {
                 "key": "attachments",
                 "value": {
-                    "row": 8,
+                    "row": 7,
                     "col": 4
                 },
                 "type": 10
@@ -210,7 +222,7 @@
             {
                 "key": "nibanOpinion",
                 "value": {
-                    "row": 9,
+                    "row": 8,
                     "col": 4
                 },
                 "type": 0
@@ -218,7 +230,7 @@
             {
                 "key": "nibanUser",
                 "value": {
-                    "row": 10,
+                    "row": 9,
                     "col": 5
                 },
                 "type": 0
@@ -226,7 +238,7 @@
             {
                 "key": "nibanTime",
                 "value": {
-                    "row": 10,
+                    "row": 9,
                     "col": 8
                 },
                 "type": 0
@@ -234,7 +246,7 @@
             {
                 "key": "leaderOpinion",
                 "value": {
-                    "row": 11,
+                    "row": 10,
                     "col": 4
                 },
                 "type": 1
@@ -242,7 +254,7 @@
             {
                 "key": "deptOpinion",
                 "value": {
-                    "row": 13,
+                    "row": 12,
                     "col": 4
                 },
                 "type": 1
@@ -250,7 +262,7 @@
             {
                 "key": "detpAttachments",
                 "value": {
-                    "row": 15,
+                    "row": 14,
                     "col": 4
                 },
                 "type": 10
@@ -258,17 +270,17 @@
         ],
         "controls": [
             {
-                "key": "NODE0002",
+                "key": "NODE0003",
                 "value": {
                     "saveCell": [
                         {
                             "type": "name",
-                            "row": 10,
+                            "row": 9,
                             "col": 5
                         },
                         {
                             "type": "date",
-                            "row": 10,
+                            "row": 9,
                             "col": 8
                         }
                     ]

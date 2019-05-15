@@ -301,6 +301,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\config\README.md" />
+    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd.json" />
+    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-app-transformer.json" />
+    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-web-transformer.json" />
+    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-opinion.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

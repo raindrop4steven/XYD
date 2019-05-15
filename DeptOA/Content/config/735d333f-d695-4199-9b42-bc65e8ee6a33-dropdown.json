@@ -20,7 +20,17 @@
                         { "content": "省大气污染防治联席会议办公室" },
                         { "content": "无锡市环境保护委员会办公室" },
                         { "content": "无锡市太湖水污染防治办公室" }
-                    ]
+                    ],
+                    "property": {
+                        "divId": "unit",
+                        "choiceLeft": "165px",
+                        "choiceTop": "362px",
+                        "choiceWidth": "306px",
+                        "buttonHeight": "72px",
+                        "buttonRight": "483px",
+                        "posCellId": "#C-4-8",
+                        "targetValueId": "#C-4-4"
+                    }
                 }
             ]
         }
