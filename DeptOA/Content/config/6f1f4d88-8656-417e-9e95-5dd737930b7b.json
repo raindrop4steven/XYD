@@ -131,7 +131,7 @@
                         "key": "needOpinion",
                         "value": {
                             "show": true,
-                            "col": 6,
+                            "col": 4,
                             "row": 20,
                             "targetNodeKey": ""
                         }
@@ -202,6 +202,29 @@
                             "show": true,
                             "col": 6,
                             "row": 27,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0010",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
                             "targetNodeKey": ""
                         }
                     }
