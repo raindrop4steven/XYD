@@ -46,6 +46,41 @@ namespace DeptOA.Controllers
         }
         #endregion
 
+        #region 判断流程属于部门还是党办
+        [HttpPost]
+        public ActionResult IsDeptWorkflow(FormCollection collection)
+        {
+            /*
+             * 变量定义
+             */
+            // 工作流service
+            WorkflowService wkfService = new WorkflowService();
+
+            /*
+             * 参数获取
+             */
+            // 消息ID
+            var mid = collection["mid"];
+
+            /*
+             * 参数校验
+             */
+            // 消息ID
+            if (string.IsNullOrEmpty(mid))
+            {
+                return ResponseUtil.Error("消息ID不能为空");
+            }
+            else
+            {
+                bool isDeptWorkflow = wkfService.IsDeptWorkflow(mid);
+
+                return ResponseUtil.OK(new {
+                    isDeptWorkflow = isDeptWorkflow
+                });
+            }
+        }
+        #endregion
+
         #region 展示部门指派页面
         public ActionResult ShowDepts()
         {

@@ -523,6 +523,25 @@ namespace DeptOA.Common
         }
         #endregion
 
+        #region 获得所有的部门流程
+        public static List<string> GetAllDeptWorkflows()
+        {
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "workflow"));
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var workflowList = new List<string>();
+                var workflows = JsonConvert.DeserializeObject<Workflows>(sr.ReadToEnd());
+
+                foreach (Workflow item in workflows.workflows)
+                {
+                    workflowList.AddRange(item.flows);
+                }
+
+                return workflowList;
+            }
+        }
+        #endregion
+
         #region 启动子流程
         public static Node StartSubflow(Node baseNode, SubflowConfig subflowConfig, string currentEmplId, string handlerEmplId)
         {

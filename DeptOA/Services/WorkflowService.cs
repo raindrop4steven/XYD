@@ -99,5 +99,24 @@ namespace DeptOA.Services
             return dict;
         }
         #endregion
+
+        #region 判断流程是否为部门流程
+        public bool IsDeptWorkflow(string mid)
+        {
+            /*
+             * 根据mid获得对应模版ID
+             */
+            var message = mgr.GetMessage(mid);
+            if (message == null)
+            {
+                return false;
+            }
+            else
+            {
+                var deptWorkflowList = WorkflowUtil.GetAllDeptWorkflows();
+                return deptWorkflowList.Contains(message.FromTemplate);
+            }
+        }
+        #endregion
     }
 }
