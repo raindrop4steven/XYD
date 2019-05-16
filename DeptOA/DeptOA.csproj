@@ -305,6 +305,16 @@
     <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-app-transformer.json" />
     <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-web-transformer.json" />
     <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-opinion.json" />
+    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589-app-transformer.json" />
+    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589-opinion.json" />
+    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589-web-transformer.json" />
+    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589.json" />
+    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-app-transformer.json" />
+    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-dropdown.json" />
+    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-opinion.json" />
+    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-subflow.json" />
+    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-web-transformer.json" />
+    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

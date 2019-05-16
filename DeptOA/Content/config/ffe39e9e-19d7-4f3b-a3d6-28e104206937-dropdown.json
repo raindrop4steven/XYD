@@ -1,0 +1,38 @@
+﻿{
+    "dropdowns": [
+        {
+            "key": "NODE0001",
+            "value": [
+                {
+                    "options": [
+                        { "content": "中共无锡市委" },
+                        { "content": "中共无锡市委办公室" },
+                        { "content": "无锡市人民政府" },
+                        { "content": "无锡市人民政府办公室" },
+                        { "content": "中共江苏省委" },
+                        { "content": "中共江苏省委办公厅" },
+                        { "content": "江苏省人民政府" },
+                        { "content": "江苏省人民政府办公厅" },
+                        { "content": "中共中央国务院" },
+                        { "content": "江苏省物价局 江苏调查总队" },
+                        { "content": "无锡市河长制工作办公室" },
+                        { "content": "无锡市太湖蓝藻打捞工作协调小组办公室" },
+                        { "content": "省大气污染防治联席会议办公室" },
+                        { "content": "无锡市环境保护委员会办公室" },
+                        { "content": "无锡市太湖水污染防治办公室" }
+                    ],
+                    "property": {
+                        "divId": "unit",
+                        "choiceLeft": "165px",
+                        "choiceTop": "362px",
+                        "choiceWidth": "306px",
+                        "buttonHeight": "72px",
+                        "buttonRight": "483px",
+                        "posCellId": "#C-4-8",
+                        "targetValueId": "#C-4-4"
+                    }
+                }
+            ]
+        }
+    ]
+}
