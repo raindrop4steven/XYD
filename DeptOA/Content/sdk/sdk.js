@@ -294,7 +294,7 @@ function SaveCellData(sid, nid, row, col, val, ival) {
  * FUNC 自定义输入/选择控件
  ************************************************************************/
 // 下拉/输入列表
-function ShowUnitList(divId, choiceLeft, choiceTop, choiceWidth, buttonHeight, buttonRight, options, posCellId, targetValueId) {
+function ShowUnitList(divId, choiceLeft, choiceTop, choiceWidth, buttonHeight, buttonRight, options, posCellId, targetValueId, callback) {
     $("#tbSheet").css('position', 'relative');
     var div = document.createElement('DIV');
     div.id = divId;
@@ -336,6 +336,8 @@ function ShowUnitList(divId, choiceLeft, choiceTop, choiceWidth, buttonHeight, b
             $(targetValueId).text(opinion);
             SaveCellData(worksheet_id, getQueryString('nid'), targetValueId.split('-')[1], targetValueId.split('-')[2], opinion, '');
             $("#" + divId).css('display', 'none');
+            // 执行回调方法
+            callback && callback();
         }
     });
     $("#tbSheet td").delegate('.EditBox', 'focusout', function () {
