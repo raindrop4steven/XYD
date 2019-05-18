@@ -315,6 +315,7 @@
     <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-subflow.json" />
     <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-web-transformer.json" />
     <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937.json" />
+    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-opinion.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

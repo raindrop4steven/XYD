@@ -4,7 +4,7 @@
     "sid": "#valueof($.sid)",
     "attachments":  [
         {
-            "documentTitle": "#valueof($.DocumentTitle)",
+            "documentTitle": "#valueof($.Issue)",
             "data": null
         }
     ]
