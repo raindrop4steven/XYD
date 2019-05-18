@@ -171,6 +171,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Common\DbUtil.cs" />
+    <Compile Include="Common\DEP_Constants.cs" />
     <Compile Include="Common\JsonNetResult.cs" />
     <Compile Include="Common\ResponseUtil.cs" />
     <Compile Include="Common\TransformUtil.cs" />

@@ -176,6 +176,24 @@ namespace DeptOA.Controllers
                 {
                     if (node.MessageID == MessageID)
                     {
+                        // 判断是否是传阅节点
+                        if (node.NodeKey.StartsWith(DEP_Constants.Transfer_Node_Key_Header))
+                        {
+                            // node状态
+                            node.NodeStatus = 3;
+                            mgr.UpdateNode(node);
+                            // 将Messagehandle中该数据清除掉
+                            mgr.DelMessageHandle(MessageID, node.NodeKey, employee.EmplID);
+                            // 添加到WorkflowHistory
+                            var workflowHistory = new WorkflowHistory();
+                            workflowHistory.MessageID = MessageID;
+                            workflowHistory.NodeName = "(转发传阅)";
+                            workflowHistory.NodeKey = node.NodeKey;
+                            workflowHistory.HandledBy = employee.EmplID;
+                            workflowHistory.HandledTime = DateTime.Now;
+                            workflowHistory.ProcType = 3;
+                            mgr.AddWorkflowHistory(workflowHistory);
+                        }
                         NodeID = node.NodeKey;
                         break;
                     }
