@@ -397,7 +397,7 @@ function ShowDeptList(divId, buttonHeight, buttonRight, posCellId, valueCellId) 
  *  FUNC 审批意见修改
  **************************************************************************/
 // 通用修改Cell
-function initChangeOpinionCell(MessageID) {
+function initChangeOpinionCell(MessageID, callback) {
     $.ajax({
         url: "/Apps/DEP/Test/GeneralOpinion?mid=" + MessageID,
         type: 'GET',
@@ -419,7 +419,7 @@ function initChangeOpinionCell(MessageID) {
                         $(cellID).html(history);
                         // 初始化按钮动作
                         $(cellID + " > .my-opinion").on('click', function () {
-                            addModifyTextArea(this, node, type, cellID);
+                            addModifyTextArea(this, node, type, cellID, callback);
                         });
                     } else { // 多人审批意见
                         var historyCellID = cellID + ' > div.cell-history';
@@ -428,7 +428,7 @@ function initChangeOpinionCell(MessageID) {
                             $(cellID).html(history);
                             // 初始化按钮动作
                             $(cellID + "> .my-opinion").on('click', function () {
-                                addModifyTextArea(this, node, type, cellID);
+                                addModifyTextArea(this, node, type, cellID, callback);
                             });
                         } else { // 当前用户正在处理，则不显示编辑按钮
                             $(historyCellID).html(history);
@@ -445,7 +445,7 @@ function initChangeOpinionCell(MessageID) {
 }
 
 //转换编辑区域
-function addModifyTextArea(opinionObj, node, type, cellId) {
+function addModifyTextArea(opinionObj, node, type, cellId, callback) {
     if (editFlagDict[node]) {
         //首先清空该td的点击事件
         var opinionVal = $(opinionObj).find('span').text();
@@ -461,7 +461,7 @@ function addModifyTextArea(opinionObj, node, type, cellId) {
         })
         $(opinionObj).append(tarea)
         //添加提交按钮
-        $(opinionObj).append(addModifyButton(node, type, cellId))
+        $(opinionObj).append(addModifyButton(node, type, cellId, callback))
         $(opinionObj).append(addCancelButton(node, type, cellId))
         // 隐藏编辑图标
         $(cellId).find(".fa.fa-edit").first().hide();
@@ -475,7 +475,7 @@ function addModifyTextArea(opinionObj, node, type, cellId) {
 }
 
 //添加修改的保存按钮
-function addModifyButton(node, type, cellId) {
+function addModifyButton(node, type, cellId, callback) {
     //创建保存按钮
     var modify_button = document.createElement('A');
     modify_button.textContent = "保存修改"
@@ -498,6 +498,7 @@ function addModifyButton(node, type, cellId) {
             success: function (r) {
                 if (r.Succeed) {
                     top.location.href = '/Apps/Workflow/Running/Open?mid={0}'.format(MessageID);
+                    callback && callback(MessageID, node, type);
                 }
             }
         });
