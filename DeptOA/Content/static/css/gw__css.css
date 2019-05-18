@@ -50,11 +50,14 @@ body{
 	line-height: 27px;
 }
 .margin{
-	margin:0 20px 0 0;
+	margin:0 12px 0 12px;
 }
 .color{
 	color:#048ab1;
 }
 .mulF , .mulT{
 	min-height: 80px;
+}
+.mulF__UT span{
+	margin-left:20px;;
 }
