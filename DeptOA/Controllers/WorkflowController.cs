@@ -434,5 +434,63 @@ namespace DeptOA.Controllers
         }
         #endregion
 
+        #region 添加或更新预警数据
+        public ActionResult MappingAlarm()
+        {
+            try
+            {
+                /*
+                 * 变量定义
+                 */
+                // 工作流Service
+                WorkflowService wkfService = new WorkflowService();
+
+                /*
+                 * 参数获取
+                 */
+                // 消息ID
+                var mid = Request.Params["mid"];
+
+                /*
+                 * 参数校验
+                 */
+                // 消息ID
+                if (string.IsNullOrEmpty(mid))
+                {
+                    return ResponseUtil.Error("消息ID不能为空");
+                }
+
+                /*
+                 * 处理预警日期存储
+                 */
+                // 获得预警配置
+                var alarmConfig = WorkflowUtil.GetMessageAlarmConfig(mid);
+
+                if (alarmConfig == null)
+                {
+                    return ResponseUtil.Error(string.Format("流程{0}没有对应预警配置", mid));
+                }
+                else
+                {
+                    // 更新或添加预警信息
+                    var retValue = wkfService.AddOrUpdateAlarm(mid, alarmConfig);
+
+                    if (retValue)
+                    {
+                        return ResponseUtil.OK("工作流预警配置成功");
+                    }
+                    else
+                    {
+                        return ResponseUtil.Error("工作流预警配置失败");
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
     }
 }

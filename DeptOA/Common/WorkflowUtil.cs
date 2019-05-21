@@ -589,5 +589,77 @@ namespace DeptOA.Common
             return node;
         }
         #endregion
+
+        #region 获得公文对应预警配置
+        public static AlarmValue GetMessageAlarmConfig(string mid)
+        {
+            try
+            {
+                /*
+                * 根据模板ID获得对应的配置
+                */
+
+                AlarmValue alarmConfig = null;
+
+                Message message = mgr.GetMessage(mid);
+                var templateID = message.FromTemplate;
+
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "alert"));
+
+                using (StreamReader sr = new StreamReader(filePathName))
+                {
+                    var dep_alarms = JsonConvert.DeserializeObject<DEP_Alarms>(sr.ReadToEnd());
+                    foreach (var alarm in dep_alarms.alarms)
+                    {
+                        if (alarm.key == templateID)
+                        {
+                            alarmConfig = alarm.value;
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+
+                    return alarmConfig;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        #endregion
+
+        #region 获得公文预警日期
+        public static DateTime? GetMessageAlarmDate(Worksheet worksheet, AlarmValue config)
+        {
+            /*
+             * 变量定义
+             */
+            // 预警日期
+            DateTime alarmDate;
+
+            // 获取预警日期
+            var cellAlarmDate = GetCellValue(worksheet, config.row, config.col, 0);
+            if (string.IsNullOrEmpty(Convert.ToString(cellAlarmDate)))
+            {
+                return null;
+            }
+            else
+            {
+                // 解析日期格式
+                if (!DateTime.TryParse(Convert.ToString(cellAlarmDate), out alarmDate))
+                {
+                    throw new Exception(string.Format("日期{0}格式不正确", cellAlarmDate));
+                }
+                else
+                {
+                    return alarmDate;
+                }
+            }
+        }
+        #endregion
     }
 }

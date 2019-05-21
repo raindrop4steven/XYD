@@ -93,6 +93,26 @@ namespace DeptOA.Entity
     }
     #endregion
 
+    #region 公文报警配置
+    public class AlarmValue
+    {
+        public int row { get; set; }
+        public int col { get; set; }
+        public int before { get; set; }
+    }
+
+    public class Alarm
+    {
+        public string key { get; set; }
+        public AlarmValue value { get; set; }
+    }
+
+    public class DEP_Alarms
+    {
+        public List<Alarm> alarms { get; set; }
+    }
+    #endregion
+
     #region 公文意见修改配置
     public class OpinionValue
     {

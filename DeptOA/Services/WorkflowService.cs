@@ -2,6 +2,7 @@
 using Appkiz.Library.Security;
 using DeptOA.Common;
 using DeptOA.Entity;
+using DeptOA.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -115,6 +116,48 @@ namespace DeptOA.Services
             {
                 var deptWorkflowList = WorkflowUtil.GetAllDeptWorkflows();
                 return deptWorkflowList.Contains(message.FromTemplate);
+            }
+        }
+        #endregion
+
+        #region 添加/更新预警配置
+        public bool AddOrUpdateAlarm(string mid, AlarmValue config)
+        {
+            try
+            {
+                /*
+                 * 获取表单详情
+                 */
+                Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+                Worksheet worksheet = doc.Worksheet;
+
+                // 获取日期
+                DateTime? alarmDate = WorkflowUtil.GetMessageAlarmDate(worksheet, config);
+                
+                // 更新预警日期
+                using (var db = new DefaultConnection())
+                {
+                    // 检查对应的预警配置是否存在
+                    var alarmConfig = db.MessageAlarm.Where(n => n.MessageID == mid).FirstOrDefault();
+                    if (alarmConfig == null)
+                    {
+                        alarmConfig = new DEP_MessageAlarm();
+                        alarmConfig.MessageID = mid;
+                        alarmConfig.AlarmDate = alarmDate;
+                        db.MessageAlarm.Add(alarmConfig);
+                    }
+                    else
+                    {
+                        alarmConfig.AlarmDate = alarmDate;
+                    }
+
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch(Exception e)
+            {
+                throw e;
             }
         }
         #endregion

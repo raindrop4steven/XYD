@@ -44,6 +44,20 @@ namespace DeptOA.Models
     }
     #endregion
 
+    #region 公文预警
+
+    public class DEP_MessageAlarm
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 消息ID
+        public string MessageID { get; set; }
+        // 预警日期
+        public DateTime? AlarmDate { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -54,6 +68,8 @@ namespace DeptOA.Models
         public DbSet<DEP_FavoriteMessage> FavoriteMessage { get; set; }
         // 修改意见
         public DbSet<DEP_Opinion> Opinion { get; set; }
+        // 公文预警
+        public DbSet<DEP_MessageAlarm> MessageAlarm { get; set; }
     }
     #endregion
 }
