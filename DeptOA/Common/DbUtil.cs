@@ -203,6 +203,46 @@ namespace DeptOA.Common
         }
 
         /// <summary>
+        /// 待办
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static List<object> GetAlarmPendingResult(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                long number = reader.GetInt64(0);
+                string DocumentTilte = reader.GetString(1);
+                string ClosedOrHairTime = reader.GetString(2);
+                string MessageId = reader.GetString(3);
+                string WorkflowId = reader.GetString(4);
+                string InitiateEmplId = reader.GetString(5);
+                string InitiateEmplName = reader.GetString(6);
+                string MessageTitle = reader.GetString(7);
+                string MyTask = reader.GetString(8);
+                string ReceiveTime = reader.GetString(9);
+                int days = reader.GetInt32(10);
+
+                ResultList.Add(new
+                {
+                    DocumentTitle = DocumentTilte,
+                    ClosedOrHairTime = ClosedOrHairTime,
+                    MessageId = MessageId,
+                    WorkflowId = WorkflowId,
+                    InitiateEmplId = InitiateEmplId,
+                    InitiateEmplName = InitiateEmplName,
+                    MessageTitle = MessageTitle,
+                    MyTask = MyTask,
+                    ReceiveTime = ReceiveTime,
+                    days = days
+                });
+            }
+
+            return ResultList;
+        }
+
+        /// <summary>
         /// 已处理
         /// </summary>
         /// <param name="reader"></param>

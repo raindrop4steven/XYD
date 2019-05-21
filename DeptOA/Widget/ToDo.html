@@ -133,14 +133,19 @@
     }
 	var __widget_js__ = {
 		init: function (id) {
-			$.post('/Apps/DEP/WorkFlowPage/GetPendingInfo', defaultPageSearch, function (r) {
+		    $.post('/Apps/DEP/WorkFlowPage/GetAlarmPendingInfo', defaultPageSearch, function (r) {
 			    console.log('Widget->', r);
 			    var totalCount = r.Data.length;
 			    $('#' + id).find('div.widget-archives-summary').append('<span>共计' + totalCount + '</span>项部门待办事项');
 			    for (var i = 0; i < totalCount; i++) {
 			        var row = r.Data[i];
 			        var title = row.DocumentTitle || row.DocumentTitle !== '' ? row.DocumentTitle : '------';
-			        var temp = '<li class="read"><div class="handle-status-2"></div><a class="text-info" href="/Apps/Workflow/Running/Open?mid=' + row.MessageId + '" target="_blank"><b>' + title + '</b><em>当前环节：' + row.MyTask + '</em><dfn>' + row.ReceiveTime.split(' ')[0] + '</dfn></a></li>'
+			        var alarm = "";
+			        if (row.days >= 0)
+			        {
+			            alarm = '<img src="http://www.discuz.net/static/image/stamp/011.small.gif" style="display: inline;float: right;position: relative;top: -17px;right: -66px;">';
+			        }
+			        var temp = '<li class="read"><div class="handle-status-2"></div><a class="text-info" href="/Apps/Workflow/Running/Open?mid=' + row.MessageId + '" target="_blank"><b>' + title + '</b><em>当前环节：' + row.MyTask + '</em><dfn>' + row.ReceiveTime.split(' ')[0] + '</dfn>'+alarm+'</a></li>'
 			        $('#' + id).find('div.widget-archives-info-list ul').append(temp);
 			    }
 			});
