@@ -134,6 +134,8 @@ namespace DeptOA.Services
 
                 // 获取日期
                 DateTime? alarmDate = WorkflowUtil.GetMessageAlarmDate(worksheet, config);
+                // 获取提前更新日数
+                int days = WorkflowUtil.GetAlarmMessageDays();
                 
                 // 更新预警日期
                 using (var db = new DefaultConnection())
@@ -155,7 +157,9 @@ namespace DeptOA.Services
                     // 检查是否应该配置计划任务
                     if (alarmDate != null)
                     {
-                        TimeSpan span = alarmDate.Value.Subtract(DateTime.Now);
+                        // 提醒日期
+                        DateTime notifyDateTime = alarmDate.Value.AddDays(-days);
+                        TimeSpan span = notifyDateTime.Subtract(DateTime.Now);
                         var jobId = BackgroundJob.Schedule(() => WorkflowUtil.SendMessageAlarmNotification(mid), span);
                         if (string.IsNullOrEmpty(alarmConfig.JobID))
                         {
