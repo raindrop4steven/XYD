@@ -848,5 +848,14 @@ namespace DeptOA.Controllers
             return ResponseUtil.OK(days);
         }
         #endregion
+
+        #region 测试移动端手机推送
+        public ActionResult TestNotification(string mid)
+        {
+            WorkflowUtil.SendMessageAlarmNotification(mid);
+
+            return ResponseUtil.OK(true);
+        }
+        #endregion
     }
 }

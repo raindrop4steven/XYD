@@ -1,7 +1,9 @@
 ﻿using Appkiz.Apps.Workflow.Library;
 using Appkiz.Library.Common;
+using Appkiz.Library.Notification;
 using Appkiz.Library.Security;
 using DeptOA.Entity;
+using Jiguang.JPush;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,11 @@ namespace DeptOA.Common
         /*
          * 变量定义
          */
+        // 通知管理
+        private static NotificationMgr notifyMgr = new NotificationMgr();
+        // 用户管理
         private static OrgMgr orgMgr = new OrgMgr();
+        // 工作流管理
         private static WorkflowMgr mgr = new WorkflowMgr();
 
         #region 获得配置
@@ -543,11 +549,15 @@ namespace DeptOA.Common
         #endregion
 
         #region 启动子流程
-        public static Node StartSubflow(Node baseNode, SubflowConfig subflowConfig, string currentEmplId, string handlerEmplId)
+        public static Node StartSubflow(Node baseNode, SubflowConfig subflowConfig, Employee employee, string handlerEmplId)
         {
+            // 发起用户的ID
+            var currentEmplId = employee.EmplID;
+
             Message theMessage = mgr.StartWorkflow(subflowConfig.SubflowId, currentEmplId, (HttpContext)null);
             theMessage.DataSourceID = baseNode.Message.ToString() + ":" + baseNode.NodeKey;
             theMessage.MessageStatus = 1;
+            theMessage.MessageIssuedDept = employee.DeptID;
             mgr.UpdateMessage(theMessage);
             SheetMgr sheetMgr = new SheetMgr();
             foreach (SubflowMapping subflowMapping in subflowConfig.MappingOut)
@@ -680,6 +690,107 @@ namespace DeptOA.Common
                     return alarmDate;
                 }
             }
+        }
+        #endregion
+
+        #region 极光推送
+        /// <summary>
+        /// 极光推送
+        /// </summary>
+        /// <param name="targets">推送对象数组</param>
+        /// <param name="mid">推送数据
+        /// {"message":xxx}
+        /// </param>
+        public static void SendJPushNotification(List<string> targets, Dictionary<string, object> data)
+        {
+            /*
+             * 推送数据解析
+             */
+            // 消息标题
+            var Title = data["title"];
+            // 消息类型
+            var Type = data["type"];
+            // 消息内容
+            var content = data["content"];
+
+            // 极光推送AppKey与MasterSecrect获取
+            string JPushAppKey = System.Configuration.ConfigurationManager.AppSettings["JPushAppKey"];
+            string JPushSecrect = System.Configuration.ConfigurationManager.AppSettings["JPushSecrect"];
+            JPushClient PushClient = new JPushClient(JPushAppKey, JPushSecrect);
+            Jiguang.JPush.Model.PushPayload PayLoad = new Jiguang.JPush.Model.PushPayload();
+            PayLoad.Platform = "all";
+            PayLoad.Audience = new Dictionary<string, object>()
+            {
+                {"alias", targets }
+            };
+            PayLoad.Notification = new Jiguang.JPush.Model.Notification()
+            {
+                Alert = data["title"].ToString(),
+                Android = new Jiguang.JPush.Model.Android()
+                {
+                    Extras = new Dictionary<string, object>()
+                    {
+                        {"type", Type },
+                        {"content", content }
+                    }
+                },
+                IOS = new Jiguang.JPush.Model.IOS
+                {
+                    Badge = "+1",
+                    Extras = new Dictionary<string, object>()
+                    {
+                        {"type", Type },
+                        {"content", content }
+                    }
+                }
+            };
+            PayLoad.Options = new Jiguang.JPush.Model.Options
+            {
+                IsApnsProduction = false // 设置 iOS 推送生产环境。不设置默认为开发环境。
+            };
+            PushClient.SendPushAsync(PayLoad.ToString());
+        }
+        #endregion
+
+        #region 推送流程预警通知
+        public static void SendMessageAlarmNotification(string mid)
+        {
+            /*
+             * 变量定义
+             */
+            // 推送数据
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            
+            /*
+             * 根据消息ID获得对应的标题
+             */
+            Message message = mgr.GetMessage(mid);
+            string filter1 = "MessageID=@mid and HandleStatus !=0";
+            Dictionary<string, object> paramList1 = new Dictionary<string, object>();
+            paramList1.Add("@mid", (object)mid);
+
+            List<string> targets = mgr.FindMessageHandle(filter1, paramList1, string.Empty).Select(n => n.UserID).ToList();
+
+            // 系统内通知
+            foreach (var emplID in targets)
+            {
+                var data = JsonConvert.SerializeObject(new
+                {
+                    MessageID = mid,
+                    NewWin = true,
+                    Url = "/Apps/Workflow/Running/Open?mid=" + mid
+                });
+                notifyMgr.SendNotification("DEP", emplID.ToString(), string.Format("您有新的流程预警提醒 \"{0}\"", message.MessageTitle), data);
+            }
+            
+            // 极光通知
+            dict["type"] = DEP_Constants.JPush_Workflow_Type;
+            dict["title"] = string.Format("您有新的流程预警提醒 \"{0}\"", message.MessageTitle);
+            dict["content"] = new Dictionary<string, object>()
+                {
+                    {"mid",  mid}
+                };
+            SendJPushNotification(targets, dict);
         }
         #endregion
     }

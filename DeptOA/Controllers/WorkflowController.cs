@@ -397,7 +397,7 @@ namespace DeptOA.Controllers
                 {
                     // 获得当前节点信息
                     var node = mgr.GetNode(MessageID, NodeID);
-                    var retNode = WorkflowUtil.StartSubflow(node, subflowConfig, employee.EmplID, HandlerEmplId);
+                    var retNode = WorkflowUtil.StartSubflow(node, subflowConfig, employee, HandlerEmplId);
 
                     return ResponseUtil.OK(new
                     {

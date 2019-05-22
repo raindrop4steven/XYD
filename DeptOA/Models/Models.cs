@@ -53,6 +53,8 @@ namespace DeptOA.Models
         public int ID { get; set; }
         // 消息ID
         public string MessageID { get; set; }
+        // Hangfire ID
+        public string JobID { get; set; }
         // 预警日期
         public DateTime? AlarmDate { get; set; }
     }
