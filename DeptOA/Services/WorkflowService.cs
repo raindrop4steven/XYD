@@ -3,6 +3,7 @@ using Appkiz.Library.Security;
 using DeptOA.Common;
 using DeptOA.Entity;
 using DeptOA.Models;
+using Hangfire;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -149,6 +150,29 @@ namespace DeptOA.Services
                     else
                     {
                         alarmConfig.AlarmDate = alarmDate;
+                    }
+
+                    // 检查是否应该配置计划任务
+                    if (alarmDate != null)
+                    {
+                        TimeSpan span = alarmDate.Value.Subtract(DateTime.Now);
+                        var jobId = BackgroundJob.Schedule(() => WorkflowUtil.SendMessageAlarmNotification(mid), span);
+                        if (string.IsNullOrEmpty(alarmConfig.JobID))
+                        {
+                            // 该提醒未设置计划任务
+                            alarmConfig.JobID = jobId;
+                        }
+                        else
+                        {
+                            // 已经计划任务，先删除，再设置任务ID
+                            BackgroundJob.Delete(alarmConfig.JobID);
+                            alarmConfig.JobID = jobId;
+                        }
+                    }
+                    else
+                    {
+                        BackgroundJob.Delete(alarmConfig.JobID);
+                        alarmConfig.JobID = string.Empty;
                     }
 
                     db.SaveChanges();

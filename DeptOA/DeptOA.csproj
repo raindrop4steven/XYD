@@ -228,6 +228,10 @@
     <Compile Include="Migrations\201905210647169_update message alarm model.Designer.cs">
       <DependentUpon>201905210647169_update message alarm model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905220936091_add jobid.cs" />
+    <Compile Include="Migrations\201905220936091_add jobid.Designer.cs">
+      <DependentUpon>201905220936091_add jobid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -430,6 +434,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905210647169_update message alarm model.resx">
       <DependentUpon>201905210647169_update message alarm model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905220936091_add jobid.resx">
+      <DependentUpon>201905220936091_add jobid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
