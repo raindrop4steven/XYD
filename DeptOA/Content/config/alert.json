@@ -1,12 +1,15 @@
 ﻿{
-    "alarms": [
-        {
-            "key": "735d333f-d695-4199-9b42-bc65e8ee6a33",
-            "value": {
-                "row": 6,
-                "col": 4,
-                "before": 2
+    "alarms": {
+        "days": 3,
+        "configs": [
+            {
+                "key": "735d333f-d695-4199-9b42-bc65e8ee6a33",
+                "value": {
+                    "row": 6,
+                    "col": 4,
+                    "before": 2
+                }
             }
-        }
-    ]
+        ]
+    }
 }

@@ -101,7 +101,7 @@ namespace DeptOA.Entity
         public int before { get; set; }
     }
 
-    public class Alarm
+    public class AlarmConfig
     {
         public string key { get; set; }
         public AlarmValue value { get; set; }
@@ -109,7 +109,13 @@ namespace DeptOA.Entity
 
     public class DEP_Alarms
     {
-        public List<Alarm> alarms { get; set; }
+        public int days { get; set; }
+        public List<AlarmConfig> configs { get; set; }
+    }
+
+    public class DEP_MessageAlarmConfig
+    {
+        public DEP_Alarms alarms { get; set; }
     }
     #endregion
 

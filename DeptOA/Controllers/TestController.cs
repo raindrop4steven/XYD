@@ -1,4 +1,5 @@
 ﻿using Appkiz.Apps.Workflow.Library;
+using Appkiz.Library.Common;
 using Appkiz.Library.Security;
 using Appkiz.Library.Security.Authentication;
 using DeptOA.Common;
@@ -823,6 +824,28 @@ namespace DeptOA.Controllers
                     Message = "添加意见失败"
                 });
             }
+        }
+        #endregion
+
+        #region 测试Log
+        public ActionResult TestLog()
+        {
+            LogService.WriteLog("DEP", "Message:" + "debug", "TestLog_Debug", LogService.LogLevel.Debug);
+            LogService.WriteLog("DEP", "Message:" + "info", "TestLog_Debug", LogService.LogLevel.Info);
+            LogService.WriteLog("DEP", "Message:" + "error", "TestLog_Debug", LogService.LogLevel.Error);
+            LogService.WriteLog("DEP", "Message:" + "warning", "TestLog_Debug", LogService.LogLevel.Warning);
+
+            return ResponseUtil.OK(true);
+        }
+        #endregion
+
+        #region 测试报警配置
+        public ActionResult TestAlarmConfig(string mid)
+        {
+            var config = WorkflowUtil.GetMessageAlarmConfig(mid);
+            int days = WorkflowUtil.GetAlarmMessageDays();
+
+            return ResponseUtil.OK(days);
         }
         #endregion
     }

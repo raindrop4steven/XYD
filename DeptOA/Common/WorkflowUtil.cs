@@ -596,8 +596,8 @@ namespace DeptOA.Common
             try
             {
                 /*
-                * 根据模板ID获得对应的配置
-                */
+                 * 根据模板ID获得对应的配置
+                 */
 
                 AlarmValue alarmConfig = null;
 
@@ -608,12 +608,12 @@ namespace DeptOA.Common
 
                 using (StreamReader sr = new StreamReader(filePathName))
                 {
-                    var dep_alarms = JsonConvert.DeserializeObject<DEP_Alarms>(sr.ReadToEnd());
-                    foreach (var alarm in dep_alarms.alarms)
+                    var dep_alarms = JsonConvert.DeserializeObject<DEP_MessageAlarmConfig>(sr.ReadToEnd());
+                    foreach (var config in dep_alarms.alarms.configs)
                     {
-                        if (alarm.key == templateID)
+                        if (config.key == templateID)
                         {
-                            alarmConfig = alarm.value;
+                            alarmConfig = config.value;
                             break;
                         }
                         else
@@ -626,6 +626,27 @@ namespace DeptOA.Common
                 }
             }
             catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        #endregion
+
+        #region 获取预警提前天数
+        public static int GetAlarmMessageDays()
+        {
+            try
+            {
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "alert"));
+
+                using (StreamReader sr = new StreamReader(filePathName))
+                {
+                    var dep_alarms = JsonConvert.DeserializeObject<DEP_MessageAlarmConfig>(sr.ReadToEnd());
+
+                    return dep_alarms.alarms.days;
+                }
+            }
+            catch(Exception e)
             {
                 throw e;
             }

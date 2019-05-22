@@ -181,6 +181,11 @@ namespace DeptOA.Controllers
             }
 
             /*
+             * 获取全局预警提醒天数
+             */
+            int days = WorkflowUtil.GetAlarmMessageDays();
+
+            /*
              * 构造SQL语句
              */
             // 根据当前用户获取对应的映射表
@@ -289,19 +294,19 @@ namespace DeptOA.Controllers
 		                                                a.*,
 		                                                CASE
 			                                                WHEN DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) IS NULL THEN -1
-			                                                WHEN DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) > 2 THEN -1
+			                                                WHEN DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) > {0} THEN -1
 			                                                WHEN DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) < 0 THEN -1
 			                                                ELSE DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) 
 		                                                END AS days
 	                                                FROM
-		                                                ({0}) a
+		                                                ({1}) a
 		                                                INNER JOIN DEP_MessageAlarm m ON a.MessageId = m.MessageID 
 	                                                ) z 
                                                 WHERE
-	                                                z.number >= {1} 
-	                                                AND z.number < {2}
+	                                                z.number >= {2} 
+	                                                AND z.number < {3}
                                                 ORDER BY
-                                                    z.days DESC", finalSql, startPage, endPage);
+                                                    z.days DESC", days, finalSql, startPage, endPage);
 
                 var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetAlarmPendingResult);
 
