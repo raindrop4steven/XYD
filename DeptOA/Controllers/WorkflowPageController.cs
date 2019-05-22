@@ -276,12 +276,10 @@ namespace DeptOA.Controllers
                 var endPage = startPage + query.PageSize;
 
                 // 总数
-                // countFinalSql 解决：消息框会提示：除非另外还指定了 TOP 或 FOR XML，否则，ORDER BY 子句在视图、内联函数、派生表、子查询和公用表表达式中无效。
                 int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
                 //总页数
                 var totalPages = totalRecouds % query.PageSize == 0 ? totalRecouds / query.PageSize : totalRecouds / query.PageSize + 1;
 
-                //var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", finalSql, startPage, endPage);
                 var sqlPage = string.Format(@"SELECT
 	                                                z.* 
                                                 FROM
@@ -289,14 +287,21 @@ namespace DeptOA.Controllers
 	                                                SELECT
 		                                                ROW_NUMBER () OVER ( ORDER BY DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) DESC ) number,
 		                                                a.*,
-		                                                case when DATEDIFF( DAY, ReceiveTime, m.AlarmDate) is null then -1 else  DATEDIFF(DAY, ReceiveTime, m.AlarmDate) end as days
+		                                                CASE
+			                                                WHEN DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) IS NULL THEN -1
+			                                                WHEN DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) > 2 THEN -1
+			                                                WHEN DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) < 0 THEN -1
+			                                                ELSE DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) 
+		                                                END AS days
 	                                                FROM
 		                                                ({0}) a
 		                                                INNER JOIN DEP_MessageAlarm m ON a.MessageId = m.MessageID 
 	                                                ) z 
                                                 WHERE
 	                                                z.number >= {1} 
-	                                                AND z.number < {2}", finalSql, startPage, endPage);
+	                                                AND z.number < {2}
+                                                ORDER BY
+                                                    z.days DESC", finalSql, startPage, endPage);
 
                 var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetAlarmPendingResult);
 
