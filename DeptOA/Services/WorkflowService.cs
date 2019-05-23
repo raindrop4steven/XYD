@@ -175,8 +175,13 @@ namespace DeptOA.Services
                     }
                     else
                     {
-                        BackgroundJob.Delete(alarmConfig.JobID);
-                        alarmConfig.JobID = string.Empty;
+                        // 如果之前已经有任务，则删除
+                        if (!string.IsNullOrEmpty(alarmConfig.JobID))
+                        {
+                            BackgroundJob.Delete(alarmConfig.JobID);
+                        }
+                       
+                        alarmConfig.JobID = null;
                     }
 
                     db.SaveChanges();
