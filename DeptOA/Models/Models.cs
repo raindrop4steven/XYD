@@ -60,6 +60,23 @@ namespace DeptOA.Models
     }
     #endregion
 
+    #region 父流程与子流程关系
+    public class DEP_SubflowRelation
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 父流程ID
+        public string OriginMessageID { get; set; }
+        // 子流程ID
+        public string SubflowMessageID { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -72,6 +89,8 @@ namespace DeptOA.Models
         public DbSet<DEP_Opinion> Opinion { get; set; }
         // 公文预警
         public DbSet<DEP_MessageAlarm> MessageAlarm { get; set; }
+        // 父流程与子流程关系
+        public DbSet<DEP_SubflowRelation> SubflowRelation { get; set; }
     }
     #endregion
 }

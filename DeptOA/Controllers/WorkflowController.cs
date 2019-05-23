@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using DeptOA.Entity;
 using DeptOA.Common;
+using DeptOA.Models;
 using DeptOA.Services;
 using Appkiz.Apps.Workflow.Library;
 using Appkiz.Library.Security;
@@ -385,27 +386,56 @@ namespace DeptOA.Controllers
             else
             {
                 /*
-                 * 启动新流程
+                 * 判断当前流程是否已经启动了子流程，如果有则直接跳转，否则启动新流程
                  */
-                var subflow = subflowList.ElementAtOrDefault(0);
-                SubflowConfig subflowConfig = WorkflowUtil.GetSubflowConfig(subflow, message.FromTemplate);
-                if (subflowConfig == null)
+                using (var db = new DefaultConnection())
                 {
-                    return ResponseUtil.Error("当前用户没有子流程配置信息");
-                }
-                else
-                {
-                    // 获得当前节点信息
-                    var node = mgr.GetNode(MessageID, NodeID);
-                    var retNode = WorkflowUtil.StartSubflow(node, subflowConfig, employee, HandlerEmplId);
-
-                    return ResponseUtil.OK(new
+                    var subflowRelation = db.SubflowRelation.Where(n => n.OriginMessageID == MessageID).FirstOrDefault();
+                    if (subflowRelation == null)
                     {
-                        MessageID = retNode.MessageID,
-                        NodeKey = retNode.NodeKey,
-                        NewWin = true,
-                        Url = ("/Apps/Workflow/Running/Open?mid=" + retNode.MessageID + "&nid=" + retNode.NodeKey)
-                    });
+                        // 直接创建子流程
+                        var subflow = subflowList.ElementAtOrDefault(0);
+                        SubflowConfig subflowConfig = WorkflowUtil.GetSubflowConfig(subflow, message.FromTemplate);
+                        if (subflowConfig == null)
+                        {
+                            return ResponseUtil.Error("当前用户没有子流程配置信息");
+                        }
+                        else
+                        {
+                            // 获得当前节点信息
+                            var node = mgr.GetNode(MessageID, NodeID);
+                            var retNode = WorkflowUtil.StartSubflow(node, subflowConfig, employee, HandlerEmplId);
+
+                            // 将流程对应关系存放到数据库
+                            subflowRelation = new DEP_SubflowRelation();
+                            subflowRelation.OriginMessageID = MessageID;
+                            subflowRelation.SubflowMessageID = retNode.MessageID;
+                            subflowRelation.CreateTime = DateTime.Now;
+                            subflowRelation.UpdateTime = DateTime.Now;
+
+                            db.SubflowRelation.Add(subflowRelation);
+                            db.SaveChanges();
+
+                            return ResponseUtil.OK(new
+                            {
+                                MessageID = retNode.MessageID,
+                                NodeKey = retNode.NodeKey,
+                                NewWin = true,
+                                Url = ("/Apps/Workflow/Running/Open?mid=" + retNode.MessageID + "&nid=" + retNode.NodeKey)
+                            });
+                        }
+                    }
+                    else
+                    {
+                        // 返回已经创建的子流程
+                        return ResponseUtil.OK(new
+                        {
+                            MessageID = subflowRelation.SubflowMessageID,
+                            NodeKey = string.Empty,
+                            NewWin = true,
+                            Url = ("/Apps/Workflow/Running/Open?mid=" + subflowRelation.SubflowMessageID)
+                        });
+                    }
                 }
             }
         }

@@ -232,6 +232,10 @@
     <Compile Include="Migrations\201905220936091_add jobid.Designer.cs">
       <DependentUpon>201905220936091_add jobid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905231423342_add subflow relation.cs" />
+    <Compile Include="Migrations\201905231423342_add subflow relation.Designer.cs">
+      <DependentUpon>201905231423342_add subflow relation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -437,6 +441,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905220936091_add jobid.resx">
       <DependentUpon>201905220936091_add jobid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905231423342_add subflow relation.resx">
+      <DependentUpon>201905231423342_add subflow relation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
