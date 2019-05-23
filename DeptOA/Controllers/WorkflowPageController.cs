@@ -300,7 +300,7 @@ namespace DeptOA.Controllers
 		                                                END AS days
 	                                                FROM
 		                                                ({1}) a
-		                                                INNER JOIN DEP_MessageAlarm m ON a.MessageId = m.MessageID 
+		                                                LEFT JOIN DEP_MessageAlarm m ON a.MessageId = m.MessageID 
 	                                                ) z 
                                                 WHERE
 	                                                z.number >= {2} 
