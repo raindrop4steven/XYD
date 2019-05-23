@@ -30,6 +30,10 @@
             "value": "#valueof($.AlarmDate)"
         },
         {
+            "key": "标题",
+            "value": "#valueof($.DocumentTitle)"
+        },
+        {
             "key": "反馈主要问题",
             "value": "#valueof($.Issue)"
         }
