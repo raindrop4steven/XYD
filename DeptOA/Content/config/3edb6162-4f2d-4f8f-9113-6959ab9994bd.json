@@ -138,7 +138,7 @@
                     }
                 ]
             },
-             {
+            {
                 "key": "NODE0010",
                 "value": [
                     {
@@ -160,6 +160,50 @@
                         }
                     }
                 ]
+            }
+        ],
+        "inputTypes": [
+            {
+                "key": "NODE0003",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
+            },
+            {
+                "key": "NODE0004",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
+            },
+            {
+                "key": "NODE0005",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
+            },
+            {
+                "key": "NODE0006",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
+            },
+            {
+                "key": "NODE0008",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
+            },
+            {
+                "key": "NODE0010",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
             }
         ],
         "details": [

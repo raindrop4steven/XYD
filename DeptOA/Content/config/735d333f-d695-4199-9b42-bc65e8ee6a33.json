@@ -169,8 +169,45 @@
         "inputTypes": [
             {
                 "key": "NODE0002",
-                "type": "text",
-                "extra": null
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
+            },
+            {
+                "key": "NODE0003",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
+            },
+            {
+                "key": "NODE0004",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
+            },
+            {
+                "key": "NODE0005",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
+            },
+            {
+                "key": "NODE0007",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
+            },
+            {
+                "key": "NODE0009",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
             }
         ],
         "details": [

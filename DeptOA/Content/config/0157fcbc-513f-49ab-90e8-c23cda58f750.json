@@ -1,4 +1,4 @@
-{
+﻿{
     "table": "DEP_ReceiveFile_ZhuJian",
     "values": {
         "mappings": [
@@ -114,6 +114,46 @@
                         }
                     }
                 ]
+            }
+        ],
+        "inputTypes": [
+            {
+                "key": "NODE0002",
+                "value": {
+                    "type": "select",
+                    "extra": {
+                        "options": [
+                            "同意",
+                            "不同意"
+                        ]
+                    }
+                }
+            },
+            {
+                "key": "NODE0003",
+                "value": {
+                    "type": "select",
+                    "extra": {
+                        "options": [
+                            "同意",
+                            "不同意"
+                        ]
+                    }
+                }
+            },
+            {
+                "key": "NODE0004",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
+            },
+            {
+                "key": "NODE0005",
+                "value": {
+                    "type": "text",
+                    "extra": null
+                }
             }
         ],
         "details": [

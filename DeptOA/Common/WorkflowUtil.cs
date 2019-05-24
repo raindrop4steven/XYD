@@ -244,7 +244,7 @@ namespace DeptOA.Common
                         }
                     }
 
-                    return resultInputType;
+                    return resultInputType == null ? null : resultInputType.value;
                 }
             }
             catch (Exception e)

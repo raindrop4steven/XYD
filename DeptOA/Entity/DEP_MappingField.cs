@@ -264,6 +264,12 @@ namespace DeptOA.Entity
     {
         // 节点
         public string key { get; set; }
+        // 控件配置
+        public InputType value { get; set; }
+    }
+
+    public class InputType
+    {
         // 控件类型
         public string type { get; set; }
         // 其他
