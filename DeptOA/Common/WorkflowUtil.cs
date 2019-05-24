@@ -210,6 +210,51 @@ namespace DeptOA.Common
         }
         #endregion
 
+        #region 获得流程节点对应的输入控件类型
+        public static object GetNodeInputTypes(string mid, string nid)
+        {
+            try
+            {
+                /*
+                 * 根据模板ID获得对应的配置
+                 */
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+
+                DEP_InputType resultInputType = null;
+
+                Message message = mgr.GetMessage(mid);
+                var templateID = message.FromTemplate;
+
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
+
+                using (StreamReader sr = new StreamReader(filePathName))
+                {
+                    var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
+
+                    foreach (var inputType in config.values.inputTypes)
+                    {
+                        if (inputType.key == nid)
+                        {
+                            resultInputType = inputType;
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+
+                    return resultInputType;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        #endregion
+
         #region 获得流程转换配置
         public static string GetAppTransformer(string mid)
         {

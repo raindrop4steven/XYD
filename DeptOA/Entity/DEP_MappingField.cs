@@ -179,6 +179,8 @@ namespace DeptOA.Entity
         public List<DEP_Detail> details { get; set; }
         // 属性
         public List<DEP_Control> controls { get; set; }
+        // 控件类型
+        public List<DEP_InputType> inputTypes { get; set; }
     }
     #endregion
 
@@ -257,5 +259,16 @@ namespace DeptOA.Entity
     }
     #endregion
 
+    #region 输入控件类型
+    public class DEP_InputType
+    {
+        // 节点
+        public string key { get; set; }
+        // 控件类型
+        public string type { get; set; }
+        // 其他
+        public object extra { get; set; }
+    }
+    #endregion
 
 }

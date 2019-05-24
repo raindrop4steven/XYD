@@ -211,6 +211,7 @@ namespace DeptOA.Controllers
                 List<DEP_Detail> details = WorkflowUtil.GetNodeDetail(MessageID);
                 var action = WorkflowUtil.GetNodeAction(MessageID, NodeID);
                 var control = WorkflowUtil.GetNodeControl(MessageID, NodeID);
+                var inputTypes = WorkflowUtil.GetNodeInputTypes(MessageID, NodeID);
                 var transformer = WorkflowUtil.GetAppTransformer(MessageID);
 
                 // 判断是否存在对应配置
@@ -231,7 +232,8 @@ namespace DeptOA.Controllers
                     {
                         detail = result,
                         control = action,
-                        action = control
+                        action = control,
+                        inputTypes = inputTypes
                     });
                 }
             }
