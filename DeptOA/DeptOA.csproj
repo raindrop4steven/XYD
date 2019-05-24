@@ -63,11 +63,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Hangfire.Core, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hangfire.Core.1.7.0\lib\net46\Hangfire.Core.dll</HintPath>
+      <HintPath>..\packages\Hangfire.Core.1.7.0-beta1\lib\net45\Hangfire.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Hangfire.SqlServer, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hangfire.SqlServer.1.7.0\lib\net45\Hangfire.SqlServer.dll</HintPath>
+      <HintPath>..\packages\Hangfire.SqlServer.1.7.0-beta1\lib\net45\Hangfire.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Jiguang.JPush, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -361,6 +361,7 @@
     <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-opinion.json" />
     <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-opinion.json" />
     <Content Include="Content\config\alert.json" />
+    <Content Include="Content\images\alert.svg" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

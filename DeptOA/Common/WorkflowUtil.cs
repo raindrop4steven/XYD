@@ -772,16 +772,16 @@ namespace DeptOA.Common
             List<string> targets = mgr.FindMessageHandle(filter1, paramList1, string.Empty).Select(n => n.UserID).ToList();
 
             // 系统内通知
-            foreach (var emplID in targets)
-            {
-                var data = JsonConvert.SerializeObject(new
-                {
-                    MessageID = mid,
-                    NewWin = true,
-                    Url = "/Apps/Workflow/Running/Open?mid=" + mid
-                });
-                notifyMgr.SendNotification("DEP", emplID.ToString(), string.Format("您有新的流程预警提醒 \"{0}\"", message.MessageTitle), data);
-            }
+            //foreach (var emplID in targets)
+            //{
+            //    var data = JsonConvert.SerializeObject(new
+            //    {
+            //        MessageID = mid,
+            //        NewWin = true,
+            //        Url = "/Apps/Workflow/Running/Open?mid=" + mid
+            //    });
+            //    notifyMgr.SendNotification("DEP", emplID.ToString(), string.Format("您有新的流程预警提醒 \"{0}\"", message.MessageTitle), data);
+            //}
             
             // 极光通知
             dict["type"] = DEP_Constants.JPush_Workflow_Type;
