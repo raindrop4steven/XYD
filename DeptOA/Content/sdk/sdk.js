@@ -107,6 +107,40 @@ function addSubWorkflowButton() {
     })
 }
 
+// 显示原流程
+function ShowOriginWorkflow(mid) {
+    // 判断当前用户是否具有发起子流程权限
+    $.ajax({
+        url: '/Apps/DEP/Workflow/GetOriginWorkflow',
+        type: 'POST',
+        data: {
+            'mid': mid
+        },
+        success: function (data) {
+            if (data.Data.workflowId !== null) {
+                var title_bar = $('#titlebar > ul', top.document);
+                // 创建显示原流程按钮
+                var originWorkflow_li = document.createElement('LI');
+                var originWorkflowButton = document.createElement('BUTTON');
+                originWorkflowButton.setAttribute("id", "btn-custom-origin-workflow");
+                originWorkflowButton.onclick = function () {
+                    window.open(data.Data.workflowId, '_blank');
+                };
+                var i = document.createElement('I');
+                i.className = 'fa fa-eye';
+                i.textContent = '  查看区级流程';
+                originWorkflowButton.appendChild(i);
+                originWorkflow_li.appendChild(originWorkflowButton);
+
+                title_bar.prepend(originWorkflow_li);
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+}
+
 /*********************************************************************
  * FUNC 工具类
  *********************************************************************/

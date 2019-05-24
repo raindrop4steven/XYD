@@ -522,5 +522,53 @@ namespace DeptOA.Controllers
         }
         #endregion
 
+        #region 获取部门流程对应的父流程
+        [HttpPost]
+        public ActionResult GetOriginWorkflow(FormCollection collection)
+        {
+            /*
+             * 变量定义
+             */
+            // 原地址
+            object OriginWorkflowId;
+
+            /*
+             * 参数获取
+             */
+            // 消息ID
+            var mid = collection["mid"];
+
+            /*
+             * 参数校验
+             */
+            // 消息ID
+            if (string.IsNullOrEmpty(mid))
+            {
+                return ResponseUtil.Error("消息ID不能为空");
+            }
+
+            /*
+             * 获取对应的原流程ID
+             */
+            using (var db = new DefaultConnection())
+            {
+                var relation = db.SubflowRelation.Where(n => n.SubflowMessageID == mid).FirstOrDefault();
+                if (relation != null)
+                {
+                    OriginWorkflowId = relation.OriginMessageID;
+                }
+                else
+                {
+                    OriginWorkflowId = null;
+                }
+
+                return ResponseUtil.OK(new
+                {
+                    workflowId = "/Apps/Workflow/Running/Open?mid=" + OriginWorkflowId
+                });
+            }
+        }
+        #endregion
+
     }
 }
