@@ -177,8 +177,8 @@ namespace DeptOA.Controllers
                 {
                     if (node.MessageID == MessageID)
                     {
-                        // 判断是否是传阅节点
-                        if (node.NodeKey.StartsWith(DEP_Constants.Transfer_Node_Key_Header))
+                        // 判断是否是转发传阅节点
+                        if (node.NodeKey.StartsWith(DEP_Constants.Transfer_Node_Key_Header) || node.NodeType == 5)
                         {
                             // node状态
                             node.NodeStatus = 3;
@@ -188,7 +188,7 @@ namespace DeptOA.Controllers
                             // 添加到WorkflowHistory
                             var workflowHistory = new WorkflowHistory();
                             workflowHistory.MessageID = MessageID;
-                            workflowHistory.NodeName = "(转发传阅)";
+                            workflowHistory.NodeName = node.NodeType == 5 ? "(传阅)" : "(转发传阅)";
                             workflowHistory.NodeKey = node.NodeKey;
                             workflowHistory.HandledBy = employee.EmplID;
                             workflowHistory.HandledTime = DateTime.Now;
@@ -566,7 +566,7 @@ namespace DeptOA.Controllers
 
                 return ResponseUtil.OK(new
                 {
-                    workflowId = "/Apps/Workflow/Running/Open?mid=" + OriginWorkflowId
+                    workflowId = OriginWorkflowId == null ? null : "/Apps/Workflow/Running/Open?mid=" + OriginWorkflowId
                 });
             }
         }
