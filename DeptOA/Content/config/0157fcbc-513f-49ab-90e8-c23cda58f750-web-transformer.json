@@ -44,6 +44,17 @@
                     "time": "#valueof($.leaderDate)"
                 }
             ]
+        },
+        {
+            "multiple": false,
+            "key": "主要领导审批",
+            "data": [
+                {
+                    "user": "#valueof($.mainLeaderUser)",
+                    "text": "#valueof($.mainLeaderOpinion)",
+                    "time": "#valueof($.mainLeaderDate)"
+                }
+            ]
         }
     ]
 }

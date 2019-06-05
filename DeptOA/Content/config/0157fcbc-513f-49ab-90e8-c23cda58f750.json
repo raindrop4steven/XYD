@@ -114,6 +114,29 @@
                         }
                     }
                 ]
+            },
+            {
+                "key": "NODE0006",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 0,
+                            "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 6,
+                            "row": 12,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
             }
         ],
         "inputTypes": [
@@ -153,6 +176,18 @@
                 "value": {
                     "type": "text",
                     "extra": null
+                }
+            },
+            {
+                "key": "NODE0006",
+                "value": {
+                    "type": "select",
+                    "extra": {
+                        "options": [
+                            "同意",
+                            "不同意"
+                        ]
+                    }
                 }
             }
         ],
@@ -244,6 +279,30 @@
                     "col": 6
                 },
                 "type": 0
+            },
+            {
+                "key": "mainLeaderUser",
+                "value": {
+                    "row": 11,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "mainLeaderDate",
+                "value": {
+                    "row": 11,
+                    "col": 10
+                },
+                "type": 0
+            },
+            {
+                "key": "mainLeaderOpinion",
+                "value": {
+                    "row": 12,
+                    "col": 6
+                },
+                "type": 0
             }
         ],
         "controls": [
@@ -276,6 +335,23 @@
                         {
                             "type": "date",
                             "row": 9,
+                            "col": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "NODE0006",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 11,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 11,
                             "col": 10
                         }
                     ]
