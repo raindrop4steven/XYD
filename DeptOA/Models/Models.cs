@@ -44,6 +44,19 @@ namespace DeptOA.Models
     }
     #endregion
 
+    #region 附件模型
+    public class DEP_Att
+    {
+        // 附件ID
+        [Key]
+        public int ID { get; set; }
+        // 名称
+        public string Name { get; set; }
+        // 路径
+        public string Path { get; set; }
+    }
+    #endregion
+
     #region 公文预警
 
     public class DEP_MessageAlarm
@@ -87,6 +100,8 @@ namespace DeptOA.Models
         public DbSet<DEP_FavoriteMessage> FavoriteMessage { get; set; }
         // 修改意见
         public DbSet<DEP_Opinion> Opinion { get; set; }
+        // 附件
+        public DbSet<DEP_Att> Att { get; set; }
         // 公文预警
         public DbSet<DEP_MessageAlarm> MessageAlarm { get; set; }
         // 父流程与子流程关系
