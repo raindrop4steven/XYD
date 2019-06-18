@@ -40,7 +40,7 @@
                         "value": {
                             "show": true,
                             "col": 4,
-                            "row": 10,
+                            "row": 12,
                             "targetNodeKey": ""
                         }
                     }
@@ -63,7 +63,7 @@
                         "value": {
                             "show": true,
                             "col": 4,
-                            "row": 12,
+                            "row": 14,
                             "targetNodeKey": ""
                         }
                     }
@@ -86,7 +86,7 @@
                         "value": {
                             "show": true,
                             "col": 4,
-                            "row": 14,
+                            "row": 16,
                             "targetNodeKey": ""
                         }
                     }
@@ -133,6 +133,29 @@
                             "show": false,
                             "col": 0,
                             "row": 0,
+                            "targetNodeKey": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "key": "NODE0009",
+                "value": [
+                    {
+                        "key": "showReadedButton",
+                        "value": {
+                            "show": false,
+                            "col": 4,
+                            "row": 10,
+                            "targetNodeKey": ""
+                        }
+                    },
+                    {
+                        "key": "needOpinion",
+                        "value": {
+                            "show": true,
+                            "col": 4,
+                            "row": 10,
                             "targetNodeKey": ""
                         }
                     }
@@ -173,6 +196,18 @@
                 "value": {
                     "type": "text",
                     "extra": null
+                }
+            },
+            {
+                "key": "NODE0009",
+                "value": {
+                    "type": "select",
+                    "extra": {
+                        "options": [
+                            "同意",
+                            "不同意"
+                        ]
+                    }
                 }
             }
         ],
@@ -258,7 +293,7 @@
                 "type": 10
             },
             {
-                "key": "nibanOpinion",
+                "key": "deptOpinion",
                 "value": {
                     "row": 10,
                     "col": 4
@@ -266,7 +301,7 @@
                 "type": 0
             },
             {
-                "key": "nibanUser",
+                "key": "deptUser",
                 "value": {
                     "row": 11,
                     "col": 6
@@ -274,7 +309,7 @@
                 "type": 0
             },
             {
-                "key": "nibanTime",
+                "key": "deptTime",
                 "value": {
                     "row": 11,
                     "col": 10
@@ -282,9 +317,33 @@
                 "type": 0
             },
             {
-                "key": "counterSign",
+                "key": "nibanOpinion",
                 "value": {
                     "row": 12,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "nibanUser",
+                "value": {
+                    "row": 13,
+                    "col": 6
+                },
+                "type": 0
+            },
+            {
+                "key": "nibanTime",
+                "value": {
+                    "row": 13,
+                    "col": 10
+                },
+                "type": 0
+            },
+            {
+                "key": "counterSign",
+                "value": {
+                    "row": 14,
                     "col": 4
                 },
                 "type": 1
@@ -292,7 +351,7 @@
             {
                 "key": "leaderOpinion",
                 "value": {
-                    "row": 14,
+                    "row": 16,
                     "col": 4
                 },
                 "type": 1
@@ -301,6 +360,23 @@
         "controls": [
             {
                 "key": "NODE0002",
+                "value": {
+                    "saveCell": [
+                        {
+                            "type": "name",
+                            "row": 13,
+                            "col": 6
+                        },
+                        {
+                            "type": "date",
+                            "row": 13,
+                            "col": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "NODE0009",
                 "value": {
                     "saveCell": [
                         {

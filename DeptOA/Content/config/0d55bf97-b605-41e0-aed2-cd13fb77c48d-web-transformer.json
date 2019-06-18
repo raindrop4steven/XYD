@@ -41,6 +41,17 @@
     "sections": [
         {
             "multiple": false,
+            "key": "部门审核",
+            "data": [
+                {
+                    "user": "#valueof($.deptUser)",
+                    "text": "#valueof($.deptOpinion)",
+                    "time": "#valueof($.deptTime)"
+                }
+            ]
+        },
+        {
+            "multiple": false,
             "key": "拟办",
             "data": [
                 {
