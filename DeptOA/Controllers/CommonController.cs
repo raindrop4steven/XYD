@@ -169,30 +169,6 @@ namespace DeptOA.Controllers
         }
         #endregion
 
-        #region 下载文件
-        public ActionResult Download(int id)
-        {
-            using (var db = new DefaultConnection())
-            {
-                var attach = db.Att.Where(a => a.ID == id).FirstOrDefault();
-                if (attach == null)
-                {
-                    return ResponseUtil.Error("附件不存在");
-                }
-                else
-                {
-                    var filename = attach.Path;
-                    var fullUploadPath = System.Configuration.ConfigurationManager.AppSettings["UploadPath"];
-                    string filepath = Path.Combine(fullUploadPath, filename);
-                    byte[] filedata = System.IO.File.ReadAllBytes(filepath);
-                    string contentType = MimeMapping.GetMimeMapping(filepath);
-
-                    return File(filedata, contentType, attach.Name);
-                }
-            }
-        }
-        #endregion
-
         public ActionResult CellAttachment(string sid, int row, int col)
         {
             List<Attachment> attachmentList = new List<Attachment>();

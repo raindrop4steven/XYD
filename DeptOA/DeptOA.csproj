@@ -197,7 +197,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Common\DbUtil.cs" />
     <Compile Include="Common\DEP_Constants.cs" />
-    <Compile Include="Common\DiskUtil.cs" />
     <Compile Include="Common\JsonNetResult.cs" />
     <Compile Include="Common\ResponseUtil.cs" />
     <Compile Include="Common\TransformUtil.cs" />
@@ -241,6 +240,10 @@
     <Compile Include="Migrations\201906060235505_add attment table.cs" />
     <Compile Include="Migrations\201906060235505_add attment table.Designer.cs">
       <DependentUpon>201906060235505_add attment table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906200347411_remove custom att model.cs" />
+    <Compile Include="Migrations\201906200347411_remove custom att model.Designer.cs">
+      <DependentUpon>201906200347411_remove custom att model.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -349,24 +352,60 @@
     <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-dropdown.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\config\README.md" />
-    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd.json" />
-    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-app-transformer.json" />
-    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-web-transformer.json" />
-    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-opinion.json" />
-    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589-app-transformer.json" />
-    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589-opinion.json" />
-    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589-web-transformer.json" />
-    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589.json" />
-    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-app-transformer.json" />
-    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-dropdown.json" />
-    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-opinion.json" />
-    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-subflow.json" />
-    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-web-transformer.json" />
-    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937.json" />
-    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-opinion.json" />
-    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-opinion.json" />
-    <Content Include="Content\config\alert.json" />
+    <Content Include="Content\config\README.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-app-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-web-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-opinion.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589-app-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589-opinion.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589-web-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-app-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-dropdown.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-opinion.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-subflow.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-web-transformer.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-opinion.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-opinion.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\alert.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\images\alert.svg" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
@@ -392,6 +431,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Common\" />
     <Folder Include="Views\Favorite\" />
     <Folder Include="Views\WorkflowPage\" />
   </ItemGroup>
@@ -454,6 +494,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906060235505_add attment table.resx">
       <DependentUpon>201906060235505_add attment table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906200347411_remove custom att model.resx">
+      <DependentUpon>201906200347411_remove custom att model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
