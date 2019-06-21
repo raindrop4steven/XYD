@@ -791,7 +791,7 @@ namespace DeptOA.Common
             };
             PayLoad.Options = new Jiguang.JPush.Model.Options
             {
-                IsApnsProduction = false // 设置 iOS 推送生产环境。不设置默认为开发环境。
+                IsApnsProduction = true // 设置 iOS 推送生产环境。不设置默认为开发环境。
             };
             PushClient.SendPushAsync(PayLoad.ToString());
         }
