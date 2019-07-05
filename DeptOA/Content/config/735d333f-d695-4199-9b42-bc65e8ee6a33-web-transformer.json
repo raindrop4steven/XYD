@@ -16,6 +16,10 @@
         {
             "key": "来文文号",
             "value": "#valueof($.DocumentNumber)"
+        },
+        {
+            "key": "备注",
+            "value": "#valueof($.memo)"
         }
     ],
     "sections": [

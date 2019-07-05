@@ -44,7 +44,7 @@
                         "value": {
                             "show": true,
                             "col": 4,
-                            "row": 9,
+                            "row": 10,
                             "targetNodeKey": ""
                         }
                     }
@@ -81,7 +81,7 @@
                         "value": {
                             "show": true,
                             "col": 4,
-                            "row": 11,
+                            "row": 12,
                             "targetNodeKey": "NODE0003"
                         }
                     },
@@ -90,7 +90,7 @@
                         "value": {
                             "show": true,
                             "col": 4,
-                            "row": 11,
+                            "row": 12,
                             "targetNodeKey": ""
                         }
                     }
@@ -104,7 +104,7 @@
                         "value": {
                             "show": true,
                             "col": 4,
-                            "row": 13,
+                            "row": 14,
                             "targetNodeKey": "NODE0003"
                         }
                     },
@@ -113,7 +113,7 @@
                         "value": {
                             "show": true,
                             "col": 4,
-                            "row": 13,
+                            "row": 14,
                             "targetNodeKey": ""
                         }
                     }
@@ -252,7 +252,7 @@
                 "type": 10
             },
             {
-                "key": "nibanOpinion",
+                "key": "memo",
                 "value": {
                     "row": 9,
                     "col": 4
@@ -260,9 +260,17 @@
                 "type": 0
             },
             {
-                "key": "nibanUser",
+                "key": "nibanOpinion",
                 "value": {
                     "row": 10,
+                    "col": 4
+                },
+                "type": 0
+            },
+            {
+                "key": "nibanUser",
+                "value": {
+                    "row": 11,
                     "col": 5
                 },
                 "type": 0
@@ -270,7 +278,7 @@
             {
                 "key": "nibanTime",
                 "value": {
-                    "row": 10,
+                    "row": 11,
                     "col": 8
                 },
                 "type": 0
@@ -278,7 +286,7 @@
             {
                 "key": "leaderOpinion",
                 "value": {
-                    "row": 11,
+                    "row": 12,
                     "col": 4
                 },
                 "type": 1
@@ -286,7 +294,7 @@
             {
                 "key": "deptOpinion",
                 "value": {
-                    "row": 13,
+                    "row": 14,
                     "col": 4
                 },
                 "type": 1
@@ -294,7 +302,7 @@
             {
                 "key": "detpAttachments",
                 "value": {
-                    "row": 15,
+                    "row": 16,
                     "col": 4
                 },
                 "type": 10
@@ -307,12 +315,12 @@
                     "saveCell": [
                         {
                             "type": "name",
-                            "row": 10,
+                            "row": 11,
                             "col": 5
                         },
                         {
                             "type": "date",
-                            "row": 10,
+                            "row": 11,
                             "col": 8
                         }
                     ]

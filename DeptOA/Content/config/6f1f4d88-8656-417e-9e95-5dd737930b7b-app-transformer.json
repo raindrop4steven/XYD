@@ -5,7 +5,7 @@
     "attachments":  [
         {
             "documentTitle": "#valueof($.Issue)",
-            "data": null
+            "data": "#customfunction(DeptOA, DeptOA.Common.TransformUtil.TransformArray, #valueof($.attachments))"
         }
     ]
 }
