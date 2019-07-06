@@ -1,0 +1,52 @@
+﻿{
+    "title": "新闻发布申请流程单",
+    "header": [
+        {
+            "key": "标题",
+            "value": "#valueof($.DocumentTitle)"
+        },
+        {
+            "key": "申请人",
+            "value": "#valueof($.ApplyUser)"
+        },
+        {
+            "key": "申请时间",
+            "value": "#valueof($.ClosedOrHairTime)"
+        }
+    ],
+    "sections": [
+        {
+            "multiple": false,
+            "key": "部门领导",
+            "data": [
+                {
+                    "user": "#valueof($.DeptLeader)",
+                    "text": "#valueof($.DeptOpinion)",
+                    "time": "#valueof($.DeptTime)"
+                }
+            ]
+        },
+        {
+            "multiple": false,
+            "key": "分管领导",
+            "data": [
+                {
+                    "user": "#valueof($.SubLeader)",
+                    "text": "#valueof($.SubOpinion)",
+                    "time": "#valueof($.SubTime)"
+                }
+            ]
+        },
+        {
+            "multiple": false,
+            "key": "领导审批",
+            "data": [
+                {
+                    "user": "#valueof($.LeaderUser)",
+                    "text": "#valueof($.LeaderOpinion)",
+                    "time": "#valueof($.LeaderTime)"
+                }
+            ]
+        }
+    ]
+}

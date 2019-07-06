@@ -407,6 +407,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\images\alert.svg" />
+    <Content Include="Content\config\4a773bb4-1cf2-43e5-b4a6-1386b017a3dc.json" />
+    <Content Include="Content\config\4a773bb4-1cf2-43e5-b4a6-1386b017a3dc-app-transformer.json" />
+    <Content Include="Content\config\4a773bb4-1cf2-43e5-b4a6-1386b017a3dc-web-transformer.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
