@@ -204,7 +204,6 @@
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\WorkflowController.cs" />
     <Compile Include="Entity\BaseQueryInfo.cs" />
     <Compile Include="Entity\DEP_MappingField.cs" />
