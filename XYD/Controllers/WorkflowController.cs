@@ -16,12 +16,14 @@ using Appkiz.Library.Security.Authentication;
 using Appkiz.Library.Common;
 using JUST;
 using Newtonsoft.Json.Linq;
+using Appkiz.Apps.Workflow.Web.Controllers;
 
 namespace XYD.Controllers
 {
-    public class WorkflowController : Controller
+    public class WorkflowController : Appkiz.Apps.Workflow.Web.Controllers.Controller
     {
         WorkflowMgr mgr = new WorkflowMgr();
+        SheetMgr sheetMgr = new SheetMgr();
         OrgMgr orgMgr = new OrgMgr();
 
         #region 根据用户获得发起工作流模版
@@ -77,6 +79,52 @@ namespace XYD.Controllers
 
 
             return resultTemplates.OrderBy(o => o.Order).ToList();
+        }
+        #endregion
+
+        #region 发起流程
+        [HttpGet]
+        public ActionResult Open(string mid, string nid, string fieldValues)
+        {
+            Message message = mgr.GetMessage(mid);
+            if (message == null)
+                return (ActionResult)RedirectToAction("Error", (object)new
+                {
+                    err = RunningErrorCodes.INVALID_ID
+                });
+            if (message.IsTemplate == 1)
+            {
+                if (message.MessageStatus == -1)
+                {
+                    return ResponseUtil.Error("模版无效");
+                }
+                if (message.GetNodeList().Count == 0)
+                {
+                    return ResponseUtil.Error("模版无节点");
+                }
+                if (string.IsNullOrEmpty(message.InitNodeKey))
+                {
+                    return ResponseUtil.Error("初始节点为空");
+                }
+                Message theMessage = mgr.StartWorkflow(message.MessageID, User.Identity.Name, HttpContext.ApplicationInstance.Context);
+                theMessage.MessageType = "temp";
+                mgr.UpdateMessage(theMessage);
+                if (theMessage == null)
+                {
+                    return ResponseUtil.Error("创建失败");
+                } else
+                {
+                    return ResponseUtil.OK(new
+                    {
+                        mid = theMessage.MessageID,
+                        nid = theMessage.InitNodeKey,
+                        sid = mgr.GetDocHelperIdByMessageId(theMessage.MessageID)
+                    });
+                }
+            } else
+            {
+                return ResponseUtil.Error("参数不是工作流模版");
+            }
         }
         #endregion
 

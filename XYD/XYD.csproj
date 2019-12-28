@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Appkiz.Apps.Workflow.Languages">
+      <HintPath>..\Appkiz.Apps.Workflow.Languages.dll</HintPath>
+    </Reference>
     <Reference Include="Appkiz.Apps.Workflow.Library">
       <HintPath>..\Appkiz.Apps.Workflow.Library.dll</HintPath>
     </Reference>
