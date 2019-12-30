@@ -993,23 +993,18 @@ namespace XYD.Controllers
             /*
              * 根据用户获得该用户部门对应的公文
              */
-            var workflowList = WorkflowUtil.GetWorkflowsByUser(emplId);
+            var templateList = WorkflowUtil.GetTemplatesByUser(User.Identity.Name);
 
-            foreach(var workflowId in workflowList)
+            foreach(var message in templateList)
             {
-                var message = mgr.GetMessage(workflowId);
-                if (message != null)
+                resultList.Add(new
                 {
-                    resultList.Add(new
-                    {
-                        ID = message.MessageID,
-                        Title = message.MessageTypeKey
-                    });
-                }
+                    ID = message.MessageID,
+                    Title = message.MessageTypeKey
+                });
             }
 
             return ResponseUtil.OK(resultList);
-
         }
         #endregion
 

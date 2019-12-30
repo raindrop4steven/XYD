@@ -1,5 +1,5 @@
-{
-    "title": "住建局公文处理单",
+﻿{
+    "title": "车辆费用报销",
     "header": [
         {
             "key": "公文标题",
@@ -16,6 +16,10 @@
         {
             "key": "来文文号",
             "value": "#valueof($.DocumentNumber)"
+        },
+        {
+            "key": "备注",
+            "value": "#valueof($.memo)"
         }
     ],
     "sections": [

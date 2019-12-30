@@ -39,7 +39,7 @@ function updateTable() {
 
     $.ajax({
         type: 'GET',
-        url: '/Apps/DEP/Workflow/MappingData?mid=' + mid + "&node=" + node,
+        url: '/Apps/XYD/Workflow/MappingData?mid=' + mid + "&node=" + node,
         success: function (data) {
             console.log("数据映射成功");
         },
@@ -58,7 +58,7 @@ function startSubflow() {
     var node = getQueryString("nid");
 
     $.ajax({
-        url: '/Apps/DEP/Workflow/StartSubflow',
+        url: '/Apps/XYD/Workflow/StartSubflow',
         type: 'POST',
         data: {
             'mid': mid,
@@ -80,7 +80,7 @@ function startSubflow() {
 function addSubWorkflowButton() {
     // 判断当前用户是否具有发起子流程权限
     $.ajax({
-        url: '/Apps/DEP/Workflow/CheckSubflowPerm',
+        url: '/Apps/XYD/Workflow/CheckSubflowPerm',
         type: 'GET',
         success: function (data) {
             if (data.Data.havePermission) {
@@ -111,7 +111,7 @@ function addSubWorkflowButton() {
 function ShowOriginWorkflow(mid) {
     // 判断当前用户是否具有发起子流程权限
     $.ajax({
-        url: '/Apps/DEP/Workflow/GetOriginWorkflow',
+        url: '/Apps/XYD/Workflow/GetOriginWorkflow',
         type: 'POST',
         data: {
             'mid': mid
@@ -169,7 +169,7 @@ function IsWkfRunning() {
  ******************************************************************************************/
 function RenderCustomButton(mid) {
     $.ajax({
-        url: '/Apps/DEP/Workflow/GetDetailInfo',
+        url: '/Apps/XYD/Workflow/GetDetailInfo',
         type: 'POST',
         data: {
             mid: mid
@@ -433,7 +433,7 @@ function ShowDeptList(divId, buttonHeight, buttonRight, posCellId, valueCellId) 
 // 通用修改Cell
 function initChangeOpinionCell(MessageID, callback) {
     $.ajax({
-        url: "/Apps/DEP/Test/GeneralOpinion?mid=" + MessageID,
+        url: "/Apps/XYD/Test/GeneralOpinion?mid=" + MessageID,
         type: 'GET',
         async: false,
         success: function (r) {
@@ -525,7 +525,7 @@ function addModifyButton(node, type, cellId, callback) {
         // 获取
         var opinion = $(".modify-leader").val();
         $.ajax({
-            url: '/Apps/DEP/Test/AddNewOpinion',
+            url: '/Apps/XYD/Test/AddNewOpinion',
             type: 'POST',
             data: { mid: MessageID, nid: node, opinion: opinion, type: type, cellId: cellId, order: order },
             async: false,
@@ -564,7 +564,7 @@ function addCancelButton(node, type, cellId) {
 
 function GetOpinionConfig(mid, nid) {
     $.ajax({
-        url: "/Apps/DEP/Workflow/GetPrivateOpinionConfig",
+        url: "/Apps/XYD/Workflow/GetPrivateOpinionConfig",
         type: "POST",
         data: {
             mid: mid

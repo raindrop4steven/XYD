@@ -3,9 +3,5 @@
     "nid": "#valueof($.nid)",
     "sid": "#valueof($.sid)",
     "attachments": [
-        {
-            "documentTitle": "#valueof($.DocumentTitle)",
-            "data": null
-        }
     ]
 }

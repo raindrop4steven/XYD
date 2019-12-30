@@ -86,7 +86,7 @@
 <div class="widget-archives-header">
     <div class="widget-archives-summary"></div>
     <div class="widget-archives-tools">
-        <a href="/Apps/DEP/index.html#/index" target="_blank"><i class="fa fa-search" style="font-size:16px; color:#5199d5; margin:4px;"></i></a>
+        <a href="/Apps/XYD/index.html#/index" target="_blank"><i class="fa fa-search" style="font-size:16px; color:#5199d5; margin:4px;"></i></a>
     </div>
 </div>
 
@@ -133,7 +133,7 @@
     }
 	var __widget_js__ = {
 		init: function (id) {
-		    $.post('/Apps/DEP/WorkFlowPage/GetAlarmPendingInfo', defaultPageSearch, function (r) {
+		    $.post('/Apps/XYD/WorkFlowPage/GetAlarmPendingInfo', defaultPageSearch, function (r) {
 			    console.log('Widget->', r);
 			    var totalCount = r.Data.length;
 			    $('#' + id).find('div.widget-archives-summary').append('<span>部门共计' + totalCount + '</span>项待办事项');
@@ -143,7 +143,7 @@
 			        var alarm = "";
 			        if (row.days >= 0)
 			        {
-			            alarm = '<img src="/Apps/DEP/Content/images/alert.svg" style="display: inline;float: right;position: relative;top: -17px;right: -66px;">';
+			            alarm = '<img src="/Apps/XYD/Content/images/alert.svg" style="display: inline;float: right;position: relative;top: -17px;right: -66px;">';
 			        }
 			        var temp = '<li class="read"><div class="handle-status-2"></div><a class="text-info" href="/Apps/Workflow/Running/Open?mid=' + row.MessageId + '" target="_blank"><b>' + title + '</b><em>当前环节：' + row.MyTask + '</em><dfn>' + row.ReceiveTime.split(' ')[0] + '</dfn>'+alarm+'</a></li>'
 			        $('#' + id).find('div.widget-archives-info-list ul').append(temp);

@@ -12,7 +12,7 @@
             topNav.removeClass('selected');
 
 
-            var frameMenu = angular.element('[href="/Apps/DEP/index.html#' + $location.path() + '"]');
+            var frameMenu = angular.element('[href="/Apps/XYD/index.html#' + $location.path() + '"]');
             for (var i = 0; i < frameMenu.length; i++) {
                 var menu = frameMenu[i];
                 menu.parentNode.className = 'selected';
@@ -137,7 +137,7 @@
         //获取所有工作流模板
         function GetTempList() {
             httpService.post(
-                '/Apps/DEP/WorkflowPage/GetTempList',
+                '/Apps/XYD/WorkflowPage/GetTempList',
                 null,
                 function (data) {
                     //console.log('callback', data);
@@ -309,7 +309,7 @@
             $scope.pageSearch.PageNumber = $scope.paginationConf.currentPage;
 
             httpService.post(
-                '/Apps/DEP/WorkFlowPage/' + url,
+                '/Apps/XYD/WorkFlowPage/' + url,
                 pageSearch,
                 function (result) {
                     console.log('callback->', result);
@@ -439,7 +439,7 @@
         //获取所有工作流模板
         function GetTempList() {
             httpService.post(
-                '/Apps/DEP/WorkflowPage/GetTempList',
+                '/Apps/XYD/WorkflowPage/GetTempList',
                 null,
                 function (data) {
                     //console.log('callback', data);
@@ -632,7 +632,7 @@
             $scope.pageSearch.PageNumber = $scope.paginationConf.currentPage;
 
             httpService.post(
-                '/Apps/DEP/WorkflowPage/GetWorkflowQueryInfo',
+                '/Apps/XYD/WorkflowPage/GetWorkflowQueryInfo',
                 $scope.pageSearch,
                 function (result) {
                     //console.log('callback->', result);

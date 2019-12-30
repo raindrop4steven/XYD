@@ -327,101 +327,17 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\Lodash.js" />
     <Content Include="Scripts\Moment.js" />
-    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-app-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-web-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Widget\ToDo.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\notify.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\opinion.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\6f1f4d88-8656-417e-9e95-5dd737930b7b.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\6f1f4d88-8656-417e-9e95-5dd737930b7b-app-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\6f1f4d88-8656-417e-9e95-5dd737930b7b-web-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-app-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-web-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-opinion.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-dropdown.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\config\README.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-app-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-web-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\3edb6162-4f2d-4f8f-9113-6959ab9994bd-opinion.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589-app-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589-opinion.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589-web-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\390fd974-8155-4500-883c-60e96631d589.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-app-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-dropdown.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-opinion.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-subflow.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937-web-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\ffe39e9e-19d7-4f3b-a3d6-28e104206937.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750-opinion.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\0d55bf97-b605-41e0-aed2-cd13fb77c48d-opinion.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\images\alert.svg" />
-    <Content Include="Content\config\4a773bb4-1cf2-43e5-b4a6-1386b017a3dc.json" />
-    <Content Include="Content\config\4a773bb4-1cf2-43e5-b4a6-1386b017a3dc-app-transformer.json" />
-    <Content Include="Content\config\4a773bb4-1cf2-43e5-b4a6-1386b017a3dc-web-transformer.json" />
     <Content Include="Content\config\templates.json" />
+    <Content Include="Content\config\c97fb2da-1507-4dd1-9d0b-ae28cfda7560.json" />
+    <Content Include="Content\config\c97fb2da-1507-4dd1-9d0b-ae28cfda7560-app-transformer.json" />
+    <Content Include="Content\config\c97fb2da-1507-4dd1-9d0b-ae28cfda7560-web-transformer.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -459,25 +375,10 @@
     <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\config\0157fcbc-513f-49ab-90e8-c23cda58f750.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-subflow.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-app-transformer.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\config\global.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\subflow.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\config\735d333f-d695-4199-9b42-bc65e8ee6a33-web-transformer.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\workflow.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

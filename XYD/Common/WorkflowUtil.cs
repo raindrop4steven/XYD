@@ -66,19 +66,7 @@ namespace XYD.Common
         #region 获得表名
         public static string GetTableName(string mid)
         {
-            /*
-             * 根据模板ID获得对应的配置
-             */
-            Message message = mgr.GetMessage(mid);
-            var templateID = message.FromTemplate;
-
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
-            using (StreamReader sr = new StreamReader(filePathName))
-            {
-                var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
-
-                return config.table;
-            }
+            return "XYD_ReceiveFile";
         }
         #endregion
 
@@ -425,36 +413,7 @@ namespace XYD.Common
         #region 根据用户获得对应映射表
         public static List<string>GetTablesByUser(string emplID)
         {
-            var sql = string.Format(@"SELECT
-	                                    DISTINCT(DeptID)
-                                    FROM
-	                                    ORG_Department a 
-                                    WHERE
-	                                    a.DeptHierarchyCode IN (
-	                                    SELECT SUBSTRING
-		                                    ( DeptHierarchyCode, 1, 5 )
-	                                    FROM
-		                                    ORG_Department b 
-                                    WHERE
-	                                    b.DeptID IN ( SELECT DeptID FROM ORG_EmplDept c WHERE c.EmplID = '{0}' ))", emplID);
-            var deptList = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetWorkflowByUser);
-
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "global"));
-            using (StreamReader sr = new StreamReader(filePathName))
-            {
-                var tableList = new List<string>();
-                var DeptRelation = JsonConvert.DeserializeObject<DeptFlowRelation>(sr.ReadToEnd());
-
-                foreach (RelationItem item in DeptRelation.relations)
-                {
-                    if (deptList.Contains(item.dept))
-                    {
-                        tableList.Add(item.tableName);
-                    }
-                }
-
-                return tableList;
-            }
+            return new List<string>() { "XYD_ReceiveFile" };
         }
         #endregion
 
@@ -849,6 +808,34 @@ namespace XYD.Common
                 var config = JsonConvert.DeserializeObject<XYD_Templates>(sr.ReadToEnd());
                 return config.workflows;
             }
+        }
+        #endregion
+
+        #region 根据用户获得可使用的工作流模版
+        public static List<Message> GetTemplatesByUser(string name)
+        {
+            List<Message> TemplateList = new List<Message>();
+
+            List<Folder> folder1 = mgr.FindFolder("", (Dictionary<string, object>)null, "FolderName");
+            for (int index = folder1.Count - 1; index >= 0; --index)
+            {
+                if (!orgMgr.VerifyPermission(folder1[index].FolderID, name, "user", "view"))
+                    folder1.RemoveAt(index);
+            }
+            List<object> objectList1 = new List<object>();
+            foreach (Folder folder2 in folder1)
+            {
+                List<Message> templates = mgr.FindTemplates(folder2.FolderID, "", true, "MessageTitle");
+                List<object> objectList2 = new List<object>();
+                foreach (Message message in templates)
+                {
+                    if (orgMgr.VerifyPermission(message.MessageID, name, "user", "run"))
+                    {
+                        TemplateList.Add(message);
+                    }
+                }
+            }
+            return TemplateList;
         }
         #endregion
     }

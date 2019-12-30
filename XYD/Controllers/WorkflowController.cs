@@ -43,34 +43,14 @@ namespace XYD.Controllers
         {
             // 模版列表
             List<XYD_Template_Entity> resultTemplates = new List<XYD_Template_Entity>();
-            List<string> TemplateList = new List<string>();
-
+            List<Message> TemplateList = WorkflowUtil.GetTemplatesByUser(name);
             List<XYD_Template_Entity> Templates = WorkflowUtil.GetTemplates();
-            List<Folder> folder1 = mgr.FindFolder("", (Dictionary<string, object>)null, "FolderName");
-            for (int index = folder1.Count - 1; index >= 0; --index)
-            {
-                if (!orgMgr.VerifyPermission(folder1[index].FolderID, User.Identity.Name, "user", "view"))
-                    folder1.RemoveAt(index);
-            }
-            List<object> objectList1 = new List<object>();
-            foreach (Folder folder2 in folder1)
-            {
-                List<Message> templates = mgr.FindTemplates(folder2.FolderID, "", true, "MessageTitle");
-                List<object> objectList2 = new List<object>();
-                foreach (Message message in templates)
-                {
-                    if (orgMgr.VerifyPermission(message.MessageID, User.Identity.Name, "user", "run"))
-                    {
-                        TemplateList.Add(message.MessageID);
-                    }
-                }
-            }
             
-            foreach (var templetId in TemplateList)
+            foreach (var template in TemplateList)
             {
                 foreach (var templetEntity in Templates)
                 {
-                    if (templetEntity.Id == templetId)
+                    if (templetEntity.Id == template.MessageID)
                     {
                         resultTemplates.Add(templetEntity);
                     }
