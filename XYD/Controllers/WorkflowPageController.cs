@@ -758,6 +758,144 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 我的申请
+        [HttpPost]
+        public ActionResult GetMyApply(QueryInfo query)
+        {
+            /*
+             * 变量定义
+             */
+            // SQL语句列表
+            var statements = new List<StringBuilder>();
+            // 当前用户
+            var emplId = (User.Identity as Appkiz.Library.Security.Authentication.AppkizIdentity).Employee.EmplID;
+
+            /*
+             * 参数校验
+             */
+            if (query.PageNumber <= 0)
+            {
+                query.PageNumber = 1;
+            }
+            if (query.PageSize <= 0)
+            {
+                query.PageSize = 20;
+            }
+
+            /*
+             * 构造SQL语句
+             */
+            // 根据当前用户获取对应的映射表
+            var tableList = WorkflowUtil.GetTablesByUser(emplId);
+            // 判断映射表数量
+            if (tableList.Count == 0)
+            {
+                return new JsonNetResult(new
+                {
+                    TotalInfo = new
+                    {
+                        TotalPages = 0,
+                        TotalRecouds = 0
+                    },
+                    Data = new List<object>()
+                });
+            }
+            else
+            {
+                foreach (var tableName in tableList)
+                {
+                    StringBuilder sql = new StringBuilder();
+                    sql.Append(string.Format(@"SELECT 
+                                     b.DocumentTitle,
+                                     CONVERT(varchar(100), b.ClosedOrHairTime, 20) AS ClosedOrHairTime,
+                                     b.MessageId,
+                                     b.WorkFlowId,
+                                     --流程类型
+                                     a.MessageTitle,
+                                     CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime,
+                                     CONVERT(varchar(100), a.MessageFinishTime, 20) AS FinishTime,
+                                     a.MessageStatus
+                                     FROM WKF_Message a
+                                    INNER JOIN {0} b
+                                    ON a.MessageID = b.MessageId
+                                    WHERE a.MessageIssuedBy = '{1}'", tableName, emplId));
+
+                    //公文标题
+                    if (!string.IsNullOrWhiteSpace(query.Title))
+                    {
+                        sql.Append(string.Format(@" and b.DocumentTitle like '%{0}%'", query.Title));
+                    }
+                    //开始发文时间
+                    if (query.StartClosedOrHairTime.HasValue)
+                    {
+                        sql.Append(string.Format(@" and b.ClosedOrHairTime >= '{0}'", query.StartClosedOrHairTime));
+                    }
+                    //结束发文时间
+                    if (query.EndClosedOrHairTime.HasValue)
+                    {
+                        sql.Append(string.Format(@" and b.ClosedOrHairTime <= '{0}'", query.EndClosedOrHairTime));
+                    }
+                    //开始发起时间
+                    if (query.StartCreatedTime.HasValue)
+                    {
+                        sql.Append(string.Format(@" and a.MessageCreateTime >= '{0}'", query.StartCreatedTime));
+                    }
+                    //结束发起时间
+                    if (query.EndCreatedTime.HasValue)
+                    {
+                        sql.Append(string.Format(@" and a.MessageCreateTime <= '{0}'", query.EndCreatedTime));
+                    }
+                    //开始完成时间
+                    if (query.StartEndTime.HasValue)
+                    {
+                        sql.Append(string.Format(@" and a.MessageFinishTime >= '{0}'", query.StartEndTime));
+                    }
+                    //结束完成时间
+                    if (query.EndEndTime.HasValue)
+                    {
+                        sql.Append(string.Format(@" and a.MessageFinishTime <= '{0}'", query.EndEndTime));
+                    }
+                    //流程类型
+                    if (!string.IsNullOrWhiteSpace(query.WorkFlowId))
+                    {
+                        sql.Append(string.Format(@" and b.WorkFlowId = '{0}'", query.WorkFlowId));
+                    }
+
+                    // 将SQL语句添加进列表
+                    statements.Add(sql);
+                }
+
+                // 获得Union语句
+                var unionSql = string.Join(" UNION ", statements);
+                var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.CreateTime DESC) number, t.* from ({0}) t", unionSql);
+
+                //开始位置
+                var startPage = query.PageSize * (query.PageNumber - 1) + 1;
+                //结束位置
+                var endPage = startPage + query.PageSize;
+
+                // 总数
+                int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+                //总页数
+                var totalPages = totalRecouds % query.PageSize == 0 ? totalRecouds / query.PageSize : totalRecouds / query.PageSize + 1;
+
+                var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", finalSql, startPage, endPage);
+
+                var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetMyApplyResult);
+
+                return new JsonNetResult(new
+                {
+                    TotalInfo = new
+                    {
+                        TotalPages = totalPages,
+                        TotalRecouds = totalRecouds
+                    },
+                    Data = result
+                });
+            }
+        }
+        #endregion
+
         #region 草稿
         [HttpPost]
         public ActionResult GetDraftInfo(QueryInfo query)

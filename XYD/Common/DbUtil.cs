@@ -337,7 +337,43 @@ namespace XYD.Common
                     WorkflowId = WorkflowId,
                     MessageTitle = MessageTitle,
                     CreateTime = CreateTime,
-                    ReceiveTime = ReceiveTime
+                    ReceiveTime = ReceiveTime,
+                });
+            }
+
+            return ResultList;
+        }
+
+        /// <summary>
+        /// 我的申请
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static List<object> GetMyApplyResult(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                long number = reader.GetInt64(0);
+                string DocumentTilte = reader.GetString(1);
+                string ClosedOrHairTime = reader.GetString(2);
+                string MessageId = reader.GetString(3);
+                string WorkflowId = reader.GetString(4);
+                string MessageTitle = reader.GetString(5);
+                string CreateTime = reader.GetString(6);
+                string ReceiveTime = reader.GetString(7);
+                int MessageStatus = reader.GetInt32(8);
+
+                ResultList.Add(new
+                {
+                    DocumentTitle = DocumentTilte,
+                    ClosedOrHairTime = ClosedOrHairTime,
+                    MessageId = MessageId,
+                    WorkflowId = WorkflowId,
+                    MessageTitle = MessageTitle,
+                    CreateTime = CreateTime,
+                    ReceiveTime = ReceiveTime,
+                    MessageStatus = MessageStatus
                 });
             }
 
