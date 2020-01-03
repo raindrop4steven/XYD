@@ -2,47 +2,132 @@
     "title": "车辆费用报销",
     "header": [
         {
-            "key": "公文标题",
-            "value": "#valueof($.DocumentTitle)"
+            "key": "申请人",
+            "value": "#valueof($.ApplyUser)"
         },
         {
-            "key": "来文单位",
-            "value": "#valueof($.ReceivedDocumentUnit)"
+            "key": "部门",
+            "value": "#valueof($.ApplyDept)"
         },
         {
-            "key": "收文日期",
-            "value": "#valueof($.ClosedOrHairTime)"
+            "key": "日期",
+            "value": "#valueof($.ApplyDate)"
         },
         {
-            "key": "来文文号",
-            "value": "#valueof($.DocumentNumber)"
+            "key": "车牌号",
+            "value": "#valueof($.CarNo)"
+        },
+        {
+            "key": "费用类别",
+            "value": "#valueof($.FeeCategory1)"
+        },
+        {
+            "key": "单据数量",
+            "value": "#valueof($.FeeTicket1)"
+        },
+        {
+            "key": "金额",
+            "value": "#valueof($.FeeAmount1)"
         },
         {
             "key": "备注",
-            "value": "#valueof($.memo)"
+            "value": "#valueof($.FeeMemo1)"
+        },
+        {
+            "key": "费用类别",
+            "value": "#valueof($.FeeCategory2)"
+        },
+        {
+            "key": "单据数量",
+            "value": "#valueof($.FeeTicket2)"
+        },
+        {
+            "key": "金额",
+            "value": "#valueof($.FeeAmount2)"
+        },
+        {
+            "key": "备注",
+            "value": "#valueof($.FeeMemo2)"
+        },
+        {
+            "key": "费用类别",
+            "value": "#valueof($.FeeCategory3)"
+        },
+        {
+            "key": "单据数量",
+            "value": "#valueof($.FeeTicket3)"
+        },
+        {
+            "key": "金额",
+            "value": "#valueof($.FeeAmount3)"
+        },
+        {
+            "key": "备注",
+            "value": "#valueof($.FeeMemo3)"
+        },
+        {
+            "key": "费用类别",
+            "value": "#valueof($.FeeCategory4)"
+        },
+        {
+            "key": "单据数量",
+            "value": "#valueof($.FeeTicket4)"
+        },
+        {
+            "key": "金额",
+            "value": "#valueof($.FeeAmount4)"
+        },
+        {
+            "key": "备注",
+            "value": "#valueof($.FeeMemo4)"
+        },
+        {
+            "key": "费用类别",
+            "value": "#valueof($.FeeCategory5)"
+        },
+        {
+            "key": "单据数量",
+            "value": "#valueof($.FeeTicket5)"
+        },
+        {
+            "key": "金额",
+            "value": "#valueof($.FeeAmount5)"
+        },
+        {
+            "key": "备注",
+            "value": "#valueof($.FeeMemo5)"
         }
     ],
     "sections": [
         {
-            "multiple": false,
-            "key": "党政办拟办",
+            "key": "部门经理",
             "data": [
                 {
-                    "user": "#valueof($.nibanUser)",
-                    "text": "#valueof($.nibanOpinion)",
-                    "time": "#valueof($.nibanTime)"
+                    "user": "#valueof($.DeptManager)",
+                    "text": "#valueof($.DeptOpinonType)",
+                    "time": ""
                 }
             ]
         },
         {
-            "multiple": true,
-            "key": "领导批示",
-            "data": "#customfunction(DeptOA, DeptOA.Common.TransformUtil.TransformArray, #valueof($.leaderOpinion))"
+            "key": "总经理",
+            "data": [
+                {
+                    "user": "#valueof($.CEO)",
+                    "text": "#valueof($.CEOOpinionType)",
+                    "time": ""
+                }
+            ]
         },
         {
-            "multiple": true,
-            "key": "部门承办",
-            "data": "#customfunction(DeptOA, DeptOA.Common.TransformUtil.TransformArray, #valueof($.deptOpinion))"
+            "key": "财务经理",
+            "data": [
+                {
+                    "user": "#valueof($.FinanceManager)",
+                    "text": "#valueof($.FinanceOpinionType)",
+                    "time": ""
+                }
+            ]
         }
     ]
 }

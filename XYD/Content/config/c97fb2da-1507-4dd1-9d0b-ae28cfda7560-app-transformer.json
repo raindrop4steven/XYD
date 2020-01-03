@@ -2,6 +2,5 @@
     "mid": "#valueof($.mid)",
     "nid": "#valueof($.nid)",
     "sid": "#valueof($.sid)",
-    "attachments": [
-    ]
+    "attachments": null
 }
