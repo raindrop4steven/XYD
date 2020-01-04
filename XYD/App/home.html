@@ -1,20 +1,20 @@
 ﻿<div class="home-page">
     <div class="wkf-nav-left">
         <div>
-            <h3>我的公文</h3>
+            <h3>我的审批</h3>
             <ul>
-                <li ng-class="{'selected' : pageConfig.activeNav === 'needDo'}"><a ng-click="onChangeTemplate('needDo')">待处理的公文</a></li>
-                <li ng-class="{'selected' : pageConfig.activeNav === 'iDone'}"><a ng-click="onChangeTemplate('iDone')">已处理过的公文</a></li>
-                <li ng-class="{'selected' : pageConfig.activeNav === 'mineDoing'}"><a ng-click="onChangeTemplate('mineDoing')">我发出的未完成公文</a></li>
-                <li ng-class="{'selected' : pageConfig.activeNav === 'mineDone'}"><a ng-click="onChangeTemplate('mineDone')">我发出的已完成公文</a></li>
+                <li ng-class="{'selected' : pageConfig.activeNav === 'needDo'}"><a ng-click="onChangeTemplate('needDo')">待处理审批</a></li>
+                <li ng-class="{'selected' : pageConfig.activeNav === 'iDone'}"><a ng-click="onChangeTemplate('iDone')">已处理审批</a></li>
+                <li ng-class="{'selected' : pageConfig.activeNav === 'mineDoing'}"><a ng-click="onChangeTemplate('mineDoing')">我的待批申请</a></li>
+                <li ng-class="{'selected' : pageConfig.activeNav === 'mineDone'}"><a ng-click="onChangeTemplate('mineDone')">我的已批申请</a></li>
                 <!--<li ng-class="{'selected' : pageConfig.activeNav === 'iStop'}"><a ng-click="onChangeTemplate('iStop')">我终止的公文</a></li>-->
                 <li ng-class="{'selected' : pageConfig.activeNav === 'mineDraft'}"><a ng-click="onChangeTemplate('mineDraft')">我的草稿</a></li>
             </ul>
         </div>
         <div>
-            <h3>发起公文</h3>
+            <h3>发起申请</h3>
             <ul>
-                <li ng-repeat="item in wkfTempList"><a href="/Apps/Workflow/Running/Open?mid={{item.ID}}" target="_blank">{{ isDeptAdmin && item.Title === '下级来文办件'? '公文上报' : item.Title}}</a></li>
+                <li ng-repeat="item in wkfTempList"><a href="/Apps/Workflow/Running/Open?mid={{item.ID}}" target="_blank">{{item.Title}}</a></li>
             </ul>
         </div>
     </div>
@@ -24,17 +24,17 @@
             <div class="search-condition">
                 <div class="form-inline">
                     <div class="form-group">
-                        <label for="title">公文标题：</label>
+                        <label for="title">申请标题：</label>
                         <input type="text" class="form-control form-control-sm large" id="title" ng-model="pageSearch.Title" ng-keyup="enterEvent($event)">
                     </div>
                     <div class="form-group">
-                        <label for="sfwrq">公文日期：</label>
+                        <label for="sfwrq">申请日期：</label>
                         <input type="text" class="form-control select-date form-control-sm middle" id="sfwrq" readonly="readonly" ng-model="sfwrq">
                         <input type="text" class="hide" id="sfwrqStart" ng-model="pageSearch.StartClosedOrHairTime">
                         <input type="text" class="hide" id="sfwrqEnd" ng-model="pageSearch.EndClosedOrHairTime">
                     </div>
                     <div class="form-group">
-                        <label for="wkfType">公文类型：</label>
+                        <label for="wkfType">审批类型：</label>
                         <select class="form-control form-control-sm" id="wkfType" ng-model="pageSearch.WorkFlowId">
                             <option value="">全选</option>
                             <option ng-repeat="item in wkfDefaultTempList" value="{{item.ID}}">{{item.Title}}</option>

@@ -257,7 +257,7 @@
         //$scope.paginationConf = defaultPaginationConf;
 
         var defaultPageSearch = {
-            // 公文标题
+            // 申请标题
             Title: null,
             // 来文文号
             DocumentNumber: null,
@@ -383,30 +383,30 @@
         function init() {
             $scope.titleObj = {
                 //待处理
-                needDo: ['序号', '公文类型', '公文标题', '公文日期', '接收时间', '发起人', '当前环节'],
+                needDo: ['序号', '申请类型', '申请标题', '申请日期', '接收时间', '发起人', '当前环节'],
                 //我发出未完成
-                mineDoing: ['序号', '公文类型', '公文标题', '公文日期', '发起时间', '当前环节'],
+                mineDoing: ['序号', '申请类型', '申请标题', '申请日期', '发起时间', '当前环节'],
                 //我发出已完成
-                mineDone: ['序号', '公文类型', '公文标题', '公文日期', '发起时间', '完成时间'],
+                mineDone: ['序号', '申请类型', '申请标题', '申请日期', '发起时间', '完成时间'],
                 //我处理过的
-                iDone: ['序号', '公文类型', '公文标题', '公文日期', '接收时间', '发起时间'],
+                iDone: ['序号', '申请类型', '申请标题', '申请日期', '接收时间', '发起时间'],
                 //我终止的
-                iStop: ['序号', '公文类型', '公文标题', '公文日期', '发起时间', '终止时间'],
+                iStop: ['序号', '申请类型', '申请标题', '申请日期', '发起时间', '终止时间'],
                 //我的草稿
-                mineDraft: ['序号', '公文类型', '公文标题', '公文日期', '发起时间', '起草时间']
+                mineDraft: ['序号', '申请类型', '申请标题', '申请日期', '发起时间', '起草时间']
             }
 
             $scope.pageHeader = {
                 //待处理
-                needDo: '待处理的公文',
+                needDo: '待处理审批',
                 //我发出未完成
-                mineDoing: '已发出的未完成公文',
+                mineDoing: '我的待批申请',
                 //我发出已完成
-                mineDone: '已发出的已完成公文',
+                mineDone: '我的已批申请',
                 //我处理过的
-                iDone: '已处理过的公文',
+                iDone: '已处理审批',
                 //我终止的
-                iStop: '已发出的已终止的的公文',
+                iStop: '已终止审批',
                 //我的草稿
                 mineDraft: '草稿'
             }
@@ -593,7 +593,7 @@
         //$scope.paginationConf = defaultPaginationConf;
 
         var defaultPageSearch = {
-            // 公文标题
+            // 申请标题
             QueryCondition: null,
             // 来文文号
             DocumentNumber: null,
@@ -700,7 +700,7 @@
             }
         }
         function init() {
-            $scope.titleObj = ['序号', '公文类型',  '公文标题', '公文日期', '发起部门', '发起人', '流程状态'];
+            $scope.titleObj = ['序号', '申请类型',  '申请标题', '申请日期', '发起部门', '发起人', '流程状态'];
             $scope.wkfStateList = [
                 { value: 0, text: '草稿' },
                 { value: 1, text: '运行中' },
