@@ -277,7 +277,7 @@ namespace XYD.Entity
     }
     #endregion
 
-    #region 新友达工作流模版
+    #region XYD工作流模版
     public class XYD_Templates
     {
         public List<XYD_Template_Entity> workflows { get; set; }
@@ -293,6 +293,63 @@ namespace XYD.Entity
         public string Image { get; set; }
         // 排序
         public int Order { get; set; }
+    }
+    #endregion
+
+    #region XYD流程发起
+    // 意见列表
+    public class XYD_Cell_Options
+    {
+        // 值
+        public string Value { get; set; }
+        // 内部值
+        public string InterValue { get; set; }
+    }
+    // 单元格值
+    public class XYD_Cell_Value
+    {
+        // 标题
+        public string Title { get; set; }
+        // 显示的值
+        public string Value { get; set; }
+        // 内部值
+        public string InterValue { get; set; }
+        // 类型
+        public int Type;
+        // 是否可以编辑
+        public bool CanEdit { get; set; }
+        // 行
+        public int Row { get; set; }
+        // 列
+        public int Col { get; set; }
+        // 意见列表
+        public List<XYD_Cell_Options> Options { get; set; }
+        // 是否必填
+        public bool Required { get; set; }
+    }
+    // 基础单元格类型
+    public class XYD_Base_Cell
+    {
+        // 类型
+        public int Type { get; set; }
+        // 标题
+        public List<string> Header { get; set; }
+    }
+    // 单一单元格类型
+    public class XYD_Single_Cell : XYD_Base_Cell
+    {
+        // 值
+        public XYD_Cell_Value Value { get; set; }
+    }
+    // 数组单元格类型
+    public class XYD_Array_Cell : XYD_Base_Cell
+    {
+        // 值
+        public List<List<XYD_Cell_Value>> Value { get; set; }
+    }
+    public class XYD_Fields
+    {
+        public List<XYD_Base_Cell> Fields { get; set; }
     }
     #endregion
 

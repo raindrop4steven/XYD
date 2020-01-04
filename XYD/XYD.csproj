@@ -204,8 +204,10 @@
     <Compile Include="Common\ResponseUtil.cs" />
     <Compile Include="Common\TransformUtil.cs" />
     <Compile Include="Common\WorkflowUtil.cs" />
+    <Compile Include="Common\XYDCellJsonConverter.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\WorkflowController.cs" />
     <Compile Include="Entity\BaseQueryInfo.cs" />
     <Compile Include="Entity\DEP_MappingField.cs" />
@@ -431,6 +433,7 @@
     <Content Include="Content\config\aabd1d16-d72f-4d6c-be5d-74ee503d338a.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\config\c97fb2da-1507-4dd1-9d0b-ae28cfda7560-start.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -459,6 +462,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Common\" />
     <Folder Include="Views\Favorite\" />
+    <Folder Include="Views\Test\" />
     <Folder Include="Views\WorkflowPage\" />
   </ItemGroup>
   <ItemGroup>

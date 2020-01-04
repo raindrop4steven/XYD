@@ -1,0 +1,385 @@
+﻿{
+    "Fields": [
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请人",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "部门",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 7,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 11,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "车牌号",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 5,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 3,
+            "Header": [ "费用类别", "单据数量", "金额", "备注" ],
+            "Value": [
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 7,
+                        "Col": 1,
+                        "Options": [
+                            {
+                                "Value": "汽油费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "过桥费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "修理费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
+                                "InterValue": ""
+                            }
+                        ],
+                        "Required": false
+                    },
+                    {
+                        "Title": "单据数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 7,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 7,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 8,
+                        "Col": 1,
+                        "Options": [
+                            {
+                                "Value": "汽油费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "过桥费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "修理费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
+                                "InterValue": ""
+                            }
+                        ],
+                        "Required": false
+                    },
+                    {
+                        "Title": "单据数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 8,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 8,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 9,
+                        "Col": 1,
+                        "Options": [
+                            {
+                                "Value": "汽油费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "过桥费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "修理费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
+                                "InterValue": ""
+                            }
+                        ],
+                        "Required": false
+                    },
+                    {
+                        "Title": "单据数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 9,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 9,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 10,
+                        "Col": 1,
+                        "Options": [
+                            {
+                                "Value": "汽油费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "过桥费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "修理费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
+                                "InterValue": ""
+                            }
+                        ],
+                        "Required": false
+                    },
+                    {
+                        "Title": "单据数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 10,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 10,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 11,
+                        "Col": 1,
+                        "Options": [
+                            {
+                                "Value": "汽油费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "过桥费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "修理费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
+                                "InterValue": ""
+                            }
+                        ],
+                        "Required": false
+                    },
+                    {
+                        "Title": "单据数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 11,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": false,
+                        "Row": 11,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    }
+                ]
+            ]
+        }
+    ]
+}

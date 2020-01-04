@@ -96,14 +96,31 @@ namespace XYD.Controllers
                 {
                     return ResponseUtil.OK(new
                     {
-                        mid = theMessage.MessageID,
-                        nid = theMessage.InitNodeKey,
-                        sid = mgr.GetDocHelperIdByMessageId(theMessage.MessageID)
+                        MessageId = theMessage.MessageID,
+                        WorkflowId = theMessage.FromTemplate,
+                        WorksheetId = mgr.GetDocHelperIdByMessageId(theMessage.MessageID),
+                        MessageTitle = theMessage.MessageTitle,
+                        NodeId = theMessage.InitNodeKey
                     });
                 }
             } else
             {
                 return ResponseUtil.Error("参数不是工作流模版");
+            }
+        }
+        #endregion
+
+        #region 获得发起流程配置
+        public ActionResult GetStartFields(string MessageID)
+        {
+            try
+            {
+                XYD_Fields fields = WorkflowUtil.GetStartFields(MessageID);
+                return ResponseUtil.OK(fields);
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
             }
         }
         #endregion

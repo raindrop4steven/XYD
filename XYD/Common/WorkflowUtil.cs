@@ -330,6 +330,39 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 填充cell的值
+        public static void FillCellValue(Worksheet worksheet, XYD_Base_Cell cell)
+        {
+            XYD_Single_Cell singleCell = null;
+            XYD_Array_Cell arrayCell = null;
+            if (cell.Type == 0)
+            {
+                singleCell = (XYD_Single_Cell)cell;
+                var workcell = worksheet.GetWorkcell(singleCell.Value.Row, singleCell.Value.Col);
+                if (workcell != null)
+                {
+                    singleCell.Value.Value = workcell.WorkcellValue;
+                    singleCell.Value.InterValue = workcell.WorkcellInternalValue;
+                }
+            } else if (cell.Type == 3)
+            {
+                arrayCell = (XYD_Array_Cell)cell;
+                foreach(List<XYD_Cell_Value> rowCells in arrayCell.Value)
+                {
+                    foreach (XYD_Cell_Value innerCell in rowCells)
+                    {
+                        var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
+                        innerCell.Value = workcell.WorkcellValue;
+                        innerCell.InterValue = workcell.WorkcellInternalValue;
+                    }
+                }
+            } else
+            {
+                throw new Exception("不支持的类型");
+            }
+        }
+        #endregion
+
         #region 获得Cell的值
         /*
          * 获得Cell的值
@@ -836,6 +869,29 @@ namespace XYD.Common
                 }
             }
             return TemplateList;
+        }
+        #endregion
+
+        #region 获得发起流程的表单配置
+        public static XYD_Fields GetStartFields(string MessageID)
+        {
+            Message message = mgr.GetMessage(MessageID);
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
+            Worksheet worksheet = doc.Worksheet;
+
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-start.json", message.FromTemplate));
+
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var fields = JsonConvert.DeserializeObject<XYD_Fields>(sr.ReadToEnd(), new XYDCellJsonConverter());
+
+                foreach (XYD_Base_Cell cell in fields.Fields)
+                {
+                    // 查找对应的值
+                    FillCellValue(worksheet, cell);
+                }
+                return fields;
+            }
         }
         #endregion
     }
