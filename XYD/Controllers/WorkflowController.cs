@@ -125,6 +125,26 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 确认发起流程
+        [HttpPost]
+        public ActionResult ConfirmStartWorkflow(string MessageID)
+        {
+            try
+            {
+                Stream stream = Request.InputStream;
+                stream.Seek(0, SeekOrigin.Begin);
+                string json = new StreamReader(stream).ReadToEnd();
+                WorkflowUtil.ConfirmStartWorkflow(MessageID, json);
+
+                return ResponseUtil.OK("流程发起成功");
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
         #region 根据用户判断是否有部门表单配置
         public ActionResult CheckHasDept()
         {

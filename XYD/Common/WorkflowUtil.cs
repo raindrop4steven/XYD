@@ -894,5 +894,52 @@ namespace XYD.Common
             }
         }
         #endregion
+
+        #region 确认发起表单
+        public static void ConfirmStartWorkflow(string MessageID, string jsonString)
+        {
+            Message message = mgr.GetMessage(MessageID);
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
+            Worksheet worksheet = doc.Worksheet;
+
+            var fields = JsonConvert.DeserializeObject<XYD_Fields>(jsonString, new XYDCellJsonConverter());
+            List<Workcell> workCellList = new List<Workcell>();
+            foreach (XYD_Base_Cell cell in fields.Fields)
+            {
+                XYD_Single_Cell singleCell = null;
+                XYD_Array_Cell arrayCell = null;
+                if (cell.Type == 0)
+                {
+                    singleCell = (XYD_Single_Cell)cell;
+                    var workcell = worksheet.GetWorkcell(singleCell.Value.Row, singleCell.Value.Col);
+                    if (workcell != null)
+                    {
+                        workcell.WorkcellValue = singleCell.Value.Value;
+                        workcell.WorkcellInternalValue = singleCell.Value.InterValue;
+                        workCellList.Add(workcell);
+                    }
+                }
+                else if (cell.Type == 3)
+                {
+                    arrayCell = (XYD_Array_Cell)cell;
+                    foreach (List<XYD_Cell_Value> rowCells in arrayCell.Value)
+                    {
+                        foreach (XYD_Cell_Value innerCell in rowCells)
+                        {
+                            var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
+                            workcell.WorkcellValue = innerCell.Value;
+                            workcell.WorkcellInternalValue = innerCell.InterValue;
+                            workCellList.Add(workcell);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("不支持的类型");
+                }
+            }
+            worksheet.UpdateWorkcells(workCellList);
+        }
+        #endregion
     }
 }
