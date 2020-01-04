@@ -1,0 +1,535 @@
+﻿{
+    "Fields": [
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请人",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 5,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请时间",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 9,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "部门",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 13,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "会议名称",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 5,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "会议室安排",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 6,
+                "Col": 5,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "会议人数",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 7,
+                "Col": 5,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "会议性质",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 7,
+                "Col": 9,
+                "Options": [
+                    {
+                        "Value": "接待",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "培训",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "例会",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "谈判",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "其他",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "使用时间",
+                "Value": "",
+                "InterValue": "",
+                "Type": 2,
+                "CanEdit": true,
+                "Row": 8,
+                "Col": 5,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "结束时间",
+                "Value": "",
+                "InterValue": "",
+                "Type": 2,
+                "CanEdit": true,
+                "Row": 8,
+                "Col": 9,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "投影仪",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 6,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "笔记本",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 8,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "激光笔",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 10,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "话筒",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 12,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "音响",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 14,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "电话会议",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 10,
+                "Col": 6,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "视频会议",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 10,
+                "Col": 8,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "茶水",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 11,
+                "Col": 6,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "咖啡",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 11,
+                "Col": 8,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "水果",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 11,
+                "Col": 10,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "鲜花",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 11,
+                "Col": 12,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "1楼欢迎牌",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 12,
+                "Col": 6,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "会议室投影欢迎面板",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 12,
+                "Col": 9,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "席位牌",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 12,
+                "Col": 11,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "其他",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 12,
+                "Col": 13,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "备注",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 13,
+                "Col": 5,
+                "Options": null,
+                "Required": true
+            }
+        },
+    ]
+}

@@ -1,0 +1,228 @@
+﻿{
+    "Fields": [
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请人",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 5,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "填表日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 9,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "开始日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 2,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 5,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "结束日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 2,
+                "CanEdit": false,
+                "Row": 5,
+                "Col": 9,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "出差时长",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 13,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "出差地",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 6,
+                "Col": 5,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "交通工具",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 7,
+                "Col": 5,
+                "Options": [
+                    {
+                        "Value": "汽车",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "火车",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "飞机",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "船舶",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "预定方式",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 7,
+                "Col": 9,
+                "Options": [
+                    {
+                        "Value": "自己订",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "公司订",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "住宿方式",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 8,
+                "Col": 5,
+                "Options": [
+                    {
+                        "Value": "宾馆",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "短租",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "预定方式",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 8,
+                "Col": 9,
+                "Options": [
+                    {
+                        "Value": "自己订",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "公司订",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "客户信息",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 5,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "事由",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 10,
+                "Col": 5,
+                "Options": null,
+                "Required": true
+            }
+        }
+    ]
+}
