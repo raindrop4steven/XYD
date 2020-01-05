@@ -48,5 +48,19 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 审批
+        [HttpPost]
+        public ActionResult Audit(FormCollection collection)
+        {
+            var mid = collection["mid"];
+            var nid = collection["nid"];
+            var operate = collection["operate"];
+            var opinion = collection["opinion"];
+
+            WorkflowUtil.AuditMessage(mid, nid, operate, opinion);
+            return ResponseUtil.OK("审批OK");
+        }
+        #endregion
     }
 }

@@ -145,6 +145,20 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 审批同意/驳回
+        [HttpPost]
+        public ActionResult Audit(FormCollection collection)
+        {
+            var mid = collection["mid"];
+            var nid = collection["nid"];
+            var operate = collection["operate"];
+            var opinion = collection["opinion"];
+
+            WorkflowUtil.AuditMessage(mid, nid, operate, opinion);
+            return ResponseUtil.OK("审批OK");
+        }
+        #endregion
+
         #region 根据用户判断是否有部门表单配置
         public ActionResult CheckHasDept()
         {

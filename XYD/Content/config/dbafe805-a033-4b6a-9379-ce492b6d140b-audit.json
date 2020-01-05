@@ -1,0 +1,26 @@
+﻿{
+    "Nodes": [
+        {
+            "NodeID": "NODE0002",
+            "Operate": {
+                "Row": 14,
+                "Col": 10
+            },
+            "Opinion": {
+                "Row": 14,
+                "Col": 12
+            }
+        },
+        {
+            "NodeID": "NODE0003",
+            "Operate": {
+                "Row": 15,
+                "Col": 10
+            },
+            "Opinion": {
+                "Row": 15,
+                "Col": 12
+            }
+        }
+    ]
+}

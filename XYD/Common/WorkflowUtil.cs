@@ -947,5 +947,46 @@ namespace XYD.Common
             worksheet.UpdateWorkcells(workCellList);
         }
         #endregion
+
+        #region 签批申请
+        public static void AuditMessage(string mid, string nid, string operate, string opinion)
+        {
+            XYD_Audit_Node auditNode = null;
+            var message = mgr.GetMessage(mid);
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+            Worksheet worksheet = doc.Worksheet;
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-audit.json", message.FromTemplate));
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var nodes = JsonConvert.DeserializeObject<XYD_Audit>(sr.ReadToEnd(), new XYDCellJsonConverter());
+                foreach (XYD_Audit_Node node in nodes.Nodes)
+                {
+                    if (node.NodeID == nid)
+                    {
+                        auditNode = node;
+                    }
+                }
+                if (auditNode == null)
+                {
+                    throw new Exception("未找到节点对应审批配置");
+                }
+                // 开始签批
+                UpdateCell(worksheet, auditNode.Operate.Row, auditNode.Operate.Col, operate, string.Empty);
+                UpdateCell(worksheet, auditNode.Opinion.Row, auditNode.Opinion.Col, opinion, string.Empty);
+            }
+        }
+
+        public static void UpdateCell(Worksheet worksheet, int row, int col, string value, string interValue)
+        {
+            Workcell cell = worksheet.GetWorkcell(row, col);
+            if (cell == null)
+            {
+                throw new Exception(string.Format("对应单元格{0},{1}不存在", row, col));
+            }
+            cell.WorkcellValue = value;
+            cell.WorkcellInternalValue = interValue;
+            worksheet.UpdateWorkcells(new List<Workcell> { cell });
+        }
+        #endregion
     }
 }

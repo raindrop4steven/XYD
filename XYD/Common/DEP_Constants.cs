@@ -18,5 +18,8 @@ namespace XYD.Common
          */
         // 工作流
         public static string JPush_Workflow_Type = "Workflow";
+
+        public static string Audit_Operate_Type_Agree = "同意";
+        public static string Audit_Operate_Type_Disagree = "驳回";
     }
 }

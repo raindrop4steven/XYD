@@ -353,4 +353,24 @@ namespace XYD.Entity
     }
     #endregion
 
+    #region XYD流程审批
+    public class XYD_Audit_Cell
+    {
+        public int Row { get; set; }
+        public int Col { get; set; } 
+    }
+
+    public class XYD_Audit_Node
+    {
+        public string NodeID { get; set; }
+        public XYD_Audit_Cell Operate { get; set; }
+        public XYD_Audit_Cell Opinion { get; set; }
+    }
+
+    public class XYD_Audit
+    {
+        public List<XYD_Audit_Node> Nodes { get; set; }
+    }
+    #endregion
+
 }
