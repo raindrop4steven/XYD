@@ -445,6 +445,9 @@
     <Content Include="Content\config\164e75ca-d8f8-4275-90bb-a66f9104c86c-start.json" />
     <Content Include="Content\config\25ee8aa4-4141-4aeb-b148-c8d66722b0b2-start.json" />
     <Content Include="Content\config\73afea2a-9b48-4d79-af55-a2bcd13feff6-start.json" />
+    <Content Include="Content\config\b4b9da44-0ea8-4b03-b428-7eeafbf9875e-start.json" />
+    <Content Include="Content\config\8245bf5f-cb2d-4bd6-8a52-1d47f7b74e85-start.json" />
+    <Content Include="Content\config\decf0690-a529-4577-9af1-c1db16f458b3-start.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
