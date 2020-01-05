@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Xml;
+using XYD.Models;
 
 namespace XYD.Common
 {
@@ -986,6 +987,113 @@ namespace XYD.Common
             cell.WorkcellValue = value;
             cell.WorkcellInternalValue = interValue;
             worksheet.UpdateWorkcells(new List<Workcell> { cell });
+        }
+        #endregion
+
+        #region 获得申请编号
+        public static string GenerateSerialNumber(string name)
+        {
+            var year = Convert.ToString(DateTime.Now.Year);
+            using (var db = new DefaultConnection())
+            {
+                var entity = db.SerialNo.Where(n => n.Name == name).FirstOrDefault();
+                if (entity != null)
+                {
+                    if (!year.Contains(Convert.ToString(entity.Year)))
+                    {
+                        entity.Year += 1;
+                        entity.Number = 1;
+                        db.SaveChanges();
+                    }
+                    var num = string.Empty;
+                    if (entity.Number < 10)
+                    {
+                        num = string.Format("000{0}", entity.Number);
+                    }
+                    else if (entity.Number < 100)
+                    {
+                        num = string.Format("00{0}", entity.Number);
+                    }
+                    else if (entity.Number < 1000)
+                    {
+                        num = string.Format("0{0}", entity.Number);
+                    }
+                    var serialNo = string.Format("{0}-{1}", DateTime.Now.ToString("yyyyMMdd"), num);
+                    return serialNo;
+                }
+                else
+                {
+                    throw new Exception("没有找到对应编号配置");
+                }
+            }
+        }
+        #endregion
+
+        #region 填充事务编号
+        public static void FillSerialNumber(string mid)
+        {
+            XYD_Serial config = null;
+            var message = mgr.GetMessage(mid);
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+            Worksheet worksheet = doc.Worksheet;
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], "serialNumber.json");
+
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var serials = JsonConvert.DeserializeObject<XYD_Serials>(sr.ReadToEnd(), new XYDCellJsonConverter());
+
+                foreach (XYD_Serial serialConfig in serials.Serials)
+                {
+                    if (serialConfig.FromId == message.FromTemplate)
+                    {
+                        config = serialConfig;
+                    }
+                }
+            }
+            if (config == null)
+            {
+                throw new Exception("未找到对应事务位置");
+            }
+            else
+            {
+                Workcell cell = worksheet.GetWorkcell(config.SnPos.Row, config.SnPos.Col);
+                string serialNo = WorkflowUtil.GenerateSerialNumber(message.FromTemplate);
+                cell.WorkcellValue = serialNo;
+                worksheet.UpdateWorkcells(new List<Workcell> { cell });
+            }
+        }
+        #endregion
+
+        #region 抽取流程中的编号
+        public static string ExtractSerialNumber(string mid)
+        {
+            XYD_Serial config = null;
+            var message = mgr.GetMessage(mid);
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+            Worksheet worksheet = doc.Worksheet;
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], "serialNumber.json");
+
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var serials = JsonConvert.DeserializeObject<XYD_Serials>(sr.ReadToEnd(), new XYDCellJsonConverter());
+
+                foreach (XYD_Serial serialConfig in serials.Serials)
+                {
+                    if (serialConfig.FromId == message.FromTemplate)
+                    {
+                        config = serialConfig;
+                    }
+                }
+            }
+            if (config == null)
+            {
+                throw new Exception("未找到对应事务位置");
+            }
+            else
+            {
+                Workcell cell = worksheet.GetWorkcell(config.SnPos.Row, config.SnPos.Col);
+                return cell.WorkcellValue;
+            }
         }
         #endregion
     }

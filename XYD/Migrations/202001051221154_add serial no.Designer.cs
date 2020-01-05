@@ -7,13 +7,13 @@ namespace XYD.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addmessagealarmconfig : IMigrationMetadata
+    public sealed partial class addserialno : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addmessagealarmconfig));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addserialno));
         
         string IMigrationMetadata.Id
         {
-            get { return "201905210611465_add message alarm config"; }
+            get { return "202001051221154_add serial no"; }
         }
         
         string IMigrationMetadata.Source

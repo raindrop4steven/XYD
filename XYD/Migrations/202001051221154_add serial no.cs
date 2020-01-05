@@ -3,17 +3,18 @@ namespace XYD.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addattmenttable : DbMigration
+    public partial class addserialno : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.DEP_Att",
+                "dbo.XYD_Serial_No",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
+                        ID = c.String(nullable: false, maxLength: 128),
                         Name = c.String(),
-                        Path = c.String(),
+                        Year = c.Int(nullable: false),
+                        Number = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -21,7 +22,7 @@ namespace XYD.Migrations
         
         public override void Down()
         {
-            DropTable("dbo.DEP_Att");
+            DropTable("dbo.XYD_Serial_No");
         }
     }
 }

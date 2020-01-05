@@ -207,6 +207,7 @@
     <Compile Include="Common\XYDCellJsonConverter.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SerialNoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\WorkflowController.cs" />
     <Compile Include="Entity\BaseQueryInfo.cs" />
@@ -216,37 +217,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905100652296_add favorite message.cs" />
-    <Compile Include="Migrations\201905100652296_add favorite message.Designer.cs">
-      <DependentUpon>201905100652296_add favorite message.cs</DependentUpon>
+    <Compile Include="Migrations\202001051221154_add serial no.cs" />
+    <Compile Include="Migrations\202001051221154_add serial no.Designer.cs">
+      <DependentUpon>202001051221154_add serial no.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905110546239_add new opinion.cs" />
-    <Compile Include="Migrations\201905110546239_add new opinion.Designer.cs">
-      <DependentUpon>201905110546239_add new opinion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905210611465_add message alarm config.cs" />
-    <Compile Include="Migrations\201905210611465_add message alarm config.Designer.cs">
-      <DependentUpon>201905210611465_add message alarm config.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905210647169_update message alarm model.cs" />
-    <Compile Include="Migrations\201905210647169_update message alarm model.Designer.cs">
-      <DependentUpon>201905210647169_update message alarm model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905220936091_add jobid.cs" />
-    <Compile Include="Migrations\201905220936091_add jobid.Designer.cs">
-      <DependentUpon>201905220936091_add jobid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905231423342_add subflow relation.cs" />
-    <Compile Include="Migrations\201905231423342_add subflow relation.Designer.cs">
-      <DependentUpon>201905231423342_add subflow relation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906060235505_add attment table.cs" />
-    <Compile Include="Migrations\201906060235505_add attment table.Designer.cs">
-      <DependentUpon>201906060235505_add attment table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906200347411_remove custom att model.cs" />
-    <Compile Include="Migrations\201906200347411_remove custom att model.Designer.cs">
-      <DependentUpon>201906200347411_remove custom att model.cs</DependentUpon>
+    <Compile Include="Migrations\202001051328378_add serial record.cs" />
+    <Compile Include="Migrations\202001051328378_add serial record.Designer.cs">
+      <DependentUpon>202001051328378_add serial record.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -463,6 +440,7 @@
     <Content Include="Content\config\b4b9da44-0ea8-4b03-b428-7eeafbf9875e-audit.json" />
     <Content Include="Content\config\8245bf5f-cb2d-4bd6-8a52-1d47f7b74e85-audit.json" />
     <Content Include="Content\config\decf0690-a529-4577-9af1-c1db16f458b3-audit.json" />
+    <Content Include="Content\config\serialNumber.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -491,6 +469,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Common\" />
     <Folder Include="Views\Favorite\" />
+    <Folder Include="Views\SerialNo\" />
     <Folder Include="Views\Test\" />
     <Folder Include="Views\WorkflowPage\" />
   </ItemGroup>
@@ -509,29 +488,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905100652296_add favorite message.resx">
-      <DependentUpon>201905100652296_add favorite message.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001051221154_add serial no.resx">
+      <DependentUpon>202001051221154_add serial no.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905110546239_add new opinion.resx">
-      <DependentUpon>201905110546239_add new opinion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905210611465_add message alarm config.resx">
-      <DependentUpon>201905210611465_add message alarm config.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905210647169_update message alarm model.resx">
-      <DependentUpon>201905210647169_update message alarm model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905220936091_add jobid.resx">
-      <DependentUpon>201905220936091_add jobid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905231423342_add subflow relation.resx">
-      <DependentUpon>201905231423342_add subflow relation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906060235505_add attment table.resx">
-      <DependentUpon>201906060235505_add attment table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906200347411_remove custom att model.resx">
-      <DependentUpon>201906200347411_remove custom att model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001051328378_add serial record.resx">
+      <DependentUpon>202001051328378_add serial record.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

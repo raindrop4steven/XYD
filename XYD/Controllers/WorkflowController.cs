@@ -446,5 +446,74 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 生成编号
+        public ActionResult FillSerialNo(string mid)
+        {
+            WorkflowUtil.FillSerialNumber(mid);
+            return ResponseUtil.OK("OK");
+        }
+        #endregion
+
+        #region 更新编号
+        public ActionResult UpdateSerialNo(string mid)
+        {
+            var message = mgr.GetMessage(mid);
+            using (var db = new DefaultConnection())
+            {
+                var entity = db.SerialNo.Where(n => n.Name == message.FromTemplate).FirstOrDefault();
+                if (entity == null)
+                {
+                    return ResponseUtil.Error("未找到对应编号配置");
+                } else
+                {
+                    entity.Number += 1;
+                    db.SaveChanges();
+                    return ResponseUtil.OK("更新编号成功");
+                }
+            }
+        }
+        #endregion
+
+        #region 映射事务编号数据
+        public ActionResult MappingSerialNo(string mid)
+        {
+            var message = mgr.GetMessage(mid);
+            string serialNumber = WorkflowUtil.ExtractSerialNumber(mid);
+            using (var db = new DefaultConnection())
+            {
+                var record = db.SerialRecord.Where(n => n.MessageID == mid).FirstOrDefault();
+                if (record == null)
+                {
+                    record = new XYD_Serial_Record();
+                    record.ID = new Guid().ToString();
+                    record.MessageID = mid;
+                    record.WorkflowID = message.FromTemplate;
+                    record.Sn = serialNumber;
+                    record.Used = false;
+                    db.SerialRecord.Add(record);
+                    db.SaveChanges();
+                    // 更新编号配置
+                    var entity = db.SerialNo.Where(n => n.Name == message.FromTemplate).FirstOrDefault();
+                    if (entity == null)
+                    {
+                        return ResponseUtil.Error("未找到对应编号配置");
+                    }
+                    else
+                    {
+                        entity.Number += 1;
+                        db.SaveChanges();
+                        return ResponseUtil.OK("更新编号成功");
+                    }
+                }
+                else
+                {
+                    record.Sn = serialNumber;
+                    db.SaveChanges();
+                }
+                return ResponseUtil.OK("记录事务编号成功");
+            }
+        }
+        #endregion
     }
 }

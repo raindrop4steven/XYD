@@ -7,13 +7,13 @@ namespace XYD.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addnewopinion : IMigrationMetadata
+    public sealed partial class addserialrecord : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addnewopinion));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addserialrecord));
         
         string IMigrationMetadata.Id
         {
-            get { return "201905110546239_add new opinion"; }
+            get { return "202001051328378_add serial record"; }
         }
         
         string IMigrationMetadata.Source

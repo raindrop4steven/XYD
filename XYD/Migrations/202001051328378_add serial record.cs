@@ -3,18 +3,19 @@ namespace XYD.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addfavoritemessage : DbMigration
+    public partial class addserialrecord : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.DEP_FavoriteMessage",
+                "dbo.XYD_Serial_Record",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
+                        ID = c.String(nullable: false, maxLength: 128),
                         MessageID = c.String(),
-                        EmplID = c.String(),
-                        CreateTime = c.DateTime(nullable: false),
+                        WorkflowID = c.String(),
+                        Sn = c.String(),
+                        Used = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -22,7 +23,7 @@ namespace XYD.Migrations
         
         public override void Down()
         {
-            DropTable("dbo.DEP_FavoriteMessage");
+            DropTable("dbo.XYD_Serial_Record");
         }
     }
 }

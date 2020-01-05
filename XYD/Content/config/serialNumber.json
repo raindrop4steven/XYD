@@ -1,0 +1,19 @@
+﻿{
+    "Serials": [
+        {
+            "FromId": "b74eaee5-6f61-4099-b2c1-52e81ff71792",
+            "ToId": "",
+            "NodeId": "NODE0001",
+            "MappingOut": [
+                {
+                    "From": "办件收文.D4",
+                    "To": "公文流转表单.D4"
+                }
+            ],
+            "SnPos": {
+                "Row": 3,
+                "Col": 5
+            }
+        }
+    ]
+}

@@ -373,4 +373,33 @@ namespace XYD.Entity
     }
     #endregion
 
+    #region XYD事务编号
+    public class XYD_CellPos
+    {
+        // 行
+        public int Row { get; set; }
+        // 列
+        public int Col { get; set; }
+    }
+
+    public class XYD_Serial
+    {
+        // 映射来源：申请表单
+        public string FromId { get; set; }
+        // 映射目标：报销表单
+        public string ToId { get; set; }
+        // 节点ID
+        public string NodeId { get; set; }
+        // 映射
+        public List<SubflowMapping> MappingOut { get; set; }
+        // 编号位置
+        public XYD_CellPos SnPos { get; set; }
+    }
+
+    public class XYD_Serials
+    {
+        public List<XYD_Serial> Serials { get; set; }
+    }
+    #endregion
+
 }
