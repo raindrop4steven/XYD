@@ -273,7 +273,6 @@
     <Content Include="Content\static\js\jquery-3.3.1.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\workflowScript\出差申请.js" />
     <Content Include="Content\workflowScript\差旅费用报销单.js" />
     <Content Include="Content\workflows\付款申请.png" />
     <Content Include="Content\workflows\住宿申请.png" />
