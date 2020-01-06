@@ -294,6 +294,18 @@ namespace XYD.Entity
         // 排序
         public int Order { get; set; }
     }
+
+    public class XYD_Operation
+    {
+        // 计算来源
+        public List<XYD_CellPos> Origin { get; set; }
+        // 计算目的
+        public XYD_CellPos Dest { get; set; }
+        // 计算方式
+        public string Operation { get; set; }
+        // 计算类型
+        public string Type { get; set; }
+    }
     #endregion
 
     #region XYD流程发起
@@ -324,6 +336,8 @@ namespace XYD.Entity
         public int Col { get; set; }
         // 意见列表
         public List<XYD_Cell_Options> Options { get; set; }
+        // 是否需要刷新
+        public bool NeedRefresh { get; set; }
         // 是否必填
         public bool Required { get; set; }
     }
@@ -345,11 +359,12 @@ namespace XYD.Entity
     public class XYD_Array_Cell : XYD_Base_Cell
     {
         // 值
-        public List<List<XYD_Cell_Value>> Value { get; set; }
+        public List<List<XYD_Cell_Value>> Array { get; set; }
     }
     public class XYD_Fields
     {
         public List<XYD_Base_Cell> Fields { get; set; }
+        public List<XYD_Operation> Operations { get; set; }
     }
     #endregion
 

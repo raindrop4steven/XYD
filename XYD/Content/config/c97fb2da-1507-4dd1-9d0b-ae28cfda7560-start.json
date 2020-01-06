@@ -12,6 +12,7 @@
                 "Row": 4,
                 "Col": 3,
                 "Options": null,
+                "NeedRefresh": false,
                 "Required": true
             }
         },
@@ -27,6 +28,7 @@
                 "Row": 4,
                 "Col": 7,
                 "Options": null,
+                "NeedRefresh": false,
                 "Required": true
             }
         },
@@ -42,6 +44,7 @@
                 "Row": 4,
                 "Col": 11,
                 "Options": null,
+                "NeedRefresh": false,
                 "Required": true
             }
         },
@@ -57,13 +60,14 @@
                 "Row": 5,
                 "Col": 3,
                 "Options": null,
+                "NeedRefresh": false,
                 "Required": true
             }
         },
         {
             "Type": 3,
             "Header": [ "费用类别", "单据数量", "金额", "备注" ],
-            "Value": [
+            "Array": [
                 [
                     {
                         "Title": "费用类别",
@@ -91,6 +95,7 @@
                                 "InterValue": ""
                             }
                         ],
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -102,6 +107,7 @@
                         "Row": 7,
                         "Col": 3,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -113,6 +119,7 @@
                         "Row": 7,
                         "Col": 5,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -124,6 +131,7 @@
                         "Row": 7,
                         "Col": 7,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     }
                 ],
@@ -154,6 +162,7 @@
                                 "InterValue": ""
                             }
                         ],
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -165,6 +174,7 @@
                         "Row": 8,
                         "Col": 3,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -176,6 +186,7 @@
                         "Row": 8,
                         "Col": 5,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -187,6 +198,7 @@
                         "Row": 8,
                         "Col": 7,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     }
                 ],
@@ -217,6 +229,7 @@
                                 "InterValue": ""
                             }
                         ],
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -228,6 +241,7 @@
                         "Row": 9,
                         "Col": 3,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -239,6 +253,7 @@
                         "Row": 9,
                         "Col": 5,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -250,6 +265,7 @@
                         "Row": 9,
                         "Col": 7,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     }
                 ],
@@ -280,6 +296,7 @@
                                 "InterValue": ""
                             }
                         ],
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -291,6 +308,7 @@
                         "Row": 10,
                         "Col": 3,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -302,6 +320,7 @@
                         "Row": 10,
                         "Col": 5,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -313,6 +332,7 @@
                         "Row": 10,
                         "Col": 7,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     }
                 ],
@@ -343,6 +363,7 @@
                                 "InterValue": ""
                             }
                         ],
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -354,6 +375,7 @@
                         "Row": 11,
                         "Col": 3,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -365,6 +387,7 @@
                         "Row": 11,
                         "Col": 5,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     },
                     {
@@ -376,6 +399,7 @@
                         "Row": 11,
                         "Col": 7,
                         "Options": null,
+                        "NeedRefresh": false,
                         "Required": false
                     }
                 ]

@@ -348,7 +348,7 @@ namespace XYD.Common
             } else if (cell.Type == 3)
             {
                 arrayCell = (XYD_Array_Cell)cell;
-                foreach(List<XYD_Cell_Value> rowCells in arrayCell.Value)
+                foreach(List<XYD_Cell_Value> rowCells in arrayCell.Array)
                 {
                     foreach (XYD_Cell_Value innerCell in rowCells)
                     {
@@ -926,7 +926,7 @@ namespace XYD.Common
                 else if (cell.Type == 3)
                 {
                     arrayCell = (XYD_Array_Cell)cell;
-                    foreach (List<XYD_Cell_Value> rowCells in arrayCell.Value)
+                    foreach (List<XYD_Cell_Value> rowCells in arrayCell.Array)
                     {
                         foreach (XYD_Cell_Value innerCell in rowCells)
                         {
