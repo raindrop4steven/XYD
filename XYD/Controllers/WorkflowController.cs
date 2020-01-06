@@ -478,6 +478,7 @@ namespace XYD.Controllers
         #region 映射事务编号数据
         public ActionResult MappingSerialNo(string mid)
         {
+            var employee = (User.Identity as AppkizIdentity).Employee;
             var message = mgr.GetMessage(mid);
             string serialNumber = WorkflowUtil.ExtractSerialNumber(mid);
             using (var db = new DefaultConnection())
@@ -487,6 +488,7 @@ namespace XYD.Controllers
                 {
                     record = new XYD_Serial_Record();
                     record.ID = Guid.NewGuid().ToString();
+                    record.EmplID = employee.EmplID;
                     record.MessageID = mid;
                     record.WorkflowID = message.FromTemplate;
                     record.Sn = serialNumber;
@@ -523,10 +525,11 @@ namespace XYD.Controllers
         {
             try
             {
+                var employee = (User.Identity as AppkizIdentity).Employee;
                 XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
                 using (var db = new DefaultConnection())
                 {
-                    var records = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false).OrderByDescending(n => n.CreateTime).ToList();
+                    var records = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == employee.EmplID).OrderByDescending(n => n.CreateTime).ToList();
                     return ResponseUtil.OK(new
                     {
                         records = records
@@ -536,8 +539,63 @@ namespace XYD.Controllers
             catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
+            }  
+        }
+        #endregion
+
+        #region 使用编号
+        public ActionResult UseSerialNumber(string sn, string mid)
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
+                // 设置编号已使用
+                using (var db = new DefaultConnection())
+                {
+                    var record = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == employee.EmplID && n.Sn == sn).FirstOrDefault();
+                    if (record == null)
+                    {
+                        return ResponseUtil.Error("配置为空");
+                    }
+                    else
+                    {
+                        record.Used = true;
+                        db.SaveChanges();
+                        return ResponseUtil.OK("使用编号成功");
+                    }
+                }
             }
-               
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 选择编号，映射对应数据到报销单中
+        public ActionResult MappingSourceToDest(string sn, string mid)
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
+                // 设置编号已使用
+                using (var db = new DefaultConnection())
+                {
+                    var record = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == employee.EmplID && n.Sn == sn).FirstOrDefault();
+                    if (record == null)
+                    {
+                        return ResponseUtil.Error("配置为空");
+                    }
+                    WorkflowUtil.MappingBetweenFlows(record.MessageID, mid, serial.MappingOut);
+                    return ResponseUtil.OK("映射数据成功");
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
         }
         #endregion
     }

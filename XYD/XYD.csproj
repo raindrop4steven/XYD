@@ -229,6 +229,10 @@
     <Compile Include="Migrations\202001060637066_add time fields.Designer.cs">
       <DependentUpon>202001060637066_add time fields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001060644152_add emplID.cs" />
+    <Compile Include="Migrations\202001060644152_add emplID.Designer.cs">
+      <DependentUpon>202001060644152_add emplID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -269,6 +273,8 @@
     <Content Include="Content\static\js\jquery-3.3.1.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\workflowScript\出差申请.js" />
+    <Content Include="Content\workflowScript\差旅费用报销单.js" />
     <Content Include="Content\workflows\付款申请.png" />
     <Content Include="Content\workflows\住宿申请.png" />
     <Content Include="Content\workflows\公章借出.png" />
@@ -500,6 +506,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001060637066_add time fields.resx">
       <DependentUpon>202001060637066_add time fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001060644152_add emplID.resx">
+      <DependentUpon>202001060644152_add emplID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1128,5 +1128,24 @@ namespace XYD.Common
             }
         }
         #endregion
+
+        #region 根据Mapping规则映射两表中数据
+        public static void MappingBetweenFlows(string sourceMessageId, string destMessageId, List<SubflowMapping> MappingOut)
+        {
+            SheetMgr sheetMgr = new SheetMgr();
+            foreach (SubflowMapping subflowMapping in MappingOut)
+            {
+                string[] strArray1 = subflowMapping.From.Split('.');
+                string[] strArray2 = subflowMapping.To.Split('.');
+                Doc docByName1 = mgr.GetDocByName(sourceMessageId, strArray1[0]);
+                Worksheet worksheet1 = sheetMgr.GetWorksheet(docByName1.DocHelperID);
+                Doc docByName2 = mgr.GetDocByName(destMessageId, strArray2[0]);
+                Worksheet worksheet2 = sheetMgr.GetWorksheet(docByName2.DocHelperID);
+                Workcell workcell = worksheet1.GetWorkcell(strArray1[1]);
+                worksheet2.SetCellValue(strArray2[1], workcell.WorkcellValue, workcell.WorkcellInternalValue);
+                worksheet2.Save();
+            }
+        }
+        #endregion
     }
 }

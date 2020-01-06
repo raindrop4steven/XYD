@@ -28,6 +28,8 @@ namespace XYD.Models
         public string ID { get; set; }
         // 流程ID
         public string MessageID { get; set; }
+        // 用户ID
+        public string EmplID { get; set; }
         // 模版ID
         public string WorkflowID { get; set; }
         // 对应编号

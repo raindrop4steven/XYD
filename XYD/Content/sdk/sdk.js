@@ -340,7 +340,7 @@ function ShowUnitList(divId, choiceLeft, choiceTop, choiceWidth, buttonHeight, b
         // item
         var li = document.createElement('LI');
         li.style = 'padding: 4px 16px 4px 4px; white-space: nowrap; border-bottom: 1px solid #888;hover:red;';
-        li.textContent = item.content;
+        li.textContent = item;
         ul.append(li);
     });
     div.append(ul);
