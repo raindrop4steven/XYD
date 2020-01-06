@@ -225,6 +225,10 @@
     <Compile Include="Migrations\202001051328378_add serial record.Designer.cs">
       <DependentUpon>202001051328378_add serial record.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001060637066_add time fields.cs" />
+    <Compile Include="Migrations\202001060637066_add time fields.Designer.cs">
+      <DependentUpon>202001060637066_add time fields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -493,6 +497,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001051328378_add serial record.resx">
       <DependentUpon>202001051328378_add serial record.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001060637066_add time fields.resx">
+      <DependentUpon>202001060637066_add time fields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

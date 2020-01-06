@@ -34,6 +34,10 @@ namespace XYD.Models
         public string Sn { get; set; }
         // 是否使用了
         public bool Used { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
     }
     #endregion
 

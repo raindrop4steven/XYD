@@ -486,11 +486,13 @@ namespace XYD.Controllers
                 if (record == null)
                 {
                     record = new XYD_Serial_Record();
-                    record.ID = new Guid().ToString();
+                    record.ID = Guid.NewGuid().ToString();
                     record.MessageID = mid;
                     record.WorkflowID = message.FromTemplate;
                     record.Sn = serialNumber;
                     record.Used = false;
+                    record.CreateTime = DateTime.Now;
+                    record.UpdateTime = DateTime.Now;
                     db.SerialRecord.Add(record);
                     db.SaveChanges();
                     // 更新编号配置
@@ -513,6 +515,29 @@ namespace XYD.Controllers
                 }
                 return ResponseUtil.OK("记录事务编号成功");
             }
+        }
+        #endregion
+
+        #region 根据流程ID获取对应的来源sn
+        public ActionResult GetSourceSerial(string mid)
+        {
+            try
+            {
+                XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
+                using (var db = new DefaultConnection())
+                {
+                    var records = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false).OrderByDescending(n => n.CreateTime).ToList();
+                    return ResponseUtil.OK(new
+                    {
+                        records = records
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+               
         }
         #endregion
     }

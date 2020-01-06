@@ -1096,5 +1096,37 @@ namespace XYD.Common
             }
         }
         #endregion
+
+        #region 根据目标流程ID获取源头ID
+        public static XYD_Serial GetSourceSerial(string mid)
+        {
+            XYD_Serial config = null;
+            var message = mgr.GetMessage(mid);
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+            Worksheet worksheet = doc.Worksheet;
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], "serialNumber.json");
+
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var serials = JsonConvert.DeserializeObject<XYD_Serials>(sr.ReadToEnd(), new XYDCellJsonConverter());
+
+                foreach (XYD_Serial serialConfig in serials.Serials)
+                {
+                    if (serialConfig.ToId == message.FromTemplate)
+                    {
+                        config = serialConfig;
+                    }
+                }
+            }
+            if (config == null)
+            {
+                throw new Exception("未找到对应事务位置");
+            }
+            else
+            {
+                return config;
+            }
+        }
+        #endregion
     }
 }
