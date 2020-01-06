@@ -37,7 +37,7 @@ namespace XYD.Controllers
                     foreach (XYD_Base_Cell cell in fields.Fields)
                     {
                         // 查找对应的值
-                        WorkflowUtil.FillCellValue(worksheet, cell);
+                        WorkflowUtil.FillCellValue(MessageID, worksheet, cell);
                     }
                     return ResponseUtil.OK(fields);
                 }

@@ -332,7 +332,7 @@ namespace XYD.Common
         #endregion
 
         #region 填充cell的值
-        public static void FillCellValue(Worksheet worksheet, XYD_Base_Cell cell)
+        public static void FillCellValue(string MessageID, Worksheet worksheet, XYD_Base_Cell cell)
         {
             XYD_Single_Cell singleCell = null;
             XYD_Array_Cell arrayCell = null;
@@ -345,6 +345,10 @@ namespace XYD.Common
                     singleCell.Value.Value = workcell.WorkcellValue;
                     singleCell.Value.InterValue = workcell.WorkcellInternalValue;
                 }
+                if (singleCell.Value.NeedRefresh)
+                {
+                    singleCell.Value.Options = FillOptions(MessageID);
+                }
             } else if (cell.Type == 3)
             {
                 arrayCell = (XYD_Array_Cell)cell;
@@ -355,11 +359,27 @@ namespace XYD.Common
                         var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
                         innerCell.Value = workcell.WorkcellValue;
                         innerCell.InterValue = workcell.WorkcellInternalValue;
+                        if (innerCell.NeedRefresh)
+                        {
+                            innerCell.Options = FillOptions(MessageID);
+                        }
                     }
                 }
             } else
             {
                 throw new Exception("不支持的类型");
+            }
+        }
+        #endregion
+
+        #region 填充Options值
+        public static List<XYD_Cell_Options> FillOptions(string mid)
+        {
+            XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
+            using (var db = new DefaultConnection())
+            {
+                var records = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false).OrderByDescending(n => n.CreateTime).Select(n => new XYD_Cell_Options() { Value = n.Sn, InterValue=string.Empty}).ToList();
+                return records;
             }
         }
         #endregion
@@ -889,7 +909,7 @@ namespace XYD.Common
                 foreach (XYD_Base_Cell cell in fields.Fields)
                 {
                     // 查找对应的值
-                    FillCellValue(worksheet, cell);
+                    FillCellValue(MessageID, worksheet, cell);
                 }
                 return fields;
             }
