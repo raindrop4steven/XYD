@@ -750,3 +750,18 @@ function ResetPublicOpinion(id) {
     splitArray = id.split('-');
     SaveCellData(worksheet_id, getQueryString('nid'), splitArray[1], splitArray[2], '', '');
 }
+
+function CaculateDays(beingID, endID, destID) {
+    var beginDateStr = $(beingID).text();
+    var endDateStr = $(endID).text();
+    if (beginDateStr.length > 0 && endDateStr.length > 0) {
+        var time1 = Date.parse(beginDateStr);
+        var time2 = Date.parse(endDateStr);
+        if (time1 > time2) {
+            alert("结束日期不能小于开始日期");
+        }
+        //讲两个时间相减，求出相隔的天数
+        var dayCount = (Math.abs(time2 - time1)) / 1000 / 60 / 60 / 24;
+        SaveCellValue($(destID), dayCount);
+    }
+}
