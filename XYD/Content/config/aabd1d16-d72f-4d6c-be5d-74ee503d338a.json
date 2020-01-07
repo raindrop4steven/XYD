@@ -9,14 +9,14 @@
                         "key": "DocumentTitle",
                         "value": {
                             "row": 2,
-                            "col": 3
+                            "col": 1
                         }
                     },
                     {
                         "key": "ClosedOrHairTime",
                         "value": {
                             "row": 4,
-                            "col": 9
+                            "col": 7
                         }
                     }
                 ]

@@ -20,14 +20,39 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "部门",
+                "Title": "所有部门",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 7,
+                "Col": 9,
                 "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "车牌号",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 3,
+                "Options": [
+                    {
+                        "Value": "车牌号1",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "车牌号2",
+                        "InterValue": ""
+                    }
+                ],
                 "NeedRefresh": false,
                 "Required": true
             }
@@ -41,24 +66,8 @@
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": false,
-                "Row": 4,
-                "Col": 11,
-                "Options": null,
-                "NeedRefresh": false,
-                "Required": true
-            }
-        },
-        {
-            "Type": 0,
-            "Header": null,
-            "Value": {
-                "Title": "车牌号",
-                "Value": "",
-                "InterValue": "",
-                "Type": 0,
-                "CanEdit": false,
                 "Row": 5,
-                "Col": 3,
+                "Col": 9,
                 "Options": null,
                 "NeedRefresh": false,
                 "Required": true
@@ -73,8 +82,8 @@
                         "Title": "费用类别",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": false,
+                        "Type": 1,
+                        "CanEdit": true,
                         "Row": 7,
                         "Col": 1,
                         "Options": [
@@ -91,6 +100,10 @@
                                 "InterValue": ""
                             },
                             {
+                                "Value": "停车费",
+                                "InterValue": ""
+                            },
+                            {
                                 "Value": "其他",
                                 "InterValue": ""
                             }
@@ -103,7 +116,7 @@
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
-                        "CanEdit": false,
+                        "CanEdit": true,
                         "Row": 7,
                         "Col": 3,
                         "Options": null,
@@ -115,7 +128,7 @@
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
-                        "CanEdit": false,
+                        "CanEdit": true,
                         "Row": 7,
                         "Col": 5,
                         "Options": null,
@@ -140,8 +153,8 @@
                         "Title": "费用类别",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": false,
+                        "Type": 1,
+                        "CanEdit": true,
                         "Row": 8,
                         "Col": 1,
                         "Options": [
@@ -158,6 +171,10 @@
                                 "InterValue": ""
                             },
                             {
+                                "Value": "停车费",
+                                "InterValue": ""
+                            },
+                            {
                                 "Value": "其他",
                                 "InterValue": ""
                             }
@@ -170,7 +187,7 @@
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
-                        "CanEdit": false,
+                        "CanEdit": true,
                         "Row": 8,
                         "Col": 3,
                         "Options": null,
@@ -182,7 +199,7 @@
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
-                        "CanEdit": false,
+                        "CanEdit": true,
                         "Row": 8,
                         "Col": 5,
                         "Options": null,
@@ -207,8 +224,8 @@
                         "Title": "费用类别",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": false,
+                        "Type": 1,
+                        "CanEdit": true,
                         "Row": 9,
                         "Col": 1,
                         "Options": [
@@ -225,6 +242,10 @@
                                 "InterValue": ""
                             },
                             {
+                                "Value": "停车费",
+                                "InterValue": ""
+                            },
+                            {
                                 "Value": "其他",
                                 "InterValue": ""
                             }
@@ -237,7 +258,7 @@
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
-                        "CanEdit": false,
+                        "CanEdit": true,
                         "Row": 9,
                         "Col": 3,
                         "Options": null,
@@ -249,7 +270,7 @@
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
-                        "CanEdit": false,
+                        "CanEdit": true,
                         "Row": 9,
                         "Col": 5,
                         "Options": null,
@@ -274,8 +295,8 @@
                         "Title": "费用类别",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": false,
+                        "Type": 1,
+                        "CanEdit": true,
                         "Row": 10,
                         "Col": 1,
                         "Options": [
@@ -292,6 +313,10 @@
                                 "InterValue": ""
                             },
                             {
+                                "Value": "停车费",
+                                "InterValue": ""
+                            },
+                            {
                                 "Value": "其他",
                                 "InterValue": ""
                             }
@@ -304,7 +329,7 @@
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
-                        "CanEdit": false,
+                        "CanEdit": true,
                         "Row": 10,
                         "Col": 3,
                         "Options": null,
@@ -316,7 +341,7 @@
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
-                        "CanEdit": false,
+                        "CanEdit": true,
                         "Row": 10,
                         "Col": 5,
                         "Options": null,
@@ -341,8 +366,8 @@
                         "Title": "费用类别",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": false,
+                        "Type": 1,
+                        "CanEdit": true,
                         "Row": 11,
                         "Col": 1,
                         "Options": [
@@ -359,6 +384,10 @@
                                 "InterValue": ""
                             },
                             {
+                                "Value": "停车费",
+                                "InterValue": ""
+                            },
+                            {
                                 "Value": "其他",
                                 "InterValue": ""
                             }
@@ -371,7 +400,7 @@
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
-                        "CanEdit": false,
+                        "CanEdit": true,
                         "Row": 11,
                         "Col": 3,
                         "Options": null,
@@ -383,7 +412,7 @@
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
-                        "CanEdit": false,
+                        "CanEdit": true,
                         "Row": 11,
                         "Col": 5,
                         "Options": null,
