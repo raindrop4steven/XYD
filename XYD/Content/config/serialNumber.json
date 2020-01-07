@@ -18,6 +18,36 @@
                 "Row": 3,
                 "Col": 5
             }
+        },
+        {
+            "FromId": "73afea2a-9b48-4d79-af55-a2bcd13feff6",
+            "ToId": "25ee8aa4-4141-4aeb-b148-c8d66722b0b2",
+            "NodeId": "NODE0001",
+            "MappingOut": [
+                {
+                    "From": "物品采购申请.E14",
+                    "To": "物品采购费用报销.D14"
+                }
+            ],
+            "SnPos": {
+                "Row": 4,
+                "Col": 5
+            }
+        },
+        {
+            "FromId": "8245bf5f-cb2d-4bd6-8a52-1d47f7b74e85",
+            "ToId": "b4b9da44-0ea8-4b03-b428-7eeafbf9875e",
+            "NodeId": "NODE0001",
+            "MappingOut": [
+                {
+                    "From": "业务接待申请.D7",
+                    "To": "业务接待费报销.H6"
+                }
+            ],
+            "SnPos": {
+                "Row": 3,
+                "Col": 4
+            }
         }
     ]
 }
