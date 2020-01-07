@@ -10,7 +10,7 @@
                 "Type": 0,
                 "CanEdit": true,
                 "Row": 4,
-                "Col": 5,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -25,8 +25,48 @@
                 "Type": 0,
                 "CanEdit": true,
                 "Row": 5,
-                "Col": 5,
+                "Col": 3,
                 "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "合同名称",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 8,
+                "Options": [
+                    {
+                        "Value": "生产采购合同",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "销售合同",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "采购合同",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "租赁合同",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "服务合同",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "快递合同",
+                        "InterValue": ""
+                    }
+                ],
                 "Required": true
             }
         },
@@ -40,7 +80,7 @@
                 "Type": 0,
                 "CanEdit": true,
                 "Row": 6,
-                "Col": 5,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -49,13 +89,13 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "申请日期",
+                "Title": "承办日期",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": true,
                 "Row": 6,
-                "Col": 6,
+                "Col": 5,
                 "Options": null,
                 "Required": true
             }
@@ -70,7 +110,7 @@
                 "Type": 0,
                 "CanEdit": true,
                 "Row": 6,
-                "Col": 9,
+                "Col": 8,
                 "Options": null,
                 "Required": true
             }
@@ -85,7 +125,7 @@
                 "Type": 0,
                 "CanEdit": true,
                 "Row": 7,
-                "Col": 5,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -100,7 +140,7 @@
                 "Type": 0,
                 "CanEdit": true,
                 "Row": 8,
-                "Col": 5,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }

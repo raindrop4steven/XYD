@@ -10,7 +10,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 5,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -25,7 +25,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 9,
+                "Col": 7,
                 "Options": null,
                 "Required": true
             }
@@ -40,7 +40,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 13,
+                "Col": 11,
                 "Options": null,
                 "Required": true
             }
@@ -55,7 +55,7 @@
                 "Type": 0,
                 "CanEdit": true,
                 "Row": 5,
-                "Col": 5,
+                "Col": 3,
                 "Options": [
                     {
                         "Value": "公章",
@@ -67,6 +67,10 @@
                     },
                     {
                         "Value": "法人章",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "合同章",
                         "InterValue": ""
                     }
                 ],
@@ -83,7 +87,7 @@
                 "Type": 0,
                 "CanEdit": true,
                 "Row": 6,
-                "Col": 5,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -98,7 +102,7 @@
                 "Type": 0,
                 "CanEdit": true,
                 "Row": 6,
-                "Col": 11,
+                "Col": 9,
                 "Options": null,
                 "Required": true
             }

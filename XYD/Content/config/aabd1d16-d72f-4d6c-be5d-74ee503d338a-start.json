@@ -10,7 +10,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 5,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -25,7 +25,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 9,
+                "Col": 7,
                 "Options": null,
                 "Required": true
             }
@@ -40,7 +40,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 13,
+                "Col": 11,
                 "Options": null,
                 "Required": true
             }
@@ -55,7 +55,37 @@
                 "Type": 0,
                 "CanEdit": true,
                 "Row": 5,
-                "Col": 5,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "使用时间",
+                "Value": "",
+                "InterValue": "",
+                "Type": 2,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 7,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "结束时间",
+                "Value": "",
+                "InterValue": "",
+                "Type": 2,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 8,
                 "Options": null,
                 "Required": true
             }
@@ -70,7 +100,7 @@
                 "Type": 0,
                 "CanEdit": true,
                 "Row": 6,
-                "Col": 5,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -84,8 +114,8 @@
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": true,
-                "Row": 7,
-                "Col": 5,
+                "Row": 6,
+                "Col": 7,
                 "Options": null,
                 "Required": true
             }
@@ -99,8 +129,8 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 7,
-                "Col": 9,
+                "Row": 6,
+                "Col": 11,
                 "Options": [
                     {
                         "Value": "接待",
@@ -130,43 +160,13 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "使用时间",
-                "Value": "",
-                "InterValue": "",
-                "Type": 2,
-                "CanEdit": true,
-                "Row": 8,
-                "Col": 5,
-                "Options": null,
-                "Required": true
-            }
-        },
-        {
-            "Type": 0,
-            "Header": null,
-            "Value": {
-                "Title": "结束时间",
-                "Value": "",
-                "InterValue": "",
-                "Type": 2,
-                "CanEdit": true,
-                "Row": 8,
-                "Col": 9,
-                "Options": null,
-                "Required": true
-            }
-        },
-        {
-            "Type": 0,
-            "Header": null,
-            "Value": {
                 "Title": "投影仪",
                 "Value": "",
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 9,
-                "Col": 6,
+                "Row": 7,
+                "Col": 4,
                 "Options": [
                     {
                         "Value": "是",
@@ -189,8 +189,8 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 9,
-                "Col": 8,
+                "Row": 7,
+                "Col": 6,
                 "Options": [
                     {
                         "Value": "是",
@@ -213,8 +213,8 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 9,
-                "Col": 10,
+                "Row": 7,
+                "Col": 8,
                 "Options": [
                     {
                         "Value": "是",
@@ -237,56 +237,8 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 9,
-                "Col": 12,
-                "Options": [
-                    {
-                        "Value": "是",
-                        "InterValue": ""
-                    },
-                    {
-                        "Value": "否",
-                        "InterValue": ""
-                    }
-                ],
-                "Required": true
-            }
-        },
-        {
-            "Type": 0,
-            "Header": null,
-            "Value": {
-                "Title": "音响",
-                "Value": "",
-                "InterValue": "",
-                "Type": 1,
-                "CanEdit": true,
-                "Row": 9,
-                "Col": 14,
-                "Options": [
-                    {
-                        "Value": "是",
-                        "InterValue": ""
-                    },
-                    {
-                        "Value": "否",
-                        "InterValue": ""
-                    }
-                ],
-                "Required": true
-            }
-        },
-        {
-            "Type": 0,
-            "Header": null,
-            "Value": {
-                "Title": "电话会议",
-                "Value": "",
-                "InterValue": "",
-                "Type": 1,
-                "CanEdit": true,
-                "Row": 10,
-                "Col": 6,
+                "Row": 7,
+                "Col": 10,
                 "Options": [
                     {
                         "Value": "是",
@@ -309,8 +261,32 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 10,
-                "Col": 8,
+                "Row": 7,
+                "Col": 12,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "电话会议",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": true,
+                "Row": 8,
+                "Col": 4,
                 "Options": [
                     {
                         "Value": "是",
@@ -333,8 +309,8 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 11,
-                "Col": 6,
+                "Row": 9,
+                "Col": 4,
                 "Options": [
                     {
                         "Value": "是",
@@ -357,8 +333,8 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 11,
-                "Col": 8,
+                "Row": 9,
+                "Col": 6,
                 "Options": [
                     {
                         "Value": "是",
@@ -381,8 +357,8 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 11,
-                "Col": 10,
+                "Row": 9,
+                "Col": 8,
                 "Options": [
                     {
                         "Value": "是",
@@ -405,8 +381,8 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 11,
-                "Col": 12,
+                "Row": 9,
+                "Col": 10,
                 "Options": [
                     {
                         "Value": "是",
@@ -429,32 +405,8 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 12,
-                "Col": 6,
-                "Options": [
-                    {
-                        "Value": "是",
-                        "InterValue": ""
-                    },
-                    {
-                        "Value": "否",
-                        "InterValue": ""
-                    }
-                ],
-                "Required": true
-            }
-        },
-        {
-            "Type": 0,
-            "Header": null,
-            "Value": {
-                "Title": "会议室投影欢迎面板",
-                "Value": "",
-                "InterValue": "",
-                "Type": 1,
-                "CanEdit": true,
-                "Row": 12,
-                "Col": 9,
+                "Row": 10,
+                "Col": 4,
                 "Options": [
                     {
                         "Value": "是",
@@ -477,8 +429,8 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 12,
-                "Col": 11,
+                "Row": 10,
+                "Col": 7,
                 "Options": [
                     {
                         "Value": "是",
@@ -501,8 +453,8 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 12,
-                "Col": 13,
+                "Row": 10,
+                "Col": 9,
                 "Options": [
                     {
                         "Value": "是",
@@ -525,8 +477,8 @@
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
-                "Row": 13,
-                "Col": 5,
+                "Row": 11,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }

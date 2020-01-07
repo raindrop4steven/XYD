@@ -10,7 +10,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 5,
+                "Col": 4,
                 "Options": null,
                 "Required": true
             }
@@ -25,7 +25,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 10,
+                "Col": 8,
                 "Options": null,
                 "Required": true
             }
@@ -40,7 +40,22 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 15,
+                "Col": 13,
+                "Options": null,
+                "Required": true
+            }
+        },
+                {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "事由",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 5,
+                "Col": 4,
                 "Options": null,
                 "Required": true
             }
@@ -56,54 +71,8 @@
                         "InterValue": "",
                         "Type": 0,
                         "CanEdit": true,
-                        "Row": 6,
-                        "Col": 3,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "借出日期",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 2,
-                        "CanEdit": true,
-                        "Row": 6,
-                        "Col": 6,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "办事地点",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 6,
-                        "Col": 10,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "预计归还时间",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 2,
-                        "CanEdit": true,
-                        "Row": 6,
-                        "Col": 15,
-                        "Options": null,
-                        "Required": false
-                    }
-                ],
-                [
-                    {
-                        "Title": "凭证名称",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
                         "Row": 7,
-                        "Col": 3,
+                        "Col": 1,
                         "Options": null,
                         "Required": false
                     },
@@ -114,7 +83,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 7,
-                        "Col": 6,
+                        "Col": 4,
                         "Options": null,
                         "Required": false
                     },
@@ -125,7 +94,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 7,
-                        "Col": 10,
+                        "Col": 8,
                         "Options": null,
                         "Required": false
                     },
@@ -136,7 +105,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 7,
-                        "Col": 15,
+                        "Col": 13,
                         "Options": null,
                         "Required": false
                     }
@@ -149,7 +118,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 8,
-                        "Col": 3,
+                        "Col": 1,
                         "Options": null,
                         "Required": false
                     },
@@ -160,7 +129,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 8,
-                        "Col": 6,
+                        "Col": 4,
                         "Options": null,
                         "Required": false
                     },
@@ -171,7 +140,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 8,
-                        "Col": 10,
+                        "Col": 8,
                         "Options": null,
                         "Required": false
                     },
@@ -182,7 +151,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 8,
-                        "Col": 15,
+                        "Col": 13,
                         "Options": null,
                         "Required": false
                     }
@@ -195,7 +164,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 9,
-                        "Col": 3,
+                        "Col": 1,
                         "Options": null,
                         "Required": false
                     },
@@ -206,7 +175,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 9,
-                        "Col": 6,
+                        "Col": 4,
                         "Options": null,
                         "Required": false
                     },
@@ -217,7 +186,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 9,
-                        "Col": 10,
+                        "Col": 8,
                         "Options": null,
                         "Required": false
                     },
@@ -228,7 +197,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 9,
-                        "Col": 15,
+                        "Col": 13,
                         "Options": null,
                         "Required": false
                     }
@@ -241,7 +210,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 10,
-                        "Col": 3,
+                        "Col": 1,
                         "Options": null,
                         "Required": false
                     },
@@ -252,7 +221,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 10,
-                        "Col": 6,
+                        "Col": 4,
                         "Options": null,
                         "Required": false
                     },
@@ -263,7 +232,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 10,
-                        "Col": 10,
+                        "Col": 8,
                         "Options": null,
                         "Required": false
                     },
@@ -274,7 +243,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 10,
-                        "Col": 15,
+                        "Col": 13,
                         "Options": null,
                         "Required": false
                     }
@@ -287,7 +256,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 3,
+                        "Col": 1,
                         "Options": null,
                         "Required": false
                     },
@@ -298,7 +267,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 6,
+                        "Col": 4,
                         "Options": null,
                         "Required": false
                     },
@@ -309,7 +278,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 10,
+                        "Col": 8,
                         "Options": null,
                         "Required": false
                     },
@@ -320,27 +289,58 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 15,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "凭证名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "借出日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 4,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "办事地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 8,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "预计归还时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 13,
                         "Options": null,
                         "Required": false
                     }
                 ]
             ]
-        },
-        {
-            "Type": 0,
-            "Header": null,
-            "Value": {
-                "Title": "事由",
-                "Value": "",
-                "InterValue": "",
-                "Type": 0,
-                "CanEdit": false,
-                "Row": 12,
-                "Col": 6,
-                "Options": null,
-                "Required": true
-            }
         }
     ]
 }
