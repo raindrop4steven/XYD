@@ -68,7 +68,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 2,
-                "CanEdit": false,
+                "CanEdit": true,
                 "Row": 5,
                 "Col": 7,
                 "Options": null,
@@ -194,7 +194,7 @@
                 "Required": true
             }
         },
-                {
+        {
             "Type": 0,
             "Header": null,
             "Value": {

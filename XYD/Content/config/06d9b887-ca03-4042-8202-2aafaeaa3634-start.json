@@ -68,7 +68,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
+                "CanEdit": true,
                 "Row": 7,
                 "Col": 3,
                 "Options": null,
@@ -86,7 +86,20 @@
                 "CanEdit": true,
                 "Row": 7,
                 "Col": 8,
-                "Options": null,
+                "Options": [
+                    {
+                        "Value": "CNY",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "USD",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "JPY",
+                        "InterValue": ""
+                    }
+                ],
                 "Required": true
             }
         },

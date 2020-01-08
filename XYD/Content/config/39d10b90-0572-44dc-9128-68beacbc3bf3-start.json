@@ -4,11 +4,11 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "编号",
+                "Title": "事务编号",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": true,
+                "CanEdit": false,
                 "Row": 5,
                 "Col": 3,
                 "Options": null,
@@ -52,7 +52,7 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "人数",
+                "Title": "紧急联络人",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
@@ -68,7 +68,7 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "往返天数",
+                "Title": "联系方式",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
@@ -84,7 +84,7 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "紧急联络人姓名",
+                "Title": "人数",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
@@ -100,7 +100,7 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "紧急联络人联系方式",
+                "Title": "往返天数",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,

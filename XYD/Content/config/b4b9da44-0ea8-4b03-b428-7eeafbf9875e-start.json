@@ -4,13 +4,13 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "公司名称",
+                "Title": "事务编号",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": true,
+                "CanEdit": false,
                 "Row": 4,
-                "Col": 4,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -25,7 +25,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 8,
+                "Col": 9,
                 "Options": null,
                 "Required": true
             }
@@ -39,8 +39,8 @@
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": false,
-                "Row": 4,
-                "Col": 12,
+                "Row": 5,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -54,8 +54,8 @@
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": false,
-                "Row": 4,
-                "Col": 16,
+                "Row": 5,
+                "Col": 9,
                 "Options": null,
                 "Required": true
             }
@@ -71,63 +71,8 @@
                         "InterValue": "",
                         "Type": 1,
                         "CanEdit": true,
-                        "Row": 6,
-                        "Col": 2,
-                        "Options": [
-                            {
-                                "Value": "客用日常饮品",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "客用日常食品",
-                                "InterValue": ""
-                            }
-                        ],
-                        "Required": false
-                    },
-                    {
-                        "Title": "单据数量",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 6,
-                        "Col": 5,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "金额",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 6,
-                        "Col": 7,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "备注",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 6,
-                        "Col": 10,
-                        "Options": null,
-                        "Required": false
-                    }
-                ],
-                [
-                    {
-                        "Title": "费用类别",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 1,
-                        "CanEdit": true,
                         "Row": 7,
-                        "Col": 2,
+                        "Col": 1,
                         "Options": [
                             {
                                 "Value": "客用日常饮品",
@@ -147,7 +92,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 7,
-                        "Col": 5,
+                        "Col": 3,
                         "Options": null,
                         "Required": false
                     },
@@ -158,7 +103,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 7,
-                        "Col": 7,
+                        "Col": 5,
                         "Options": null,
                         "Required": false
                     },
@@ -169,7 +114,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 7,
-                        "Col": 10,
+                        "Col": 7,
                         "Options": null,
                         "Required": false
                     }
@@ -182,7 +127,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 8,
-                        "Col": 2,
+                        "Col": 1,
                         "Options": [
                             {
                                 "Value": "客用日常饮品",
@@ -202,7 +147,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 8,
-                        "Col": 5,
+                        "Col": 3,
                         "Options": null,
                         "Required": false
                     },
@@ -213,7 +158,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 8,
-                        "Col": 7,
+                        "Col": 5,
                         "Options": null,
                         "Required": false
                     },
@@ -224,7 +169,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 8,
-                        "Col": 10,
+                        "Col": 7,
                         "Options": null,
                         "Required": false
                     }
@@ -237,7 +182,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 9,
-                        "Col": 2,
+                        "Col": 1,
                         "Options": [
                             {
                                 "Value": "客用日常饮品",
@@ -257,7 +202,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 9,
-                        "Col": 5,
+                        "Col": 3,
                         "Options": null,
                         "Required": false
                     },
@@ -268,7 +213,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 9,
-                        "Col": 7,
+                        "Col": 5,
                         "Options": null,
                         "Required": false
                     },
@@ -279,7 +224,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 9,
-                        "Col": 10,
+                        "Col": 7,
                         "Options": null,
                         "Required": false
                     }
@@ -292,7 +237,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 10,
-                        "Col": 2,
+                        "Col": 1,
                         "Options": [
                             {
                                 "Value": "客用日常饮品",
@@ -312,7 +257,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 10,
-                        "Col": 5,
+                        "Col": 3,
                         "Options": null,
                         "Required": false
                     },
@@ -323,7 +268,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 10,
-                        "Col": 7,
+                        "Col": 5,
                         "Options": null,
                         "Required": false
                     },
@@ -334,7 +279,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 10,
-                        "Col": 10,
+                        "Col": 7,
                         "Options": null,
                         "Required": false
                     }
@@ -347,7 +292,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 2,
+                        "Col": 1,
                         "Options": [
                             {
                                 "Value": "客用日常饮品",
@@ -367,7 +312,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 5,
+                        "Col": 3,
                         "Options": null,
                         "Required": false
                     },
@@ -378,7 +323,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 7,
+                        "Col": 5,
                         "Options": null,
                         "Required": false
                     },
@@ -389,7 +334,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 10,
+                        "Col": 7,
                         "Options": null,
                         "Required": false
                     }
@@ -402,7 +347,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 12,
-                        "Col": 2,
+                        "Col": 1,
                         "Options": [
                             {
                                 "Value": "客用日常饮品",
@@ -422,7 +367,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 12,
-                        "Col": 5,
+                        "Col": 3,
                         "Options": null,
                         "Required": false
                     },
@@ -433,7 +378,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 12,
-                        "Col": 7,
+                        "Col": 5,
                         "Options": null,
                         "Required": false
                     },
@@ -444,7 +389,62 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 12,
-                        "Col": 10,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 1,
+                        "Options": [
+                            {
+                                "Value": "客用日常饮品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客用日常食品",
+                                "InterValue": ""
+                            }
+                        ],
+                        "Required": false
+                    },
+                    {
+                        "Title": "单据数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 7,
                         "Options": null,
                         "Required": false
                     }
@@ -460,8 +460,8 @@
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": true,
-                "Row": 13,
-                "Col": 4,
+                "Row": 14,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -474,9 +474,9 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
-                "Row": 14,
-                "Col": 4,
+                "CanEdit": true,
+                "Row": 15,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }

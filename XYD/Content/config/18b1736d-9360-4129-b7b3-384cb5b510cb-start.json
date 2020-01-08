@@ -4,11 +4,11 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "公司名称",
+                "Title": "姓名",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": true,
+                "CanEdit": false,
                 "Row": 4,
                 "Col": 3,
                 "Options": null,
@@ -19,13 +19,13 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "合同名称",
+                "Title": "所属部门",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": true,
-                "Row": 5,
-                "Col": 3,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 7,
                 "Options": null,
                 "Required": true
             }
@@ -34,36 +34,59 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "合同名称",
+                "Title": "填表日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 11,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "类别",
                 "Value": "",
                 "InterValue": "",
                 "Type": 1,
                 "CanEdit": true,
                 "Row": 5,
-                "Col": 8,
+                "Col": 3,
                 "Options": [
                     {
-                        "Value": "生产采购合同",
+                        "Value": "事假",
                         "InterValue": ""
                     },
                     {
-                        "Value": "销售合同",
+                        "Value": "病假",
                         "InterValue": ""
                     },
                     {
-                        "Value": "采购合同",
+                        "Value": "年假",
                         "InterValue": ""
                     },
                     {
-                        "Value": "租赁合同",
+                        "Value": "婚假",
                         "InterValue": ""
                     },
                     {
-                        "Value": "服务合同",
+                        "Value": "产假",
                         "InterValue": ""
                     },
                     {
-                        "Value": "快递合同",
+                        "Value": "哺乳假",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "丧假",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "其他",
                         "InterValue": ""
                     }
                 ],
@@ -74,13 +97,13 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "承办部门",
+                "Title": "事由",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
-                "Row": 6,
-                "Col": 3,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 7,
                 "Options": null,
                 "Required": true
             }
@@ -89,13 +112,13 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "承办日期",
+                "Title": "开始日期",
                 "Value": "",
                 "InterValue": "",
                 "Type": 2,
                 "CanEdit": true,
                 "Row": 6,
-                "Col": 5,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -104,13 +127,13 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "承办人",
+                "Title": "结束日期",
                 "Value": "",
                 "InterValue": "",
-                "Type": 0,
-                "CanEdit": true,
+                "Type": 2,
+                "CanEdit": true
                 "Row": 6,
-                "Col": 8,
+                "Col": 7,
                 "Options": null,
                 "Required": true
             }
@@ -119,28 +142,13 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "对方单位名称",
+                "Title": "天数",
                 "Value": "",
                 "InterValue": "",
-                "Type": 0,
-                "CanEdit": true,
-                "Row": 7,
-                "Col": 3,
-                "Options": null,
-                "Required": true
-            }
-        },
-        {
-            "Type": 0,
-            "Header": null,
-            "Value": {
-                "Title": "合同概要",
-                "Value": "",
-                "InterValue": "",
-                "Type": 0,
-                "CanEdit": true,
-                "Row": 8,
-                "Col": 3,
+                "Type": 2,
+                "CanEdit": true
+                "Row": 6,
+                "Col": 11,
                 "Options": null,
                 "Required": true
             }

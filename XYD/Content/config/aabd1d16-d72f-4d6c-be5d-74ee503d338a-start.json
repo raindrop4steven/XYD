@@ -97,11 +97,28 @@
                 "Title": "会议室安排",
                 "Value": "",
                 "InterValue": "",
-                "Type": 0,
+                "Type": 1,
                 "CanEdit": true,
                 "Row": 6,
                 "Col": 3,
-                "Options": null,
+                "Options": [
+                    {
+                        "Value": "4楼大会议室",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "4楼小会议室",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "3楼大会议室",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "3楼小会议室",
+                        "InterValue": ""
+                    }
+                ],
                 "Required": true
             }
         },
@@ -451,20 +468,11 @@
                 "Title": "其他",
                 "Value": "",
                 "InterValue": "",
-                "Type": 1,
+                "Type": 0,
                 "CanEdit": true,
                 "Row": 10,
                 "Col": 9,
-                "Options": [
-                    {
-                        "Value": "是",
-                        "InterValue": ""
-                    },
-                    {
-                        "Value": "否",
-                        "InterValue": ""
-                    }
-                ],
+                "Options": null,
                 "Required": true
             }
         },
@@ -475,12 +483,12 @@
                 "Title": "备注",
                 "Value": "",
                 "InterValue": "",
-                "Type": 1,
+                "Type": 0,
                 "CanEdit": true,
                 "Row": 11,
                 "Col": 3,
                 "Options": null,
-                "Required": true
+                "Required": false
             }
         },
     ]

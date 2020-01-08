@@ -53,7 +53,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
+                "CanEdit": true,
                 "Row": 5,
                 "Col": 4,
                 "Options": null,

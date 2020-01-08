@@ -81,21 +81,6 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "盖章文件",
-                "Value": "",
-                "InterValue": "",
-                "Type": 0,
-                "CanEdit": true,
-                "Row": 6,
-                "Col": 3,
-                "Options": null,
-                "Required": true
-            }
-        },
-        {
-            "Type": 0,
-            "Header": null,
-            "Value": {
                 "Title": "文件份数",
                 "Value": "",
                 "InterValue": "",

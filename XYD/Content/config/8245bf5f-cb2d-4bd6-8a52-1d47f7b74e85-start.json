@@ -4,13 +4,28 @@
             "Type": 0,
             "Header": null,
             "Value": {
+                "Title": "事务编号",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
                 "Title": "申请人",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 4,
+                "Col": 7,
                 "Options": null,
                 "Required": true
             }
@@ -25,7 +40,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 8,
+                "Col": 11,
                 "Options": null,
                 "Required": true
             }
@@ -39,8 +54,8 @@
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": false,
-                "Row": 4,
-                "Col": 12,
+                "Row": 5,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -53,9 +68,9 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 2,
-                "CanEdit": false,
-                "Row": 4,
-                "Col": 16,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 7,
                 "Options": null,
                 "Required": true
             }
@@ -68,9 +83,9 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
-                "Row": 4,
-                "Col": 20,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 11,
                 "Options": null,
                 "Required": true
             }
@@ -83,9 +98,9 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
-                "Row": 5,
-                "Col": 4,
+                "CanEdit": true,
+                "Row": 6,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -98,9 +113,9 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
-                "Row": 5,
-                "Col": 12,
+                "CanEdit": true,
+                "Row": 7,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -113,9 +128,9 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
-                "Row": 7,
-                "Col": 4,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -128,25 +143,19 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
-                "Row": 7,
-                "Col": 8,
-                "Options": null,
-                "Required": true
-            }
-        },
-        {
-            "Type": 0,
-            "Header": null,
-            "Value": {
-                "Title": "住宿",
-                "Value": "",
-                "InterValue": "",
-                "Type": 0,
-                "CanEdit": false,
-                "Row": 7,
-                "Col": 12,
-                "Options": null,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 7,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
                 "Required": true
             }
         },
@@ -158,10 +167,19 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
-                "Row": 7,
-                "Col": 16,
-                "Options": null,
+                "CanEdit": true,
+                "Row": 10,
+                "Col": 3,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
                 "Required": true
             }
         },
@@ -173,10 +191,19 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
-                "Row": 7,
-                "Col": 20,
-                "Options": null,
+                "CanEdit": true,
+                "Row": 10,
+                "Col": 7,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
                 "Required": true
             }
         },
@@ -188,9 +215,9 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
-                "Row": 8,
-                "Col": 4,
+                "CanEdit": true,
+                "Row": 11,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }
@@ -206,146 +233,8 @@
                         "InterValue": "",
                         "Type": 2,
                         "CanEdit": true,
-                        "Row": 11,
-                        "Col": 2,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "地点",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 11,
-                        "Col": 4,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "行程内容",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 11,
-                        "Col": 10,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "备注",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 11,
-                        "Col": 16,
-                        "Options": null,
-                        "Required": false
-                    }
-                ],
-                [
-                    {
-                        "Title": "时间",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 2,
-                        "CanEdit": true,
-                        "Row": 12,
-                        "Col": 2,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "地点",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 12,
-                        "Col": 4,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "行程内容",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 12,
-                        "Col": 10,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "备注",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 12,
-                        "Col": 16,
-                        "Options": null,
-                        "Required": false
-                    }
-                ],
-                [
-                    {
-                        "Title": "时间",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 2,
-                        "CanEdit": true,
-                        "Row": 13,
-                        "Col": 2,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "地点",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 13,
-                        "Col": 4,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "行程内容",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 13,
-                        "Col": 10,
-                        "Options": null,
-                        "Required": false
-                    },
-                    {
-                        "Title": "备注",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 13,
-                        "Col": 16,
-                        "Options": null,
-                        "Required": false
-                    }
-                ],
-                [
-                    {
-                        "Title": "时间",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 2,
-                        "CanEdit": true,
                         "Row": 14,
-                        "Col": 2,
+                        "Col": 1,
                         "Options": null,
                         "Required": false
                     },
@@ -356,7 +245,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 14,
-                        "Col": 4,
+                        "Col": 3,
                         "Options": null,
                         "Required": false
                     },
@@ -367,7 +256,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 14,
-                        "Col": 10,
+                        "Col": 7,
                         "Options": null,
                         "Required": false
                     },
@@ -378,7 +267,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 14,
-                        "Col": 16,
+                        "Col": 11,
                         "Options": null,
                         "Required": false
                     }
@@ -391,7 +280,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 15,
-                        "Col": 2,
+                        "Col": 1,
                         "Options": null,
                         "Required": false
                     },
@@ -402,7 +291,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 15,
-                        "Col": 4,
+                        "Col": 3,
                         "Options": null,
                         "Required": false
                     },
@@ -413,7 +302,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 15,
-                        "Col": 10,
+                        "Col": 7,
                         "Options": null,
                         "Required": false
                     },
@@ -424,7 +313,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 15,
-                        "Col": 16,
+                        "Col": 11,
                         "Options": null,
                         "Required": false
                     }
@@ -437,7 +326,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 16,
-                        "Col": 2,
+                        "Col": 1,
                         "Options": null,
                         "Required": false
                     },
@@ -448,7 +337,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 16,
-                        "Col": 4,
+                        "Col": 3,
                         "Options": null,
                         "Required": false
                     },
@@ -459,7 +348,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 16,
-                        "Col": 10,
+                        "Col": 7,
                         "Options": null,
                         "Required": false
                     },
@@ -470,7 +359,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 16,
-                        "Col": 16,
+                        "Col": 11,
                         "Options": null,
                         "Required": false
                     }
@@ -483,7 +372,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 17,
-                        "Col": 2,
+                        "Col": 1,
                         "Options": null,
                         "Required": false
                     },
@@ -494,7 +383,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 17,
-                        "Col": 4,
+                        "Col": 3,
                         "Options": null,
                         "Required": false
                     },
@@ -505,7 +394,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 17,
-                        "Col": 10,
+                        "Col": 7,
                         "Options": null,
                         "Required": false
                     },
@@ -516,7 +405,145 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 17,
-                        "Col": 16,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 18,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 18,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "行程内容",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 18,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 18,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 19,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 19,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "行程内容",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 19,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 19,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 20,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 20,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "行程内容",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 20,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 20,
+                        "Col": 11,
                         "Options": null,
                         "Required": false
                     }

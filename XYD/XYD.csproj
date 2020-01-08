@@ -454,6 +454,7 @@
     <Content Include="Content\config\decf0690-a529-4577-9af1-c1db16f458b3-audit.json" />
     <Content Include="Content\config\serialNumber.json" />
     <Content Include="Content\config\18b1736d-9360-4129-b7b3-384cb5b510cb.json" />
+    <Content Include="Content\config\18b1736d-9360-4129-b7b3-384cb5b510cb-start.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

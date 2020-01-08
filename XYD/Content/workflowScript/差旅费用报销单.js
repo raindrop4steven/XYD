@@ -36,13 +36,13 @@ function GetSerialSn(mid) {
             data.Data.records.forEach(function (item) {
                 serials.push(item.Sn);
             });
-            ShowUnitList("unit", "323px", "184px", "487px", "54px", "415px", serials, '#C-5-13', '#C-5-5', MappingSourceData);
+            ShowUnitList("unit", "167px", "184px", "284px", "46px", "544px", serials, '#C-5-9', '#C-5-3', MappingSourceData);
         }
     })
 }
 
 function MappingSourceData() {
-    var sn = $("#C-5-5").text();
+    var sn = $("#C-5-3").text();
     var mid = getQueryString("mid");
     $.ajax({
         type: 'GET',
@@ -79,6 +79,7 @@ function loadScripts(array, callback) {
 // 通用样式修改
 function AddCustomCss() {
     // 表单居中
+    $("#tbSheet").css('margin-left', '-25px');
     $("#page").css('display', 'flex');
     $("#page").css('width', '100%');
     $("#page").css('height', '100%');
