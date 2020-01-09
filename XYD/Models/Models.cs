@@ -209,8 +209,6 @@ namespace XYD.Models
         public int ID { get; set; }
         // 区域：无锡、上海
         public string Area { get; set; }
-        // Key
-        public string Key { get; set; }
         // 考勤开始时间 
         public string StartWorkTime { get; set; }
         // 考勤结束时间

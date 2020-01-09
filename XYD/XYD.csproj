@@ -214,6 +214,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResumeController.cs" />
     <Compile Include="Controllers\SerialNoController.cs" />
+    <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\WorkExperienceController.cs" />
     <Compile Include="Controllers\WorkflowController.cs" />
@@ -247,6 +248,14 @@
     <Compile Include="Migrations\202001090828484_add table.cs" />
     <Compile Include="Migrations\202001090828484_add table.Designer.cs">
       <DependentUpon>202001090828484_add table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001091214394_update system config.cs" />
+    <Compile Include="Migrations\202001091214394_update system config.Designer.cs">
+      <DependentUpon>202001091214394_update system config.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001091223295_roll back to origin config table.cs" />
+    <Compile Include="Migrations\202001091223295_roll back to origin config table.Designer.cs">
+      <DependentUpon>202001091223295_roll back to origin config table.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -620,6 +629,7 @@
     <Folder Include="Views\Favorite\" />
     <Folder Include="Views\Resume\" />
     <Folder Include="Views\SerialNo\" />
+    <Folder Include="Views\System\" />
     <Folder Include="Views\Test\" />
     <Folder Include="Views\WorkExperience\" />
     <Folder Include="Views\WorkflowPage\" />
@@ -656,6 +666,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001090828484_add table.resx">
       <DependentUpon>202001090828484_add table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001091214394_update system config.resx">
+      <DependentUpon>202001091214394_update system config.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001091223295_roll back to origin config table.resx">
+      <DependentUpon>202001091223295_roll back to origin config table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

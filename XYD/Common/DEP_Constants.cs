@@ -40,6 +40,12 @@ namespace XYD.Common
         /*
          * 选项所有值
          */
-        public static int Asset_Category_All = -1; 
+        public static int Asset_Category_All = -1;
+
+        /*
+         * 地区
+         */
+        public static string System_Config_Area_SH = "SH";
+        public static string System_Config_Area_WX = "WX";
     }
 }
