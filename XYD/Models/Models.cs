@@ -43,6 +43,191 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 紧急联络人
+    public class XYD_Contact
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 用户ID
+        public string EmplID { get; set; }
+        // 姓名
+        public string Name { get; set; }
+        // 联系方式
+        public string Contact { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
+    #region 工作经历
+    public class XYD_WorkExperience
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 用户ID
+        public string EmplID { get; set; }
+        // 公司名称
+        public string CompanyName { get; set; }
+        // 职位名称
+        public string JobName { get; set; }
+        // 入职时间
+        public DateTime? StartDate { get; set; }
+        // 离职时间
+        public DateTime? EndDate { get; set; }
+        // 工作内容
+        public string JobContent { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
+    #region 教育经历
+    public class XYD_Education
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 用户ID
+        public string EmplID { get; set; }
+        // 学校
+        public string School { get; set; }
+        // 入学时间
+        public DateTime? StartDate { get; set; }
+        // 毕业时间
+        public DateTime? EndDate { get; set; }
+        // 学历
+        public string Level { get; set; }
+        // 专业
+        public string Major { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
+    #region 证书及获奖
+    public class XYD_Award
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 用户ID
+        public string EmplID { get; set; }
+        // 学校
+        public string School { get; set; }
+        // 名称
+        public string Name { get; set; }
+        // 附件
+        public string Attachment { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
+    #region 附件模型
+    public class XYD_Att
+    {
+        // 附件ID
+        [Key]
+        public int ID { get; set; }
+        // 名称
+        public string Name { get; set; }
+        // 路径
+        public string Path { get; set; }
+    }
+    #endregion
+
+    #region 固定资产
+    public class XYD_Asset
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 资产编号
+        public string Sn { get; set; }
+        // 资产名称
+        public string Name { get; set; }
+        // 资产类别
+        public int Category { get; set; }
+        // 备注
+        public string Memo { get; set; }
+        // 资产状态：可申领，已申领，已报废
+        public string Status { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
+    #region 固定资产操作记录
+    public class XYD_Asset_Record
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 资产ID
+        public int AssetID { get; set; }
+        // 操作类别：添加、申请、归还、报废
+        public string Operation { get; set; }
+        // 使用人员
+        public string EmplName { get; set; }
+        // 所在部门
+        public string DeptName { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
+    #region 系统配置
+    public class XYD_System_Config
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 区域：无锡、上海
+        public string Area { get; set; }
+        // Key
+        public string Key { get; set; }
+        // 考勤开始时间 
+        public string StartWorkTime { get; set; }
+        // 考勤结束时间
+        public string EndWorkTime { get; set; }
+        // 年假天数
+        public int RestDays { get; set; }
+        // 出差补贴标准
+        public float Allowance { get; set; }
+    }
+    #endregion
+
+    #region 轮播图
+    public class XYD_Banner
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 图片
+        public string Iamge { get; set; }
+        // 顺序
+        public int order { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -51,6 +236,15 @@ namespace XYD.Models
     {
         public DbSet<XYD_Serial_No> SerialNo { get; set; }
         public DbSet<XYD_Serial_Record> SerialRecord { get; set; }
+        public DbSet<XYD_Contact> Contact { get; set; }
+        public DbSet<XYD_WorkExperience> WorkExperience { get; set; }
+        public DbSet<XYD_Education> Education { get; set; }
+        public DbSet<XYD_Award> Award { get; set; }
+        public DbSet<XYD_Att> Attachment { get; set; }
+        public DbSet<XYD_Asset> Asset { get; set; }
+        public DbSet<XYD_Asset_Record> AssetRecord { get; set; }
+        public DbSet<XYD_System_Config> SystemConfig { get; set; }
+        public DbSet<XYD_Banner> Banner { get; set; }
     }
     #endregion
 }

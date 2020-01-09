@@ -200,6 +200,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Common\DbUtil.cs" />
     <Compile Include="Common\DEP_Constants.cs" />
+    <Compile Include="Common\DiskUtil.cs" />
     <Compile Include="Common\JsonNetResult.cs" />
     <Compile Include="Common\ResponseUtil.cs" />
     <Compile Include="Common\TransformUtil.cs" />
@@ -232,6 +233,10 @@
     <Compile Include="Migrations\202001060644152_add emplID.cs" />
     <Compile Include="Migrations\202001060644152_add emplID.Designer.cs">
       <DependentUpon>202001060644152_add emplID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001090504077_add other module tables.cs" />
+    <Compile Include="Migrations\202001090504077_add other module tables.Designer.cs">
+      <DependentUpon>202001090504077_add other module tables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -629,6 +634,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001060644152_add emplID.resx">
       <DependentUpon>202001060644152_add emplID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001090504077_add other module tables.resx">
+      <DependentUpon>202001090504077_add other module tables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
