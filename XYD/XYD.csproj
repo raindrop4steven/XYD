@@ -206,10 +206,15 @@
     <Compile Include="Common\TransformUtil.cs" />
     <Compile Include="Common\WorkflowUtil.cs" />
     <Compile Include="Common\XYDCellJsonConverter.cs" />
+    <Compile Include="Controllers\AwardController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ResumeController.cs" />
     <Compile Include="Controllers\SerialNoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\WorkExperienceController.cs" />
     <Compile Include="Controllers\WorkflowController.cs" />
     <Compile Include="Entity\BaseQueryInfo.cs" />
     <Compile Include="Entity\DEP_MappingField.cs" />
@@ -602,10 +607,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Award\" />
     <Folder Include="Views\Common\" />
+    <Folder Include="Views\Contact\" />
+    <Folder Include="Views\Education\" />
     <Folder Include="Views\Favorite\" />
+    <Folder Include="Views\Resume\" />
     <Folder Include="Views\SerialNo\" />
     <Folder Include="Views\Test\" />
+    <Folder Include="Views\WorkExperience\" />
     <Folder Include="Views\WorkflowPage\" />
   </ItemGroup>
   <ItemGroup>

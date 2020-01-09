@@ -120,8 +120,6 @@ namespace XYD.Models
         public int ID { get; set; }
         // 用户ID
         public string EmplID { get; set; }
-        // 学校
-        public string School { get; set; }
         // 名称
         public string Name { get; set; }
         // 附件
