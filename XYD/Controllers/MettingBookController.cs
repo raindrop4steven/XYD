@@ -67,5 +67,36 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 会议室统计
+        public ActionResult MeetingRecord(XYD_MettingBook model)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var records = db.MettingBook.Where(n => true);
+                    if (!string.IsNullOrEmpty(model.Name))
+                    {
+                        records = records.Where(n => n.Name.Contains(model.Name));
+                    }
+                    if (model.StartTime != null)
+                    {
+                        records = records.Where(n => n.StartTime >= model.StartTime);
+                    }
+                    if (model.EndTime != null)
+                    {
+                        records = records.Where(n => n.EndTime <= model.EndTime);
+                    }
+                    var results = records.ToList();
+                    return ResponseUtil.OK(results);
+                }
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }

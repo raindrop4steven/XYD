@@ -315,5 +315,29 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 可申领物品列表
+        public ActionResult AvailableAssets()
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var assets = db.Asset.Where(n => n.Status == DEP_Constants.Asset_Status_Available)
+                        .GroupBy(n => n.Name)
+                        .Select(n => new
+                        {
+                            Name = n.First().Name,
+                            Count = n.Count().ToString()
+                        }).ToList();
+                    return ResponseUtil.OK(assets);
+                }
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }
