@@ -7,8 +7,8 @@
                 "Title": "事务编号",
                 "Value": "",
                 "InterValue": "",
-                "Type": 0,
-                "CanEdit": false,
+                "Type": 1,
+                "CanEdit": true,
                 "Row": 5,
                 "Col": 3,
                 "Options": null,
@@ -26,7 +26,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 5,
-                "Col": 11,
+                "Col": 9,
                 "Options": null,
                 "NeedRefresh": false,
                 "Required": true
@@ -151,8 +151,108 @@
                         "InterValue": "",
                         "Type": 1,
                         "CanEdit": true,
+                        "Row": 10,
+                        "Col": 3,
+                        "Options": [
+                            {
+                                "Value": "汽车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "火车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "飞机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "船舶",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 5,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 7,
+                        "Options": [
+                            {
+                                "Value": "宾馆",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "短租",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "补贴",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 11,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
                         "Row": 11,
                         "Col": 1,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 3,
                         "Options": [
                             {
                                 "Value": "汽车",
@@ -181,7 +281,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 3,
+                        "Col": 5,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
@@ -193,7 +293,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 5,
+                        "Col": 7,
                         "Options": [
                             {
                                 "Value": "宾馆",
@@ -214,7 +314,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 7,
+                        "Col": 9,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
@@ -226,7 +326,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 9,
+                        "Col": 11,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
@@ -308,16 +408,28 @@
                         "Required": false
                     },
                     {
-                        "Title": "补贴",
+                        "Title": "住宿费用",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
+                        "Type": 1,
                         "CanEdit": true,
                         "Row": 12,
                         "Col": 9,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
+                    },
+                    {
+                        "Title": "补贴",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 11,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
                     }
                 ],
                 [
@@ -396,13 +508,25 @@
                         "Required": false
                     },
                     {
+                        "Title": "住宿费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
                         "Title": "补贴",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 13,
-                        "Col": 9,
+                        "Col": 11,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
@@ -484,16 +608,28 @@
                         "Required": false
                     },
                     {
-                        "Title": "补贴",
+                        "Title": "住宿费用",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
+                        "Type": 1,
                         "CanEdit": true,
                         "Row": 14,
                         "Col": 9,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
+                    },
+                    {
+                        "Title": "补贴",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 14,
+                        "Col": 11,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
                     }
                 ],
                 [
@@ -572,16 +708,28 @@
                         "Required": false
                     },
                     {
-                        "Title": "补贴",
+                        "Title": "住宿费用",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
+                        "Type": 1,
                         "CanEdit": true,
                         "Row": 15,
                         "Col": 9,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
+                    },
+                    {
+                        "Title": "补贴",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 15,
+                        "Col": 11,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
                     }
                 ],
                 [
@@ -660,92 +808,16 @@
                         "Required": false
                     },
                     {
-                        "Title": "补贴",
+                        "Title": "住宿费用",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
+                        "Type": 1,
                         "CanEdit": true,
                         "Row": 16,
                         "Col": 9,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
-                    }
-                ],
-                [
-                    {
-                        "Title": "日期",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 2,
-                        "CanEdit": true,
-                        "Row": 17,
-                        "Col": 1,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "交通方式",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 1,
-                        "CanEdit": true,
-                        "Row": 17,
-                        "Col": 3,
-                        "Options": [
-                            {
-                                "Value": "汽车",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "火车",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "飞机",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "船舶",
-                                "InterValue": ""
-                            }
-                        ],
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "交通费用",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 17,
-                        "Col": 5,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "住宿方式",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 1,
-                        "CanEdit": true,
-                        "Row": 17,
-                        "Col": 7,
-                        "Options": [
-                            {
-                                "Value": "宾馆",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "短租",
-                                "InterValue": ""
-                            }
-                        ],
-                        "NeedRefresh": false,
-                        "Required": false
                     },
                     {
                         "Title": "补贴",
@@ -753,8 +825,8 @@
                         "InterValue": "",
                         "Type": 0,
                         "CanEdit": true,
-                        "Row": 17,
-                        "Col": 9,
+                        "Row": 16,
+                        "Col": 11,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false

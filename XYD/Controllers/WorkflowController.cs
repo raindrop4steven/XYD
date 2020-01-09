@@ -30,12 +30,20 @@ namespace XYD.Controllers
         [HttpPost]
         public ActionResult GetTemplates()
         {
-            List<XYD_Template_Entity> myTempaltes = GetMyTemplates(User.Identity.Name);
-            return this.Json((object)new
+            try
             {
-                Succeed = true,
-                Data = myTempaltes
-            }, (JsonRequestBehavior)0);
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                List<XYD_Template_Entity> myTempaltes = GetMyTemplates(User.Identity.Name);
+                return this.Json((object)new
+                {
+                    Succeed = true,
+                    Data = myTempaltes
+                }, (JsonRequestBehavior)0);
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
         }
 
         // 获得我的工作流
@@ -45,7 +53,7 @@ namespace XYD.Controllers
             List<XYD_Template_Entity> resultTemplates = new List<XYD_Template_Entity>();
             List<Message> TemplateList = WorkflowUtil.GetTemplatesByUser(name);
             List<XYD_Template_Entity> Templates = WorkflowUtil.GetTemplates();
-            
+
             foreach (var template in TemplateList)
             {
                 foreach (var templetEntity in Templates)
@@ -66,46 +74,57 @@ namespace XYD.Controllers
         [HttpGet]
         public ActionResult Open(string mid, string nid, string fieldValues)
         {
-            Message message = mgr.GetMessage(mid);
-            if (message == null)
-                return (ActionResult)RedirectToAction("Error", (object)new
-                {
-                    err = RunningErrorCodes.INVALID_ID
-                });
-            if (message.IsTemplate == 1)
+            try
             {
-                if (message.MessageStatus == -1)
-                {
-                    return ResponseUtil.Error("模版无效");
-                }
-                if (message.GetNodeList().Count == 0)
-                {
-                    return ResponseUtil.Error("模版无节点");
-                }
-                if (string.IsNullOrEmpty(message.InitNodeKey))
-                {
-                    return ResponseUtil.Error("初始节点为空");
-                }
-                Message theMessage = mgr.StartWorkflow(message.MessageID, User.Identity.Name, HttpContext.ApplicationInstance.Context);
-                theMessage.MessageType = "temp";
-                mgr.UpdateMessage(theMessage);
-                if (theMessage == null)
-                {
-                    return ResponseUtil.Error("创建失败");
-                } else
-                {
-                    return ResponseUtil.OK(new
+                var employee = (User.Identity as AppkizIdentity).Employee;
+
+                Message message = mgr.GetMessage(mid);
+                if (message == null)
+                    return (ActionResult)RedirectToAction("Error", (object)new
                     {
-                        MessageId = theMessage.MessageID,
-                        WorkflowId = theMessage.FromTemplate,
-                        WorksheetId = mgr.GetDocHelperIdByMessageId(theMessage.MessageID),
-                        MessageTitle = theMessage.MessageTitle,
-                        NodeId = theMessage.InitNodeKey
+                        err = RunningErrorCodes.INVALID_ID
                     });
+                if (message.IsTemplate == 1)
+                {
+                    if (message.MessageStatus == -1)
+                    {
+                        return ResponseUtil.Error("模版无效");
+                    }
+                    if (message.GetNodeList().Count == 0)
+                    {
+                        return ResponseUtil.Error("模版无节点");
+                    }
+                    if (string.IsNullOrEmpty(message.InitNodeKey))
+                    {
+                        return ResponseUtil.Error("初始节点为空");
+                    }
+                    Message theMessage = mgr.StartWorkflow(message.MessageID, User.Identity.Name, HttpContext.ApplicationInstance.Context);
+                    theMessage.MessageType = "temp";
+                    mgr.UpdateMessage(theMessage);
+                    if (theMessage == null)
+                    {
+                        return ResponseUtil.Error("创建失败");
+                    }
+                    else
+                    {
+                        return ResponseUtil.OK(new
+                        {
+                            MessageId = theMessage.MessageID,
+                            WorkflowId = theMessage.FromTemplate,
+                            WorksheetId = mgr.GetDocHelperIdByMessageId(theMessage.MessageID),
+                            MessageTitle = theMessage.MessageTitle,
+                            NodeId = theMessage.InitNodeKey
+                        });
+                    }
                 }
-            } else
+                else
+                {
+                    return ResponseUtil.Error("参数不是工作流模版");
+                }
+            }
+            catch (Exception e)
             {
-                return ResponseUtil.Error("参数不是工作流模版");
+                return ResponseUtil.Error(e.Message);
             }
         }
         #endregion
@@ -115,6 +134,8 @@ namespace XYD.Controllers
         {
             try
             {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+
                 XYD_Fields fields = WorkflowUtil.GetStartFields(MessageID);
                 return ResponseUtil.OK(fields);
             }
@@ -131,6 +152,8 @@ namespace XYD.Controllers
         {
             try
             {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+
                 Stream stream = Request.InputStream;
                 stream.Seek(0, SeekOrigin.Begin);
                 string json = new StreamReader(stream).ReadToEnd();
@@ -149,13 +172,21 @@ namespace XYD.Controllers
         [HttpPost]
         public ActionResult Audit(FormCollection collection)
         {
-            var mid = collection["mid"];
-            var nid = collection["nid"];
-            var operate = collection["operate"];
-            var opinion = collection["opinion"];
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var mid = collection["mid"];
+                var nid = collection["nid"];
+                var operate = collection["operate"];
+                var opinion = collection["opinion"];
 
-            WorkflowUtil.AuditMessage(mid, nid, operate, opinion);
-            return ResponseUtil.OK("审批OK");
+                WorkflowUtil.AuditMessage(mid, nid, operate, opinion);
+                return ResponseUtil.OK("审批OK");
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
         }
         #endregion
 
@@ -210,7 +241,8 @@ namespace XYD.Controllers
             {
                 bool isDeptWorkflow = wkfService.IsDeptWorkflow(mid);
 
-                return ResponseUtil.OK(new {
+                return ResponseUtil.OK(new
+                {
                     isDeptWorkflow = isDeptWorkflow
                 });
             }
@@ -296,7 +328,6 @@ namespace XYD.Controllers
              */
             // 工作流Service
             WorkflowService wkfService = new WorkflowService();
-            var employee = (User.Identity as AppkizIdentity).Employee;
             var NodeID = string.Empty;
 
             /*
@@ -307,6 +338,8 @@ namespace XYD.Controllers
 
             try
             {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+
                 List<Node> source = mgr.ListNodeToBeHandle(employee.EmplID, "");
                 foreach (Node node in source)
                 {
@@ -465,7 +498,8 @@ namespace XYD.Controllers
                 if (entity == null)
                 {
                     return ResponseUtil.Error("未找到对应编号配置");
-                } else
+                }
+                else
                 {
                     entity.Number += 1;
                     db.SaveChanges();
@@ -539,7 +573,7 @@ namespace XYD.Controllers
             catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
-            }  
+            }
         }
         #endregion
 

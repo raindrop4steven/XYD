@@ -206,6 +206,7 @@
     <Compile Include="Common\TransformUtil.cs" />
     <Compile Include="Common\WorkflowUtil.cs" />
     <Compile Include="Common\XYDCellJsonConverter.cs" />
+    <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\AwardController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
@@ -242,6 +243,10 @@
     <Compile Include="Migrations\202001090504077_add other module tables.cs" />
     <Compile Include="Migrations\202001090504077_add other module tables.Designer.cs">
       <DependentUpon>202001090504077_add other module tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001090828484_add table.cs" />
+    <Compile Include="Migrations\202001090828484_add table.Designer.cs">
+      <DependentUpon>202001090828484_add table.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -607,6 +612,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Asset\" />
     <Folder Include="Views\Award\" />
     <Folder Include="Views\Common\" />
     <Folder Include="Views\Contact\" />
@@ -647,6 +653,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001090504077_add other module tables.resx">
       <DependentUpon>202001090504077_add other module tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001090828484_add table.resx">
+      <DependentUpon>202001090828484_add table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

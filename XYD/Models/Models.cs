@@ -188,6 +188,19 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 资产类别
+    public class XYD_Asset_Category
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 名字
+        public string Name { get; set; }
+        // 排序
+        public int Order { get; set; }
+    }
+    #endregion
+
     #region 系统配置
     public class XYD_System_Config
     {
@@ -241,6 +254,7 @@ namespace XYD.Models
         public DbSet<XYD_Att> Attachment { get; set; }
         public DbSet<XYD_Asset> Asset { get; set; }
         public DbSet<XYD_Asset_Record> AssetRecord { get; set; }
+        public DbSet<XYD_Asset_Category> AssetCategory { get; set; }
         public DbSet<XYD_System_Config> SystemConfig { get; set; }
         public DbSet<XYD_Banner> Banner { get; set; }
     }
