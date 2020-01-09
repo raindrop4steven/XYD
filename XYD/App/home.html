@@ -5,9 +5,13 @@
             <ul>
                 <li ng-class="{'selected' : pageConfig.activeNav === 'needDo'}"><a ng-click="onChangeTemplate('needDo')">待处理审批</a></li>
                 <li ng-class="{'selected' : pageConfig.activeNav === 'iDone'}"><a ng-click="onChangeTemplate('iDone')">已处理审批</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3>我的申请</h3>
+            <ul>
                 <li ng-class="{'selected' : pageConfig.activeNav === 'mineDoing'}"><a ng-click="onChangeTemplate('mineDoing')">我的待批申请</a></li>
                 <li ng-class="{'selected' : pageConfig.activeNav === 'mineDone'}"><a ng-click="onChangeTemplate('mineDone')">我的已批申请</a></li>
-                <!--<li ng-class="{'selected' : pageConfig.activeNav === 'iStop'}"><a ng-click="onChangeTemplate('iStop')">我终止的公文</a></li>-->
                 <li ng-class="{'selected' : pageConfig.activeNav === 'mineDraft'}"><a ng-click="onChangeTemplate('mineDraft')">我的草稿</a></li>
             </ul>
         </div>
