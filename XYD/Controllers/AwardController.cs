@@ -107,7 +107,7 @@ namespace XYD.Controllers
                         {
                             id = n.ID,
                             name = n.Name,
-                            url = Url.Action("Download", "Common", new { id = m.ID })
+                            url = Url.Action("Download", "Common", new { id = n.ID })
                         })
                     });
                 }
