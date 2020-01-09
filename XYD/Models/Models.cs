@@ -220,6 +220,33 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 会议室预约
+    public class XYD_MettingBook
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 申请人
+        public string EmplID { get; set; }
+        // 地区
+        public string Area { get; set; }
+        // 会议室
+        public string MeetingRoom { get; set; }
+        // 会议名称
+        public string Name { get; set; }
+        // 开始时间
+        public DateTime StartTime { get; set; }
+        // 结束时间
+        public DateTime EndTime { get; set; }
+        // 是否已批准
+        public bool Agreed { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
     #region 轮播图
     public class XYD_Banner
     {
@@ -255,6 +282,7 @@ namespace XYD.Models
         public DbSet<XYD_Asset_Category> AssetCategory { get; set; }
         public DbSet<XYD_System_Config> SystemConfig { get; set; }
         public DbSet<XYD_Banner> Banner { get; set; }
+        public DbSet<XYD_MettingBook> MettingBook { get; set; }
     }
     #endregion
 }
