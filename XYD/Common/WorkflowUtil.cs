@@ -1167,5 +1167,21 @@ namespace XYD.Common
             }
         }
         #endregion
+
+        #region 记录流程操作记录
+        public static void AddWorkflowHistory(string EmplID, string MessageID, string Operation, string Opinion)
+        {
+            using (var db = new DefaultConnection())
+            {
+                var history = new XYD_WorkflowHistory();
+                history.EmplID = EmplID;
+                history.MessageID = MessageID;
+                history.Operation = Operation;
+                history.Opinion = Opinion;
+                db.WorkflowHistory.Add(history);
+                db.SaveChanges();
+            }
+        }
+        #endregion
     }
 }

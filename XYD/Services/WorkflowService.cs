@@ -120,5 +120,30 @@ namespace XYD.Services
             }
         }
         #endregion
+
+        #region 获取流程处理记录
+        public List<object> GetWorkflowHistory(string mid)
+        {
+            List<object> results = new List<object>();
+            using (var db = new DefaultConnection())
+            {
+                var histories = db.WorkflowHistory.Where(n => n.MessageID == mid).ToList();
+                foreach (var history in histories)
+                {
+                    var employee = orgMgr.GetEmployee(history.EmplID);
+                    var handleResult = new
+                    {
+                        name = employee.EmplName,
+                        avatar = string.Format("/Apps/People/Shared/do_ShowPhoto.aspx?tag=logo&emplid={0}", employee.EmplID),
+                        operation = history.Operation,
+                        opinion = history.Opinion,
+                        date = history.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                    };
+                    results.Add(handleResult);
+                }
+                return results;
+            }
+        }
+        #endregion
     }
 }

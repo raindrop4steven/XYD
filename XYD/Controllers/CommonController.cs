@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using XYD.Common;
 using XYD.Models;
 
-namespace YGSServer.Controllers
+namespace XYD.Controllers
 {
     public class CommonController : Controller
     {

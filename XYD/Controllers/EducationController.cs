@@ -106,5 +106,33 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 学历列表
+        public ActionResult LevelList()
+        {
+            return ResponseUtil.OK(new List<object> {
+                new
+                {
+                    key = DEP_Constants.Education_Level_Bo,
+                    value = DEP_Constants.Education_Level_Bo
+                },
+                new
+                {
+                    key = DEP_Constants.Education_Level_Shuo,
+                    value = DEP_Constants.Education_Level_Shuo
+                },
+                new
+                {
+                    key = DEP_Constants.Education_Level_Ben,
+                    value = DEP_Constants.Education_Level_Ben
+                },
+                new
+                {
+                    key = DEP_Constants.Education_Level_Zhuan,
+                    value = DEP_Constants.Education_Level_Zhuan
+                }
+            });
+        }
+        #endregion
     }
 }

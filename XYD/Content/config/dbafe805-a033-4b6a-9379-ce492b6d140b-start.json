@@ -83,7 +83,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 7,
-                        "Col": 4,
+                        "Col": 6,
                         "Options": null,
                         "Required": false
                     },
@@ -94,7 +94,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 7,
-                        "Col": 8,
+                        "Col": 11,
                         "Options": null,
                         "Required": false
                     },
@@ -129,7 +129,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 8,
-                        "Col": 4,
+                        "Col": 6,
                         "Options": null,
                         "Required": false
                     },
@@ -140,7 +140,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 8,
-                        "Col": 8,
+                        "Col": 11,
                         "Options": null,
                         "Required": false
                     },
@@ -175,7 +175,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 9,
-                        "Col": 4,
+                        "Col": 6,
                         "Options": null,
                         "Required": false
                     },
@@ -186,7 +186,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 9,
-                        "Col": 8,
+                        "Col": 11,
                         "Options": null,
                         "Required": false
                     },
@@ -221,7 +221,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 10,
-                        "Col": 4,
+                        "Col": 6,
                         "Options": null,
                         "Required": false
                     },
@@ -232,7 +232,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 10,
-                        "Col": 8,
+                        "Col": 11,
                         "Options": null,
                         "Required": false
                     },
@@ -267,7 +267,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 4,
+                        "Col": 6,
                         "Options": null,
                         "Required": false
                     },
@@ -313,7 +313,7 @@
                         "Type": 2,
                         "CanEdit": true,
                         "Row": 12,
-                        "Col": 4,
+                        "Col": 6,
                         "Options": null,
                         "Required": false
                     },
@@ -324,7 +324,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 12,
-                        "Col": 8,
+                        "Col": 11,
                         "Options": null,
                         "Required": false
                     },

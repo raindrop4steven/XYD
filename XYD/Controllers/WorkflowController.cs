@@ -17,6 +17,7 @@ using Appkiz.Library.Common;
 using JUST;
 using Newtonsoft.Json.Linq;
 using Appkiz.Apps.Workflow.Web.Controllers;
+using XYD.Common;
 
 namespace XYD.Controllers
 {
@@ -158,7 +159,7 @@ namespace XYD.Controllers
                 stream.Seek(0, SeekOrigin.Begin);
                 string json = new StreamReader(stream).ReadToEnd();
                 WorkflowUtil.ConfirmStartWorkflow(MessageID, json);
-
+                WorkflowUtil.AddWorkflowHistory(employee.EmplID, MessageID, DEP_Constants.Audit_Operate_Type_Start, string.Empty);
                 return ResponseUtil.OK("流程发起成功");
             }
             catch (Exception e)
@@ -179,8 +180,8 @@ namespace XYD.Controllers
                 var nid = collection["nid"];
                 var operate = collection["operate"];
                 var opinion = collection["opinion"];
-
                 WorkflowUtil.AuditMessage(mid, nid, operate, opinion);
+                WorkflowUtil.AddWorkflowHistory(employee.EmplID, mid, operate, opinion);
                 return ResponseUtil.OK("审批OK");
             }
             catch (Exception e)
@@ -375,7 +376,6 @@ namespace XYD.Controllers
                 /*
                  * 配置读取
                  */
-                string tableName = WorkflowUtil.GetTableName(MessageID);
                 List<DEP_Detail> details = WorkflowUtil.GetNodeDetail(MessageID);
                 var action = WorkflowUtil.GetNodeAction(MessageID, NodeID);
                 var control = WorkflowUtil.GetNodeControl(MessageID, NodeID);
@@ -445,38 +445,38 @@ namespace XYD.Controllers
                         continue;
                     }
                 }
-
-                /*
-                 * 配置读取
-                 */
-                var transformer = WorkflowUtil.GetWebTransformer(MessageID);
-
-                string tableName = WorkflowUtil.GetTableName(MessageID);
-                List<DEP_Detail> details = WorkflowUtil.GetNodeDetail(MessageID);
-
-                // 判断是否存在对应配置
-                if (details == null)
+                XYD_Fields fields = WorkflowUtil.GetStartFields(MessageID);
+                var history = wkfService.GetWorkflowHistory(MessageID);
+                return ResponseUtil.OK(new
                 {
-                    return ResponseUtil.Error(string.Format("流程{0}没有对应详情配置", MessageID));
-                }
-                else
-                {
-                    // 获取表单详情
-                    var detail = wkfService.GetDetailInfo(MessageID, NodeID, details);
-                    var stringDetail = JsonConvert.SerializeObject(detail);
-                    string transformedString = JsonTransformer.Transform(transformer, stringDetail);
-
-                    JObject result = JObject.Parse(transformedString);
-                    return ResponseUtil.OK(new
-                    {
-                        detail = result
-                    });
-                }
+                    fields = fields,
+                    history = history
+                });
             }
             catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }
+        }
+        #endregion
+
+        #region 获得工作流下一个节点是谁(PC手机通用)
+        public ActionResult MessageHandle()
+        {
+            var MessageID = Request.Params["MessageID"];
+            var NodeKey = Request.Params["NodeKey"];
+            var FromNodeKey = Request.Params["FromNodeKey"];
+            WorkflowMgr mgr = new WorkflowMgr();
+            List<Employee> employees = mgr.ListPossibleHandlers(MessageID, NodeKey, FromNodeKey, System.Web.HttpContext.Current);
+            var employee = employees.ElementAt(0);
+            return new JsonNetResult(new
+            {
+                Succeed = true,
+                Data = new
+                {
+                    empl = employee.EmplID
+                }
+            });
         }
         #endregion
 
