@@ -274,6 +274,10 @@
     <Compile Include="Migrations\202001100744405_add workflow history.Designer.cs">
       <DependentUpon>202001100744405_add workflow history.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001100945011_remove work history talbe.cs" />
+    <Compile Include="Migrations\202001100945011_remove work history talbe.Designer.cs">
+      <DependentUpon>202001100945011_remove work history talbe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -702,6 +706,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001100744405_add workflow history.resx">
       <DependentUpon>202001100744405_add workflow history.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001100945011_remove work history talbe.resx">
+      <DependentUpon>202001100945011_remove work history talbe.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

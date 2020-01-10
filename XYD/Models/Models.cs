@@ -263,26 +263,7 @@ namespace XYD.Models
         public DateTime UpdateTime { get; set; }
     }
     #endregion
-
-    #region 审批历史记录
-    public class XYD_WorkflowHistory
-    {
-        //ID
-        [Key]
-        public int ID { get; set; }
-        // 审批人
-        public string EmplID { get; set; }
-        // 消息
-        public string MessageID { get; set; }
-        // 审批类型
-        public string Operation { get; set; }
-        // 驳回意见
-        public string Opinion { get; set; }
-        // 创建时间
-        public DateTime CreateTime { get; set; }
-    }
-    #endregion
-
+    
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -302,7 +283,6 @@ namespace XYD.Models
         public DbSet<XYD_System_Config> SystemConfig { get; set; }
         public DbSet<XYD_Banner> Banner { get; set; }
         public DbSet<XYD_MettingBook> MettingBook { get; set; }
-        public DbSet<XYD_WorkflowHistory> WorkflowHistory { get; set; }
     }
     #endregion
 }

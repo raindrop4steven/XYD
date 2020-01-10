@@ -332,7 +332,7 @@ namespace XYD.Common
         #endregion
 
         #region 填充cell的值
-        public static void FillCellValue(string MessageID, Worksheet worksheet, XYD_Base_Cell cell)
+        public static void FillCellValue(string MessageID, Worksheet worksheet, XYD_Base_Cell cell, bool canEdit)
         {
             XYD_Single_Cell singleCell = null;
             XYD_Array_Cell arrayCell = null;
@@ -345,9 +345,17 @@ namespace XYD.Common
                     singleCell.Value.Value = workcell.WorkcellValue;
                     singleCell.Value.InterValue = workcell.WorkcellInternalValue;
                 }
+                // 目前如果刷新，默认填充的是事务编号
                 if (singleCell.Value.NeedRefresh)
                 {
                     singleCell.Value.Options = FillOptions(MessageID);
+                }
+                // 是否可以编辑
+                if (!canEdit)
+                {
+                    singleCell.Value.Required = false;
+                    singleCell.Value.CanEdit = false;
+                    singleCell.Value.Options = null;
                 }
             } else if (cell.Type == 3)
             {
@@ -362,6 +370,13 @@ namespace XYD.Common
                         if (innerCell.NeedRefresh)
                         {
                             innerCell.Options = FillOptions(MessageID);
+                        }
+                        // 是否可以编辑
+                        if (!canEdit)
+                        {
+                            innerCell.Required = false;
+                            innerCell.CanEdit = false;
+                            innerCell.Options = null;
                         }
                     }
                 }
@@ -909,7 +924,30 @@ namespace XYD.Common
                 foreach (XYD_Base_Cell cell in fields.Fields)
                 {
                     // 查找对应的值
-                    FillCellValue(MessageID, worksheet, cell);
+                    FillCellValue(MessageID, worksheet, cell, true);
+                }
+                return fields;
+            }
+        }
+        #endregion
+
+        #region 获得表单详情
+        public static XYD_Fields GetWorkflowFields(string MessageID)
+        {
+            Message message = mgr.GetMessage(MessageID);
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
+            Worksheet worksheet = doc.Worksheet;
+
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-start.json", message.FromTemplate));
+
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var fields = JsonConvert.DeserializeObject<XYD_Fields>(sr.ReadToEnd(), new XYDCellJsonConverter());
+
+                foreach (XYD_Base_Cell cell in fields.Fields)
+                {
+                    // 查找对应的值
+                    FillCellValue(MessageID, worksheet, cell, false);
                 }
                 return fields;
             }
@@ -1007,6 +1045,27 @@ namespace XYD.Common
             cell.WorkcellValue = value;
             cell.WorkcellInternalValue = interValue;
             worksheet.UpdateWorkcells(new List<Workcell> { cell });
+        }
+        #endregion
+
+        #region 获得签批节点
+        public static XYD_Audit_Node GetAuditNode(string mid, string nid)
+        {
+            XYD_Audit_Node auditNode = null;
+            var message = mgr.GetMessage(mid);
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-audit.json", message.FromTemplate));
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var nodes = JsonConvert.DeserializeObject<XYD_Audit>(sr.ReadToEnd(), new XYDCellJsonConverter());
+                foreach (XYD_Audit_Node node in nodes.Nodes)
+                {
+                    if (node.NodeID == nid)
+                    {
+                        auditNode = node;
+                    }
+                }
+                return auditNode;
+            }
         }
         #endregion
 
@@ -1164,22 +1223,6 @@ namespace XYD.Common
                 Workcell workcell = worksheet1.GetWorkcell(strArray1[1]);
                 worksheet2.SetCellValue(strArray2[1], workcell.WorkcellValue, workcell.WorkcellInternalValue);
                 worksheet2.Save();
-            }
-        }
-        #endregion
-
-        #region 记录流程操作记录
-        public static void AddWorkflowHistory(string EmplID, string MessageID, string Operation, string Opinion)
-        {
-            using (var db = new DefaultConnection())
-            {
-                var history = new XYD_WorkflowHistory();
-                history.EmplID = EmplID;
-                history.MessageID = MessageID;
-                history.Operation = Operation;
-                history.Opinion = Opinion;
-                db.WorkflowHistory.Add(history);
-                db.SaveChanges();
             }
         }
         #endregion

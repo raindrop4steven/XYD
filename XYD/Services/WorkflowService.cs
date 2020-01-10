@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace XYD.Services
 {
@@ -124,25 +126,37 @@ namespace XYD.Services
         #region 获取流程处理记录
         public List<object> GetWorkflowHistory(string mid)
         {
-            List<object> results = new List<object>();
-            using (var db = new DefaultConnection())
-            {
-                var histories = db.WorkflowHistory.Where(n => n.MessageID == mid).ToList();
-                foreach (var history in histories)
+            var results = new List<object>();
+
+            var message = mgr.GetMessage(mid);
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+            Worksheet worksheet = doc.Worksheet;
+
+            List<WorkflowHistory> workflowHistory = mgr.FindWorkflowHistory("MessageID=@MessageID", new Dictionary<string, object>()
+              {
                 {
-                    var employee = orgMgr.GetEmployee(history.EmplID);
-                    var handleResult = new
-                    {
-                        name = employee.EmplName,
-                        avatar = string.Format("/Apps/People/Shared/do_ShowPhoto.aspx?tag=logo&emplid={0}", employee.EmplID),
-                        operation = history.Operation,
-                        opinion = history.Opinion,
-                        date = history.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")
-                    };
-                    results.Add(handleResult);
+                  "@MessageID",
+                  (object) mid
                 }
-                return results;
+              }, "HandledTime");
+
+            foreach (var history in workflowHistory)
+            {
+                var auditNode = WorkflowUtil.GetAuditNode(mid, history.NodeKey);
+                if (auditNode != null)
+                {
+                    var auditHistory = new
+                    {
+                        HandledBy = history.HandledBy,
+                        Avatar = string.Format("/Apps/People/Shared/do_ShowPhoto.aspx?tag=logo&emplid={0}", history.HandledBy),
+                        HandleTime = history.HandledTime,
+                        Operation = worksheet.GetWorkcell(auditNode.Operate.Row, auditNode.Operate.Col).WorkcellValue,
+                        Opinion = worksheet.GetWorkcell(auditNode.Operate.Row, auditNode.Operate.Col).WorkcellValue
+                    };
+                    results.Add(auditHistory);
+                }
             }
+            return results;
         }
         #endregion
     }
