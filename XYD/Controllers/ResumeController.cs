@@ -21,6 +21,7 @@ namespace XYD.Controllers
         {
             // 用户基本信息
             var employee = (User.Identity as AppkizIdentity).Employee;
+            
             using(var db = new DefaultConnection())
             {
                 // 联系人
@@ -30,7 +31,7 @@ namespace XYD.Controllers
                 // 教育经历
                 var educations = db.Education.Where(n => n.EmplID == employee.EmplID).OrderByDescending(n => n.StartDate).ToList();
                 // 证书情况
-                var awards = db.Award.Where(n => n.EmplID == employee.EmplID).OrderBy(n => n.CreateTime).Select(n => new {
+                var awards = db.Award.ToList().Where(n => n.EmplID == employee.EmplID).OrderBy(n => n.CreateTime).Select(n => new {
                     ID = n.ID,
                     Name = n.Name,
                     Attachments = db.Attachment.ToList().Where(m => n.Attachment.Split(',').Select(int.Parse).ToList().Contains(m.ID)).Select(m => new {
