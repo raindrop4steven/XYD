@@ -212,6 +212,7 @@
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\MettingBookController.cs" />
     <Compile Include="Controllers\ResumeController.cs" />
     <Compile Include="Controllers\SerialNoController.cs" />
@@ -277,6 +278,18 @@
     <Compile Include="Migrations\202001100945011_remove work history talbe.cs" />
     <Compile Include="Migrations\202001100945011_remove work history talbe.Designer.cs">
       <DependentUpon>202001100945011_remove work history talbe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001111556029_add leave table.cs" />
+    <Compile Include="Migrations\202001111556029_add leave table.Designer.cs">
+      <DependentUpon>202001111556029_add leave table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001111611123_add leave table approved.cs" />
+    <Compile Include="Migrations\202001111611123_add leave table approved.Designer.cs">
+      <DependentUpon>202001111611123_add leave table approved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001111625008_add leave table category.cs" />
+    <Compile Include="Migrations\202001111625008_add leave table category.Designer.cs">
+      <DependentUpon>202001111625008_add leave table category.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -648,6 +661,7 @@
     <Folder Include="Views\Contact\" />
     <Folder Include="Views\Education\" />
     <Folder Include="Views\Favorite\" />
+    <Folder Include="Views\Leave\" />
     <Folder Include="Views\MettingBook\" />
     <Folder Include="Views\Resume\" />
     <Folder Include="Views\SerialNo\" />
@@ -709,6 +723,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001100945011_remove work history talbe.resx">
       <DependentUpon>202001100945011_remove work history talbe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001111556029_add leave table.resx">
+      <DependentUpon>202001111556029_add leave table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001111611123_add leave table approved.resx">
+      <DependentUpon>202001111611123_add leave table approved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001111625008_add leave table category.resx">
+      <DependentUpon>202001111625008_add leave table category.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
