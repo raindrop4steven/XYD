@@ -159,7 +159,6 @@ namespace XYD.Controllers
                 stream.Seek(0, SeekOrigin.Begin);
                 string json = new StreamReader(stream).ReadToEnd();
                 WorkflowUtil.ConfirmStartWorkflow(MessageID, json);
-                WorkflowUtil.AddWorkflowHistory(employee.EmplID, MessageID, DEP_Constants.Audit_Operate_Type_Start, string.Empty);
                 return ResponseUtil.OK("流程发起成功");
             }
             catch (Exception e)
@@ -181,8 +180,44 @@ namespace XYD.Controllers
                 var operate = collection["operate"];
                 var opinion = collection["opinion"];
                 WorkflowUtil.AuditMessage(mid, nid, operate, opinion);
-                WorkflowUtil.AddWorkflowHistory(employee.EmplID, mid, operate, opinion);
                 return ResponseUtil.OK("审批OK");
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 添加流程处理记录
+        public ActionResult AddAuditRecord(string mid, string node, string user)
+        {
+            try
+            {
+                // 变量定义
+                var operate = string.Empty;
+                var opinion = string.Empty;
+
+                var message = mgr.GetMessage(mid);
+                Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+                Worksheet worksheet = doc.Worksheet;
+                if (node == "NODE0001")
+                {
+                    operate = DEP_Constants.Audit_Operate_Type_Start;
+                }
+                else
+                {
+                    XYD_Audit_Node auditNode = WorkflowUtil.GetAuditNode(mid, node);
+                    if (auditNode == null)
+                    {
+                        return ResponseUtil.Error("没找到对应处理节点");
+                    }
+                    operate = worksheet.GetWorkcell(auditNode.Operate.Row, auditNode.Operate.Col).WorkcellValue;
+                    opinion = worksheet.GetWorkcell(auditNode.Opinion.Row, auditNode.Opinion.Col).WorkcellValue;
+                }
+
+                WorkflowUtil.AddWorkflowHistory(user, mid, operate, opinion);
+                return ResponseUtil.OK("添加处理记录成功");
             }
             catch (Exception e)
             {
