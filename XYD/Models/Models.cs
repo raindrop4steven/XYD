@@ -288,7 +288,28 @@ namespace XYD.Models
         public DateTime UpdateTime { get; set; }
     }
     #endregion
-    
+
+    #region 签批记录
+    public class XYD_Audit_Record
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 签批人
+        public string EmplID { get; set; }
+        // 申请ID
+        public string MessageID { get; set; }
+        // 操作
+        public string Operation { get; set; }
+        // 意见
+        public string Opinion { get; set; }
+        // 签批时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -309,6 +330,7 @@ namespace XYD.Models
         public DbSet<XYD_Banner> Banner { get; set; }
         public DbSet<XYD_MettingBook> MettingBook { get; set; }
         public DbSet<XYD_Leave_Record> LeaveRecord { get; set; }
+        public DbSet<XYD_Audit_Record> Audit_Record { get; set; }
     }
     #endregion
 }

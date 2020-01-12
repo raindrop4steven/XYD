@@ -71,7 +71,8 @@ namespace XYD.Controllers
                                     a.MessageTitle,
                                     --环节
                                     c.NodeName AS MyTask,
-                                    CONVERT(varchar(100), c.CreateTime, 20) as ReceiveTime
+                                    CONVERT(varchar(100), c.CreateTime, 20) as ReceiveTime,
+                                    a.MessageIssuedBy
                                      FROM WKF_Message a
                                     INNER JOIN {0} b
                                     ON a.MessageID = b.MessageId
@@ -379,7 +380,8 @@ namespace XYD.Controllers
                                     --流程类型
                                     a.MessageTitle,
                                     CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime,
-                                    CONVERT(varchar(100), d.HandledTime, 20) AS ReceiveTime
+                                    CONVERT(varchar(100), d.HandledTime, 20) AS ReceiveTime,
+                                    a.MessageIssuedBy
                                      FROM WKF_Message a
                                     INNER JOIN {0} b
                                     ON a.MessageID = b.MessageId
@@ -460,16 +462,20 @@ namespace XYD.Controllers
 
                 var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", finalSql, startPage, endPage);
 
-                var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetDealResult);
+                var dealResults = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetDealResult);
+                foreach(XYD_DealResult result in dealResults)
+                {
+                    result.Operation = WorkflowUtil.GetLatestOpinion(emplId, result.MessageId);
+                }
 
-                return new JsonNetResult(new
+                return ResponseUtil.OK(new
                 {
                     TotalInfo = new
                     {
                         TotalPages = totalPages,
-                        TotalRecouds = totalRecouds
+                        TotalRecords = totalRecouds
                     },
-                    Data = result
+                    Data = dealResults
                 });
             }
         }

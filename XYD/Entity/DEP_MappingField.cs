@@ -417,4 +417,34 @@ namespace XYD.Entity
     }
     #endregion
 
+    #region XYD_已审批记录
+    public class XYD_DealResult
+    {
+        public string DocumentTilte { get; set; }
+        public string ClosedOrHairTime { get; set; }
+        public string MessageId { get; set; }
+        public string WorkflowId { get; set; }
+        public string MessageTitle { get; set; }
+        public string CreateTime { get; set; }
+        public string ReceiveTime { get; set; }
+        public string Operation { get; set; }
+        public string MessageIssuedBy { get; set; }
+    }
+    #endregion
+
+    #region XYD_待处理记录
+    public class XYD_PendingResult
+    {
+        public string DocumentTilte { get; set; }
+        public string ClosedOrHairTime { get; set; }
+        public string MessageId { get; set; }
+        public string WorkflowId { get; set; }
+        public string InitiateEmplId { get; set; }
+        public string InitiateEmplName { get; set; }
+        public string MessageTitle { get; set; }
+        public string MyTask { get; set; }
+        public string ReceiveTime { get; set; }
+        public string MessageIssuedBy { get; set; }
+    }
+    #endregion
 }

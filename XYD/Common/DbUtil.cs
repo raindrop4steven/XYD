@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using XYD.Entity;
 
 namespace XYD.Common
 {
@@ -174,29 +175,20 @@ namespace XYD.Common
             var ResultList = new List<object>();
             while (reader.Read())
             {
+                var result = new XYD_PendingResult();
                 long number = reader.GetInt64(0);
-                string DocumentTilte = reader.GetString(1);
-                string ClosedOrHairTime = reader.GetString(2);
-                string MessageId = reader.GetString(3);
-                string WorkflowId = reader.GetString(4);
-                string InitiateEmplId = reader.GetString(5);
-                string InitiateEmplName = reader.GetString(6);
-                string MessageTitle = reader.GetString(7);
-                string MyTask = reader.GetString(8);
-                string ReceiveTime = reader.GetString(9);
+                result.DocumentTilte = reader.GetString(1);
+                result.ClosedOrHairTime = reader.GetString(2);
+                result.MessageId = reader.GetString(3);
+                result.WorkflowId = reader.GetString(4);
+                result.InitiateEmplId = reader.GetString(5);
+                result.InitiateEmplName = reader.GetString(6);
+                result.MessageTitle = reader.GetString(7);
+                result.MyTask = reader.GetString(8);
+                result.ReceiveTime = reader.GetString(9);
+                result.MessageIssuedBy = reader.GetString(10);
 
-                ResultList.Add(new
-                {
-                    DocumentTitle = DocumentTilte,
-                    ClosedOrHairTime = ClosedOrHairTime,
-                    MessageId = MessageId,
-                    WorkflowId = WorkflowId,
-                    InitiateEmplId = InitiateEmplId,
-                    InitiateEmplName = InitiateEmplName,
-                    MessageTitle = MessageTitle,
-                    MyTask = MyTask,
-                    ReceiveTime = ReceiveTime
-                });
+                ResultList.Add(result);
             }
 
             return ResultList;
@@ -252,25 +244,17 @@ namespace XYD.Common
             var ResultList = new List<object>();
             while (reader.Read())
             {
+                var result = new XYD_DealResult();
                 long number = reader.GetInt64(0);
-                string DocumentTilte = reader.GetString(1);
-                string ClosedOrHairTime = reader.GetString(2);
-                string MessageId = reader.GetString(3);
-                string WorkflowId = reader.GetString(4);
-                string MessageTitle = reader.GetString(5);
-                string CreateTime = reader.GetString(6);
-                string ReceiveTime = reader.GetString(7);
-
-                ResultList.Add(new
-                {
-                    DocumentTitle = DocumentTilte,
-                    ClosedOrHairTime = ClosedOrHairTime,
-                    MessageId = MessageId,
-                    WorkflowId = WorkflowId,
-                    MessageTitle = MessageTitle,
-                    CreateTime = CreateTime,
-                    ReceiveTime = ReceiveTime
-                });
+                result.DocumentTilte = reader.GetString(1);
+                result.ClosedOrHairTime = reader.GetString(2);
+                result.MessageId = reader.GetString(3);
+                result.WorkflowId = reader.GetString(4);
+                result.MessageTitle = reader.GetString(5);
+                result.CreateTime = reader.GetString(6);
+                result.ReceiveTime = reader.GetString(7);
+                result.MessageIssuedBy = reader.GetString(8);
+                ResultList.Add(result);
             }
 
             return ResultList;

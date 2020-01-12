@@ -159,6 +159,7 @@ namespace XYD.Controllers
                 stream.Seek(0, SeekOrigin.Begin);
                 string json = new StreamReader(stream).ReadToEnd();
                 WorkflowUtil.ConfirmStartWorkflow(MessageID, json);
+                WorkflowUtil.AddWorkflowHistory(employee.EmplID, MessageID, DEP_Constants.Audit_Operate_Type_Start, string.Empty);
                 return ResponseUtil.OK("流程发起成功");
             }
             catch (Exception e)
@@ -180,6 +181,7 @@ namespace XYD.Controllers
                 var operate = collection["operate"];
                 var opinion = collection["opinion"];
                 WorkflowUtil.AuditMessage(mid, nid, operate, opinion);
+                WorkflowUtil.AddWorkflowHistory(employee.EmplID, mid, operate, opinion);
                 return ResponseUtil.OK("审批OK");
             }
             catch (Exception e)

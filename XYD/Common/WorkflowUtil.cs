@@ -1226,5 +1226,32 @@ namespace XYD.Common
             }
         }
         #endregion
+
+        #region 记录流程操作记录
+        public static void AddWorkflowHistory(string EmplID, string MessageID, string Operation, string Opinion)
+        {
+            using (var db = new DefaultConnection())
+            {
+                var history = new XYD_Audit_Record();
+                history.EmplID = EmplID;
+                history.MessageID = MessageID;
+                history.Operation = Operation;
+                history.Opinion = Opinion;
+                db.Audit_Record.Add(history);
+                db.SaveChanges();
+            }
+        }
+        #endregion
+
+        #region 获得最新审批记录
+        public static string GetLatestOpinion(string EmplID, string MessageID)
+        {
+            using (var db = new DefaultConnection())
+            {
+                var record = db.Audit_Record.Where(n => n.MessageID == MessageID && n.EmplID == EmplID).OrderByDescending(n => n.CreateTime).FirstOrDefault();
+                return record == null ? string.Empty : string.Format("您已{0}了该申请", record.Operation);
+            }
+        }
+        #endregion
     }
 }

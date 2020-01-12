@@ -291,6 +291,10 @@
     <Compile Include="Migrations\202001111625008_add leave table category.Designer.cs">
       <DependentUpon>202001111625008_add leave table category.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001121129085_add audit table.cs" />
+    <Compile Include="Migrations\202001121129085_add audit table.Designer.cs">
+      <DependentUpon>202001121129085_add audit table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -659,6 +663,7 @@
     <Folder Include="Views\Award\" />
     <Folder Include="Views\Common\" />
     <Folder Include="Views\Contact\" />
+    <Folder Include="Views\Content\" />
     <Folder Include="Views\Education\" />
     <Folder Include="Views\Favorite\" />
     <Folder Include="Views\Leave\" />
@@ -732,6 +737,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001111625008_add leave table category.resx">
       <DependentUpon>202001111625008_add leave table category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001121129085_add audit table.resx">
+      <DependentUpon>202001121129085_add audit table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
