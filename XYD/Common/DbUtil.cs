@@ -254,6 +254,7 @@ namespace XYD.Common
                 result.CreateTime = reader.GetString(6);
                 result.ReceiveTime = reader.GetString(7);
                 result.MessageIssuedBy = reader.GetString(8);
+                result.EmplName = reader.GetString(9);
                 ResultList.Add(result);
             }
 

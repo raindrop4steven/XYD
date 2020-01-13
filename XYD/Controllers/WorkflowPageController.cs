@@ -380,13 +380,16 @@ namespace XYD.Controllers
                                     a.MessageTitle,
                                     CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime,
                                     CONVERT(varchar(100), d.HandledTime, 20) AS ReceiveTime,
-                                    a.MessageIssuedBy
+                                    a.MessageIssuedBy,
+                                    c.EmplName
                                      FROM WKF_Message a
                                     INNER JOIN {0} b
                                     ON a.MessageID = b.MessageId
                                     INNER JOIN (select MAX(HandledTime) as HandledTime,MessageID,HandledBy from WKF_WorkflowHistory 
 									where NodeKey != 'NODE0001' group by MessageID,HandledBy) as d
                                     ON a.MessageID = d.MessageID
+                                    INNER JOIN ORG_Employee c
+                                    ON a.MessageIssuedBy = c.EmplID
                                     WHERE d.HandledBy = '{1}'  
                                     and a.MessageStatus not in (0, 3)", tableName, emplId));
 
