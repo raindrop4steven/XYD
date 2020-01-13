@@ -268,7 +268,7 @@ namespace XYD.Controllers
 
         #region 资产列表
         [HttpPost]
-        public ActionResult List(XYD_Asset model)
+        public ActionResult List(XYD_Asset model, int Page = 0, int Size = 10)
         {
             try
             {
@@ -287,8 +287,23 @@ namespace XYD.Controllers
                     {
                         list.Where(n => n.Name.Contains(model.Name));
                     }
-                    var results = list.OrderByDescending(n => n.CreateTime).ToList();
-                    return ResponseUtil.OK(results);
+                    // 记录总数
+                    var totalCount = list.Count();
+                    // 记录总页数
+                    var totalPage = (int)Math.Ceiling((float)totalCount / Size);
+                    var results = list.OrderByDescending(n => n.CreateTime).Skip(Page * Size).Take(Size).ToList();
+
+                    return ResponseUtil.OK(new {
+                        records = results,
+                        meta = new
+                        {
+                            current_page = Page,
+                            total_page = totalPage,
+                            current_count = Page * Size + results.Count(),
+                            total_count = totalCount,
+                            per_page = Size
+                        }
+                    });
                 }
             }
             catch(Exception e)
@@ -299,14 +314,20 @@ namespace XYD.Controllers
         #endregion
 
         #region 资产操作记录
-        public ActionResult Records(int id)
+        public ActionResult Records(int id, int Page = 0, int Size = 10)
         {
             try
             {
                 var results = new List<object>();
                 var db = new DefaultConnection();
+
                 var records = db.AssetRecord.Where(n => n.AssetID == id).OrderBy(n => n.ID);
-                foreach (var record in records)
+                // 记录总数
+                var totalCount = records.Count();
+                // 记录总页数
+                var totalPage = (int)Math.Ceiling((float)totalCount / Size);
+                var list = records.Skip(Page * Size).Take(Size).ToList();
+                foreach (var record in list)
                 {
                     var result = new
                     {
@@ -320,7 +341,17 @@ namespace XYD.Controllers
                     };
                     results.Add(result);
                 }
-                return ResponseUtil.OK(results);
+                return ResponseUtil.OK(new {
+                    records = results,
+                    meta = new
+                    {
+                        current_page = Page,
+                        total_page = totalPage,
+                        current_count = Page * Size + results.Count(),
+                        total_count = totalCount,
+                        per_page = Size
+                    }
+                });
             }
             catch(Exception e)
             {

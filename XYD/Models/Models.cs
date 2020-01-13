@@ -235,9 +235,9 @@ namespace XYD.Models
         // 会议名称
         public string Name { get; set; }
         // 开始时间
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
         // 结束时间
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
         // 是否已批准
         public bool Agreed { get; set; }
         // 创建时间

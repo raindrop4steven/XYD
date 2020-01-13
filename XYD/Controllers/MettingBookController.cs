@@ -69,13 +69,17 @@ namespace XYD.Controllers
         #endregion
 
         #region 会议室统计
-        public ActionResult MeetingRecord(XYD_MettingBook model)
+        public ActionResult MeetingRecord(XYD_MettingBook model, int Page = 0, int Size = 10)
         {
             try
             {
                 using (var db = new DefaultConnection())
                 {
                     var records = db.MettingBook.Where(n => true);
+                    if (model.Area != DEP_Constants.System_Config_Area_All)
+                    {
+                        records = records.Where(n => n.Area == model.Area);
+                    }
                     if (!string.IsNullOrEmpty(model.Name))
                     {
                         records = records.Where(n => n.Name.Contains(model.Name));
@@ -88,8 +92,22 @@ namespace XYD.Controllers
                     {
                         records = records.Where(n => n.EndTime <= model.EndTime);
                     }
-                    var results = records.ToList();
-                    return ResponseUtil.OK(results);
+                    // 记录总数
+                    var totalCount = records.Count();
+                    // 记录总页数
+                    var totalPage = (int)Math.Ceiling((float)totalCount / Size);
+                    var results = records.OrderByDescending(n => n.CreateTime).Skip(Page * Size).Take(Size).ToList();
+                    return ResponseUtil.OK(new {
+                        records = results,
+                        meta = new
+                        {
+                            current_page = Page,
+                            total_page = totalPage,
+                            current_count = Page * Size + results.Count(),
+                            total_count = totalCount,
+                            per_page = Size
+                        }
+                    });
                 }
             }
             catch(Exception e)
@@ -99,4 +117,5 @@ namespace XYD.Controllers
         }
         #endregion
     }
+
 }

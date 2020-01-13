@@ -50,6 +50,7 @@ namespace XYD.Common
         /*
          * 地区
          */
+        public static string System_Config_Area_All = "-1";
         public static string System_Config_Area_SH = "SH";
         public static string System_Config_Area_WX = "WX";
 
@@ -60,5 +61,11 @@ namespace XYD.Common
         public static string Education_Level_Ben = "本科";
         public static string Education_Level_Shuo = "硕士";
         public static string Education_Level_Bo = "博士";
+
+        /*
+         * 默认分页
+         */
+        public static int Page = 0;
+        public static int Size = 10;
     }
 }
