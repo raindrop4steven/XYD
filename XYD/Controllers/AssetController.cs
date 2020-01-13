@@ -371,8 +371,8 @@ namespace XYD.Controllers
                         .GroupBy(n => n.Name)
                         .Select(n => new
                         {
-                            Name = n.First().Name,
-                            Count = n.Count().ToString()
+                            Name = n.FirstOrDefault().Name,
+                            Count = n.Count()
                         }).ToList();
                     return ResponseUtil.OK(assets);
                 }

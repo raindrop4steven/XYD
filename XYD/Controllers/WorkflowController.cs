@@ -669,5 +669,21 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 映射选择的物品列表到物品申请单中
+        public ActionResult MappingGoods(string mid, string goods)
+        {
+            try
+            {
+                var goodsArray = goods.Split(',').ToList();
+                WorkflowUtil.FillApplyGoods(mid, goodsArray);
+                return ResponseUtil.OK("产品映射成功");
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }

@@ -954,6 +954,50 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 填充物品采购表单
+        public static void FillApplyGoods(string MessageID, List<string> goodsArray)
+        {
+            Message message = mgr.GetMessage(MessageID);
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
+            Worksheet worksheet = doc.Worksheet;
+            XYD_Array_Cell arrayCell = null;
+
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-start.json", message.FromTemplate));
+            
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var fields = JsonConvert.DeserializeObject<XYD_Fields>(sr.ReadToEnd(), new XYDCellJsonConverter());
+
+                foreach (XYD_Base_Cell cell in fields.Fields)
+                {
+                    if (cell.Type == 3)
+                    {
+                        arrayCell = (XYD_Array_Cell)cell;
+                    }
+                }
+                if (arrayCell == null)
+                {
+                    throw new Exception("未找到物品表格");
+                }
+                if (arrayCell.Array.Count < goodsArray.Count)
+                {
+                    throw new Exception("选择物品超过表格最大行数");
+                }
+                // 填充到对应的里面
+                var updateCells = new List<Workcell>();
+                for (int i = 0; i < goodsArray.Count; i++)
+                {
+                    List<XYD_Cell_Value> rowCells = arrayCell.Array.ElementAt(i);
+                    XYD_Cell_Value goodsCell = rowCells.ElementAt(0);
+                    var cell = worksheet.GetWorkcell(goodsCell.Row, goodsCell.Col);
+                    cell.WorkcellValue = goodsArray.ElementAt(i);
+                    updateCells.Add(cell);
+                }
+                worksheet.UpdateWorkcells(updateCells);
+            }
+        }
+        #endregion
+
         #region 确认发起表单
         public static void ConfirmStartWorkflow(string MessageID, string jsonString)
         {
