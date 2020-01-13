@@ -1237,6 +1237,8 @@ namespace XYD.Common
                 history.MessageID = MessageID;
                 history.Operation = Operation;
                 history.Opinion = Opinion;
+                history.CreateTime = DateTime.Now;
+                history.UpdateTime = DateTime.Now;
                 db.Audit_Record.Add(history);
                 db.SaveChanges();
             }

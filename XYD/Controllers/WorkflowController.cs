@@ -201,7 +201,7 @@ namespace XYD.Controllers
                 var message = mgr.GetMessage(mid);
                 Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
                 Worksheet worksheet = doc.Worksheet;
-                if (node == "NODE0001")
+                if (node == DEP_Constants.Start_Node_Key)
                 {
                     operate = DEP_Constants.Audit_Operate_Type_Start;
                 }
@@ -481,10 +481,12 @@ namespace XYD.Controllers
                     }
                 }
                 XYD_Fields fields = WorkflowUtil.GetStartFields(MessageID);
+                var handle = wkfService.GetMessageHandle(MessageID);
                 var history = wkfService.GetWorkflowHistory(MessageID);
                 return ResponseUtil.OK(new
                 {
                     fields = fields,
+                    handle = handle,
                     history = history
                 });
             }

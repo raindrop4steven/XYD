@@ -12,7 +12,8 @@ namespace XYD.Common
         /// </summary>
         // 传阅节点
         public static string Transfer_Node_Key_Header = "NODE_C_";
-
+        // 发起节点
+        public static string Start_Node_Key = "NODE0001";
         /*
          * 极光推送类别
          */

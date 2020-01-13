@@ -148,6 +148,7 @@ namespace XYD.Services
                     var auditHistory = new
                     {
                         HandledBy = history.HandledBy,
+                        EmplName = orgMgr.GetEmployee(history.HandledBy).EmplName,
                         Avatar = string.Format("/Apps/People/Shared/do_ShowPhoto.aspx?tag=logo&emplid={0}", history.HandledBy),
                         HandleTime = history.HandledTime,
                         Operation = worksheet.GetWorkcell(auditNode.Operate.Row, auditNode.Operate.Col).WorkcellValue,
@@ -155,6 +156,32 @@ namespace XYD.Services
                     };
                     results.Add(auditHistory);
                 }
+            }
+            return results;
+        }
+        #endregion
+
+        #region 获取待处理人信息
+        public List<object> GetMessageHandle(string mid)
+        {
+            var results = new List<object>();
+            List<MessageHandle> messageHandles = mgr.FindMessageHandle("MessageID=@MessageID", new Dictionary<string, object>()
+              {
+                {
+                  "@MessageID",
+                  (object) mid
+                }
+              }, "CreateTime asc, HandleStatus desc");
+            foreach(var handle in messageHandles)
+            {
+                var handleInfo = new
+                {
+                    UserID = handle.UserID,
+                    EmplName = orgMgr.GetEmployee(handle.UserID).EmplName,
+                    Avatar = string.Format("/Apps/People/Shared/do_ShowPhoto.aspx?tag=logo&emplid={0}", handle.UserID),
+                    CreateTime = handle.CreateTime
+                };
+                results.Add(handleInfo);
             }
             return results;
         }
