@@ -303,11 +303,24 @@ namespace XYD.Controllers
         {
             try
             {
-                using (var db = new DefaultConnection())
+                var results = new List<object>();
+                var db = new DefaultConnection();
+                var records = db.AssetRecord.Where(n => n.AssetID == id).OrderBy(n => n.ID);
+                foreach (var record in records)
                 {
-                    var records = db.AssetRecord.OrderBy(n => n.ID).ToList();
-                    return ResponseUtil.OK(records);
+                    var result = new
+                    {
+                        ID = record.ID,
+                        Asset = db.Asset.Where(n => n.ID == record.AssetID).FirstOrDefault().Name,
+                        Operation = record.Operation,
+                        EmplName = record.EmplName,
+                        DeptName = record.DeptName,
+                        CreateTime = record.CreateTime,
+                        UpdateTime = record.UpdateTime
+                    };
+                    results.Add(result);
                 }
+                return ResponseUtil.OK(results);
             }
             catch(Exception e)
             {

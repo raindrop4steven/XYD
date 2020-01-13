@@ -132,32 +132,24 @@ namespace XYD.Services
             Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
             Worksheet worksheet = doc.Worksheet;
 
-            List<WorkflowHistory> workflowHistory = mgr.FindWorkflowHistory("MessageID=@MessageID", new Dictionary<string, object>()
-              {
-                {
-                  "@MessageID",
-                  (object) mid
-                }
-              }, "HandledTime");
-
-            foreach (var history in workflowHistory)
+            using (var db = new DefaultConnection())
             {
-                var auditNode = WorkflowUtil.GetAuditNode(mid, history.NodeKey);
-                if (auditNode != null)
+                var auditRecords = db.Audit_Record.Where(n => n.MessageID == mid).OrderByDescending(n => n.CreateTime).ToList();
+                foreach (var record in auditRecords)
                 {
                     var auditHistory = new
                     {
-                        HandledBy = history.HandledBy,
-                        EmplName = orgMgr.GetEmployee(history.HandledBy).EmplName,
-                        Avatar = string.Format("/Apps/People/Shared/do_ShowPhoto.aspx?tag=logo&emplid={0}", history.HandledBy),
-                        HandleTime = history.HandledTime,
-                        Operation = worksheet.GetWorkcell(auditNode.Operate.Row, auditNode.Operate.Col).WorkcellValue,
-                        Opinion = worksheet.GetWorkcell(auditNode.Operate.Row, auditNode.Operate.Col).WorkcellValue
+                        HandledBy = record.EmplID,
+                        EmplName = orgMgr.GetEmployee(record.EmplID).EmplName,
+                        Avatar = string.Format("/Apps/People/Shared/do_ShowPhoto.aspx?tag=logo&emplid={0}", record.EmplID),
+                        HandleTime = record.CreateTime,
+                        Operation = record.Operation,
+                        Opinion = record.Opinion
                     };
                     results.Add(auditHistory);
                 }
+                return results;
             }
-            return results;
         }
         #endregion
 

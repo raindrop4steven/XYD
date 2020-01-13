@@ -480,7 +480,7 @@ namespace XYD.Controllers
                         continue;
                     }
                 }
-                XYD_Fields fields = WorkflowUtil.GetStartFields(MessageID);
+                XYD_Fields fields = WorkflowUtil.GetWorkflowFields(MessageID);
                 var handle = wkfService.GetMessageHandle(MessageID);
                 var history = wkfService.GetWorkflowHistory(MessageID);
                 return ResponseUtil.OK(new
