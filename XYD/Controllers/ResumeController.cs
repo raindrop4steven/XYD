@@ -37,7 +37,7 @@ namespace XYD.Controllers
                     Attachments = db.Attachment.ToList().Where(m => n.Attachment.Split(',').Select(int.Parse).ToList().Contains(m.ID)).Select(m => new {
                         id = m.ID,
                         name = m.Name,
-                        url = Url.Action("Download", "Common", new { id = n.ID })
+                        url = Url.Action("Download", "Common", new { id = m.ID })
                     })
                 }).ToList();
                 
