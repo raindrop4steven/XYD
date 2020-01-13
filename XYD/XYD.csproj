@@ -341,6 +341,7 @@
     </Content>
     <Content Include="Content\workflowScript\业务接待费报销.js" />
     <Content Include="Content\workflowScript\差旅费用报销单.js" />
+    <Content Include="Content\workflowScript\物品申请.js" />
     <Content Include="Content\workflowScript\物品采购费用报销.js" />
     <Content Include="Content\workflowScript\通用.js" />
     <Content Include="Content\workflows\付款申请.png" />
