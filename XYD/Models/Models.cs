@@ -217,6 +217,8 @@ namespace XYD.Models
         public int RestDays { get; set; }
         // 出差补贴标准
         public float Allowance { get; set; }
+        // 轮播图
+        public string Banners { get; set; }
     }
     #endregion
 
@@ -274,23 +276,6 @@ namespace XYD.Models
     }
     #endregion
 
-    #region 轮播图
-    public class XYD_Banner
-    {
-        // ID
-        [Key]
-        public int ID { get; set; }
-        // 图片
-        public int AttID { get; set; }
-        // 顺序
-        public int order { get; set; }
-        // 创建时间
-        public DateTime CreateTime { get; set; }
-        // 更新时间
-        public DateTime UpdateTime { get; set; }
-    }
-    #endregion
-
     #region 签批记录
     public class XYD_Audit_Record
     {
@@ -329,7 +314,6 @@ namespace XYD.Models
         public DbSet<XYD_Asset_Record> AssetRecord { get; set; }
         public DbSet<XYD_Asset_Category> AssetCategory { get; set; }
         public DbSet<XYD_System_Config> SystemConfig { get; set; }
-        public DbSet<XYD_Banner> Banner { get; set; }
         public DbSet<XYD_MettingBook> MettingBook { get; set; }
         public DbSet<XYD_Leave_Record> LeaveRecord { get; set; }
         public DbSet<XYD_Audit_Record> Audit_Record { get; set; }

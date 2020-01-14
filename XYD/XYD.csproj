@@ -209,7 +209,6 @@
     <Compile Include="Common\XYDCellJsonConverter.cs" />
     <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\AwardController.cs" />
-    <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
@@ -316,6 +315,10 @@
     <Compile Include="Migrations\202001140748355_update banner2.cs" />
     <Compile Include="Migrations\202001140748355_update banner2.Designer.cs">
       <DependentUpon>202001140748355_update banner2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001140816501_add banner to config.cs" />
+    <Compile Include="Migrations\202001140816501_add banner to config.Designer.cs">
+      <DependentUpon>202001140816501_add banner to config.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -797,6 +800,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001140748355_update banner2.resx">
       <DependentUpon>202001140748355_update banner2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001140816501_add banner to config.resx">
+      <DependentUpon>202001140816501_add banner to config.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

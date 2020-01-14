@@ -15,11 +15,31 @@ namespace XYD.Controllers
         {
             try
             {
-                using (var db = new DefaultConnection())
+                var db = new DefaultConnection();
+                var config = db.SystemConfig.Where(n => n.Area == areaKey).FirstOrDefault();
+                var banners = new List<int>();
+                if (!string.IsNullOrEmpty(config.Banners))
                 {
-                    var config = db.SystemConfig.Where(n => n.Area == areaKey).FirstOrDefault();
-                    return ResponseUtil.OK(config);
+                    banners = config.Banners.Split(',').Select(int.Parse).ToList();
+                    
                 }
+                var atts = db.Attachment.Where(n => banners.Contains(n.ID)).ToList().Select(n => new
+                {
+                    id = n.ID,
+                    name = n.Name,
+                    path = Url.Action("Download", "Common", new { id = n.ID })
+                });
+
+                return ResponseUtil.OK(new
+                {
+                    ID = config.ID,
+                    Area = config.Area,
+                    StartWorkTime = config.StartWorkTime,
+                    EndWorkTime = config.EndWorkTime,
+                    RestDays = config.RestDays,
+                    Allowance = config.Allowance,
+                    Banners = atts
+                });
             }
             catch(Exception e)
             {
@@ -35,15 +55,19 @@ namespace XYD.Controllers
             {
                 using (var db = new DefaultConnection())
                 {
-                    var config = db.SystemConfig.Where(n => n.Area == model.Area).FirstOrDefault();
-                    if (config == null)
+                    var configs = db.SystemConfig.ToList();
+                    foreach(var config in configs)
                     {
-                        return ResponseUtil.Error("记录不存在");
+                        if (config.Area == model.Area)
+                        {
+                            config.StartWorkTime = model.StartWorkTime;
+                            config.EndWorkTime = model.EndWorkTime;
+                            config.RestDays = model.RestDays;
+                            config.Allowance = model.Allowance;
+                        }
+                        config.Banners = model.Banners;
                     }
-                    config.StartWorkTime = model.StartWorkTime;
-                    config.EndWorkTime = model.EndWorkTime;
-                    config.RestDays = model.RestDays;
-                    config.Allowance = model.Allowance;
+                    
                     db.SaveChanges();
                     return ResponseUtil.OK("更新成功");
                 }
@@ -73,18 +97,27 @@ namespace XYD.Controllers
         }
         #endregion
 
-        #region 顶部广告列表
+        #region 轮播图列表
         public ActionResult BannerList()
         {
             try
             {
-                using (var db = new DefaultConnection())
+                var db = new DefaultConnection();
+                var config = db.SystemConfig.FirstOrDefault();
+                var banners = new List<int>();
+                if (!string.IsNullOrEmpty(config.Banners))
                 {
-                    var banners = db.Banner.OrderBy(n => n.order).ToList();
-                    return ResponseUtil.OK(banners);
+                    banners = config.Banners.Split(',').Select(int.Parse).ToList();
                 }
+                var atts = db.Attachment.Where(n => banners.Contains(n.ID)).ToList().Select(n => new
+                {
+                    id = n.ID,
+                    name = n.Name,
+                    path = Url.Action("Download", "Common", new { id = n.ID })
+                });
+                return ResponseUtil.OK(atts);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }

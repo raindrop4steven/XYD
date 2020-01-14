@@ -133,7 +133,8 @@ namespace XYD.Controllers
                         Category = record.Category,
                         StartDate = record.StartDate,
                         EndDate = record.EndDate,
-                        Status = record.Status
+                        Status = record.Status,
+                        CreateTime = record.CreateTime
                     };
                     results.Add(result);
                 }
