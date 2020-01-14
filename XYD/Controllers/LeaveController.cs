@@ -134,7 +134,8 @@ namespace XYD.Controllers
                         StartDate = record.StartDate,
                         EndDate = record.EndDate,
                         Status = record.Status,
-                        CreateTime = record.CreateTime
+                        CreateTime = record.CreateTime,
+                        MessageID = record.MessageID
                     };
                     results.Add(result);
                 }
@@ -143,8 +144,8 @@ namespace XYD.Controllers
                 var remainRestDays = systemConfig.RestDays - totalRestDays;
 
                 return ResponseUtil.OK(new {
-                    remainDays = remainRestDays,
-                    totalRestDays = totalRestDays,
+                    remainDays = Convert.ToInt32(remainRestDays),
+                    totalRestDays = Convert.ToInt32(totalRestDays),
                     records = results
                 });
             }

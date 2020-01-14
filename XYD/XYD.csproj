@@ -446,52 +446,13 @@
     <Content Include="Content\config\decf0690-a529-4577-9af1-c1db16f458b3.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\config\5d90a7ef-da6b-455a-a02f-da48449a8973.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\f69a1d68-1af6-4d22-bfe7-0fd4df7290c5.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\2b091c88-671e-483b-9dd4-1806f1f1bfb8.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\f78b3963-cab1-446f-b4f6-7b6bee3a1fe2.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\941df105-de82-4a9f-88e8-b4dcbbcfc209.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\e3526381-4849-4ac1-8162-5408bb912ccb.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\019e7c96-848e-483b-a9b1-f023008cdfdb.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\02a16d9c-047c-4eeb-8b8b-4300eb9bc073.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\config\08d301b1-9344-4e4f-a983-c020ffd95e06.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\1115a151-e10a-4097-ad26-f885da6c78b3.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\config\164e75ca-d8f8-4275-90bb-a66f9104c86c.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\config\25ee8aa4-4141-4aeb-b148-c8d66722b0b2.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\52b3402a-5ae0-4650-85bd-e03d22e599db.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\5b7b1258-d97a-40fc-9d5a-6708822a63eb.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\68c56f4c-65e2-4cec-b4d4-6768f37f2fa9.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\70092d5d-7f13-402e-bcd3-2ce11d29a6a5.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\config\73afea2a-9b48-4d79-af55-a2bcd13feff6.json">
@@ -501,12 +462,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\config\b4b9da44-0ea8-4b03-b428-7eeafbf9875e.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\bfb3a160-293d-4ed7-a412-af8962a12e1a.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\d505cdab-cf85-4954-aab6-8039931795c1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\config\aabd1d16-d72f-4d6c-be5d-74ee503d338a.json">
@@ -651,9 +606,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\config\59f52f32-c540-44df-aed0-02ef7f964539.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\f744a53b-6bf4-4ea1-b90f-79d166d21e00.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152.json">
