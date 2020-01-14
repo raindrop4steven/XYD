@@ -177,7 +177,7 @@ namespace XYD.Common
             {
                 var result = new XYD_PendingResult();
                 long number = reader.GetInt64(0);
-                result.DocumentTilte = reader.GetString(1);
+                result.DocumentTitle = reader.GetString(1);
                 result.ClosedOrHairTime = reader.GetString(2);
                 result.MessageId = reader.GetString(3);
                 result.WorkflowId = reader.GetString(4);
@@ -246,7 +246,7 @@ namespace XYD.Common
             {
                 var result = new XYD_DealResult();
                 long number = reader.GetInt64(0);
-                result.DocumentTilte = reader.GetString(1);
+                result.DocumentTitle = reader.GetString(1);
                 result.ClosedOrHairTime = reader.GetString(2);
                 result.MessageId = reader.GetString(3);
                 result.WorkflowId = reader.GetString(4);
@@ -351,7 +351,7 @@ namespace XYD.Common
 
                 ResultList.Add(new
                 {
-                    DocumentTilte = DocumentTilte,
+                    DocumentTitle = DocumentTilte,
                     ClosedOrHairTime = ClosedOrHairTime,
                     MessageId = MessageId,
                     WorkflowId = WorkflowId,

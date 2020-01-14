@@ -293,6 +293,8 @@ namespace XYD.Entity
         public string Image { get; set; }
         // 排序
         public int Order { get; set; }
+        // 类型
+        public string Type { get; set; }
     }
 
     public class XYD_Operation
@@ -420,7 +422,7 @@ namespace XYD.Entity
     #region XYD_已审批记录
     public class XYD_DealResult
     {
-        public string DocumentTilte { get; set; }
+        public string DocumentTitle { get; set; }
         public string ClosedOrHairTime { get; set; }
         public string MessageId { get; set; }
         public string WorkflowId { get; set; }
@@ -436,7 +438,7 @@ namespace XYD.Entity
     #region XYD_待处理记录
     public class XYD_PendingResult
     {
-        public string DocumentTilte { get; set; }
+        public string DocumentTitle { get; set; }
         public string ClosedOrHairTime { get; set; }
         public string MessageId { get; set; }
         public string WorkflowId { get; set; }

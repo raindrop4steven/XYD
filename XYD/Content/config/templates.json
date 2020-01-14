@@ -58,7 +58,8 @@
             "Id": "164e75ca-d8f8-4275-90bb-a66f9104c86c",
             "Name": "文具领用申请",
             "Image": "Content/workflows/领用申请.png",
-            "Order": 10
+            "Order": 10,
+            "Type": "goods"
         },
         {
             "Id": "25ee8aa4-4141-4aeb-b148-c8d66722b0b2",
@@ -89,12 +90,6 @@
             "Name": "用车申请",
             "Image": "Content/workflows/用车申请.png",
             "Order": 15
-        },
-        {
-            "Id": "aabed5c9-19c4-43e5-add2-f68da7cba5eb",
-            "Name": "住宿申请",
-            "Image": "Content/workflows/住宿申请.png",
-            "Order": 16
         }
     ]
 }

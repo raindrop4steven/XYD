@@ -144,11 +144,11 @@ namespace XYD.Controllers
 
                 var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetPendingResult);
 
-                return ResponseUtil.OK(new {
+                return new JsonNetResult(new {
                     TotalInfo = new
                     {
                         TotalPages = totalPages,
-                        TotalRecords = totalRecouds
+                        TotalRecouds = totalRecouds
                     },
                     Data = result
                 });
@@ -470,12 +470,12 @@ namespace XYD.Controllers
                     result.Operation = WorkflowUtil.GetLatestOpinion(emplId, result.MessageId);
                 }
 
-                return ResponseUtil.OK(new
+                return new JsonNetResult(new
                 {
                     TotalInfo = new
                     {
                         TotalPages = totalPages,
-                        TotalRecords = totalRecouds
+                        TotalRecouds = totalRecouds
                     },
                     Data = dealResults
                 });
@@ -891,12 +891,12 @@ namespace XYD.Controllers
 
                 var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetMyApplyResult);
 
-                return ResponseUtil.OK(new
+                return new JsonNetResult(new
                 {
                     TotalInfo = new
                     {
                         TotalPages = totalPages,
-                        TotalRecords = totalRecouds
+                        TotalRecouds = totalRecouds
                     },
                     Data = result
                 });
