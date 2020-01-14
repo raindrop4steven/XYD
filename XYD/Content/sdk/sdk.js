@@ -762,6 +762,6 @@ function CaculateDays(beingID, endID, destID) {
         }
         //讲两个时间相减，求出相隔的天数
         var dayCount = (Math.abs(time2 - time1)) / 1000 / 60 / 60 / 24;
-        SaveCellValue($(destID), dayCount);
+        SaveCellValue($(destID), dayCount + 1);
     }
 }

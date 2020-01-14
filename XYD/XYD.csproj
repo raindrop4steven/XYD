@@ -202,12 +202,14 @@
     <Compile Include="Common\DEP_Constants.cs" />
     <Compile Include="Common\DiskUtil.cs" />
     <Compile Include="Common\JsonNetResult.cs" />
+    <Compile Include="Common\OrgUtil.cs" />
     <Compile Include="Common\ResponseUtil.cs" />
     <Compile Include="Common\TransformUtil.cs" />
     <Compile Include="Common\WorkflowUtil.cs" />
     <Compile Include="Common\XYDCellJsonConverter.cs" />
     <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\AwardController.cs" />
+    <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
@@ -298,6 +300,22 @@
     <Compile Include="Migrations\202001130853516_change meetting time to nullable.cs" />
     <Compile Include="Migrations\202001130853516_change meetting time to nullable.Designer.cs">
       <DependentUpon>202001130853516_change meetting time to nullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001140530238_add leave mid.cs" />
+    <Compile Include="Migrations\202001140530238_add leave mid.Designer.cs">
+      <DependentUpon>202001140530238_add leave mid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001140540282_add leave status.cs" />
+    <Compile Include="Migrations\202001140540282_add leave status.Designer.cs">
+      <DependentUpon>202001140540282_add leave status.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001140739164_update banner.cs" />
+    <Compile Include="Migrations\202001140739164_update banner.Designer.cs">
+      <DependentUpon>202001140739164_update banner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001140748355_update banner2.cs" />
+    <Compile Include="Migrations\202001140748355_update banner2.Designer.cs">
+      <DependentUpon>202001140748355_update banner2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -653,6 +671,9 @@
     <Content Include="Content\config\8245bf5f-cb2d-4bd6-8a52-1d47f7b74e85-app-transformer.json" />
     <Content Include="Content\config\decf0690-a529-4577-9af1-c1db16f458b3-app-transformer.json" />
     <Content Include="Content\config\18b1736d-9360-4129-b7b3-384cb5b510cb-app-transformer.json" />
+    <Content Include="Content\config\18b1736d-9360-4129-b7b3-384cb5b510cb-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -681,6 +702,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Asset\" />
     <Folder Include="Views\Award\" />
+    <Folder Include="Views\Banner\" />
     <Folder Include="Views\Common\" />
     <Folder Include="Views\Contact\" />
     <Folder Include="Views\Content\" />
@@ -763,6 +785,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001130853516_change meetting time to nullable.resx">
       <DependentUpon>202001130853516_change meetting time to nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001140530238_add leave mid.resx">
+      <DependentUpon>202001140530238_add leave mid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001140540282_add leave status.resx">
+      <DependentUpon>202001140540282_add leave status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001140739164_update banner.resx">
+      <DependentUpon>202001140739164_update banner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001140748355_update banner2.resx">
+      <DependentUpon>202001140748355_update banner2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

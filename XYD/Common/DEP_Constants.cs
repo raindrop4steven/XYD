@@ -67,5 +67,19 @@ namespace XYD.Common
          */
         public static int Page = 0;
         public static int Size = 10;
+
+        /*
+         * 默认地区
+         */
+        public static string Default_Area_Key = "WX";
+        public static string Role_Name_WuXi = "无锡";
+        public static string Role_Name_ShangHai = "上海";
+
+        /**
+         * 请假审批状态
+         */
+        public static string Leave_Status_YES = "YES";
+        public static string Leave_Status_NO = "NO";
+        public static string Leave_Status_Auditing = "Auditing";
     }
 }
