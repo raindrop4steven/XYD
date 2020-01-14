@@ -351,7 +351,7 @@ namespace XYD.Common
 
                 ResultList.Add(new
                 {
-                    DocumentTitle = DocumentTilte,
+                    DocumentTilte = DocumentTilte,
                     ClosedOrHairTime = ClosedOrHairTime,
                     MessageId = MessageId,
                     WorkflowId = WorkflowId,

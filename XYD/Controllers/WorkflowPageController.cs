@@ -891,12 +891,12 @@ namespace XYD.Controllers
 
                 var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetMyApplyResult);
 
-                return new JsonNetResult(new
+                return ResponseUtil.OK(new
                 {
                     TotalInfo = new
                     {
                         TotalPages = totalPages,
-                        TotalRecouds = totalRecouds
+                        TotalRecords = totalRecouds
                     },
                     Data = result
                 });
