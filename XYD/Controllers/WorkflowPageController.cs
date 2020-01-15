@@ -16,6 +16,7 @@ namespace XYD.Controllers
         WorkflowMgr mgr = new WorkflowMgr();
 
         #region 待处理公文
+        [Authorize]
         [HttpPost]
         public ActionResult GetPendingInfo(QueryInfo query)
         {
@@ -156,174 +157,8 @@ namespace XYD.Controllers
         }
         #endregion
 
-        #region 待处理公文（预警日期优先）
-        [HttpPost]
-        public ActionResult GetAlarmPendingInfo(QueryInfo query)
-        {
-            /*
-             * 变量定义
-             */
-            // SQL语句列表
-            var statements = new List<StringBuilder>();
-            // 当前用户
-            var emplId = (User.Identity as Appkiz.Library.Security.Authentication.AppkizIdentity).Employee.EmplID;
-
-            /*
-             * 参数校验
-             */
-            if (query.PageNumber <= 0)
-            {
-                query.PageNumber = 1;
-            }
-            if (query.PageSize <= 0)
-            {
-                query.PageSize = 20;
-            }
-
-            /*
-             * 获取全局预警提醒天数
-             */
-            int days = WorkflowUtil.GetAlarmMessageDays();
-
-            /*
-             * 构造SQL语句
-             */
-            // 根据当前用户获取对应的映射表
-            var tableList = WorkflowUtil.GetTablesByUser(emplId);
-
-            // 判断映射表数量
-            if (tableList.Count == 0)
-            {
-                return new JsonNetResult(new
-                {
-                    TotalInfo = 0,
-                    Data = new List<object>()
-                });
-            }
-            else
-            {
-                foreach (var tableName in tableList)
-                {
-                    StringBuilder sql = new StringBuilder();
-                    sql.Append(string.Format(@"SELECT
-                                    b.DocumentTitle,
-                                    CONVERT(varchar(100), b.ClosedOrHairTime, 20) as ClosedOrHairTime,
-                                    b.MessageId,
-                                    b.WorkFlowId,
-                                    --流程发起人
-                                    a.MessageIssuedBy AS InitiateEmplId,
-                                    d.EmplName AS InitiateEmplName,
-                                    --流程类型
-                                    a.MessageTitle,
-                                    --环节
-                                    c.NodeName AS MyTask,
-                                    CONVERT(varchar(100), c.CreateTime, 20) as ReceiveTime
-                                     FROM WKF_Message a
-                                    INNER JOIN {0} b
-                                    ON a.MessageID = b.MessageId
-                                    INNER JOIN WKF_MessageHandle c
-                                    ON a.MessageID = c.MessageID
-                                    INNER JOIN ORG_Employee d
-                                    ON a.MessageIssuedBy = d.EmplID
-                                    WHERE c.HandleStatus != 0
-                                    and a.MessageStatus not in (0, 3) 
-                                    and (c.UserID = '{1}' or (c.EntrustBy = '{1}' and c.EntrustBy <> ''))", tableName, emplId));
-                    if (!string.IsNullOrWhiteSpace(query.SortDirection))
-                    {
-                        query.SortDirection = "desc";
-                    }
-                    if (!string.IsNullOrWhiteSpace(query.SortColumn))
-                    {
-                        query.SortColumn = "ReceiveTime";
-                    }
-                    //公文标题
-                    if (!string.IsNullOrWhiteSpace(query.Title))
-                    {
-                        sql.Append(string.Format(@" and b.DocumentTitle like '%{0}%'", query.Title));
-                    }
-                    //开始发文时间
-                    if (query.StartClosedOrHairTime.HasValue)
-                    {
-                        sql.Append(string.Format(@" and b.ClosedOrHairTime >= '{0}'", query.StartClosedOrHairTime));
-                    }
-                    //结束发文时间
-                    if (query.EndClosedOrHairTime.HasValue)
-                    {
-                        sql.Append(string.Format(@" and b.ClosedOrHairTime <= '{0}'", query.EndClosedOrHairTime));
-                    }
-                    //开始接受时间
-                    if (query.StartReceiveTime.HasValue)
-                    {
-                        sql.Append(string.Format(@" and c.CreateTime >= '{0}'", query.StartReceiveTime));
-                    }
-                    //结束接收时间
-                    if (query.EndReceiveTime.HasValue)
-                    {
-                        sql.Append(string.Format(@" and c.CreateTime <= '{0}'", query.EndReceiveTime));
-                    }
-                    //流程类型
-                    if (!string.IsNullOrWhiteSpace(query.WorkFlowId))
-                    {
-                        sql.Append(string.Format(@" and b.WorkFlowId = '{0}'", query.WorkFlowId));
-                    }
-
-                    // 将SQL语句添加进列表
-                    statements.Add(sql);
-                }
-
-                // 获得Union语句
-                var unionSql = string.Join(" UNION ", statements);
-                var finalSql = string.Format(@"SELECT t.* FROM ({0}) t", unionSql);
-
-                //开始位置
-                var startPage = query.PageSize * (query.PageNumber - 1) + 1;
-                //结束位置
-                var endPage = startPage + query.PageSize;
-
-                // 总数
-                int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
-                //总页数
-                var totalPages = totalRecouds % query.PageSize == 0 ? totalRecouds / query.PageSize : totalRecouds / query.PageSize + 1;
-
-                var sqlPage = string.Format(@"SELECT
-	                                                z.* 
-                                                FROM
-	                                                (
-	                                                SELECT
-		                                                ROW_NUMBER () OVER ( ORDER BY DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) DESC ) number,
-		                                                a.*,
-		                                                CASE
-			                                                WHEN DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) IS NULL THEN -1
-			                                                WHEN DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) > {0} THEN -1
-			                                                WHEN DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) < 0 THEN -1
-			                                                ELSE DATEDIFF( DAY, ReceiveTime, m.AlarmDate ) 
-		                                                END AS days
-	                                                FROM
-		                                                ({1}) a
-		                                                LEFT JOIN DEP_MessageAlarm m ON a.MessageId = m.MessageID 
-	                                                ) z 
-                                                WHERE
-	                                                z.number >= {2} 
-	                                                AND z.number < {3}
-                                                ORDER BY
-                                                    z.days DESC", days, finalSql, startPage, endPage);
-
-                var result = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.GetAlarmPendingResult);
-
-                return new JsonNetResult(new
-                {
-                    TotalInfo = new
-                    {
-                        TotalPages = totalPages,
-                        TotalRecouds = totalRecouds
-                    },
-                    Data = result
-                });
-            }
-        }
-        #endregion
-
         #region 已处理过公文
+        [Authorize]
         [HttpPost]
         public ActionResult GetDealWithInfo(QueryInfo query)
         {
@@ -484,6 +319,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 我发出未完成
+        [Authorize]
         [HttpPost]
         public ActionResult GetNoCompleteInfo(QueryInfo query)
         {
@@ -629,6 +465,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 我发出已完成
+        [Authorize]
         [HttpPost]
         public ActionResult GetCompleteInfo(QueryInfo query)
         {
@@ -767,6 +604,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 我的申请
+        [Authorize]
         [HttpPost]
         public ActionResult GetMyApply(QueryInfo query)
         {
@@ -905,6 +743,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 草稿
+        [Authorize]
         [HttpPost]
         public ActionResult GetDraftInfo(QueryInfo query)
         {
@@ -1045,6 +884,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 待处理总数
+        [Authorize]
         [HttpPost]
         public ActionResult TodoNumber()
         {
@@ -1125,6 +965,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 获得模板列表
+        [Authorize]
         public ActionResult GetTempList()
         {
             /*
@@ -1155,6 +996,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 公文搜索
+        [Authorize]
         public ActionResult GetWorkflowQueryInfo(Entity.WorkflowQuery query)
         {
             /*

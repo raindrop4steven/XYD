@@ -62,5 +62,19 @@ namespace XYD.Controllers
             return ResponseUtil.OK("审批OK");
         }
         #endregion
+
+        [Authorize]
+        public ActionResult TestHeader()
+        {
+            try
+            {
+                var serverName = Request.ServerVariables["SERVER_NAME"] + ":" + Request.ServerVariables["SERVER_PORT"];
+                return ResponseUtil.OK(serverName);
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
     }
 }

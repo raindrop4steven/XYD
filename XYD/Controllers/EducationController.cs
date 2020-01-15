@@ -12,6 +12,7 @@ namespace XYD.Controllers
     public class EducationController : Controller
     {
         #region 添加
+        [Authorize]
         public ActionResult Add(XYD_Education model)
         {
             try
@@ -37,6 +38,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 编辑
+        [Authorize]
         public ActionResult Update(XYD_Education model)
         {
             try
@@ -62,6 +64,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 删除工作经历
+        [Authorize]
         public ActionResult Delete(int id)
         {
             try
@@ -85,7 +88,8 @@ namespace XYD.Controllers
         }
         #endregion
 
-        #region 详情 
+        #region 详情
+        [Authorize]
         public ActionResult Detail(int id)
         {
             try
@@ -108,6 +112,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 学历列表
+        [Authorize]
         public ActionResult LevelList()
         {
             return ResponseUtil.OK(new List<object> {

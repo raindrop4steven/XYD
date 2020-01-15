@@ -11,6 +11,7 @@ namespace XYD.Controllers
     public class SystemController : Controller
     {
         #region 展示地区配置
+        [Authorize]
         public ActionResult ShowConfig(string areaKey)
         {
             try
@@ -49,6 +50,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 更新地区配置
+        [Authorize]
         public ActionResult UpdateConfig(XYD_System_Config model)
         {
             try
@@ -80,6 +82,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 地区列表
+        [Authorize]
         public ActionResult AreaList()
         {
             return ResponseUtil.OK(new List<object> {
@@ -98,6 +101,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 轮播图列表
+        [Authorize]
         public ActionResult BannerList()
         {
             try

@@ -12,6 +12,7 @@ namespace XYD.Controllers
     public class ContactController : Controller
     {
         #region 添加紧急联系人
+        [Authorize]
         public ActionResult Add(XYD_Contact model)
         {
             try
@@ -36,6 +37,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 编辑紧急联系人
+        [Authorize]
         public ActionResult Update(XYD_Contact model)
         {
             try
@@ -64,6 +66,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 删除紧急联系人
+        [Authorize]
         public ActionResult Delete(int id)
         {
             try
@@ -87,7 +90,8 @@ namespace XYD.Controllers
         }
         #endregion
 
-        #region 详情 
+        #region 详情
+        [Authorize]
         public ActionResult Detail(int id)
         {
             try

@@ -12,6 +12,7 @@ namespace XYD.Controllers
     public class AssetController : Controller
     {
         #region 资产添加
+        [Authorize]
         public ActionResult Add(XYD_Asset model)
         {
             try
@@ -46,6 +47,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 资产类别列表
+        [Authorize]
         public ActionResult CategoryList()
         {
             try
@@ -65,6 +67,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 资产状态列表
+        [Authorize]
         public ActionResult StatusList()
         {
             try
@@ -98,6 +101,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 编辑资产信息
+        [Authorize]
         public ActionResult Update(XYD_Asset model)
         {
             try
@@ -128,6 +132,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 资产详情
+        [Authorize]
         public ActionResult Detail(int id)
         {
             try
@@ -150,6 +155,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 资产申领
+        [Authorize]
         public ActionResult Apply(int id)
         {
             try
@@ -189,6 +195,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 资产归还
+        [Authorize]
         public ActionResult Return(int id)
         {
             try
@@ -228,6 +235,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 资产报销
+        [Authorize]
         public ActionResult Scrap(int id)
         {
             try
@@ -267,6 +275,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 资产列表
+        [Authorize]
         [HttpPost]
         public ActionResult List(XYD_Asset model, int Page = 0, int Size = 10)
         {
@@ -314,6 +323,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 资产操作记录
+        [Authorize]
         public ActionResult Records(int id, int Page = 0, int Size = 10)
         {
             try
@@ -361,6 +371,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 可申领物品列表
+        [Authorize]
         public ActionResult AvailableAssets()
         {
             try

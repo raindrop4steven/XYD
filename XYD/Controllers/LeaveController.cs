@@ -19,6 +19,7 @@ namespace XYD.Controllers
         OrgMgr orgMgr = new OrgMgr();
 
         #region 添加请假记录
+        [Authorize]
         public ActionResult Add(XYD_Leave_Record model, string mid)
         {
             try
@@ -56,6 +57,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 更新申请状态
+        [Authorize]
         public ActionResult UpdateLeaveStatus(string mid, string node, bool isLastNode = false)
         {
             try
@@ -105,6 +107,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 年假查询
+        [Authorize]
         public ActionResult QueryRest(DateTime date)
         {
             try

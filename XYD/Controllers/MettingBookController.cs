@@ -12,6 +12,7 @@ namespace XYD.Controllers
     public class MeetingBookController : Controller
     {
         #region 增加会议室预定
+        [Authorize]
         public ActionResult Add(XYD_MettingBook model)
         {
             try
@@ -42,6 +43,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 检查会议室是否可用
+        [Authorize]
         public ActionResult CheckMeetingBook(XYD_MettingBook model)
         {
             try
@@ -69,6 +71,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 会议室统计
+        [Authorize]
         public ActionResult MeetingRecord(XYD_MettingBook model, int Page = 0, int Size = 10)
         {
             try

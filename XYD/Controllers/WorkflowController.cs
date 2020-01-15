@@ -28,6 +28,7 @@ namespace XYD.Controllers
         OrgMgr orgMgr = new OrgMgr();
 
         #region 根据用户获得发起工作流模版
+        [Authorize]
         [HttpPost]
         public ActionResult GetTemplates()
         {
@@ -72,6 +73,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 发起流程
+        [Authorize]
         [HttpGet]
         public ActionResult Open(string mid, string nid, string fieldValues)
         {
@@ -131,6 +133,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 获得发起流程配置
+        [Authorize]
         public ActionResult GetStartFields(string MessageID)
         {
             try
@@ -148,6 +151,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 确认发起流程
+        [Authorize]
         [HttpPost]
         public ActionResult ConfirmStartWorkflow(string MessageID)
         {
@@ -169,6 +173,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 审批同意/驳回
+        [Authorize]
         [HttpPost]
         public ActionResult Audit(FormCollection collection)
         {
@@ -226,91 +231,6 @@ namespace XYD.Controllers
         }
         #endregion
 
-        #region 根据用户判断是否有部门表单配置
-        public ActionResult CheckHasDept()
-        {
-            /*
-             * 变量定义
-             */
-            // 当前用户
-            var employee = (User.Identity as AppkizIdentity).Employee;
-
-            /*
-             * 检查当前用户是否有对应的表单配置，如果没有，则表明该用户没有被配置部门权限。
-             * 如果有，则表明该用户有对应的部门权限。
-             */
-            // 根据当前用户获取对应的映射表
-            var tableList = WorkflowUtil.GetTablesByUser(employee.EmplID);
-
-            return ResponseUtil.OK(new
-            {
-                haveDeptConfig = (tableList.Count > 0)
-            });
-        }
-        #endregion
-
-        #region 判断流程属于部门还是党办
-        [HttpPost]
-        public ActionResult IsDeptWorkflow(FormCollection collection)
-        {
-            /*
-             * 变量定义
-             */
-            // 工作流service
-            WorkflowService wkfService = new WorkflowService();
-
-            /*
-             * 参数获取
-             */
-            // 消息ID
-            var mid = collection["mid"];
-
-            /*
-             * 参数校验
-             */
-            // 消息ID
-            if (string.IsNullOrEmpty(mid))
-            {
-                return ResponseUtil.Error("消息ID不能为空");
-            }
-            else
-            {
-                bool isDeptWorkflow = wkfService.IsDeptWorkflow(mid);
-
-                return ResponseUtil.OK(new
-                {
-                    isDeptWorkflow = isDeptWorkflow
-                });
-            }
-        }
-        #endregion
-
-        #region 展示部门指派页面
-        public ActionResult ShowDepts()
-        {
-            return PartialView("GetDeptPeople");
-        }
-        #endregion
-
-        #region 展示公文详情页面
-        public ActionResult ShowDetailPage(string mid)
-        {
-            /*
-             * 参数校验
-             */
-            // 消息ID
-            if (string.IsNullOrEmpty(mid))
-            {
-                return ResponseUtil.Error("消息ID不能为空");
-            }
-
-            /*
-             * 渲染详情页面
-             */
-            return PartialView("DetailPage");
-        }
-        #endregion
-
         #region 映射数据
         public ActionResult MappingData()
         {
@@ -356,6 +276,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 移动端公文详情
+        [Authorize]
         [HttpPost]
         public ActionResult GetDetailInfo(FormCollection collection)
         {
@@ -448,6 +369,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 移动端公文页面详情
+        [Authorize]
         [HttpPost]
         public ActionResult GetPageInfo(FormCollection collection)
         {
@@ -494,26 +416,6 @@ namespace XYD.Controllers
             {
                 return ResponseUtil.Error(e.Message);
             }
-        }
-        #endregion
-
-        #region 获得工作流下一个节点是谁(PC手机通用)
-        public ActionResult MessageHandle()
-        {
-            var MessageID = Request.Params["MessageID"];
-            var NodeKey = Request.Params["NodeKey"];
-            var FromNodeKey = Request.Params["FromNodeKey"];
-            WorkflowMgr mgr = new WorkflowMgr();
-            List<Employee> employees = mgr.ListPossibleHandlers(MessageID, NodeKey, FromNodeKey, System.Web.HttpContext.Current);
-            var employee = employees.ElementAt(0);
-            return new JsonNetResult(new
-            {
-                Succeed = true,
-                Data = new
-                {
-                    empl = employee.EmplID
-                }
-            });
         }
         #endregion
 
@@ -671,6 +573,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 映射选择的物品列表到物品申请单中
+        [Authorize]
         public ActionResult MappingGoods(string mid, string goods)
         {
             try

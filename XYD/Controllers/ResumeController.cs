@@ -17,6 +17,7 @@ namespace XYD.Controllers
 
 
         #region 用户简历信息
+        [Authorize]
         public ActionResult Info()
         {
             // 用户基本信息
