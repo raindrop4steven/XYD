@@ -25,7 +25,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 5,
+                "Col": 7,
                 "Options": null,
                 "Required": true
             }
@@ -40,7 +40,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 6,
+                "Col": 11,
                 "Options": null,
                 "Required": true
             }
@@ -55,14 +55,14 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 4,
-                "Col": 9,
+                "Col": 15,
                 "Options": null,
                 "Required": true
             }
         },
         {
             "Type": 3,
-            "Header": [ "物品名称", "型号", "数量", "单位", "单价", "小计", "采购方式", "备注" ],
+            "Header": [ "物品名称", "型号", "数量", "单位", "单价", "小计", "采购方式", "备注", "附件"],
             "Array": [
                 [
                     {

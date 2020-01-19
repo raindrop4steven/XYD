@@ -239,5 +239,25 @@
                 "Required": true
             }
         }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 5,
+                    "Col": 3
+                },
+                {
+                    "Row": 5,
+                    "Col": 7
+                }
+            ],
+            "Dest": {
+                "Row": 5,
+                "Col": 11
+            },
+            "Operation": "minus",
+            "Type": "date"
+        }
     ]
 }

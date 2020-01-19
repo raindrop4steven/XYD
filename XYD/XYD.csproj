@@ -366,6 +366,7 @@
     <Content Include="Content\workflowScript\物品采购费用报销.js" />
     <Content Include="Content\workflowScript\通用.js" />
     <Content Include="Content\workflows\付款申请.png" />
+    <Content Include="Content\workflows\会议室.png" />
     <Content Include="Content\workflows\住宿申请.png" />
     <Content Include="Content\workflows\公章借出.png" />
     <Content Include="Content\workflows\出差申请.png" />
@@ -373,10 +374,14 @@
     <Content Include="Content\workflows\差旅报销.png" />
     <Content Include="Content\workflows\报销申请.png" />
     <Content Include="Content\workflows\接待申请.png" />
+    <Content Include="Content\workflows\接待费用.png" />
     <Content Include="Content\workflows\用车申请.png" />
     <Content Include="Content\workflows\盖章申请.png" />
     <Content Include="Content\workflows\离职申请.png" />
+    <Content Include="Content\workflows\请假申请.png" />
+    <Content Include="Content\workflows\车辆费用报销.png" />
     <Content Include="Content\workflows\采购订单.png" />
+    <Content Include="Content\workflows\采购费用.png" />
     <Content Include="Content\workflows\领用申请.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -629,6 +634,14 @@
     <Content Include="Content\config\18b1736d-9360-4129-b7b3-384cb5b510cb-audit.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\config\f744a53b-6bf4-4ea1-b90f-79d166d21e00.json" />
+    <Content Include="Content\config\f744a53b-6bf4-4ea1-b90f-79d166d21e00-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\2b16f8ca-fab9-460a-bdbc-0bfa15ad5c55-app-transformer.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

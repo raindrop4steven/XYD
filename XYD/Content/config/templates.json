@@ -3,13 +3,13 @@
         {
             "Id": "c97fb2da-1507-4dd1-9d0b-ae28cfda7560",
             "Name": "车辆费用报销",
-            "Image": "Content/workflows/报销申请.png",
+            "Image": "Content/workflows/车辆费用报销.png",
             "Order": 1
         },
         {
             "Id": "39d10b90-0572-44dc-9128-68beacbc3bf3",
             "Name": "出差费用报销",
-            "Image": "Content/workflows/报销申请.png",
+            "Image": "Content/workflows/差旅报销.png",
             "Order": 2
         },
         {
@@ -45,7 +45,7 @@
         {
             "Id": "aabd1d16-d72f-4d6c-be5d-74ee503d338a",
             "Name": "会议室预约",
-            "Image": "Content/workflows/合同会签.png",
+            "Image": "Content/workflows/会议室.png",
             "Order": 8
         },
         {
@@ -64,7 +64,7 @@
         {
             "Id": "25ee8aa4-4141-4aeb-b148-c8d66722b0b2",
             "Name": "物品采购费用报销",
-            "Image": "Content/workflows/报销申请.png",
+            "Image": "Content/workflows/采购费用.png",
             "Order": 11
         },
         {
@@ -76,7 +76,7 @@
         {
             "Id": "b4b9da44-0ea8-4b03-b428-7eeafbf9875e",
             "Name": "业务接待费报销",
-            "Image": "Content/workflows/报销申请.png",
+            "Image": "Content/workflows/接待费用.png",
             "Order": 13
         },
         {
@@ -90,6 +90,12 @@
             "Name": "用车申请",
             "Image": "Content/workflows/用车申请.png",
             "Order": 15
+        },
+        {
+            "Id": "18b1736d-9360-4129-b7b3-384cb5b510cb",
+            "Name": "请假申请",
+            "Image": "Content/workflows/请假申请.png",
+            "Order": 16
         }
     ]
 }
