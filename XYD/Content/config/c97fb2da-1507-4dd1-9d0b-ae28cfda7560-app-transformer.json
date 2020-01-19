@@ -2,15 +2,5 @@
     "mid": "#valueof($.mid)",
     "nid": "#valueof($.nid)",
     "sid": "#valueof($.sid)",
-    "attachments": [
-        {
-            "AttExtension": "doc",
-            "AttFileName": "P020190723338869316773.doc",
-            "AttFileSize": "107520",
-            "AttID": "f9c75f0b-1e19-471c-aad1-b92c2c3d1416",
-            "UploadTime": "2020-01-13 15:14:30",
-            "WkfObjectID": "8db3d5d5-89f3-4224-a0e8-03a3a39b83f7",
-            "WkfObjectType": "worksheet"
-        }
-    ]
+    "attachments": null
 }

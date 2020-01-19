@@ -348,6 +348,7 @@ namespace XYD.Common
                 string CreateTime = reader.GetString(6);
                 string ReceiveTime = reader.GetString(7);
                 int MessageStatus = reader.GetInt32(8);
+                string MessageIssuedBy = reader.GetString(9);
 
                 ResultList.Add(new
                 {
@@ -358,7 +359,8 @@ namespace XYD.Common
                     MessageTitle = MessageTitle,
                     CreateTime = CreateTime,
                     ReceiveTime = ReceiveTime,
-                    MessageStatus = MessageStatus
+                    MessageStatus = MessageStatus,
+                    MessageIssuedBy = MessageIssuedBy
                 });
             }
 

@@ -660,7 +660,8 @@ namespace XYD.Controllers
                                      a.MessageTitle,
                                      CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime,
                                      CONVERT(varchar(100), a.MessageFinishTime, 20) AS FinishTime,
-                                     a.MessageStatus
+                                     a.MessageStatus,
+                                     a.MessageIssuedBy
                                      FROM WKF_Message a
                                     INNER JOIN {0} b
                                     ON a.MessageID = b.MessageId
