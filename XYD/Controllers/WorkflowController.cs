@@ -562,7 +562,8 @@ namespace XYD.Controllers
                         return ResponseUtil.Error("配置为空");
                     }
                     WorkflowUtil.MappingBetweenFlows(record.MessageID, mid, serial.MappingOut);
-                    return ResponseUtil.OK("映射数据成功");
+                    XYD_Fields fields = WorkflowUtil.GetStartFields(mid);
+                    return ResponseUtil.OK(fields);
                 }
             }
             catch (Exception e)
