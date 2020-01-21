@@ -140,7 +140,7 @@ namespace XYD.Controllers
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
 
-                XYD_Fields fields = WorkflowUtil.GetStartFields(MessageID);
+                XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, MessageID);
                 return ResponseUtil.OK(fields);
             }
             catch (Exception e)
@@ -402,7 +402,7 @@ namespace XYD.Controllers
                         continue;
                     }
                 }
-                XYD_Fields fields = WorkflowUtil.GetWorkflowFields(MessageID);
+                XYD_Fields fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, MessageID);
                 var handle = wkfService.GetMessageHandle(MessageID);
                 var history = wkfService.GetWorkflowHistory(MessageID);
                 return ResponseUtil.OK(new
@@ -547,7 +547,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 选择编号，映射对应数据到报销单中
-        public ActionResult MappingSourceToDest(string sn, string mid)
+        public ActionResult MappingSourceToDest(string sn, string mid, int row=0, int col=0)
         {
             try
             {
@@ -559,10 +559,18 @@ namespace XYD.Controllers
                     var record = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == employee.EmplID && n.Sn == sn).FirstOrDefault();
                     if (record == null)
                     {
-                        return ResponseUtil.Error("配置为空");
+                        return ResponseUtil.Error("没有找到对应申请记录");
                     }
                     WorkflowUtil.MappingBetweenFlows(record.MessageID, mid, serial.MappingOut);
-                    XYD_Fields fields = WorkflowUtil.GetStartFields(mid);
+                    // 填充表单编号
+                    if (row > 0 && col >0)
+                    {
+                        Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+                        Worksheet worksheet = doc.Worksheet;
+                        worksheet.SetCellValue(row, col, sn, string.Empty);
+                        worksheet.Save();
+                    }
+                    XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, mid);
                     return ResponseUtil.OK(fields);
                 }
             }

@@ -332,7 +332,7 @@ namespace XYD.Common
         #endregion
 
         #region 填充cell的值
-        public static void FillCellValue(string MessageID, Worksheet worksheet, XYD_Base_Cell cell, bool canEdit)
+        public static void FillCellValue(string emplId, string MessageID, Worksheet worksheet, XYD_Base_Cell cell, bool canEdit)
         {
             XYD_Single_Cell singleCell = null;
             XYD_Array_Cell arrayCell = null;
@@ -348,7 +348,7 @@ namespace XYD.Common
                 // 目前如果刷新，默认填充的是事务编号
                 if (singleCell.Value.NeedRefresh)
                 {
-                    singleCell.Value.Options = FillOptions(MessageID);
+                    singleCell.Value.Options = FillOptions(emplId, MessageID);
                 }
                 // 是否可以编辑
                 if (!canEdit)
@@ -369,7 +369,7 @@ namespace XYD.Common
                         innerCell.InterValue = workcell.WorkcellInternalValue;
                         if (innerCell.NeedRefresh)
                         {
-                            innerCell.Options = FillOptions(MessageID);
+                            innerCell.Options = FillOptions(emplId, MessageID);
                         }
                         // 是否可以编辑
                         if (!canEdit)
@@ -388,12 +388,12 @@ namespace XYD.Common
         #endregion
 
         #region 填充Options值
-        public static List<XYD_Cell_Options> FillOptions(string mid)
+        public static List<XYD_Cell_Options> FillOptions(string emplId, string mid)
         {
             XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
             using (var db = new DefaultConnection())
             {
-                var records = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false).OrderByDescending(n => n.CreateTime).Select(n => new XYD_Cell_Options() { Value = n.Sn, InterValue=string.Empty}).ToList();
+                var records = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == emplId).OrderByDescending(n => n.CreateTime).Select(n => new XYD_Cell_Options() { Value = n.Sn, InterValue=string.Empty}).ToList();
                 return records;
             }
         }
@@ -909,7 +909,7 @@ namespace XYD.Common
         #endregion
 
         #region 获得发起流程的表单配置
-        public static XYD_Fields GetStartFields(string MessageID)
+        public static XYD_Fields GetStartFields(string emplId, string MessageID)
         {
             Message message = mgr.GetMessage(MessageID);
             Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
@@ -924,7 +924,7 @@ namespace XYD.Common
                 foreach (XYD_Base_Cell cell in fields.Fields)
                 {
                     // 查找对应的值
-                    FillCellValue(MessageID, worksheet, cell, true);
+                    FillCellValue(emplId, MessageID, worksheet, cell, true);
                 }
                 return fields;
             }
@@ -932,7 +932,7 @@ namespace XYD.Common
         #endregion
 
         #region 获得表单详情
-        public static XYD_Fields GetWorkflowFields(string MessageID)
+        public static XYD_Fields GetWorkflowFields(string emplId, string MessageID)
         {
             Message message = mgr.GetMessage(MessageID);
             Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
@@ -947,7 +947,7 @@ namespace XYD.Common
                 foreach (XYD_Base_Cell cell in fields.Fields)
                 {
                     // 查找对应的值
-                    FillCellValue(MessageID, worksheet, cell, false);
+                    FillCellValue(emplId, MessageID, worksheet, cell, false);
                 }
                 return fields;
             }

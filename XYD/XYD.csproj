@@ -642,6 +642,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\config\2b16f8ca-fab9-460a-bdbc-0bfa15ad5c55-app-transformer.json" />
+    <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
