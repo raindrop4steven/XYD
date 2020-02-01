@@ -179,11 +179,19 @@ namespace XYD.Controllers
         {
             try
             {
+                var operate = string.Empty;
                 var employee = (User.Identity as AppkizIdentity).Employee;
                 var mid = collection["mid"];
                 var nid = collection["nid"];
-                var operate = collection["operate"];
+                var operateString = collection["operate"];
                 var opinion = collection["opinion"];
+                if (operateString == "0")
+                {
+                    operate = "同意";
+                } else
+                {
+                    operate = "驳回";
+                }
                 WorkflowUtil.AuditMessage(mid, nid, operate, opinion);
                 return ResponseUtil.OK("审批OK");
             }

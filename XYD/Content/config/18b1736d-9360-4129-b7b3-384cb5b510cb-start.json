@@ -131,7 +131,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 2,
-                "CanEdit": true
+                "CanEdit": true,
                 "Row": 6,
                 "Col": 7,
                 "Options": null,
@@ -146,7 +146,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 2,
-                "CanEdit": true
+                "CanEdit": true,
                 "Row": 6,
                 "Col": 11,
                 "Options": null,

@@ -45,7 +45,7 @@
                 "Required": true
             }
         },
-                {
+        {
             "Type": 0,
             "Header": null,
             "Value": {
@@ -278,7 +278,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 8,
+                        "Col": 11,
                         "Options": null,
                         "Required": false
                     },
