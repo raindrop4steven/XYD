@@ -12,7 +12,7 @@
             }
         },
         {
-            "NodeID": "NODE0003",
+            "NodeID": "NODE0006",
             "Operate": {
                 "Row": 11,
                 "Col": 5
@@ -23,13 +23,24 @@
             }
         },
         {
-            "NodeID": "NODE0004",
+            "NodeID": "NODE0003",
             "Operate": {
                 "Row": 12,
                 "Col": 5
             },
             "Opinion": {
                 "Row": 12,
+                "Col": 6
+            }
+        },
+        {
+            "NodeID": "NODE0004",
+            "Operate": {
+                "Row": 13,
+                "Col": 5
+            },
+            "Opinion": {
+                "Row": 13,
                 "Col": 6
             }
         }

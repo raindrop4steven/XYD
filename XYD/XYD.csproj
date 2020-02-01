@@ -645,6 +645,108 @@
     <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511-audit.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511-app-transformer.json" />
+    <Content Include="Content\config\241e69ff-09ad-455c-b445-e1013cdbed2a-app-transformer.json" />
+    <Content Include="Content\config\84f434ac-4626-4748-b294-fe94b16b953c-app-transformer.json" />
+    <Content Include="Content\config\6f094ce0-f6ca-4afa-bc8f-28683b7335b7-app-transformer.json" />
+    <Content Include="Content\config\f621c00e-3665-4a11-b64d-d7fe1e7094e7-app-transformer.json" />
+    <Content Include="Content\config\1a52ffae-7ad0-44cd-ab66-fbddde933159-app-transformer.json" />
+    <Content Include="Content\config\77e06530-d7dc-484f-8453-ba0fbdb9d86c-app-transformer.json" />
+    <Content Include="Content\config\97b6e52f-4042-482e-9562-eb6a443e79c7-app-transformer.json" />
+    <Content Include="Content\config\ee3999e1-bd3d-4032-bc4b-be38771b894d-app-transformer.json" />
+    <Content Include="Content\config\7388148a-8260-48fc-8c16-3c5a018411e7-app-transformer.json" />
+    <Content Include="Content\config\953da5bc-9e34-4c75-ab8f-95ef2244f0d2-app-transformer.json" />
+    <Content Include="Content\config\b2602bba-550f-430e-8e01-a9da5cf6f1d3-app-transformer.json" />
+    <Content Include="Content\config\59f52f32-c540-44df-aed0-02ef7f964539-app-transformer.json" />
+    <Content Include="Content\config\f744a53b-6bf4-4ea1-b90f-79d166d21e00-app-transformer.json" />
+    <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152-app-transformer.json" />
+    <Content Include="Content\config\2b16f8ca-fab9-460a-bdbc-0bfa15ad5c55-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\241e69ff-09ad-455c-b445-e1013cdbed2a-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\84f434ac-4626-4748-b294-fe94b16b953c-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\6f094ce0-f6ca-4afa-bc8f-28683b7335b7-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\f621c00e-3665-4a11-b64d-d7fe1e7094e7-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\1a52ffae-7ad0-44cd-ab66-fbddde933159-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\77e06530-d7dc-484f-8453-ba0fbdb9d86c-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\97b6e52f-4042-482e-9562-eb6a443e79c7-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\ee3999e1-bd3d-4032-bc4b-be38771b894d-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\7388148a-8260-48fc-8c16-3c5a018411e7-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\953da5bc-9e34-4c75-ab8f-95ef2244f0d2-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\b2602bba-550f-430e-8e01-a9da5cf6f1d3-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\59f52f32-c540-44df-aed0-02ef7f964539-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152-start.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\2b16f8ca-fab9-460a-bdbc-0bfa15ad5c55-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\241e69ff-09ad-455c-b445-e1013cdbed2a-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\84f434ac-4626-4748-b294-fe94b16b953c-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\6f094ce0-f6ca-4afa-bc8f-28683b7335b7-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\f621c00e-3665-4a11-b64d-d7fe1e7094e7-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\1a52ffae-7ad0-44cd-ab66-fbddde933159-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\77e06530-d7dc-484f-8453-ba0fbdb9d86c-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\97b6e52f-4042-482e-9562-eb6a443e79c7-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\ee3999e1-bd3d-4032-bc4b-be38771b894d-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\7388148a-8260-48fc-8c16-3c5a018411e7-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\953da5bc-9e34-4c75-ab8f-95ef2244f0d2-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\b2602bba-550f-430e-8e01-a9da5cf6f1d3-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\59f52f32-c540-44df-aed0-02ef7f964539-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\f744a53b-6bf4-4ea1-b90f-79d166d21e00-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152-audit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

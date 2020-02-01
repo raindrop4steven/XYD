@@ -1,0 +1,346 @@
+﻿{
+    "Fields": [
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请人",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 4,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "所属部门",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 8,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 13,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "事由",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 4,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 3,
+            "Header": [ "凭证名称", "借出日期", "办事地点", "预计归还时间" ],
+            "Array": [
+                [
+                    {
+                        "Title": "凭证名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "借出日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "办事地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "预计归还时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "凭证名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "借出日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "办事地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "预计归还时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "凭证名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "借出日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "办事地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "预计归还时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "凭证名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "借出日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "办事地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "预计归还时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "凭证名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "借出日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "办事地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "预计归还时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "凭证名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "借出日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "办事地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "预计归还时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
+                    }
+                ]
+            ]
+        }
+    ]
+}
