@@ -457,9 +457,9 @@ namespace XYD.Controllers
         #endregion
 
         #region 映射事务编号数据
-        public ActionResult MappingSerialNo(string mid)
+        public ActionResult MappingSerialNo(string mid, string user)
         {
-            var employee = (User.Identity as AppkizIdentity).Employee;
+            var employee = orgMgr.GetEmployee(user);
             var message = mgr.GetMessage(mid);
             string serialNumber = WorkflowUtil.ExtractSerialNumber(mid);
             using (var db = new DefaultConnection())
