@@ -383,6 +383,7 @@ namespace XYD.Controllers
                         .Select(n => new
                         {
                             Name = n.FirstOrDefault().Name,
+                            Image = "/Apps/XYD/Common/Download/63",
                             Count = n.Count()
                         }).ToList();
                     return ResponseUtil.OK(assets);
