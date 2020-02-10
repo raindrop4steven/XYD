@@ -23,54 +23,6 @@ function main() {
     var MessageID = getQueryString("mid");
 }
 
-//function showGoods(mid) {
-//    $.ajax({
-//        url: "/Apps/XYD/Asset/AvailableAssets",
-//        type: "GET",
-//        success: function (data) {
-//            var goodsHtml = '<div id="dialog" title="物品列表"><ul>';
-//            data.Data.forEach(function (item) {
-//                goodsHtml += '<li><input  class="goodItem" type="checkbox" text="' + item.Name + '">' + item.Name + '库存' + item.Count + '件</li>';
-//            });
-//            goodsHtml += '</ul><button id="confirmGoods">确定</button></div>';
-//            $("#tbSheet").append(goodsHtml);
-//            $("#dialog").dialog({
-//                title: "请选择物品",
-//                modal: true,
-//                width: '240px',
-//                height: 'auto',
-//                resizable: true,
-//                open: function () {
-//                    $("#dialog").val(goodsHtml);
-//                }
-//            });
-//            $("#confirmGoods").click(function () {
-//                var checkedItems = []
-//                $(".goodItem").each(function () {
-//                    if ($(this).is(':checked')) {
-//                        checkedItems.push($(this).attr("text"));
-//                    }
-//                });
-//                console.log(checkedItems.join(","));
-//                $.ajax({
-//                    url: "/Apps/XYD/Workflow/MappingGoods?mid=" + getQueryString("mid") + "&goods=" + checkedItems.join(","),
-//                    type: "GET",
-//                    success: function () {
-//                        alreadyChoose = true;
-//                        location.reload();
-//                    },
-//                    error: function (error) {
-//                        alert(error);
-//                    }
-//                });
-//            });
-//        },
-//        error: function (error) {
-//            console.log(error);
-//        }
-//    });
-//}
-
 /******************************************************************
  * 工具方法 【必须】
  * ****************************************************************/

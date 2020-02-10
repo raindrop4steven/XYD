@@ -376,6 +376,8 @@ namespace XYD.Controllers
         {
             try
             {
+                var AssetImage = System.Configuration.ConfigurationManager.AppSettings["AssetImage"];
+
                 using (var db = new DefaultConnection())
                 {
                     var assets = db.Asset.Where(n => n.Status == DEP_Constants.Asset_Status_Available)
@@ -383,7 +385,7 @@ namespace XYD.Controllers
                         .Select(n => new
                         {
                             Name = n.FirstOrDefault().Name,
-                            Image = "/Apps/XYD/Common/Download/63",
+                            Image = AssetImage,
                             Count = n.Count()
                         }).ToList();
                     return ResponseUtil.OK(assets);
