@@ -81,5 +81,19 @@ namespace XYD.Common
         public static string Leave_Status_YES = "YES";
         public static string Leave_Status_NO = "NO";
         public static string Leave_Status_Auditing = "Auditing";
+
+        /**
+         * 模块代码
+         */
+        public static string Module_Asset_Code = "Asset";
+        public static string Module_Information_Code = "Information";
+
+        /**
+         * 模块权限代码
+         */
+        // 固定资产模块领导权限
+        public static string Perm_Asset_Leader = "asset_leader";
+        // 个人信息模块领导权限
+        public static string Perm_Info_Leader = "information_leader";
     }
 }

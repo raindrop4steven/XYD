@@ -203,6 +203,7 @@
     <Compile Include="Common\DiskUtil.cs" />
     <Compile Include="Common\JsonNetResult.cs" />
     <Compile Include="Common\OrgUtil.cs" />
+    <Compile Include="Common\PermUtil.cs" />
     <Compile Include="Common\ResponseUtil.cs" />
     <Compile Include="Common\TransformUtil.cs" />
     <Compile Include="Common\WorkflowUtil.cs" />

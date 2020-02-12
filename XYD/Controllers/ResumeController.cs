@@ -52,5 +52,25 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 判断用户是否具有领导权限
+        [Authorize]
+        public ActionResult CheckLeader()
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var isLeader = PermUtil.CheckPermission(employee.EmplID, DEP_Constants.Module_Information_Code, DEP_Constants.Perm_Info_Leader);
+                return ResponseUtil.OK(new
+                {
+                    isLeader = isLeader
+                });
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }
