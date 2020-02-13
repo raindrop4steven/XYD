@@ -20,7 +20,7 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "所有部门",
+                "Title": "部门",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
@@ -61,12 +61,44 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "日期",
+                "Title": "申请日期",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 5,
+                "Col": 9,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "开始日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 2,
+                "CanEdit": true,
+                "Row": 6,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "结束日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 2,
+                "CanEdit": true,
+                "Row": 6,
                 "Col": 9,
                 "Options": null,
                 "NeedRefresh": false,
@@ -84,77 +116,6 @@
                         "InterValue": "",
                         "Type": 1,
                         "CanEdit": true,
-                        "Row": 7,
-                        "Col": 1,
-                        "Options": [
-                            {
-                                "Value": "汽油费",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "过桥费",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "修理费",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "停车费",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "其他",
-                                "InterValue": ""
-                            }
-                        ],
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "单据数量",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 7,
-                        "Col": 3,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "金额",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 7,
-                        "Col": 5,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "备注",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 7,
-                        "Col": 7,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    }
-                ],
-                [
-                    {
-                        "Title": "费用类别",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 1,
-                        "CanEdit": true,
                         "Row": 8,
                         "Col": 1,
                         "Options": [
@@ -426,6 +387,77 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 11,
+                        "Col": 7,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 1,
+                        "Options": [
+                            {
+                                "Value": "汽油费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "过桥费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "修理费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "停车费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单据数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 5,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
                         "Col": 7,
                         "Options": null,
                         "NeedRefresh": false,
@@ -433,6 +465,70 @@
                     }
                 ]
             ]
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "合计",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 13,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "大写金额",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 14,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 8,
+                    "Col": 5
+                },
+                {
+                    "Row": 9,
+                    "Col": 5
+                },
+                {
+                    "Row": 10,
+                    "Col": 5
+                },
+                {
+                    "Row": 11,
+                    "Col": 5
+                },
+                {
+                    "Row": 12,
+                    "Col": 5
+                }
+            ],
+            "Dest": {
+                "Row": 13,
+                "Col": 3
+            },
+            "Operation": "sum",
+            "Type": "int"
         }
     ]
 }
