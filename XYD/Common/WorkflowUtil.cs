@@ -1014,15 +1014,12 @@ namespace XYD.Common
                 if (cell.Type == 0)
                 {
                     singleCell = (XYD_Single_Cell)cell;
-                    if (singleCell.Value.CanEdit)
+                    var workcell = worksheet.GetWorkcell(singleCell.Value.Row, singleCell.Value.Col);
+                    if (workcell != null)
                     {
-                        var workcell = worksheet.GetWorkcell(singleCell.Value.Row, singleCell.Value.Col);
-                        if (workcell != null)
-                        {
-                            workcell.WorkcellValue = singleCell.Value.Value;
-                            workcell.WorkcellInternalValue = singleCell.Value.InterValue;
-                            workCellList.Add(workcell);
-                        }
+                        workcell.WorkcellValue = singleCell.Value.Value;
+                        workcell.WorkcellInternalValue = singleCell.Value.InterValue;
+                        workCellList.Add(workcell);
                     }
                 }
                 else if (cell.Type == 3)
@@ -1032,13 +1029,10 @@ namespace XYD.Common
                     {
                         foreach (XYD_Cell_Value innerCell in rowCells)
                         {
-                            if (innerCell.CanEdit)
-                            {
-                                var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
-                                workcell.WorkcellValue = innerCell.Value;
-                                workcell.WorkcellInternalValue = innerCell.InterValue;
-                                workCellList.Add(workcell);
-                            }
+                            var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
+                            workcell.WorkcellValue = innerCell.Value;
+                            workcell.WorkcellInternalValue = innerCell.InterValue;
+                            workCellList.Add(workcell);
                         }
                     }
                 }

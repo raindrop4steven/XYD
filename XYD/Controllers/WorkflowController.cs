@@ -525,11 +525,11 @@ namespace XYD.Controllers
         #endregion
 
         #region 使用编号
-        public ActionResult UseSerialNumber(string sn, string mid)
+        public ActionResult UseSerialNumber(string sn, string mid, string user)
         {
             try
             {
-                var employee = (User.Identity as AppkizIdentity).Employee;
+                var employee = orgMgr.GetEmployee(user);
                 XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
                 // 设置编号已使用
                 using (var db = new DefaultConnection())

@@ -21,7 +21,8 @@ function main() {
     var nid = getQueryString("nid");
     //当没有节点Id 所以处于只读状态 初始化按钮
     var MessageID = getQueryString("mid");
-
+    // 保存草稿
+    onSaveDraft();
     if (nid === 'NODE0001') {
         GetSerialSn(MessageID);
     }
@@ -36,7 +37,7 @@ function GetSerialSn(mid) {
             data.Data.records.forEach(function (item) {
                 serials.push(item.Sn);
             });
-            ShowUnitList("unit", "167px", "184px", "284px", "46px", "544px", serials, '#C-5-9', '#C-5-3', MappingSourceData);
+            ShowUnitList("unit", "133px", "184px", "248px", "46px", "790px", serials, '#C-5-13', '#C-5-3', MappingSourceData);
         }
     })
 }
