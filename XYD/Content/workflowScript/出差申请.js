@@ -15,12 +15,17 @@ function onAnyCellUpdate() {
 // 每个表单的定制入口
 function main() {
     /*
-     * 参数获取
-     */
+ * 参数获取
+ */
     // 获取节点ID
     var nid = getQueryString("nid");
     //当没有节点Id 所以处于只读状态 初始化按钮
     var MessageID = getQueryString("mid");
+    // 保存草稿
+    onSaveDraft();
+    if (nid === 'NODE0001') {
+        SetReadonlyCells(['#C-4-3', '#C-5-11']);
+    }
 }
 
 /******************************************************************

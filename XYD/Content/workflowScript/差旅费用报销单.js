@@ -25,6 +25,7 @@ function main() {
     onSaveDraft();
     if (nid === 'NODE0001') {
         GetSerialSn(MessageID);
+        SetReadonlyCells(['#C-7-13', '#C-10-12', '#C-11-12', '#C-12-12', '#C-13-12', '#C-14-12', '#C-15-12', '#C-16-12', '#C-17-3']);
     }
 }
 
@@ -37,7 +38,10 @@ function GetSerialSn(mid) {
             data.Data.records.forEach(function (item) {
                 serials.push(item.Sn);
             });
-            ShowUnitList("unit", "133px", "184px", "248px", "46px", "790px", serials, '#C-5-13', '#C-5-3', MappingSourceData);
+            // shanghai
+            ShowUnitList("unit", "133px", "184px", "254px", "46px", "784px", serials, '#C-5-13', '#C-5-3', MappingSourceData);
+            // wuxi
+            // ShowUnitList("unit", "133px", "184px", "248px", "46px", "712px", serials, '#C-5-13', '#C-5-3', MappingSourceData);
         }
     })
 }

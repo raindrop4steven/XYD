@@ -21,6 +21,17 @@
                 "Row": 12,
                 "Col": 9
             }
+        },
+        {
+            "NodeID": "NODE0004",
+            "Operate": {
+                "Row": 13,
+                "Col": 7
+            },
+            "Opinion": {
+                "Row": 13,
+                "Col": 9
+            }
         }
     ]
 }

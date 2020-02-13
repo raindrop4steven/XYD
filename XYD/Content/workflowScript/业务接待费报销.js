@@ -25,6 +25,7 @@ function main() {
     onSaveDraft();
     if (nid === 'NODE0001') {
         GetSerialSn(MessageID);
+        SetReadonlyCells(['#C-14-3']);
     }
 }
 

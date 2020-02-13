@@ -24,35 +24,8 @@ function main() {
     // 保存草稿
     onSaveDraft();
     if (nid === 'NODE0001') {
-        GetSerialSn(MessageID);
-        SetReadonlyCells(['#C-14-3']);
+        SetReadonlyCells(['#C-6-11']);
     }
-}
-
-function GetSerialSn(mid) {
-    $.ajax({
-        type: "GET",
-        url: "/Apps/XYD/Workflow/GetSourceSerial?mid=" + mid,
-        success: function (data) {
-            serials = [];
-            data.Data.records.forEach(function (item) {
-                serials.push(item.Sn);
-            });
-            ShowUnitList("unit", "174px", "198px", "309px", "54px", "514px", serials, '#C-4-9', '#C-4-3', MappingSourceData);
-        }
-    })
-}
-
-function MappingSourceData() {
-    var sn = $("#C-4-3").text();
-    var mid = getQueryString("mid");
-    $.ajax({
-        type: 'GET',
-        url: '/Apps/XYD/Workflow/MappingSourceToDest?mid=' + mid + '&sn=' + sn,
-        success: function (data) {
-            location.reload();
-        }
-    });
 }
 
 /******************************************************************

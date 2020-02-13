@@ -15,44 +15,15 @@ function onAnyCellUpdate() {
 // 每个表单的定制入口
 function main() {
     /*
- * 参数获取
- */
+     * 参数获取
+     */
     // 获取节点ID
     var nid = getQueryString("nid");
     //当没有节点Id 所以处于只读状态 初始化按钮
     var MessageID = getQueryString("mid");
-    // 保存草稿
-    onSaveDraft();
     if (nid === 'NODE0001') {
-        GetSerialSn(MessageID);
-        SetReadonlyCells(['#C-14-3']);
+        SetReadonlyCells(['#C-4-3']);
     }
-}
-
-function GetSerialSn(mid) {
-    $.ajax({
-        type: "GET",
-        url: "/Apps/XYD/Workflow/GetSourceSerial?mid=" + mid,
-        success: function (data) {
-            serials = [];
-            data.Data.records.forEach(function (item) {
-                serials.push(item.Sn);
-            });
-            ShowUnitList("unit", "174px", "198px", "309px", "54px", "514px", serials, '#C-4-9', '#C-4-3', MappingSourceData);
-        }
-    })
-}
-
-function MappingSourceData() {
-    var sn = $("#C-4-3").text();
-    var mid = getQueryString("mid");
-    $.ajax({
-        type: 'GET',
-        url: '/Apps/XYD/Workflow/MappingSourceToDest?mid=' + mid + '&sn=' + sn,
-        success: function (data) {
-            location.reload();
-        }
-    });
 }
 
 /******************************************************************

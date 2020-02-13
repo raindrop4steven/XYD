@@ -18,6 +18,13 @@ function AddCustomCss() {
     $("#page").css('justify-content', 'center');
 }
 
+// 设置只读Cell样式
+function SetReadonlyCells(cells) {
+    cells.forEach(function (item) {
+        $(item).css("background", "#fbfddf");
+    });
+}
+
 /*********************************************************************
  * FUNC 草稿类
  *********************************************************************/
@@ -330,6 +337,7 @@ function SaveCellData(sid, nid, row, col, val, ival) {
 // 下拉/输入列表
 function ShowUnitList(divId, choiceLeft, choiceTop, choiceWidth, buttonHeight, buttonRight, options, posCellId, targetValueId, callback) {
     $("#tbSheet").css('position', 'relative');
+    $(targetValueId).css("background", "#fbfddf");
     var div = document.createElement('DIV');
     div.id = divId;
     div.style = 'cursor: pointer;overflow: visible;position: absolute;left: ' + choiceLeft + ';top: ' + choiceTop + ';display: none;z-index:999;';
