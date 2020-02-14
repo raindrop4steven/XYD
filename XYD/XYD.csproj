@@ -817,6 +817,7 @@
     <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152-audit.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511-event.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

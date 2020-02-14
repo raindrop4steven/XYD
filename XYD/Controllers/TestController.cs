@@ -32,5 +32,11 @@ namespace XYD.Controllers
                 return ResponseUtil.Error(e.Message);
             }
         }
+
+        public ActionResult TestEvent(string mid, int row, int col)
+        {
+            var eventConfig = WorkflowUtil.GetCellEvent(mid, row, col);
+            return ResponseUtil.OK(eventConfig);
+        }
     }
 }

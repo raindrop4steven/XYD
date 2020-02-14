@@ -1293,5 +1293,49 @@ namespace XYD.Common
             }
         }
         #endregion
+
+        #region 获得节点事件
+        public static object GetCellEvent(string mid, int row, int col)
+        {
+            try
+            {
+                /*
+                 * 根据模板ID获得对应的配置
+                 */
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+
+                XYD_Event resultEvent = null;
+
+                Message message = mgr.GetMessage(mid);
+                var templateID = message.FromTemplate;
+
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-event.json", templateID));
+
+                using (StreamReader sr = new StreamReader(filePathName))
+                {
+                    var config = JsonConvert.DeserializeObject<XYD_EventCells>(sr.ReadToEnd());
+
+                    foreach (var eventCell in config.cells)
+                    {
+                        if (eventCell.Row == row && eventCell.Col == col)
+                        {
+                            resultEvent = eventCell;
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+
+                    return resultEvent;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        #endregion
     }
 }

@@ -22,5 +22,10 @@ namespace XYD.Common
                 return jObj;
             }
         }
+
+        public static object TestFunc(string value)
+        {
+            return value;
+        }
     }
 }

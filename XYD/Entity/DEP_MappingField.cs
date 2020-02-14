@@ -450,4 +450,18 @@ namespace XYD.Entity
         public string MessageIssuedBy { get; set; }
     }
     #endregion
+
+    #region XYD_事件
+    public class XYD_Event
+    {
+        public int Row { get; set; }
+        public int Col { get; set; }
+        public string Event { get; set; }
+    }
+
+    public class XYD_EventCells
+    {
+        public List<XYD_Event> cells;
+    }
+    #endregion
 }
