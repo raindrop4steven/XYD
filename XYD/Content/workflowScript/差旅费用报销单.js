@@ -8,6 +8,7 @@
     });
 };
 function onSheetCheck() {
+    return CheckRequiredCells(['#C-5-3']);
 };
 function onAnyCellUpdate() {
 };
@@ -25,7 +26,8 @@ function main() {
     onSaveDraft();
     if (nid === 'NODE0001') {
         GetSerialSn(MessageID);
-        SetReadonlyCells(['#C-7-13', '#C-10-12', '#C-11-12', '#C-12-12', '#C-13-12', '#C-14-12', '#C-15-12', '#C-16-12', '#C-17-3']);
+        SetReadonlyCells(['#C-7-13', '#C-10-12', '#C-11-12', '#C-12-12', '#C-13-12', '#C-14-12', '#C-15-12', '#C-16-12', '#C-17-3', '#C-18-3',
+        '#C-10-13', '#C-11-13', '#C-12-13', '#C-13-13', '#C-14-13', '#C-15-13', '#C-16-13']);
     }
 }
 

@@ -8,6 +8,7 @@
     });
 };
 function onSheetCheck() {
+    return CheckRequiredCells(['#C-4-3']);
 };
 function onAnyCellUpdate() {
 };
@@ -25,7 +26,7 @@ function main() {
     onSaveDraft();
     if (nid === 'NODE0001') {
         GetSerialSn(MessageID);
-        SetReadonlyCells(['#C-14-3']);
+        SetReadonlyCells(['#C-14-3', '#C-15-3']);
     }
 }
 
