@@ -1482,5 +1482,56 @@ namespace XYD.Common
 
         }
         #endregion
+
+        #region 根据位置获取对应单元格的值
+        public static string GetFieldValue(List<XYD_Base_Cell> fields, string cellId)
+        {
+            // 单元格值
+            string resultValue = null;
+
+            // 提取CellId中的Row、Col
+            var cellPosArray = cellId.Split('-').ToList();
+            int Row = int.Parse(cellPosArray.ElementAt(1));
+            int Col = int.Parse(cellPosArray.ElementAt(2));
+
+            List<Workcell> workCellList = new List<Workcell>();
+            foreach (XYD_Base_Cell cell in fields)
+            {
+                XYD_Single_Cell singleCell = null;
+                XYD_Array_Cell arrayCell = null;
+                if (cell.Type == 0)
+                {
+                    singleCell = (XYD_Single_Cell)cell;
+                    if (singleCell.Value.Row == Row && singleCell.Value.Col == Col)
+                    {
+                        resultValue = singleCell.Value.Value;
+                    }
+                }
+                else if (cell.Type == 3)
+                {
+                    arrayCell = (XYD_Array_Cell)cell;
+                    foreach (List<XYD_Cell_Value> rowCells in arrayCell.Array)
+                    {
+                        foreach (XYD_Cell_Value innerCell in rowCells)
+                        {
+                            if (innerCell.Row == Row && innerCell.Col == Col)
+                            {
+                                resultValue = innerCell.Value;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("不支持的类型");
+                }
+            }
+            if (resultValue == null)
+            {
+                throw new Exception("未找到对应单元格");
+            }
+            return resultValue;
+        }
+        #endregion
     }
 }

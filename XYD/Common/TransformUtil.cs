@@ -23,9 +23,9 @@ namespace XYD.Common
             }
         }
 
-        public static object TestFunc(string name, string age)
+        public static object TestFunc(string arg1, string arg2, string arg3, string arg4)
         {
-            return name + age;
+            return string.Format("{0},{1},{2},{3}", arg1, arg2, arg3, arg4);
         }
     }
 }

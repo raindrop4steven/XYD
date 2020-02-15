@@ -452,6 +452,14 @@ namespace XYD.Entity
     #endregion
 
     #region XYD_事件
+    public class XYD_Event_Argument
+    {
+        public string MessageId { get; set; }
+        public string NodeId { get; set; }
+        public XYD_Cell_Value CurrentCellValue { get; set; }
+        public List<XYD_Base_Cell> Fields { get; set; }
+    }
+
     public class XYD_Event
     {
         public int Row { get; set; }

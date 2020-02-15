@@ -1,5 +1,6 @@
 ﻿using Appkiz.Apps.Workflow.Library;
 using Appkiz.Library.Security;
+using Appkiz.Library.Security.Authentication;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -34,13 +35,35 @@ namespace XYD.Controllers
             }
         }
 
-        public ActionResult TestEvent(string mid, int row, int col)
+        public ActionResult TestEvent()
         {
-            var eventConfig = WorkflowUtil.GetCellEvent(mid, row, col);
+            //var employee = (User.Identity as AppkizIdentity).Employee;
+
+            Stream stream = Request.InputStream;
+            stream.Seek(0, SeekOrigin.Begin);
+            string json = new StreamReader(stream).ReadToEnd();
+            var eventArguments = JsonConvert.DeserializeObject<XYD_Event_Argument>(json, new XYDCellJsonConverter());
+
+            var eventConfig = WorkflowUtil.GetCellEvent(eventArguments.MessageId, eventArguments.CurrentCellValue.Row, eventArguments.CurrentCellValue.Col);
             var eventArray = eventConfig.Event.Split(',').Select(n => n.Trim()).ToList();
-            var className = string.Empty;
-            var methodName = string.Empty;
-            var result = caller(eventArray[0], eventArray[1], eventArray.Skip(2).Take(eventArray.Count - 2).Cast<object>().ToArray());
+            var className = eventArray[0];
+            var methodName = eventArray[1];
+            var arguments = eventArray.Skip(2).Take(eventArray.Count - 2).Select(n => n.Trim()).ToList();
+            var resultArguments = new List<object>();
+            foreach (var arg in arguments)
+            {
+                // 区分一下正常参数和Cell参数吧，不知道会不会用到
+                if (arg.StartsWith("#"))
+                {
+                    var fieldValue = WorkflowUtil.GetFieldValue(eventArguments.Fields, arg);
+                    resultArguments.Add(fieldValue);
+                }
+                else
+                {
+                    resultArguments.Add(arg);
+                }
+            }
+            var result = caller(className, methodName, resultArguments.Cast<object>().ToArray());
             return ResponseUtil.OK(result);
         }
 
