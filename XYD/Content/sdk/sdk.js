@@ -814,6 +814,10 @@ function CheckHotelLimit(cityCellId, dayCellId, feeCellId) {
     var city = $(cityCellId).text();
     var day = $(dayCellId).text();
     var realHotel = $(feeCellId).text();
+    if (realHotel && (!city || !day)) {
+        SaveCellValue($(feeCellId), '');
+        alert("请先选择申请编号");
+    }
     if (city && day && realHotel) {
         $.ajax({
             'url': '/Apps/XYD/Workflow/CheckHotelLimit',
