@@ -114,6 +114,66 @@
     }]);
 
     app.controller('HomeController', ['$rootScope', '$scope', '$location', 'httpService', function ($rootScope, $scope, $location, httpService) {
+        // 获得待处理审批数量
+        function getPendingCount() {
+            httpService.post(
+                '/Apps/XYD/WorkflowPage/GetPendingCount',
+                null,
+                function (data) {
+                    $scope.wkfPendingCount = data.TotalCount;
+                },
+                function (data) {
+                    
+                });
+        }
+        // 获得已审批
+        function getDealWithCount() {
+            httpService.post(
+                '/Apps/XYD/WorkflowPage/GetDealWithCount',
+                null,
+                function (data) {
+                    $scope.wkfDealWithCount = data.TotalCount;
+                },
+                function (data) {
+
+                });
+        }
+        // 获得我的待批申请数量
+        function getNoCompleteCount() {
+            httpService.post(
+                '/Apps/XYD/WorkflowPage/GetNoCompleteCount',
+                null,
+                function (data) {
+                    $scope.wkfNoCompleteCount = data.TotalCount;
+                },
+                function (data) {
+
+                });
+        }
+        // 获得我的已批申请数量
+        function getCompleteCount() {
+            httpService.post(
+                '/Apps/XYD/WorkflowPage/GetCompleteCount',
+                null,
+                function (data) {
+                    $scope.wkfCompleteCount = data.TotalCount;
+                },
+                function (data) {
+
+                });
+        }
+        // 获得我的草稿数量
+        function getDraftCount() {
+            httpService.post(
+                '/Apps/XYD/WorkflowPage/GetDraftCount',
+                null,
+                function (data) {
+                    $scope.wkfDraftCount = data.TotalCount;
+                },
+                function (data) {
+
+                });
+        }
         //获取登录用户的角色
         function getRoleInfo() {
             httpService.post(
@@ -416,6 +476,11 @@
                 activeNav: 'needDo'
             }
 
+            getPendingCount();
+            getDealWithCount();
+            getNoCompleteCount();
+            getCompleteCount();
+            getDraftCount();
             GetTempList();
             getRoleInfo();
             findTemplates();

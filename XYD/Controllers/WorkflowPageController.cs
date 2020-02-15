@@ -15,6 +15,78 @@ namespace XYD.Controllers
 
         WorkflowMgr mgr = new WorkflowMgr();
 
+        #region 获取审批数量
+        [Authorize]
+        [HttpPost]
+        public ActionResult GetPendingCount()
+        {
+            // 待办数量
+            /*
+             * 变量定义
+             */
+            // SQL语句列表
+            var statements = new List<StringBuilder>();
+            // 当前用户
+            var emplId = (User.Identity as Appkiz.Library.Security.Authentication.AppkizIdentity).Employee.EmplID;
+            /*
+             * 构造SQL语句
+             */
+            // 根据当前用户获取对应的映射表
+            var tableList = WorkflowUtil.GetTablesByUser(emplId);
+
+            // 判断映射表数量
+            if (tableList.Count == 0)
+            {
+                return new JsonNetResult(new
+                {
+                    TotalInfo = 0,
+                });
+            }
+            else
+            {
+                foreach (var tableName in tableList)
+                {
+                    StringBuilder sql = new StringBuilder();
+                    sql.Append(string.Format(@"SELECT
+                                    b.DocumentTitle,
+                                    CONVERT(varchar(100), b.ClosedOrHairTime, 20) as ClosedOrHairTime,
+                                    b.MessageId,
+                                    b.WorkFlowId,
+                                    --流程发起人
+                                    a.MessageIssuedBy AS InitiateEmplId,
+                                    d.EmplName AS InitiateEmplName,
+                                    --流程类型
+                                    a.MessageTitle,
+                                    --环节
+                                    c.NodeName AS MyTask,
+                                    CONVERT(varchar(100), c.CreateTime, 20) as ReceiveTime,
+                                    a.MessageIssuedBy
+                                     FROM WKF_Message a
+                                    INNER JOIN {0} b
+                                    ON a.MessageID = b.MessageId
+                                    INNER JOIN WKF_MessageHandle c
+                                    ON a.MessageID = c.MessageID
+                                    INNER JOIN ORG_Employee d
+                                    ON a.MessageIssuedBy = d.EmplID
+                                    WHERE c.HandleStatus != 0
+                                    and a.MessageStatus not in (0, 3) 
+                                    and (c.UserID = '{1}' or (c.EntrustBy = '{1}' and c.EntrustBy <> ''))", tableName, emplId));
+                    // 将SQL语句添加进列表
+                    statements.Add(sql);
+                }
+            }
+            // 获得Union语句
+            var unionSql = string.Join(" UNION ", statements);
+            var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.ReceiveTime DESC) number, t.* from ({0}) t", unionSql);
+            // 总数
+            int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+            return new JsonNetResult(new
+            {
+                TotalCount = totalRecouds
+            });
+        }
+        #endregion
+
         #region 待处理公文
         [Authorize]
         [HttpPost]
@@ -154,6 +226,79 @@ namespace XYD.Controllers
                     Data = result
                 });
             }
+        }
+        #endregion
+
+        #region 已处理审批数量
+        [Authorize]
+        [HttpPost]
+        public ActionResult GetDealWithCount()
+        {
+            /*
+             * 变量定义
+             */
+            // SQL语句列表
+            var statements = new List<StringBuilder>();
+            // 当前用户
+            var emplId = (User.Identity as Appkiz.Library.Security.Authentication.AppkizIdentity).Employee.EmplID;
+            /*
+             * 构造SQL语句
+             */
+            // 根据当前用户获取对应的映射表
+            var tableList = WorkflowUtil.GetTablesByUser(emplId);
+
+            // 判断映射表数量
+            if (tableList.Count == 0)
+            {
+                return new JsonNetResult(new
+                {
+                    TotalInfo = new
+                    {
+                        TotalPages = 0,
+                        TotalRecouds = 0
+                    },
+                    Data = new List<object>()
+                });
+            }
+            else
+            {
+                foreach (var tableName in tableList)
+                {
+                    StringBuilder sql = new StringBuilder();
+                    sql.Append(string.Format(@"SELECT
+                                    b.DocumentTitle,
+                                    CONVERT(varchar(100), b.ClosedOrHairTime, 20) as ClosedOrHairTime,
+                                    b.MessageId,
+                                    b.WorkFlowId,
+                                    --流程类型
+                                    a.MessageTitle,
+                                    CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime,
+                                    CONVERT(varchar(100), d.HandledTime, 20) AS ReceiveTime,
+                                    a.MessageIssuedBy,
+                                    c.EmplName
+                                     FROM WKF_Message a
+                                    INNER JOIN {0} b
+                                    ON a.MessageID = b.MessageId
+                                    INNER JOIN (select MAX(HandledTime) as HandledTime,MessageID,HandledBy from WKF_WorkflowHistory 
+									where NodeKey != 'NODE0001' group by MessageID,HandledBy) as d
+                                    ON a.MessageID = d.MessageID
+                                    INNER JOIN ORG_Employee c
+                                    ON a.MessageIssuedBy = c.EmplID
+                                    WHERE d.HandledBy = '{1}'  
+                                    and a.MessageStatus not in (0, 3)", tableName, emplId));
+                    // 将SQL语句添加进列表
+                    statements.Add(sql);
+                }
+            }
+            // 获得Union语句
+            var unionSql = string.Join(" UNION ", statements);
+            var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.ReceiveTime DESC) number, t.* from ({0}) t", unionSql);
+            // 总数
+            int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+            return new JsonNetResult(new
+            {
+                TotalCount = totalRecouds
+            });
         }
         #endregion
 
@@ -318,6 +463,87 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 我发出未完成数量
+        [Authorize]
+        [HttpPost]
+        public ActionResult GetNoCompleteCount()
+        {
+            /*
+             * 变量定义
+             */
+            // SQL语句列表
+            var statements = new List<StringBuilder>();
+            // 当前用户
+            var emplId = (User.Identity as Appkiz.Library.Security.Authentication.AppkizIdentity).Employee.EmplID;
+            /*
+             * 构造SQL语句
+             */
+            // 根据当前用户获取对应的映射表
+            var tableList = WorkflowUtil.GetTablesByUser(emplId);
+
+            // 判断映射表数量
+            if (tableList.Count == 0)
+            {
+                return new JsonNetResult(new
+                {
+                    TotalInfo = new
+                    {
+                        TotalPages = 0,
+                        TotalRecouds = 0
+                    },
+                    Data = new List<object>()
+                });
+            }
+            else
+            {
+                foreach (var tableName in tableList)
+                {
+                    StringBuilder sql = new StringBuilder();
+                    sql.Append(string.Format(@"SELECT
+                                     b.DocumentTitle,
+                                     CONVERT(varchar(100), b.ClosedOrHairTime, 20) as ClosedOrHairTime,
+                                     b.MessageId,
+                                     b.WorkFlowId,
+                                     --流程类型
+                                     a.MessageTitle,
+                                     --环节
+                                     c.NodeName AS MyTask,
+                                     CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime
+                                     FROM WKF_Message a
+                                    INNER JOIN {0} b
+                                    ON a.MessageID = b.MessageId
+                                    INNER JOIN WKF_MessageHandle c
+                                    ON a.MessageID = c.MessageID
+                                    WHERE a.MessageStatus != 2
+                                    AND c.HandleStatus != 0
+                                    and a.MessageStatus not in (0, 3)
+                                    and a.MessageIssuedBy = '{1}'", tableName, emplId));
+                    var groupInfo = string.Format(@" GROUP BY a.MessageID, a.MessageCreateTime,
+                                     b.DocumentTitle,
+                                     b.ClosedOrHairTime,b.MessageId,
+                                     b.WorkFlowId,
+									--流程类型
+                                     a.MessageTitle,
+                                     --环节
+                                     c.NodeName,
+                                     a.MessageCreateTime ");
+                    sql.Append(groupInfo);
+                    // 将SQL语句添加进列表
+                    statements.Add(sql);
+                }
+            }
+            // 获得Union语句
+            var unionSql = string.Join(" UNION ", statements);
+            var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.CreateTime DESC) number, t.* from ({0}) t", unionSql);
+            // 总数
+            int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+            return new JsonNetResult(new
+            {
+                TotalCount = totalRecouds
+            });
+        }
+        #endregion
+
         #region 我发出未完成
         [Authorize]
         [HttpPost]
@@ -461,6 +687,71 @@ namespace XYD.Controllers
                     Data = result
                 });
             }  
+        }
+        #endregion
+
+        #region 获得我发出已完成数量
+        [Authorize]
+        [HttpPost]
+        public ActionResult GetCompleteCount()
+        {
+            /*
+             * 变量定义
+             */
+            // SQL语句列表
+            var statements = new List<StringBuilder>();
+            // 当前用户
+            var emplId = (User.Identity as Appkiz.Library.Security.Authentication.AppkizIdentity).Employee.EmplID;
+            /*
+             * 构造SQL语句
+             */
+            // 根据当前用户获取对应的映射表
+            var tableList = WorkflowUtil.GetTablesByUser(emplId);
+            // 判断映射表数量
+            if (tableList.Count == 0)
+            {
+                return new JsonNetResult(new
+                {
+                    TotalInfo = new
+                    {
+                        TotalPages = 0,
+                        TotalRecouds = 0
+                    },
+                    Data = new List<object>()
+                });
+            }
+            else
+            {
+                foreach (var tableName in tableList)
+                {
+                    StringBuilder sql = new StringBuilder();
+                    sql.Append(string.Format(@"SELECT 
+                                     b.DocumentTitle,
+                                     CONVERT(varchar(100), b.ClosedOrHairTime, 20) AS ClosedOrHairTime,
+                                     b.MessageId,
+                                     b.WorkFlowId,
+                                     --流程类型
+                                     a.MessageTitle,
+                                     CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime,
+                                     CONVERT(varchar(100), a.MessageFinishTime, 20) AS FinishTime
+                                     FROM WKF_Message a
+                                    INNER JOIN {0} b
+                                    ON a.MessageID = b.MessageId
+                                    WHERE a.MessageStatus = 2
+                                    and a.MessageIssuedBy = '{1}'", tableName, emplId));
+                    // 将SQL语句添加进列表
+                    statements.Add(sql);
+                }
+            }
+            // 获得Union语句
+            var unionSql = string.Join(" UNION ", statements);
+            var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.CreateTime DESC) number, t.* from ({0}) t", unionSql);
+            // 总数
+            int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+            return new JsonNetResult(new
+            {
+                TotalCount = totalRecouds
+            });
         }
         #endregion
 
@@ -740,6 +1031,73 @@ namespace XYD.Controllers
                     Data = result
                 });
             }
+        }
+        #endregion
+
+        #region 草稿数量
+        [Authorize]
+        [HttpPost]
+        public ActionResult GetDraftCount()
+        {
+            /*
+             * 变量定义
+             */
+            // SQL语句列表
+            var statements = new List<StringBuilder>();
+            // 当前用户
+            var emplId = (User.Identity as Appkiz.Library.Security.Authentication.AppkizIdentity).Employee.EmplID;
+            /*
+             * 构造SQL语句
+             */
+            // 根据当前用户获取对应的映射表
+            var tableList = WorkflowUtil.GetTablesByUser(emplId);
+            // 判断映射表数量
+            if (tableList.Count == 0)
+            {
+                return new JsonNetResult(new
+                {
+                    TotalInfo = new
+                    {
+                        TotalPages = 0,
+                        TotalRecouds = 0
+                    },
+                    Data = new List<object>()
+                });
+            }
+            else
+            {
+                foreach (var tableName in tableList)
+                {
+                    StringBuilder sql = new StringBuilder();
+                    sql.Append(string.Format(@"SELECT 
+                                    b.DocumentTitle,
+                                    CONVERT(varchar(100), b.ClosedOrHairTime, 20) AS ClosedOrHairTime,
+                                    b.MessageId,
+                                    b.WorkFlowId,
+                                    --流程类型
+                                    a.MessageTitle,
+                                    CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime,
+                                    CONVERT(varchar(100), a.MessageFinishTime, 20) AS FinishTime
+                                     FROM WKF_Message a
+                                    INNER JOIN {0} b
+                                    ON a.MessageID = b.MessageId
+                                    WHERE a.MessageStatus = 0
+                                    and a.MessageIssuedBy = '{1}' 
+                                    and a.MessageType = 'file'", tableName, emplId));
+                    // 将SQL语句添加进列表
+                    statements.Add(sql);
+                }
+            }
+            // 获得Union语句
+            // 获得Union语句
+            var unionSql = string.Join(" UNION ", statements);
+            var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.CreateTime DESC) number, t.* from ({0}) t", unionSql);
+            // 总数
+            int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+            return new JsonNetResult(new
+            {
+                TotalCount = totalRecouds
+            });
         }
         #endregion
 
