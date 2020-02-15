@@ -12,6 +12,7 @@ using System.Linq;
 using System.Web;
 using System.Xml;
 using XYD.Models;
+using System.Text.RegularExpressions;
 
 namespace XYD.Common
 {
@@ -1295,7 +1296,7 @@ namespace XYD.Common
         #endregion
 
         #region 获得节点事件
-        public static object GetCellEvent(string mid, int row, int col)
+        public static XYD_Event GetCellEvent(string mid, int row, int col)
         {
             try
             {
@@ -1335,6 +1336,150 @@ namespace XYD.Common
             {
                 throw e;
             }
+        }
+        #endregion
+
+        #region 根据用户职位、城市、时常获得住宿标准
+        public static int GetHotelStandard(string emplId, string city, int hour)
+        {
+            // 未满24小时，没有住宿补贴
+            if (hour < 24)
+            {
+                return 0;
+            }
+            // 获取城市等级
+            var cityLevel = GetCityLevel(city);
+            // 获取用户角色
+            var userRole = GetRoleById(emplId);
+            
+            // 一线城市
+            if (cityLevel == DEP_Constants.First_Tier_City)
+            {
+                // 副总经理
+                if (userRole == DEP_Constants.ViceCEO)
+                {
+                    return 600;
+                }
+                else if (userRole == DEP_Constants.DeptManager)
+                {
+                    return 500;
+                }
+                else
+                {
+                    return 300;
+                }
+            }
+            // 二线城市
+            else if (cityLevel == DEP_Constants.Second_Tier_City)
+            {
+                // 副总经理
+                if (userRole == DEP_Constants.ViceCEO)
+                {
+                    return 500;
+                }
+                else if (userRole == DEP_Constants.DeptManager)
+                {
+                    return 400;
+                }
+                else
+                {
+                    return 300;
+                }
+            }
+            // 三线城市
+            else if (cityLevel == DEP_Constants.Third_Tier_City)
+            {
+                // 副总经理
+                if (userRole == DEP_Constants.ViceCEO)
+                {
+                    return 350;
+                }
+                else if (userRole == DEP_Constants.DeptManager)
+                {
+                    return 300;
+                }
+                else
+                {
+                    return 250;
+                }
+            }
+            // 国外，50美金/日
+            else
+            {
+                return 350;
+            }
+        }
+        #endregion
+
+        #region 获取城市级别
+        /// <summary>
+        /// 获取城市级别
+        /// </summary>
+        /// <param name="city"></param>
+        /// <returns>
+        /// 1:一线城市（含直辖市）
+        /// 2：省会城市
+        /// 3：省辖市、县级市及以下
+        /// 4：国外
+        /// </returns>
+        public static int GetCityLevel(string city)
+        {
+            // 一线城市
+            var firstCity = System.Configuration.ConfigurationManager.AppSettings["FirstCity"];
+            // 二线城市
+            var secondCity = System.Configuration.ConfigurationManager.AppSettings["SecondCity"];
+            var firstCityArray = firstCity.Split(',').Select(n => n.Trim()).ToList();
+            var secondCityArray = secondCity.Split(',').Select(n => n.Trim()).ToList();
+            // 检查是否是一线城市
+            if (firstCityArray.Any(city.Contains))
+            {
+                return DEP_Constants.First_Tier_City;
+            }
+            // 检查是否是二线城市
+            if (secondCityArray.Any(city.Contains))
+            {
+                return DEP_Constants.Second_Tier_City;
+            }
+            // 检查是否是国外
+            if (Regex.IsMatch(city, "^[a-zA-Z0-9\\s]*$"))
+            {
+                return DEP_Constants.Aboard_City;
+            }
+            // 默认三线
+            return DEP_Constants.Third_Tier_City;
+        }
+        #endregion
+
+        #region 获取用户职位级别
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="emplId"></param>
+        /// <returns>
+        /// 副总经理、部门经理、员工
+        /// </returns>
+        public static int GetRoleById(string emplId)
+        {
+            // 副总经理
+            var viceCEO = System.Configuration.ConfigurationManager.AppSettings["ViceCEO"];
+            // 部门经理
+            var deptManager = System.Configuration.ConfigurationManager.AppSettings["DeptManager"];
+            // 员工
+            var staff = System.Configuration.ConfigurationManager.AppSettings["Staff"];
+
+            if (OrgUtil.CheckRole(emplId, viceCEO))
+            {
+                return DEP_Constants.ViceCEO;
+            }
+            else if (OrgUtil.CheckRole(emplId, deptManager))
+            {
+                return DEP_Constants.DeptManager;
+            }
+            else
+            {
+                return DEP_Constants.Staff;
+            }
+
         }
         #endregion
     }

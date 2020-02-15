@@ -605,5 +605,28 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 判断住宿费用是否超过标准
+        public ActionResult CheckHotelLimit(string city, int day, float realHotel)
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                int standard = WorkflowUtil.GetHotelStandard(employee.EmplID, city, day * 24);
+                if (realHotel > standard)
+                {
+                    return ResponseUtil.Error("住宿费用超过补贴标准");
+                }
+                else
+                {
+                    return ResponseUtil.OK("住宿费用检测通过");
+                }
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }

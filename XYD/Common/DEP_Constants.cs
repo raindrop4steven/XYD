@@ -95,5 +95,29 @@ namespace XYD.Common
         public static string Perm_Asset_Leader = "asset_leader";
         // 个人信息模块领导权限
         public static string Perm_Info_Leader = "information_leader";
+
+        /**
+         * 城市级别
+         */
+        // 1:一线城市（含直辖市）
+        // 2：省会城市
+        // 3：省辖市、县级市及以下
+        // 4：国外
+        public static int First_Tier_City = 1;
+        public static int Second_Tier_City = 2;
+        public static int Third_Tier_City = 3;
+        public static int Aboard_City = 4;
+
+        /**
+         * 职位
+         */
+        // 总经理
+        public static int CEO = 0;
+        // 副总经理
+        public static int ViceCEO = 1;
+        // 部门经历
+        public static int DeptManager = 2;
+        // 普通员工
+        public static int Staff = 3;
     }
 }

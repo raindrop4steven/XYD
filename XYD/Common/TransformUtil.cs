@@ -23,9 +23,9 @@ namespace XYD.Common
             }
         }
 
-        public static object TestFunc(string value)
+        public static object TestFunc(string name, string age)
         {
-            return value;
+            return name + age;
         }
     }
 }

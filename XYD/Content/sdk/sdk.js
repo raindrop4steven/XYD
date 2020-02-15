@@ -794,7 +794,7 @@ function MoneyToCapital(n) {
 
 function ConvertToCapitalCell(cell1, cell2) {
     var money = $(cell1).text();
-    $(cell2).text(MoneyToCapital(money));
+    SaveCellValue($(cell2), MoneyToCapital(money));
 }
 
 // 检查单元格是否为空
@@ -807,4 +807,33 @@ function CheckRequiredCells(cells) {
         }
     })
     return result;
+}
+
+// 检查住宿费用是否超过标准
+function CheckHotelLimit(cityCellId, dayCellId, feeCellId) {
+    var city = $(cityCellId).text();
+    var day = $(dayCellId).text();
+    var realHotel = $(feeCellId).text();
+    if (city && day && realHotel) {
+        $.ajax({
+            'url': '/Apps/XYD/Workflow/CheckHotelLimit',
+            'type': 'POST',
+            'data': {
+                'city': city,
+                'day': day,
+                'realHotel': realHotel
+            },
+            'success': function (data) {
+                if (data.Succeed == true) {
+                    console.log("住宿费用检测通过");
+                } else {
+                    SaveCellValue($(feeCellId), '');
+                    alert(data.Message);
+                }
+            },
+            'error': function (error) {
+                alert(error);
+            }
+        });
+    }
 }

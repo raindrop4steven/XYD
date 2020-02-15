@@ -148,7 +148,7 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "事由",
+                "Title": "出差地",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
@@ -161,8 +161,24 @@
             }
         },
         {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "事由",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
             "Type": 3,
-            "Header": [ "日期", "出差行程", "交通方式", "交通费用", "住宿类别", "住宿费用", "补贴", "小计", "大写金额" ],
+            "Header": [ "日期", "出差行程", "交通方式", "交通费用", "住宿类别", "住宿费用", "补贴" ],
             "Array": [
                 [
                     {
@@ -171,146 +187,6 @@
                         "InterValue": "",
                         "Type": 2,
                         "CanEdit": true,
-                        "Row": 10,
-                        "Col": 1,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "出差行程",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 10,
-                        "Col": 3,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "交通方式",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 1,
-                        "CanEdit": true,
-                        "Row": 10,
-                        "Col": 7,
-                        "Options": [
-                            {
-                                "Value": "汽车",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "火车",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "飞机",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "船舶",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "地铁",
-                                "InterValue": ""
-                            }
-                        ],
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "交通费用",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 10,
-                        "Col": 8,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "住宿方式",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 1,
-                        "CanEdit": true,
-                        "Row": 10,
-                        "Col": 9,
-                        "Options": [
-                            {
-                                "Value": "宾馆",
-                                "InterValue": ""
-                            },
-                            {
-                                "Value": "短租",
-                                "InterValue": ""
-                            }
-                        ],
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "住宿费用",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 10,
-                        "Col": 10,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "补贴",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 10,
-                        "Col": 11,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "小计",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": false,
-                        "Row": 10,
-                        "Col": 12,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "大写金额",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 10,
-                        "Col": 13,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    }
-                ],
-                [
-                    {
-                        "Title": "日期",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 2,
-                        "CanEdit": true,
                         "Row": 11,
                         "Col": 1,
                         "Options": null,
@@ -369,7 +245,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 8,
+                        "Col": 9,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
@@ -381,7 +257,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 9,
+                        "Col": 10,
                         "Options": [
                             {
                                 "Value": "宾馆",
@@ -402,37 +278,13 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 11,
-                        "Col": 10,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "补贴",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 11,
-                        "Col": 11,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "小计",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": false,
-                        "Row": 11,
                         "Col": 12,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
                     },
                     {
-                        "Title": "大写金额",
+                        "Title": "补贴",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
@@ -509,7 +361,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 12,
-                        "Col": 8,
+                        "Col": 9,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
@@ -521,7 +373,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 12,
-                        "Col": 9,
+                        "Col": 10,
                         "Options": [
                             {
                                 "Value": "宾馆",
@@ -542,37 +394,13 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 12,
-                        "Col": 10,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "补贴",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 12,
-                        "Col": 11,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "小计",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": false,
-                        "Row": 12,
                         "Col": 12,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
                     },
                     {
-                        "Title": "大写金额",
+                        "Title": "补贴",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
@@ -649,7 +477,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 13,
-                        "Col": 8,
+                        "Col": 9,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
@@ -661,7 +489,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 13,
-                        "Col": 9,
+                        "Col": 10,
                         "Options": [
                             {
                                 "Value": "宾馆",
@@ -682,37 +510,13 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 13,
-                        "Col": 10,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "补贴",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 13,
-                        "Col": 11,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "小计",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": false,
-                        "Row": 13,
                         "Col": 12,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
                     },
                     {
-                        "Title": "大写金额",
+                        "Title": "补贴",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
@@ -789,7 +593,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 14,
-                        "Col": 8,
+                        "Col": 9,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
@@ -801,7 +605,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 14,
-                        "Col": 9,
+                        "Col": 10,
                         "Options": [
                             {
                                 "Value": "宾馆",
@@ -822,37 +626,13 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 14,
-                        "Col": 10,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "补贴",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 14,
-                        "Col": 11,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "小计",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": false,
-                        "Row": 14,
                         "Col": 12,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
                     },
                     {
-                        "Title": "大写金额",
+                        "Title": "补贴",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
@@ -929,7 +709,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 15,
-                        "Col": 8,
+                        "Col": 9,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
@@ -941,7 +721,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 15,
-                        "Col": 9,
+                        "Col": 10,
                         "Options": [
                             {
                                 "Value": "宾馆",
@@ -962,37 +742,13 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 15,
-                        "Col": 10,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "补贴",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 15,
-                        "Col": 11,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "小计",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": false,
-                        "Row": 15,
                         "Col": 12,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
                     },
                     {
-                        "Title": "大写金额",
+                        "Title": "补贴",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
@@ -1069,7 +825,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 16,
-                        "Col": 8,
+                        "Col": 9,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
@@ -1081,7 +837,7 @@
                         "Type": 1,
                         "CanEdit": true,
                         "Row": 16,
-                        "Col": 9,
+                        "Col": 10,
                         "Options": [
                             {
                                 "Value": "宾馆",
@@ -1102,7 +858,7 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 16,
-                        "Col": 10,
+                        "Col": 12,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
@@ -1114,30 +870,122 @@
                         "Type": 0,
                         "CanEdit": true,
                         "Row": 16,
-                        "Col": 11,
+                        "Col": 13,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 1,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
                     },
                     {
-                        "Title": "小计",
+                        "Title": "出差行程",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
-                        "CanEdit": false,
-                        "Row": 16,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 7,
+                        "Options": [
+                            {
+                                "Value": "汽车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "火车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "飞机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "船舶",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "地铁",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 10,
+                        "Options": [
+                            {
+                                "Value": "宾馆",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "短租",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 17,
                         "Col": 12,
                         "Options": null,
                         "NeedRefresh": false,
                         "Required": false
                     },
                     {
-                        "Title": "大写金额",
+                        "Title": "补贴",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
                         "CanEdit": true,
-                        "Row": 16,
+                        "Row": 17,
                         "Col": 13,
                         "Options": null,
                         "NeedRefresh": false,
@@ -1150,12 +998,60 @@
             "Type": 0,
             "Header": null,
             "Value": {
+                "Title": "交通费小计",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 18,
+                "Col": 9,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "住宿费小计",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 18,
+                "Col": 12,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "补贴小计",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 18,
+                "Col": 14,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
                 "Title": "总计",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": false,
-                "Row": 17,
+                "Row": 18,
                 "Col": 3,
                 "Options": null,
                 "NeedRefresh": false,
@@ -1171,7 +1067,7 @@
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": true,
-                "Row": 18,
+                "Row": 19,
                 "Col": 3,
                 "Options": null,
                 "NeedRefresh": false,
@@ -1180,250 +1076,6 @@
         }
     ],
     "Operations": [
-        {
-            "Origin": [
-                {
-                    "Row": 10,
-                    "Col": 8
-                },
-                {
-                    "Row": 11,
-                    "Col": 8
-                },
-                {
-                    "Row": 12,
-                    "Col": 8
-                },
-                {
-                    "Row": 13,
-                    "Col": 8
-                },
-                {
-                    "Row": 14,
-                    "Col": 8
-                },
-                {
-                    "Row": 15,
-                    "Col": 8
-                },
-                {
-                    "Row": 16,
-                    "Col": 8
-                },
-                {
-                    "Row": 10,
-                    "Col": 10
-                },
-                {
-                    "Row": 11,
-                    "Col": 10
-                },
-                {
-                    "Row": 12,
-                    "Col": 10
-                },
-                {
-                    "Row": 13,
-                    "Col": 10
-                },
-                {
-                    "Row": 14,
-                    "Col": 10
-                },
-                {
-                    "Row": 15,
-                    "Col": 10
-                },
-                {
-                    "Row": 16,
-                    "Col": 10
-                },
-                {
-                    "Row": 10,
-                    "Col": 11
-                },
-                {
-                    "Row": 12,
-                    "Col": 11
-                },
-                {
-                    "Row": 13,
-                    "Col": 11
-                },
-                {
-                    "Row": 14,
-                    "Col": 11
-                },
-                {
-                    "Row": 15,
-                    "Col": 11
-                },
-                {
-                    "Row": 16,
-                    "Col": 11
-                }
-            ],
-            "Dest": {
-                "Row": 17,
-                "Col": 3
-            },
-            "Operation": "sum",
-            "Type": "int"
-        },
-        {
-            "Origin": [
-                {
-                    "Row": 10,
-                    "Col": 8
-                },
-                {
-                    "Row": 10,
-                    "Col": 10
-                },
-                {
-                    "Row": 10,
-                    "Col": 11
-                }
-            ],
-            "Dest": {
-                "Row": 10,
-                "Col": 12
-            },
-            "Operation": "sum",
-            "Type": "int"
-        },
-        {
-            "Origin": [
-                {
-                    "Row": 11,
-                    "Col": 8
-                },
-                {
-                    "Row": 11,
-                    "Col": 10
-                },
-                {
-                    "Row": 11,
-                    "Col": 11
-                }
-            ],
-            "Dest": {
-                "Row": 11,
-                "Col": 12
-            },
-            "Operation": "sum",
-            "Type": "int"
-        },
-        {
-            "Origin": [
-                {
-                    "Row": 12,
-                    "Col": 8
-                },
-                {
-                    "Row": 12,
-                    "Col": 10
-                },
-                {
-                    "Row": 12,
-                    "Col": 11
-                }
-            ],
-            "Dest": {
-                "Row": 12,
-                "Col": 12
-            },
-            "Operation": "sum",
-            "Type": "int"
-        },
-        {
-            "Origin": [
-                {
-                    "Row": 13,
-                    "Col": 8
-                },
-                {
-                    "Row": 13,
-                    "Col": 10
-                },
-                {
-                    "Row": 13,
-                    "Col": 11
-                }
-            ],
-            "Dest": {
-                "Row": 13,
-                "Col": 12
-            },
-            "Operation": "sum",
-            "Type": "int"
-        },
-        {
-            "Origin": [
-                {
-                    "Row": 14,
-                    "Col": 8
-                },
-                {
-                    "Row": 14,
-                    "Col": 10
-                },
-                {
-                    "Row": 14,
-                    "Col": 11
-                }
-            ],
-            "Dest": {
-                "Row": 14,
-                "Col": 12
-            },
-            "Operation": "sum",
-            "Type": "int"
-        },
-        {
-            "Origin": [
-                {
-                    "Row": 15,
-                    "Col": 8
-                },
-                {
-                    "Row": 15,
-                    "Col": 10
-                },
-                {
-                    "Row": 15,
-                    "Col": 11
-                }
-            ],
-            "Dest": {
-                "Row": 10,
-                "Col": 12
-            },
-            "Operation": "sum",
-            "Type": "int"
-        },
-        {
-            "Origin": [
-                {
-                    "Row": 16,
-                    "Col": 8
-                },
-                {
-                    "Row": 16,
-                    "Col": 10
-                },
-                {
-                    "Row": 16,
-                    "Col": 11
-                }
-            ],
-            "Dest": {
-                "Row": 16,
-                "Col": 12
-            },
-            "Operation": "sum",
-            "Type": "int"
-        },
         {
             "Origin": [
                 {
@@ -1441,6 +1093,142 @@
             },
             "Operation": "minus",
             "Type": "date"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 11,
+                    "Col": 9
+                },
+                {
+                    "Row": 12,
+                    "Col": 9
+                },
+                {
+                    "Row": 13,
+                    "Col": 9
+                },
+                {
+                    "Row": 14,
+                    "Col": 9
+                },
+                {
+                    "Row": 15,
+                    "Col": 9
+                },
+                {
+                    "Row": 16,
+                    "Col": 9
+                },
+                {
+                    "Row": 17,
+                    "Col": 9
+                }
+            ],
+            "Dest": {
+                "Row": 18,
+                "Col": 9
+            },
+            "Operation": "sum",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 11,
+                    "Col": 12
+                },
+                {
+                    "Row": 12,
+                    "Col": 12
+                },
+                {
+                    "Row": 13,
+                    "Col": 12
+                },
+                {
+                    "Row": 14,
+                    "Col": 12
+                },
+                {
+                    "Row": 15,
+                    "Col": 12
+                },
+                {
+                    "Row": 16,
+                    "Col": 12
+                },
+                {
+                    "Row": 17,
+                    "Col": 12
+                }
+            ],
+            "Dest": {
+                "Row": 18,
+                "Col": 12
+            },
+            "Operation": "sum",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 11,
+                    "Col": 13
+                },
+                {
+                    "Row": 12,
+                    "Col": 13
+                },
+                {
+                    "Row": 13,
+                    "Col": 13
+                },
+                {
+                    "Row": 14,
+                    "Col": 13
+                },
+                {
+                    "Row": 15,
+                    "Col": 13
+                },
+                {
+                    "Row": 16,
+                    "Col": 13
+                },
+                {
+                    "Row": 17,
+                    "Col": 13
+                }
+            ],
+            "Dest": {
+                "Row": 18,
+                "Col": 14
+            },
+            "Operation": "sum",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 18,
+                    "Col": 9
+                },
+                {
+                    "Row": 18,
+                    "Col": 12
+                },
+                {
+                    "Row": 18,
+                    "Col": 14
+                }
+            ],
+            "Dest": {
+                "Row": 18,
+                "Col": 3
+            },
+            "Operation": "sum",
+            "Type": "int"
         }
     ]
 }
