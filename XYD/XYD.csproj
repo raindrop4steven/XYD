@@ -228,6 +228,7 @@
     <Compile Include="Controllers\WorkExperienceController.cs" />
     <Compile Include="Controllers\WorkflowController.cs" />
     <Compile Include="Entity\BaseQueryInfo.cs" />
+    <Compile Include="Entity\DBEntity.cs" />
     <Compile Include="Entity\DEP_MappingField.cs" />
     <Compile Include="Entity\QueryInfo.cs" />
     <Compile Include="Entity\WorkflowQuery.cs" />

@@ -21,6 +21,36 @@ namespace XYD.Common
         public delegate string SingleDataHandler(SqlDataReader reader);
         public delegate int IntSingleDataHandler(SqlDataReader reader);
 
+        /// <summary>
+        /// 指定数据连接字符串
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <param name="sqlText"></param>
+        /// <param name="handler"></param>
+        /// <returns></returns>
+        public static IEnumerable<object> ExecuteSqlCommand(string connectionString, string sqlText, DataHandler handler)
+        {
+            var sqlConnection = new SqlConnection(connectionString);
+            var resultList = new List<object>();
+
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+
+            // 基本的查询
+            cmd.CommandText = sqlText;
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = sqlConnection;
+
+            sqlConnection.Open();
+
+            reader = cmd.ExecuteReader();
+            // 委托读取数据
+            resultList = handler(reader);
+
+            sqlConnection.Close();
+            return resultList;
+        }
+
         /// 查询第三方表数据
         /// </summary>
         /// <param name="tableName"></param>
@@ -145,6 +175,25 @@ namespace XYD.Common
                 throw exception;
             }
         }
+
+        #region 查询工资
+        public static List<object> GetSalary(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                decimal salary = reader.GetDecimal(0);
+                int year = reader.GetInt32(1);
+                int month = reader.GetByte(2);
+                ResultList.Add(new XYD_Salary
+                {
+                    Salary = salary,
+                    Year = year,
+                    Month = month
+                });
+            }
+            return ResultList;
+        }
         #endregion
 
         #region 实例委托方法
@@ -164,6 +213,7 @@ namespace XYD.Common
 
             return ResultList;
         }
+        #endregion
 
         /// <summary>
         /// 待办
