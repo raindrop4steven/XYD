@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using XYD.Entity;
+using XYD.Models;
 
 namespace XYD.Common
 {
@@ -190,6 +191,24 @@ namespace XYD.Common
                     Salary = salary,
                     Year = year,
                     Month = month
+                });
+            }
+            return ResultList;
+        }
+        #endregion
+
+        #region 查询未同步供应商
+        public static List<object> GetUnSyncVendor(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                var Code = reader.GetString(0);
+                var Name = reader.GetString(1);
+                ResultList.Add(new XYD_Vendor
+                {
+                    Code = Code,
+                    Name = Name
                 });
             }
             return ResultList;

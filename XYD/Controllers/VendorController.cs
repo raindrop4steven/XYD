@@ -141,5 +141,44 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 同步供应商
+        [Authorize]
+        public ActionResult SyncVendor()
+        {
+            try
+            {
+                List<string> CodeList;
+                using (var db = new DefaultConnection())
+                {
+                    CodeList = db.Vendor.Select(n => n.Code).ToList();
+                }
+                var InString = string.Join(",", string.Format("'{0}'", CodeList));
+                var sql = string.Format(@"SELECT
+	                            cVenCode AS Code,
+	                            cVenName AS Name 
+                            FROM
+	                            Vendor 
+                            WHERE
+	                            cVenCode LIKE 'OA%' 
+	                            AND cVenCode NOT IN ({0})", InString);
+                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
+                var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetUnSyncVendor);
+                using (var db = new DefaultConnection())
+                {
+                    foreach (XYD_Vendor vendor in result)
+                    {
+                        db.Vendor.Add(vendor);
+                        db.SaveChanges();
+                    }
+                }
+                return ResponseUtil.OK("同步供应商成功");
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }
