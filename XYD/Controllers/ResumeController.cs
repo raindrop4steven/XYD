@@ -89,10 +89,6 @@ namespace XYD.Controllers
                     return ResponseUtil.Error("用户工号为空，请先补充相关信息再查询");
                 }
 
-                if (BeginDate.Year != EndDate.Year)
-                {
-                    return ResponseUtil.Error("起始日期需在同一年内");
-                }
                 // 构造查询 
                 // sql 
                 var sql = string.Format(@"SELECT
@@ -102,14 +98,14 @@ namespace XYD.Controllers
                                             WHERE
 	                                            cGZGradeNum = '001' 
 	                                            AND cPsn_Num = '{0}'
-	                                            AND iYear = '2020'
-	                                            AND iMonth >= {1}
-	                                            AND iMonth <= {2}
-	                                            ORDER BY F_3", employee.EmplNO, BeginDate.Month, EndDate.Month);
+	                                            AND iYear >= {1}
+                                                AND iYear <= {2}
+	                                            AND iMonth >= {3}
+	                                            AND iMonth <= {4}
+	                                            ORDER BY iYear, iMonth", employee.EmplNO, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month);
                 // SQL 连接字符串
                 var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
-                var dbConnectionString = connectionString.Replace("$DbName", string.Format("UFDATA_002_{0}", BeginDate.Year));
-                var result = DbUtil.ExecuteSqlCommand(dbConnectionString, sql, DbUtil.GetSalary);
+                var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetSalary);
                 var salaryList = new List<decimal>();
                 // 计算工资
                 foreach(XYD_Salary salary in result)

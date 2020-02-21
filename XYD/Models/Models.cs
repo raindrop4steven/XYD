@@ -297,6 +297,19 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 供应商列表
+    public class XYD_Vendor
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 供应商Code
+        public string Code { get; set; }
+        // 供应商名称 
+        public string Name { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -317,6 +330,7 @@ namespace XYD.Models
         public DbSet<XYD_MettingBook> MettingBook { get; set; }
         public DbSet<XYD_Leave_Record> LeaveRecord { get; set; }
         public DbSet<XYD_Audit_Record> Audit_Record { get; set; }
+        public DbSet<XYD_Vendor> Vendor { get; set; }
     }
     #endregion
 }

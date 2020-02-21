@@ -3,18 +3,18 @@ namespace XYD.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addserialno : DbMigration
+    public partial class addvendor : DbMigration
     {
         public override void Up()
         {
+            
             CreateTable(
-                "dbo.XYD_Serial_No",
+                "dbo.XYD_Vendor",
                 c => new
                     {
-                        ID = c.String(nullable: false, maxLength: 128),
+                        ID = c.Int(nullable: false, identity: true),
+                        Code = c.String(),
                         Name = c.String(),
-                        Year = c.Int(nullable: false),
-                        Number = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -22,7 +22,7 @@ namespace XYD.Migrations
         
         public override void Down()
         {
-            DropTable("dbo.XYD_Serial_No");
+            DropTable("dbo.XYD_Vendor");
         }
     }
 }

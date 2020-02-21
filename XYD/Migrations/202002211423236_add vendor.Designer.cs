@@ -7,13 +7,13 @@ namespace XYD.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class updatebanner : IMigrationMetadata
+    public sealed partial class addvendor : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(updatebanner));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addvendor));
         
         string IMigrationMetadata.Id
         {
-            get { return "202001140739164_update banner"; }
+            get { return "202002211423236_add vendor"; }
         }
         
         string IMigrationMetadata.Source
