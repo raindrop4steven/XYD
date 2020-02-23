@@ -831,7 +831,7 @@ function CheckHotelLimit(cityCellId, dayCellId, feeCellId) {
                 if (data.Succeed == true) {
                     console.log("住宿费用检测通过");
                 } else {
-                    SaveCellValue($(feeCellId), '');
+                    // SaveCellValue($(feeCellId), '');
                     alert(data.Message);
                 }
             },
