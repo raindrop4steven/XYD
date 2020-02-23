@@ -600,5 +600,22 @@ namespace XYD.Common
             return ResultList;
         }
         #endregion
+
+        #region 获得数据库选项
+        public static List<object> GetOptions(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                string Value = reader.GetString(0);
+                ResultList.Add(new XYD_Cell_Options
+                {
+                    Value = Value,
+                    InterValue = string.Empty
+                });
+            }
+            return ResultList;
+        }
+        #endregion
     }
 }

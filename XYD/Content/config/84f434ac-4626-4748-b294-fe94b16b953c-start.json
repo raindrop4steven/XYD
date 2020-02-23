@@ -56,7 +56,12 @@
                 "CanEdit": true,
                 "Row": 5,
                 "Col": 3,
-                "Options": null,
+                "Options": [
+                    {
+                        "Value": "#custom(XYD.Common.TransformUtil, GetDBOptions, SELECT Name from XYD_Vendor ORDER BY Code)",
+                        "InterValue": null
+                    }
+                ],
                 "Required": true
             }
         },

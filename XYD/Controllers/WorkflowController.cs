@@ -642,12 +642,9 @@ namespace XYD.Controllers
             var eventArguments = JsonConvert.DeserializeObject<XYD_Event_Argument>(json, new XYDCellJsonConverter());
 
             var eventConfig = WorkflowUtil.GetCellEvent(eventArguments.MessageId, eventArguments.CurrentCellValue.Row, eventArguments.CurrentCellValue.Col);
-            var eventArray = eventConfig.Event.Split(',').Select(n => n.Trim()).ToList();
-            var className = eventArray[0];
-            var methodName = eventArray[1];
-            var arguments = eventArray.Skip(2).Take(eventArray.Count - 2).Select(n => n.Trim()).ToList();
-            var resultArguments = new List<object>();
-            foreach (var arg in arguments)
+            var customFunc = CommonUtils.ParseCustomFunc(eventConfig.Event);
+            var resultArguments = new List<string>();
+            foreach (var arg in customFunc.ArgumentsArray)
             {
                 // 区分一下正常参数和Cell参数吧，不知道会不会用到
                 if (arg.StartsWith("#"))
@@ -660,15 +657,9 @@ namespace XYD.Controllers
                     resultArguments.Add(arg);
                 }
             }
-            var result = caller(className, methodName, resultArguments.Cast<object>().ToArray());
+            var result = CommonUtils.caller(customFunc.ClassName, customFunc.MethodName, resultArguments);
             return ResponseUtil.OK(result);
         }
         #endregion
-
-        private static object caller(string myclass, string mymethod, object[] parameters)
-        {
-            Assembly.GetEntryAssembly();
-            return Type.GetType(myclass).GetMethod(mymethod).Invoke((object)null, parameters);
-        }
     }
 }

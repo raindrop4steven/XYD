@@ -82,7 +82,7 @@
                 "Title": "币种",
                 "Value": "",
                 "InterValue": "",
-                "Type": 0,
+                "Type": 1,
                 "CanEdit": true,
                 "Row": 7,
                 "Col": 8,

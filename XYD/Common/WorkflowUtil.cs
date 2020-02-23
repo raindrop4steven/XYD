@@ -346,10 +346,17 @@ namespace XYD.Common
                     singleCell.Value.Value = workcell.WorkcellValue;
                     singleCell.Value.InterValue = workcell.WorkcellInternalValue;
                 }
-                // 目前如果刷新，默认填充的是事务编号
+                // TODO: 这个可以用方法重构，目前如果刷新，默认填充的是事务编号
                 if (singleCell.Value.NeedRefresh)
                 {
                     singleCell.Value.Options = FillOptions(emplId, MessageID);
+                }
+                // 填充选项
+                var options = singleCell.Value.Options;
+                if (options != null && options.Count == 1 && options.FirstOrDefault().Value.StartsWith("#custom"))
+                {
+                    var originStr = options.FirstOrDefault().Value;
+                    singleCell.Value.Options = GetOptionValues(originStr);
                 }
                 // 是否可以编辑
                 if (!canEdit)
@@ -372,6 +379,13 @@ namespace XYD.Common
                         {
                             innerCell.Options = FillOptions(emplId, MessageID);
                         }
+                        // 填充选项
+                        var options = innerCell.Options;
+                        if (options != null && options.Count == 1 && options.FirstOrDefault().Value.StartsWith("#custom"))
+                        {
+                            var originStr = options.FirstOrDefault().Value;
+                            singleCell.Value.Options = GetOptionValues(originStr);
+                        }
                         // 是否可以编辑
                         if (!canEdit)
                         {
@@ -385,6 +399,14 @@ namespace XYD.Common
             {
                 throw new Exception("不支持的类型");
             }
+        }
+        #endregion
+
+        #region 填充根据自定义方法Options值
+        public static List<XYD_Cell_Options> GetOptionValues(string originStr)
+        {
+            XYD_Custom_Func customFunc = CommonUtils.ParseCustomFunc(originStr);
+            return (List<XYD_Cell_Options>)CommonUtils.caller(customFunc.ClassName, customFunc.MethodName, customFunc.ArgumentsArray);
         }
         #endregion
 

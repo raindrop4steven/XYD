@@ -472,4 +472,13 @@ namespace XYD.Entity
         public List<XYD_Event> cells;
     }
     #endregion
+
+    #region 自定义方法结构
+    public class XYD_Custom_Func
+    {
+        public string ClassName { get; set; }
+        public string MethodName { get; set; }
+        public List<string> ArgumentsArray { get; set; }
+    }
+    #endregion
 }
