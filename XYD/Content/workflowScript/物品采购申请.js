@@ -21,6 +21,8 @@ function main() {
     var nid = getQueryString("nid");
     //当没有节点Id 所以处于只读状态 初始化按钮
     var MessageID = getQueryString("mid");
+    // 保存草稿
+    onSaveDraft();
     if (nid === 'NODE0001') {
         SetReadonlyCells(['#C-14-3', '#C-6-7', '#C-7-7', '#C-8-7', '#C-9-7', '#C-10-7', '#C-11-7', '#C-12-7']);
     }
