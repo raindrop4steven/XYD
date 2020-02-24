@@ -1,4 +1,9 @@
-﻿function onSheetLoad() {
+﻿/*
+ * 变量定义
+ */
+var isCEO = false;
+
+function onSheetLoad() {
     // 样式先载入
     AddCustomCss();
 
@@ -25,9 +30,25 @@ function main() {
     // 保存草稿
     onSaveDraft();
     if (nid === 'NODE0001') {
-        GetSerialSn(MessageID);
-        SetReadonlyCells(['#C-14-3', '#C-15-3']);
+        RenderPage(MessageID);
     }
+}
+
+
+function RenderPage(MessageID) {
+    $.ajax({
+        type: "GET",
+        url: "/Apps/XYD/Workflow/CheckDirectRefund",
+        success: function (data) {
+            isCEO = data.Data.isCEO;
+            if (isCEO) {
+                SetWriteCells(['#C-4-3', '#C-14-3', '#C-15-3']);
+            } else {
+                GetSerialSn(MessageID);
+            }
+            SetReadonlyCells(['#C-4-3', '#C-14-3', '#C-15-3']);
+        }
+    })
 }
 
 function GetSerialSn(mid) {

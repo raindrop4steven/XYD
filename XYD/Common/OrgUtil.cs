@@ -23,5 +23,12 @@ namespace XYD.Common
             return false;
         }
         #endregion
+
+        #region 检查是否是CEO
+        public static bool CheckCEO(string emplId)
+        {
+            return OrgUtil.CheckRole(emplId, "总经理");
+        }
+        #endregion
     }
 }

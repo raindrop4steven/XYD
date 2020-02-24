@@ -1,4 +1,9 @@
-﻿function onSheetLoad() {
+﻿/*
+ * 变量定义
+ */
+var isCEO = false;
+
+function onSheetLoad() {
     // 样式先载入
     AddCustomCss();
 
@@ -8,7 +13,9 @@
     });
 };
 function onSheetCheck() {
-    return CheckRequiredCells(['#C-5-3']);
+    if (!isCEO) {
+        return CheckRequiredCells(['#C-5-3']);
+    }
 };
 function onAnyCellUpdate() {
 };
@@ -34,7 +41,7 @@ function RenderPage(MessageID) {
         type: "GET",
         url: "/Apps/XYD/Workflow/CheckDirectRefund",
         success: function (data) {
-            var isCEO = data.Data.isCEO;
+            isCEO = data.Data.isCEO;
             if (isCEO) {
                 SetWriteCells(['#C-5-3', '#C-7-13', '#C-8-3', '#C-9-3']);
             } else {

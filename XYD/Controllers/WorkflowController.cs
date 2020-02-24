@@ -531,6 +531,10 @@ namespace XYD.Controllers
             try
             {
                 var employee = orgMgr.GetEmployee(user);
+                if (OrgUtil.CheckCEO(employee.EmplID))
+                {
+                    return ResponseUtil.OK("总经理没有编号");
+                }
                 XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
                 // 设置编号已使用
                 using (var db = new DefaultConnection())
@@ -613,6 +617,10 @@ namespace XYD.Controllers
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
+                if (OrgUtil.CheckCEO(employee.EmplID))
+                {
+                    return ResponseUtil.OK("总经理不需要检测标准");
+                }
                 int standard = WorkflowUtil.GetHotelStandard(employee.EmplID, city, day * 24);
                 if (realHotel > standard)
                 {
@@ -669,7 +677,7 @@ namespace XYD.Controllers
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
-                var isCEO = OrgUtil.CheckRole(employee.EmplID, "总经理");
+                var isCEO = OrgUtil.CheckCEO(employee.EmplID);
                 return ResponseUtil.OK(new
                 {
                     isCEO = isCEO
