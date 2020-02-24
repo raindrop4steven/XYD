@@ -661,5 +661,25 @@ namespace XYD.Controllers
             return ResponseUtil.OK(result);
         }
         #endregion
+
+        #region 判断报销是否能直接填写
+        [Authorize]
+        public ActionResult CheckDirectRefund()
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var isCEO = OrgUtil.CheckRole(employee.EmplID, "总经理");
+                return ResponseUtil.OK(new
+                {
+                    isCEO = isCEO
+                });
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }

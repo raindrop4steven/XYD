@@ -25,6 +25,13 @@ function SetReadonlyCells(cells) {
     });
 }
 
+// 设置只读Cell可写入
+function SetWriteCells(cells) {
+    cells.forEach(function (item) {
+        $(item).data("control", 1);
+    })
+}
+
 /*********************************************************************
  * FUNC 草稿类
  *********************************************************************/

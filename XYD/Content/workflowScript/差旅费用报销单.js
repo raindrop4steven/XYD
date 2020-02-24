@@ -25,9 +25,24 @@ function main() {
     // 保存草稿
     onSaveDraft();
     if (nid === 'NODE0001') {
-        GetSerialSn(MessageID);
-        SetReadonlyCells(['#C-7-13', '#C-8-3', '#C-9-3', '#C-18-3', '#C-18-9', '#C-18-12', '#C-19-3', '#C-18-14']);
+        RenderPage(MessageID);
     }
+}
+
+function RenderPage(MessageID) {
+    $.ajax({
+        type: "GET",
+        url: "/Apps/XYD/Workflow/CheckDirectRefund",
+        success: function (data) {
+            var isCEO = data.Data.isCEO;
+            if (isCEO) {
+                SetWriteCells(['#C-5-3', '#C-7-13', '#C-8-3', '#C-9-3']);
+            } else {
+                GetSerialSn(MessageID);
+            }
+            SetReadonlyCells(['#C-5-3', '#C-7-13', '#C-8-3', '#C-9-3', '#C-18-3', '#C-18-9', '#C-18-12', '#C-19-3', '#C-18-14']);
+        }
+    })
 }
 
 function GetSerialSn(mid) {
@@ -40,7 +55,7 @@ function GetSerialSn(mid) {
                 serials.push(item.Sn);
             });
             // shanghai
-            ShowUnitList("unit", "133px", "184px", "254px", "46px", "784px", serials, '#C-5-13', '#C-5-3', MappingSourceData);
+            ShowUnitList("unit", "133px", "184px", "250px", "46px", "624px", serials, '#C-5-13', '#C-5-3', MappingSourceData);
             // wuxi
             // ShowUnitList("unit", "133px", "184px", "248px", "46px", "712px", serials, '#C-5-13', '#C-5-3', MappingSourceData);
         }
