@@ -19,12 +19,20 @@ namespace XYD.Controllers
 
         #region 用户简历信息
         [Authorize]
-        public ActionResult Info()
+        public ActionResult Info(string EmplID)
         {
+            Employee employee = null;
             // 用户基本信息
-            var employee = (User.Identity as AppkizIdentity).Employee;
-            
-            using(var db = new DefaultConnection())
+            if (string.IsNullOrEmpty(EmplID))
+            {
+                employee = (User.Identity as AppkizIdentity).Employee;
+            }
+            else
+            {
+                employee = orgMgr.GetEmployee(EmplID);
+            }
+
+            using (var db = new DefaultConnection())
             {
                 // 联系人
                 var contacts = db.Contact.Where(n => n.EmplID == employee.EmplID).OrderByDescending(n => n.UpdateTime).ToList();
@@ -239,6 +247,7 @@ namespace XYD.Controllers
             try
             {
                 var sql = string.Format(@"SELECT
+                                                ISNULL(a.EmplID, ''),
 	                                            ISNULL(a.EmplNO, ''),
 	                                            ISNULL(a.EmplName, ''),
 	                                            ISNULL(b.DeptName, ''),

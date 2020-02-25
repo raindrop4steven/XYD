@@ -351,10 +351,11 @@ namespace XYD.Common
             while (reader.Read())
             {
                 ResultList.Add(new {
-                    EmplNO = reader.GetString(0),
-                    EmplName = reader.GetString(1),
-                    DeptName = reader.GetString(2),
-                    PositionName = reader.GetString(3)
+                    EmplID = reader.GetString(0),
+                    EmplNO = reader.GetString(1),
+                    EmplName = reader.GetString(2),
+                    DeptName = reader.GetString(3),
+                    PositionName = reader.GetString(4)
                 });
             }
 
