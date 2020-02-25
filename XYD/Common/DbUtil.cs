@@ -177,6 +177,33 @@ namespace XYD.Common
             }
         }
 
+        public static int ExecuteScalar(string connectionString, string sqlText)
+        {
+            try
+            {
+                var sqlConnection = new SqlConnection(connectionString);
+
+                SqlCommand cmd = new SqlCommand();
+
+                // 基本的查询
+                cmd.CommandText = sqlText;
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = sqlConnection;
+
+                sqlConnection.Open();
+
+                int count = (int)(cmd.ExecuteScalar());
+
+
+                sqlConnection.Close();
+                return count;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
+
         #region 查询工资
         public static List<object> GetSalary(SqlDataReader reader)
         {
@@ -191,6 +218,60 @@ namespace XYD.Common
                     Salary = salary,
                     Year = year,
                     Month = month
+                });
+            }
+            return ResultList;
+        }
+        #endregion
+
+        #region 查询工资明细
+        public static List<object> GetDetailSalary(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                ResultList.Add(new
+                {
+                    cPsn_Num = reader.GetString(0),
+                    cPsn_Name = reader.GetString(1),
+                    cDeptName = reader.GetString(2),
+                    F_9 = reader.GetDecimal(3),
+                    F_10 = reader.GetDecimal(4),
+                    F_12 = reader.GetDecimal(5),
+                    F_11 = reader.GetDecimal(6),
+                    F_26 = reader.GetDecimal(7),
+                    F_1 = reader.GetDecimal(8),
+                    F_13 = reader.GetDecimal(9),
+                    F_14 = reader.GetDecimal(10),
+                    F_15 = reader.GetDecimal(11),
+                    F_16 = reader.GetDecimal(12),
+                    F_17 = reader.GetDecimal(13),
+                    F_18 = reader.GetDecimal(14),
+                    F_19 = reader.GetDecimal(15),
+                    F_20 = reader.GetDecimal(16),
+                    F_21 = reader.GetDecimal(17),
+                    F_22 = reader.GetDecimal(18),
+                    F_23 = reader.GetDecimal(19),
+                    F_1102 = reader.GetDecimal(20),
+                    F_1103 = reader.GetDecimal(21),
+                    F_1104 = reader.GetDecimal(22),
+                    F_1105 = reader.GetDecimal(23),
+                    F_1106 = reader.GetDecimal(24),
+                    F_1108 = reader.GetDecimal(25),
+                    F_1112 = reader.GetDecimal(26),
+                    F_1116 = reader.GetDecimal(27),
+                    F_1115 = reader.GetDecimal(28),
+                    F_1114 = reader.GetDecimal(29),
+                    F_1113 = reader.GetDecimal(30),
+                    F_1001 = reader.GetDecimal(31),
+                    F_1002 = reader.GetDecimal(32),
+                    F_6 = reader.GetDecimal(33),
+                    F_1003 = reader.GetDecimal(34),
+                    F_25 = reader.GetDecimal(35),
+                    F_24 = reader.GetDecimal(36),
+                    F_1004 = reader.GetDecimal(37),
+                    F_2 = reader.GetDecimal(38),
+                    F_3 = reader.GetDecimal(39)
                 });
             }
             return ResultList;
