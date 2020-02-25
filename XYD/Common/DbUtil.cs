@@ -344,6 +344,24 @@ namespace XYD.Common
             return ResultList;
         }
 
+        #region 查询员工
+        internal static List<object> searchEmployee(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                ResultList.Add(new {
+                    EmplNO = reader.GetString(0),
+                    EmplName = reader.GetString(1),
+                    DeptName = reader.GetString(2),
+                    PositionName = reader.GetString(3)
+                });
+            }
+
+            return ResultList;
+        }
+        #endregion
+
         /// <summary>
         /// 待办
         /// </summary>

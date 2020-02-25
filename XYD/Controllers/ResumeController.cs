@@ -231,5 +231,51 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 员工列表
+        [Authorize]
+        public ActionResult EmployeeList(int Page, int Size, string UserName)
+        {
+            try
+            {
+                var sql = string.Format(@"SELECT
+	                                            ISNULL(a.EmplNO, ''),
+	                                            ISNULL(a.EmplName, ''),
+	                                            ISNULL(b.DeptName, ''),
+	                                            ISNULL(d.PositionName, '')
+                                            FROM
+	                                            ORG_Employee a
+	                                            LEFT JOIN ORG_Department b ON a.DeptID = b.DeptID
+	                                            INNER JOIN ORG_EmplDept c ON c.EmplID = a.EmplID
+	                                            INNER JOIN ORG_Position d ON d.PositionID = c.PosID 
+                                            WHERE
+	                                            a.EmplEnabled = 1 
+	                                            AND a.EmplName LIKE '%{0}%' 
+                                            ORDER BY
+	                                            GlobalSortNo DESC", UserName);
+                var list = DbUtil.ExecuteSqlCommand(sql, DbUtil.searchEmployee);
+                var totalCount = list.Count();
+                var results = list.Skip(Page * Size).Take(Size);
+                var totalPage = (int)Math.Ceiling((float)totalCount / Size);
+
+                return ResponseUtil.OK(new
+                {
+                    results = results,
+                    meta = new
+                    {
+                        current_page = Page,
+                        total_page = totalPage,
+                        current_count = Page * Size + results.Count(),
+                        total_count = totalCount,
+                        per_page = Size
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }
