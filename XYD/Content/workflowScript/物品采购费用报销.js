@@ -13,7 +13,9 @@ function onSheetLoad() {
     });
 };
 function onSheetCheck() {
-    return CheckRequiredCells(['#C-4-3']);
+    if (!isCEO) {
+        return CheckRequiredCells(['#C-4-3']);
+    }
 };
 function onAnyCellUpdate() {
 };
