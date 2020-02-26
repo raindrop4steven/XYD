@@ -921,10 +921,11 @@ namespace XYD.Common
                 List<object> objectList2 = new List<object>();
                 foreach (Message message in templates)
                 {
-                    if (orgMgr.VerifyPermission(message.MessageID, name, "user", "run"))
-                    {
-                        TemplateList.Add(message);
-                    }
+                    //if (orgMgr.VerifyPermission(message.MessageID, name, "user", "run"))
+                    //{
+                    //    TemplateList.Add(message);
+                    //}
+                    TemplateList.Add(message);
                 }
             }
             return TemplateList;
