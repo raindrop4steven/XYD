@@ -310,6 +310,30 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 凭证列表
+    public class XYD_Voucher
+    {
+        [Key]
+        public int ID { get; set; }
+        // MessageID
+        public string MessageID { get; set; }
+        // 制单日期
+        public DateTime CreateTime { get; set; }
+        // 编号
+        public string Sn { get; set; }
+        // 科目
+        public string VoucherCode { get; set; }
+        // 科目名称
+        public string VoucherName { get; set; }
+        // 金额借方
+        public string TotalAmount { get; set; }
+        // 额外参数
+        public string Extras { get; set; }
+        public string User { get; internal set; }
+        public string ApplyUser { get; internal set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -331,6 +355,7 @@ namespace XYD.Models
         public DbSet<XYD_Leave_Record> LeaveRecord { get; set; }
         public DbSet<XYD_Audit_Record> Audit_Record { get; set; }
         public DbSet<XYD_Vendor> Vendor { get; set; }
+        public DbSet<XYD_Voucher> Voucher { get; set; }
     }
     #endregion
 }

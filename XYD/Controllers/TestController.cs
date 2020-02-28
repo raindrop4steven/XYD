@@ -84,5 +84,41 @@ namespace XYD.Controllers
             var role = WorkflowUtil.GetRoleById(emplID);
             return ResponseUtil.OK(role);
         }
+
+        public ActionResult TestVoucher(string mid, string name)
+        {
+            XYD_SubVoucherCode SubCode = null;
+            Message message = mgr.GetMessage(mid);
+            var workflowId = message.FromTemplate;
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("Voucher.json"));
+
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var config = JsonConvert.DeserializeObject<XYD_VoucherCodes>(sr.ReadToEnd());
+                foreach(var VoucherCode in config.VoucherCodes)
+                {
+                    if (VoucherCode.WorkflowId == workflowId)
+                    {
+                        if (VoucherCode.Codes.Count == 1)
+                        {
+                            SubCode = VoucherCode.Codes.FirstOrDefault();
+                            break;
+                        }
+                        else
+                        {
+                            foreach(var Code in VoucherCode.Codes)
+                            {
+                                if (Code.Subs.Contains(name))
+                                {
+                                    SubCode = Code;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                return ResponseUtil.OK(SubCode);
+            }
+        }
     }
 }

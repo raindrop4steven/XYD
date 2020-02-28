@@ -473,12 +473,30 @@ namespace XYD.Entity
     }
     #endregion
 
-    #region 自定义方法结构
+    #region XYD_自定义方法结构
     public class XYD_Custom_Func
     {
         public string ClassName { get; set; }
         public string MethodName { get; set; }
         public List<string> ArgumentsArray { get; set; }
+    }
+    #endregion
+
+    #region XYD_科目分类
+    public class XYD_SubVoucherCode
+    {
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public List<string> Subs { get; set; }
+    }
+    public class XYD_VoucherCode
+    {
+        public string WorkflowId { get; set; }
+        public List<XYD_SubVoucherCode> Codes { get; set; }
+    }
+    public class XYD_VoucherCodes
+    {
+        public List<XYD_VoucherCode> VoucherCodes { get; set; }
     }
     #endregion
 }

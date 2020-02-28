@@ -226,6 +226,7 @@
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
+    <Compile Include="Controllers\VoucherController.cs" />
     <Compile Include="Controllers\WorkExperienceController.cs" />
     <Compile Include="Controllers\WorkflowController.cs" />
     <Compile Include="Entity\BaseQueryInfo.cs" />
@@ -239,6 +240,18 @@
     <Compile Include="Migrations\202002211423236_add vendor.cs" />
     <Compile Include="Migrations\202002211423236_add vendor.Designer.cs">
       <DependentUpon>202002211423236_add vendor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002260901594_add voucher.cs" />
+    <Compile Include="Migrations\202002260901594_add voucher.Designer.cs">
+      <DependentUpon>202002260901594_add voucher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002260902495_add voucher2.cs" />
+    <Compile Include="Migrations\202002260902495_add voucher2.Designer.cs">
+      <DependentUpon>202002260902495_add voucher2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002280257442_refractor voucher model.cs" />
+    <Compile Include="Migrations\202002280257442_refractor voucher model.Designer.cs">
+      <DependentUpon>202002280257442_refractor voucher model.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -739,6 +752,7 @@
     <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511-event.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\config\Voucher.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -780,6 +794,7 @@
     <Folder Include="Views\System\" />
     <Folder Include="Views\Test\" />
     <Folder Include="Views\Vendor\" />
+    <Folder Include="Views\Voucher\" />
     <Folder Include="Views\WorkExperience\" />
     <Folder Include="Views\WorkflowPage\" />
   </ItemGroup>
@@ -800,6 +815,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002211423236_add vendor.resx">
       <DependentUpon>202002211423236_add vendor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002260901594_add voucher.resx">
+      <DependentUpon>202002260901594_add voucher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002260902495_add voucher2.resx">
+      <DependentUpon>202002260902495_add voucher2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002280257442_refractor voucher model.resx">
+      <DependentUpon>202002280257442_refractor voucher model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
