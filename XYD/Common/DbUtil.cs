@@ -315,6 +315,19 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 获取映射文件版本
+        public static List<object> GetReceiveFile(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                string version = reader.GetString(0);
+                ResultList.Add(version);
+            }
+            return ResultList;
+        }
+        #endregion
+
         /// <summary>
         /// 待办
         /// </summary>

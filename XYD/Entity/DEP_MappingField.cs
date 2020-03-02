@@ -499,4 +499,16 @@ namespace XYD.Entity
         public List<XYD_VoucherCode> VoucherCodes { get; set; }
     }
     #endregion
+
+    #region XYD_配置版本
+    public class XYD_Version
+    {
+        public string WorkflowId { get; set; }
+        public string Version { get; set; }
+    }
+    public class XYD_Config_Version
+    {
+        public List<XYD_Version> versions { get; set; }
+    }
+    #endregion
 }

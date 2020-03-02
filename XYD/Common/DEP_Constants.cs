@@ -119,5 +119,14 @@ namespace XYD.Common
         public static int DeptManager = 2;
         // 普通员工
         public static int Staff = 3;
+
+        /**
+         * 配置类型
+         */
+        public static string Config_Type_Main = "main";
+        public static string Config_Type_App = "app";
+        public static string Config_Type_Audit = "audit";
+        public static string Config_Type_Start = "start";
+        public static string Config_Type_Event = "event";
     }
 }

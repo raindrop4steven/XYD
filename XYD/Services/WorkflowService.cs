@@ -25,6 +25,8 @@ namespace XYD.Services
             Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
             Worksheet worksheet = doc.Worksheet;
             Message message = mgr.GetMessage(MessageID);
+            var templateId = message.FromTemplate;
+            var version = WorkflowUtil.GetDefaultConfigVersion(templateId);
 
             Dictionary<string, string> dict = new Dictionary<string, string>();
             foreach (var mapping in mappings.value)
@@ -43,6 +45,7 @@ namespace XYD.Services
                 // 添加更新者、更新时间、创建者、创建时间
                 dict.Add("MessageId", MessageID);
                 dict.Add("WorkFlowId", message.FromTemplate);
+                dict.Add("Version", version);
                 // 主键
                 var guid = Guid.NewGuid().ToString();
                 var tableFields = string.Format("Id, {0}", string.Join(",", dict.Keys));
@@ -101,25 +104,6 @@ namespace XYD.Services
             dict.Add("sid", worksheet.WorksheetID);
 
             return dict;
-        }
-        #endregion
-
-        #region 判断流程是否为部门流程
-        public bool IsDeptWorkflow(string mid)
-        {
-            /*
-             * 根据mid获得对应模版ID
-             */
-            var message = mgr.GetMessage(mid);
-            if (message == null)
-            {
-                return false;
-            }
-            else
-            {
-                var deptWorkflowList = WorkflowUtil.GetAllDeptWorkflows();
-                return deptWorkflowList.Contains(message.FromTemplate);
-            }
         }
         #endregion
 
