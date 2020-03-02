@@ -133,10 +133,10 @@
     }
 	var __widget_js__ = {
 		init: function (id) {
-		    $.post('/Apps/XYD/WorkFlowPage/GetAlarmPendingInfo', defaultPageSearch, function (r) {
+		    $.post('/Apps/XYD/WorkFlowPage/GetPendingInfo', defaultPageSearch, function (r) {
 			    console.log('Widget->', r);
 			    var totalCount = r.Data.length;
-			    $('#' + id).find('div.widget-archives-summary').append('<span>部门共计' + totalCount + '</span>项待办事项');
+			    $('#' + id).find('div.widget-archives-summary').append('<span>共计' + totalCount + '</span>项待办事项');
 			    for (var i = 0; i < totalCount; i++) {
 			        var row = r.Data[i];
 			        var title = row.DocumentTitle || row.DocumentTitle !== '' ? row.DocumentTitle : '------';

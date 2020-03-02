@@ -151,17 +151,22 @@ namespace XYD.Controllers
                 List<string> CodeList;
                 using (var db = new DefaultConnection())
                 {
-                    CodeList = db.Vendor.Select(n => n.Code).ToList();
+                    CodeList = db.Vendor.Select(n => "'" + n.Code + "'").ToList();
                 }
-                var InString = string.Join(",", string.Format("'{0}'", CodeList));
-                var sql = string.Format(@"SELECT
-	                            cVenCode AS Code,
-	                            cVenName AS Name 
-                            FROM
-	                            Vendor 
-                            WHERE
-	                            cVenCode LIKE 'OA%' 
-	                            AND cVenCode NOT IN ({0})", InString);
+                
+                var sql = @"SELECT
+	                                    cVenCode AS Code,
+	                                    cVenName AS Name 
+                                    FROM
+	                                    Vendor 
+                                    WHERE
+	                                    cVenCode LIKE 'OA%'";
+                
+                if (CodeList.Count > 0)
+                {
+                    var InString = string.Join(",", CodeList);
+                    sql = string.Format(@" {0} AND cVenCode NOT IN ({1})", sql, InString);
+                }
                 var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
                 var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetUnSyncVendor);
                 using (var db = new DefaultConnection())
@@ -172,7 +177,7 @@ namespace XYD.Controllers
                         db.SaveChanges();
                     }
                 }
-                return ResponseUtil.OK("同步供应商成功");
+                return ResponseUtil.OK(result.Count() == 0 ? "供应商记录已经是最新的" : string.Format("新同步{0}条供应商记录", result.Count()));
             }
             catch (Exception e)
             {

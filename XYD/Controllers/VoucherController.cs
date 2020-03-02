@@ -25,6 +25,7 @@ namespace XYD.Controllers
         {
             try
             {
+                XYD_SubVoucherCode subCode = null;
                 // 申请
                 var message = mgr.GetMessage(mid);
                 // 获取发起人信息
@@ -32,8 +33,12 @@ namespace XYD.Controllers
                 var applyUser = orgMgr.GetEmployee(messageIssuedBy);
                 // 获取财务
                 var auditUser = orgMgr.GetEmployee(user);
-                // 科目
-                XYD_SubVoucherCode subCode = WorkflowUtil.GetSubVoucherCode(mid, null);
+                if (string.IsNullOrEmpty(extras))
+                {
+                    // 科目
+                    subCode = WorkflowUtil.GetSubVoucherCode(mid, null);
+                }
+                
 
                 using (var db = new DefaultConnection())
                 {
@@ -42,8 +47,8 @@ namespace XYD.Controllers
                     voucher.ApplyUser = message.MessageIssuedBy;
                     voucher.User = user;
                     voucher.CreateTime = DateTime.Now;
-                    voucher.VoucherCode = subCode.Code;
-                    voucher.VoucherName = subCode.Name;
+                    voucher.VoucherCode = !string.IsNullOrEmpty(extras) ? string.Empty : subCode.Code;
+                    voucher.VoucherName = !string.IsNullOrEmpty(extras) ? string.Empty : subCode.Name;
                     voucher.Sn = sn;
                     voucher.TotalAmount = total;
                     voucher.Extras = extras;
@@ -187,6 +192,7 @@ namespace XYD.Controllers
         {
             try
             {
+                EndDate = CommonUtils.EndOfDay(EndDate);
                 using (var db = new DefaultConnection())
                 {
                     var list = db.Voucher.Where(n => n.CreateTime >= BeginDate.Date && n.CreateTime <= EndDate).ToList();
@@ -194,9 +200,26 @@ namespace XYD.Controllers
                     var results = list.Skip(Page * Size).Take(Size);
                     var totalPage = (int)Math.Ceiling((float)totalCount / Size);
 
+                    var resultVouchers = new List<object>();
+                    foreach(var voucher in results)
+                    {
+                        var applyUser = orgMgr.GetEmployee(voucher.ApplyUser).EmplName;
+                        var auditUser = orgMgr.GetEmployee(voucher.User).EmplName;
+                        var message = mgr.GetMessage(voucher.MessageID);
+                        resultVouchers.Add(new
+                        {
+                            ID = voucher.ID,
+                            Message = message.MessageTitle,
+                            Sn = voucher.Sn,
+                            CreateTime = voucher.CreateTime,
+                            TotalAmount = voucher.TotalAmount,
+                            ApplyUser = applyUser,
+                            AuditUser = auditUser
+                        });
+                    }
                     return ResponseUtil.OK(new
                     {
-                        results = results,
+                        results = resultVouchers,
                         meta = new
                         {
                             current_page = Page,
