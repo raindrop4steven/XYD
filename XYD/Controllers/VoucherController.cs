@@ -167,6 +167,7 @@ namespace XYD.Controllers
                     }
                     // 数据转换成文件下载
                     var sb = new StringBuilder();
+                    sb.AppendLine("填制凭证,V800");
                     foreach (var data in Results)
                     {
                         sb.AppendLine(data);
@@ -181,7 +182,7 @@ namespace XYD.Controllers
         }
         #endregion
 
-        #region 凭证列表
+        #region 列表
         public ActionResult List(DateTime BeginDate, DateTime EndDate, int Page, int Size)
         {
             try
