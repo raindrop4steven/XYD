@@ -33,7 +33,15 @@ namespace XYD.Services
             {
                 //公文标题
                 var FieldValue = worksheet.GetWorkcell(mapping.value.row, mapping.value.col);
-                dict.Add(mapping.key, FieldValue == null ? "" : FieldValue.WorkcellValue);
+                var Value = FieldValue == null ? "" : FieldValue.WorkcellValue;
+                if (dict.ContainsKey(mapping.key))
+                {
+                    dict[mapping.key] = string.Format("{0} {1}", dict[mapping.key], Value);
+                }
+                else
+                {
+                    dict.Add(mapping.key, Value);
+                }
             }
 
             // 检查是否有对应的记录存在

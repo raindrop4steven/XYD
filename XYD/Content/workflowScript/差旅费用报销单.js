@@ -77,6 +77,7 @@ function MappingSourceData() {
         url: '/Apps/XYD/Workflow/MappingSourceToDest?mid=' + mid + '&sn=' + sn,
         success: function (data) {
             location.reload();
+            CaculateAllowance('#C-7-13', '#C-18-14');
         }
     });
 }

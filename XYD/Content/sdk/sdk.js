@@ -848,3 +848,10 @@ function CheckHotelLimit(cityCellId, dayCellId, feeCellId) {
         });
     }
 }
+
+// 计算补贴
+function CaculateAllowance(dayId, targetId) {
+    var day = $(dayId).text();
+    var result = (day-1)*100 + 65;
+    SaveCellValue($(targetId), result, '');
+}
