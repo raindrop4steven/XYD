@@ -1,0 +1,554 @@
+﻿{
+    "Fields": [
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "事务编号",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请人",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 7,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "部门",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 11,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 5,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "接待日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 2,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 7,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "天数",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 11,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "接待单位名称",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 6,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "接待事由",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 7,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "接待人数",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "用餐",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 7,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "用车",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 10,
+                "Col": 3,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "洒水",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 10,
+                "Col": 7,
+                "Options": [
+                    {
+                        "Value": "是",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "否",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "其他要求",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 11,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 3,
+            "Header": [ "时间", "地点", "行程内容", "备注" ],
+            "Array": [
+                [
+                    {
+                        "Title": "时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 14,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 14,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "行程内容",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 14,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 14,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 15,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 15,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "行程内容",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 15,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 15,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 16,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 16,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "行程内容",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 16,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 16,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "行程内容",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 18,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 18,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "行程内容",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 18,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 18,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 19,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 19,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "行程内容",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 19,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 19,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "时间",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 20,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "地点",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 20,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "行程内容",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 20,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 20,
+                        "Col": 11,
+                        "Options": null,
+                        "Required": false
+                    }
+                ]
+            ]
+        }
+    ]
+}

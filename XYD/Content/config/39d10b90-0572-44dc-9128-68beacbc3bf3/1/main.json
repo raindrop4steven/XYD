@@ -1,0 +1,45 @@
+﻿{
+    "table": "XYD_ReceiveFile",
+    "values": {
+        "mappings": [
+            {
+                "key": "NODE0001",
+                "value": [
+                    {
+                        "key": "DocumentTitle",
+                        "value": {
+                            "row": 3,
+                            "col": 1
+                        }
+                    },
+                    {
+                        "key": "DocumentTitle",
+                        "value": {
+                            "row": 5,
+                            "col": 3
+                        }
+                    },
+                    {
+                        "key": "ClosedOrHairTime",
+                        "value": {
+                            "row": 5,
+                            "col": 9
+                        }
+                    }
+                ]
+            }
+        ],
+        "actions": [
+
+        ],
+        "inputTypes": [
+
+        ],
+        "details": [
+            
+        ],
+        "controls": [
+
+        ]
+    }
+}

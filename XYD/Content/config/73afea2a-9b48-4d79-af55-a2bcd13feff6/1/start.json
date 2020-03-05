@@ -1,0 +1,730 @@
+﻿{
+    "Fields": [
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请编号",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请人",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 7,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请部门",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 11,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 15,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 3,
+            "Header": [ "物品名称", "型号", "数量", "单位", "单价", "小计", "采购方式", "备注", "附件"],
+            "Array": [
+                [
+                    {
+                        "Title": "物品名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 6,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "型号",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 6,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 6,
+                        "Col": 4,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单位",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 6,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单价",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 6,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "小计",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 6,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "采购方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 6,
+                        "Col": 8,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 6,
+                        "Col": 9,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "物品名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "型号",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 4,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单位",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单价",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "小计",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "采购方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 8,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 9,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "物品名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "型号",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 4,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单位",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单价",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "小计",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "采购方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 8,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 9,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "物品名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "型号",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 4,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单位",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单价",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "小计",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "采购方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 8,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 9,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "物品名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "型号",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 4,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单位",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单价",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "小计",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "采购方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 8,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 9,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "物品名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "型号",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 4,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单位",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单价",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "小计",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "采购方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 8,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 9,
+                        "Options": null,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "物品名称",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 1,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "型号",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 3,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "数量",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 4,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单位",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 5,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "单价",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 6,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "小计",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 7,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "采购方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 8,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 9,
+                        "Options": null,
+                        "Required": false
+                    }
+                ]
+            ]
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请情况说明",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 13,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "总价",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 14,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        }
+    ]
+}
