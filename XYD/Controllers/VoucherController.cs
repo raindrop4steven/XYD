@@ -96,6 +96,10 @@ namespace XYD.Controllers
                  * 变量定义
                  */
                 var Results = new List<string>();
+
+                // 获取开始月份第一天，结束月份最后一天
+                BeginDate = new DateTime(BeginDate.Year, BeginDate.Month, 1);
+                EndDate = BeginDate.AddMonths(1).AddDays(-1);
                 // 记录列表
                 EndDate = CommonUtils.EndOfDay(EndDate);
                 using (var db = new DefaultConnection())
