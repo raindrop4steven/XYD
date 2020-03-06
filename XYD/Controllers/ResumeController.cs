@@ -243,6 +243,33 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 检查身份证是否完善和正确
+        public ActionResult CheckCredNo(string inputCredNo)
+        {
+            using (var db = new DefaultConnection())
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var userInfo = db.UserInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
+                if (userInfo == null)
+                {
+                    return ResponseUtil.Error("请先补全用户信息");
+                }
+                else if (string.IsNullOrEmpty(userInfo.CredNo))
+                {
+                    return ResponseUtil.Error("请先补全身份证信息");
+                }
+                else if (userInfo.CredNo.Substring(userInfo.CredNo.Length-4) != inputCredNo)
+                {
+                    return ResponseUtil.Error("身份证后四位不正确");
+                }
+                else
+                {
+                    return ResponseUtil.OK("身份证验证通过");
+                }
+            }
+        }
+        #endregion
+
         #region 员工列表
         [Authorize]
         public ActionResult EmployeeList(int Page, int Size, string UserName)
