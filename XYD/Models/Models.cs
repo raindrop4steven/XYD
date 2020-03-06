@@ -43,6 +43,22 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 其他信息
+    public class XYD_UserInfo
+    {
+        [Key]
+        public int ID { get; set; }
+        // 用户ID
+        public string EmplID { get; set; }
+        // 身份证号
+        public string CredNo { get; set; }
+        // 银行卡号
+        public string BankNo { get; set; }
+        // 门禁卡号
+        public string DoorNo { get; set; }
+    }
+    #endregion
+
     #region 紧急联络人
     public class XYD_Contact
     {
@@ -342,6 +358,7 @@ namespace XYD.Models
     {
         public DbSet<XYD_Serial_No> SerialNo { get; set; }
         public DbSet<XYD_Serial_Record> SerialRecord { get; set; }
+        public DbSet<XYD_UserInfo> UserInfo { get; set; }
         public DbSet<XYD_Contact> Contact { get; set; }
         public DbSet<XYD_WorkExperience> WorkExperience { get; set; }
         public DbSet<XYD_Education> Education { get; set; }

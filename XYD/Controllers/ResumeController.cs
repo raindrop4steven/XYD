@@ -34,6 +34,8 @@ namespace XYD.Controllers
 
             using (var db = new DefaultConnection())
             {
+                // 用户信息
+                var userInfo = db.UserInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
                 // 联系人
                 var contacts = db.Contact.Where(n => n.EmplID == employee.EmplID).OrderByDescending(n => n.UpdateTime).ToList();
                 // 工作经历
@@ -50,9 +52,10 @@ namespace XYD.Controllers
                         url = Url.Action("Download", "Common", new { id = m.ID })
                     })
                 }).ToList();
-                
+
                 return ResponseUtil.OK(new {
                     baseInfo = employee,
+                    userInfo = userInfo == null ? new XYD_UserInfo() : userInfo,
                     contacts = contacts,
                     experiences = experiences,
                     educations = educations,
@@ -279,6 +282,38 @@ namespace XYD.Controllers
                         per_page = Size
                     }
                 });
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 用户信息修改
+        [Authorize]
+        public ActionResult AddOrUpdateUserInfo(XYD_UserInfo userInfo)
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+
+                using (var db = new DefaultConnection())
+                {
+                    var info = db.UserInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
+                    if (info == null)
+                    {
+                        info = new XYD_UserInfo();
+                        info.EmplID = employee.EmplID;
+                        db.UserInfo.Add(info);
+                        db.SaveChanges();
+                    }
+                    info.BankNo = userInfo.BankNo;
+                    info.CredNo = userInfo.CredNo;
+                    info.DoorNo = userInfo.DoorNo;
+                    db.SaveChanges();
+                    return ResponseUtil.OK("用户信息修改成功");
+                }
             }
             catch (Exception e)
             {

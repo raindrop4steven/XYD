@@ -428,6 +428,25 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 网页端处理记录
+        public ActionResult ShowHistory(string mid)
+        {
+            try
+            {
+                WorkflowService wkfService = new WorkflowService();
+                var history = wkfService.GetWorkflowHistory(mid);
+                return ResponseUtil.OK(new
+                {
+                    history = history
+                });
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
         #region 生成编号
         public ActionResult FillSerialNo(string mid)
         {

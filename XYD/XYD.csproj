@@ -253,6 +253,10 @@
     <Compile Include="Migrations\202002280257442_refractor voucher model.Designer.cs">
       <DependentUpon>202002280257442_refractor voucher model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003060844023_添加用户基本信息.cs" />
+    <Compile Include="Migrations\202003060844023_添加用户基本信息.Designer.cs">
+      <DependentUpon>202003060844023_添加用户基本信息.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -610,6 +614,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002280257442_refractor voucher model.resx">
       <DependentUpon>202002280257442_refractor voucher model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003060844023_添加用户基本信息.resx">
+      <DependentUpon>202003060844023_添加用户基本信息.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
