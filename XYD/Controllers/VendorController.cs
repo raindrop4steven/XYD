@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using XYD.Models;
 using XYD.Common;
+using System.Text;
 
 namespace XYD.Controllers
 {
@@ -143,17 +144,15 @@ namespace XYD.Controllers
         #endregion
 
         #region 同步供应商
+        /// <summary>
+        /// 查找OA中有更新和新增的供应商条目
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         public ActionResult SyncVendor()
         {
             try
-            {
-                List<string> CodeList;
-                using (var db = new DefaultConnection())
-                {
-                    CodeList = db.Vendor.Select(n => "'" + n.Code + "'").ToList();
-                }
-                
+            {   
                 var sql = @"SELECT
 	                                    cVenCode AS Code,
 	                                    cVenName AS Name 
@@ -161,23 +160,61 @@ namespace XYD.Controllers
 	                                    Vendor 
                                     WHERE
 	                                    cVenCode LIKE 'OA%'";
-                
-                if (CodeList.Count > 0)
-                {
-                    var InString = string.Join(",", CodeList);
-                    sql = string.Format(@" {0} AND cVenCode NOT IN ({1})", sql, InString);
-                }
                 var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
                 var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetUnSyncVendor);
+                StringBuilder sb = new StringBuilder();
                 using (var db = new DefaultConnection())
                 {
-                    foreach (XYD_Vendor vendor in result)
+                    var OACodeList = db.Vendor.ToList();
+                    foreach(XYD_Vendor oaVendor in OACodeList)
                     {
-                        db.Vendor.Add(vendor);
-                        db.SaveChanges();
+                        int flag = 0;
+                        foreach(XYD_Vendor u8Vendor in result)
+                        {
+                            if (u8Vendor.Code == oaVendor.Code)
+                            {
+                                if (u8Vendor.Name == oaVendor.Name)
+                                {
+                                    flag = 1;
+                                    break;
+                                }
+                                else
+                                {
+                                    flag = 2;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                flag = 3;
+                            }
+                        }
+                        // 检查flag
+                        if (flag == 2)
+                        {
+                            sb.Append(string.Format("UPDATE Vendor SET cVenName = '{0}', cVenAbbName = '{1}' WHERE cVenCode = '{2}';", oaVendor.Name, oaVendor.Name, oaVendor.Code));
+                        }
+                        else if (flag == 3)
+                        {
+                            sb.Append(string.Format("INSERT INTO Vendor ( cVenCode, cVenName, cVenAbbName) VALUES( '{0}', '{1}', '{2}');", oaVendor.Code, oaVendor.Name, oaVendor.Name));
+                        }
+                        else
+                        {
+                            continue;
+                        }
                     }
                 }
-                return ResponseUtil.OK(result.Count() == 0 ? "供应商记录已经是最新的" : string.Format("新同步{0}条供应商记录", result.Count()));
+                // 检查是否有更新
+                var batchSql = sb.ToString();
+                if (!string.IsNullOrEmpty(batchSql))
+                {
+                    DbUtil.ExecuteSqlCommand(connectionString, batchSql);
+                    return ResponseUtil.OK("同步成功");
+                }
+                else
+                {
+                    return ResponseUtil.OK("记录已是最新，无需同步");
+                }
             }
             catch (Exception e)
             {

@@ -115,6 +115,29 @@ namespace XYD.Common
         }
 
         /// <summary>
+        /// 执行SQL语句，没有代理
+        /// </summary>
+        /// <param name="sqlText"></param>
+        public static void ExecuteSqlCommand(string connectionString, string sqlText)
+        {
+            var sqlConnection = new SqlConnection(connectionString);
+
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+
+            // 基本的查询
+            cmd.CommandText = sqlText;
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = sqlConnection;
+
+            sqlConnection.Open();
+
+            reader = cmd.ExecuteReader();
+
+            sqlConnection.Close();
+        }
+
+        /// <summary>
         /// 执行存储过程
         /// </summary>
         /// <param name="procName"></param>
