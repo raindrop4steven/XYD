@@ -11,6 +11,67 @@ namespace XYD.Controllers
 {
     public class AssetController : Controller
     {
+        #region 资产导入
+        /// <summary>
+        /// assets规则：资产名称，资产数量，备注;资产名称，资产数量，备注
+        /// </summary>
+        /// <param name="assets"></param>
+        /// <returns></returns>
+        public ActionResult Import(string assets)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var lines = assets.Split(';').ToList();
+                    List<XYD_Asset> list = new List<XYD_Asset>();
+                    foreach (string line in lines)
+                    {
+                        if (string.IsNullOrEmpty(line.Replace(",", "")))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            var cols = line.Split(',').Select(n => n).Where(n => !string.IsNullOrEmpty(n)).ToList();
+                            if (cols.Count < 2)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                string name = cols.ElementAt(0);
+                                int count = int.Parse(cols.ElementAt(1));
+                                string memo = cols.ElementAt(2);
+                                for (int i = 0; i < count; i++)
+                                {
+                                    XYD_Asset model = new XYD_Asset();
+                                    model.Name = name;
+                                    model.Memo = memo;
+                                    model.Sn = DiskUtil.GetFormNumber();
+                                    model.Status = DEP_Constants.Asset_Status_Available;
+                                    model.CreateTime = DateTime.Now;
+                                    model.UpdateTime = DateTime.Now;
+                                    list.Add(model);
+                                }
+                            }
+                        }
+                    }
+                    if (list.Count > 0)
+                    {
+                        db.Asset.AddRange(list);
+                        db.SaveChanges();
+                    }
+                    return ResponseUtil.OK("添加成功");
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
         #region 资产添加
         [Authorize]
         public ActionResult Add(XYD_Asset model)
