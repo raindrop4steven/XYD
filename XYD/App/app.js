@@ -238,6 +238,7 @@
         $scope.sfwrq = null;
         $scope.fqsj = null;
         $scope.zzsj = null;
+        $scope.fqr = null;
 
         //绑定日期控件
         function onClickDate() {
@@ -295,6 +296,23 @@
             $('#date-from, #date-to').datepicker($.datepicker.regional["zh-CN"]);
         }
 
+        $('input.select-empl').click(function () {
+            var obj = $(this);
+            appkiz.people.getPeopleDlg({
+                multi: false,
+                ok: function (r) {
+                    obj.val(r[0].name);
+                    obj.attr('data-emplid', r[0].id);
+                    obj.trigger('input');
+                    obj.trigger('change');
+
+                    obj.next().val(r[0].id);
+                    obj.next().trigger('input');
+                    obj.next().trigger('change');
+                }
+            });
+        });
+
         var defaultPaginationConf = {
             //当期页
             currentPage: 1,
@@ -349,6 +367,7 @@
             PageNumber: $scope.paginationConf.currentPage,
             QueryCondition: null,
             WorkFlowId: '',
+            MessageIssuedBy: null,
         }
 
         //初始化查询参数
@@ -428,12 +447,14 @@
             $scope.fqsj = null;
             $scope.zzsj = null;
             $scope.getPageData($scope.url, $scope.pageSearch);
+            $scope.fqr = null;
         }
         //导航条切换效果
         $scope.onChangeTemplate = function onChangeTemplate(navId) {
             $scope.showConfig[navId] = !$scope.showConfig[navId];
             $scope.pageConfig.activeNav = navId;
             $scope.pageConfig.activeWorkflow = '';
+            $scope.fqr = null;
             //初始化分页参数
             angular.copy(defaultPaginationConf, $scope.paginationConf);
             //初始化查询参数
@@ -447,6 +468,7 @@
         $scope.onChangeWorkflow = function onChangeWorkflow(navId, workflowId) {
             $scope.pageConfig.activeNav = navId;
             $scope.pageConfig.activeWorkflow = workflowId;
+            $scope.fqr = null;
             //初始化分页参数
             angular.copy(defaultPaginationConf, $scope.paginationConf);
             //初始化查询参数
@@ -468,13 +490,13 @@
         function init() {
             $scope.titleObj = {
                 //待处理
-                needDo: ['序号', '申请类型', '申请标题', '申请日期', '接收时间', '发起人', '当前环节'],
+                needDo: ['序号', '申请类型', '申请标题',  '申请日期', '接收时间', '发起人', '发起时间', '当前环节'],
                 //我发出未完成
                 mineDoing: ['序号', '申请类型', '申请标题', '申请日期', '发起时间', '当前环节'],
                 //我发出已完成
                 mineDone: ['序号', '申请类型', '申请标题', '申请日期', '发起时间', '完成时间'],
                 //我处理过的
-                iDone: ['序号', '申请类型', '申请标题', '申请日期', '接收时间', '发起时间'],
+                iDone: ['序号', '申请类型', '申请标题', '申请日期', '接收时间', '发起人', '发起时间', '状态'],
                 //我终止的
                 iStop: ['序号', '申请类型', '申请标题', '申请日期', '发起时间', '终止时间'],
                 //我的草稿

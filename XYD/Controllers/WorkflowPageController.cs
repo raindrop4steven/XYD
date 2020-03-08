@@ -208,6 +208,11 @@ namespace XYD.Controllers
                     {
                         sql.Append(string.Format(@" and b.WorkFlowId = '{0}'", query.WorkFlowId));
                     }
+                    // 发起人
+                    if (!string.IsNullOrEmpty(query.MessageIssuedBy))
+                    {
+                        sql.Append(string.Format(@" and a.MessageIssuedBy = '{0}'", query.MessageIssuedBy));
+                    }
                     // 将SQL语句添加进列表
                     statements.Add(sql);
                 }
@@ -390,7 +395,17 @@ namespace XYD.Controllers
                                     CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime,
                                     CONVERT(varchar(100), d.HandledTime, 20) AS ReceiveTime,
                                     a.MessageIssuedBy,
-                                    c.EmplName
+                                    c.EmplName AS InitiateEmplName,
+                                    CASE
+		                                WHEN a.MessageStatus = 0 THEN
+		                                '草稿' 
+		                                WHEN a.MessageStatus = 1 THEN
+		                                '运行中' 
+		                                WHEN a.MessageStatus = 2 THEN
+		                                '已完成' 
+		                                WHEN a.MessageStatus = 3 THEN
+		                                '终止信息' ELSE NULL 
+	                                END AS MessageStatusName 
                                      FROM WKF_Message a
                                     INNER JOIN {0} b
                                     ON a.MessageID = b.MessageId
@@ -451,6 +466,11 @@ namespace XYD.Controllers
                     if (!string.IsNullOrWhiteSpace(query.SequenceNumber))
                     {
                         sql.Append(string.Format(@" and b.SequenceNumber like '%{0}%'", query.SequenceNumber));
+                    }
+                    // 发起人
+                    if (!string.IsNullOrEmpty(query.MessageIssuedBy))
+                    {
+                        sql.Append(string.Format(@" and a.MessageIssuedBy = '{0}'", query.MessageIssuedBy));
                     }
 
                     // 将SQL语句添加进列表

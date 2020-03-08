@@ -60,5 +60,9 @@ namespace XYD.Entity
         /// 结束接收时间
         /// </summary>
         public DateTime? EndReceiveTime { get; set; }
+        /// <summary>
+        /// 发起人
+        /// </summary>
+        public string MessageIssuedBy { get; set; }
     }
 }

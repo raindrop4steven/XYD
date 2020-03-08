@@ -460,6 +460,7 @@ namespace XYD.Common
                 result.ReceiveTime = reader.GetString(7);
                 result.MessageIssuedBy = reader.GetString(8);
                 result.EmplName = reader.GetString(9);
+                result.MessageStatusName = reader.GetString(10);
                 ResultList.Add(result);
             }
 

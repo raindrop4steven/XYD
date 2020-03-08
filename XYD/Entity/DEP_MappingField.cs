@@ -432,6 +432,7 @@ namespace XYD.Entity
         public string Operation { get; set; }
         public string MessageIssuedBy { get; set; }
         public string EmplName { get; set; }
+        public string MessageStatusName { get; set; }
     }
     #endregion
 
