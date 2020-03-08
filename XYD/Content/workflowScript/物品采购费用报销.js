@@ -17,7 +17,8 @@ function onSheetCheck() {
         return CheckRequiredCells(['#C-4-3']);
     }
 };
-function onAnyCellUpdate() {
+function onAnyCellUpdate(row, col) {
+    OpinionChanged(row, col);
 };
 
 // 每个表单的定制入口

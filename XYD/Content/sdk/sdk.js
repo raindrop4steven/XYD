@@ -871,3 +871,14 @@ function CaculateAllowance(dayId, targetId) {
     var result = (day-1)*100 + 65;
     SaveCellValue($(targetId), result, '');
 }
+
+// 同意时，清空右侧数据
+function OpinionChanged(row, col) {
+    var operateCellId = "#C-" + row + "-" + col;
+    if ($(operateCellId).text() == '同意') {
+        var opinionCellId = $(operateCellId).next();
+        if ($(opinionCellId).text() != "") {
+            SaveCellValue($(opinionCellId), "");
+        }
+    }
+}

@@ -9,7 +9,8 @@
 };
 function onSheetCheck() {
 };
-function onAnyCellUpdate() {
+function onAnyCellUpdate(row, col) {
+    OpinionChanged(row, col);
 };
 
 // 每个表单的定制入口
