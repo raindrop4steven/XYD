@@ -120,7 +120,7 @@
                 '/Apps/XYD/WorkflowPage/GetPendingCount',
                 null,
                 function (data) {
-                    $scope.wkfPendingCount = data.TotalCount;
+                    $scope.wkfPendingMessage = data;
                 },
                 function (data) {
                     
@@ -132,7 +132,7 @@
                 '/Apps/XYD/WorkflowPage/GetDealWithCount',
                 null,
                 function (data) {
-                    $scope.wkfDealWithCount = data.TotalCount;
+                    $scope.wkfDealWithMessage = data;
                 },
                 function (data) {
 
@@ -144,7 +144,7 @@
                 '/Apps/XYD/WorkflowPage/GetNoCompleteCount',
                 null,
                 function (data) {
-                    $scope.wkfNoCompleteCount = data.TotalCount;
+                    $scope.wkfNoCompleteMessage = data;
                 },
                 function (data) {
 
@@ -156,7 +156,7 @@
                 '/Apps/XYD/WorkflowPage/GetCompleteCount',
                 null,
                 function (data) {
-                    $scope.wkfCompleteCount = data.TotalCount;
+                    $scope.wkfCompleteMessage = data;
                 },
                 function (data) {
 
@@ -168,7 +168,7 @@
                 '/Apps/XYD/WorkflowPage/GetDraftCount',
                 null,
                 function (data) {
-                    $scope.wkfDraftCount = data.TotalCount;
+                    $scope.wkfDraftMessage = data;
                 },
                 function (data) {
 
@@ -359,6 +359,15 @@
         //当前列表数据
         $scope.activeTableData = [];
 
+        // 隐藏和开启定义
+        $scope.showConfig = {
+            "needDo": true,
+            "iDone": false,
+            "mineDoing": false,
+            "mineDone": false,
+            "mineDraft": false
+        }
+
         $scope.url = 'GetPendingInfo';
         var activeTab = window.location.href.split('#/')[1] || '';
 
@@ -422,11 +431,27 @@
         }
         //导航条切换效果
         $scope.onChangeTemplate = function onChangeTemplate(navId) {
+            $scope.showConfig[navId] = !$scope.showConfig[navId];
             $scope.pageConfig.activeNav = navId;
+            $scope.pageConfig.activeWorkflow = '';
             //初始化分页参数
             angular.copy(defaultPaginationConf, $scope.paginationConf);
             //初始化查询参数
             angular.copy(defaultPageSearch, $scope.pageSearch);
+            $scope.sfwrq = null;
+            $scope.fqsj = null;
+            $scope.zzsj = null;
+            $scope.activePageSearchFunc(navId);
+        }
+        // 点击模版
+        $scope.onChangeWorkflow = function onChangeWorkflow(navId, workflowId) {
+            $scope.pageConfig.activeNav = navId;
+            $scope.pageConfig.activeWorkflow = workflowId;
+            //初始化分页参数
+            angular.copy(defaultPaginationConf, $scope.paginationConf);
+            //初始化查询参数
+            angular.copy(defaultPageSearch, $scope.pageSearch);
+            $scope.pageSearch.WorkFlowId = workflowId;
             $scope.sfwrq = null;
             $scope.fqsj = null;
             $scope.zzsj = null;
@@ -473,7 +498,8 @@
 
 
             $scope.pageConfig = {
-                activeNav: 'needDo'
+                activeNav: 'needDo',
+                activeWorkflow: ''
             }
 
             getPendingCount();

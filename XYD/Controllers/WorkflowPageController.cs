@@ -48,41 +48,55 @@ namespace XYD.Controllers
                 {
                     StringBuilder sql = new StringBuilder();
                     sql.Append(string.Format(@"SELECT
-                                    b.DocumentTitle,
-                                    CONVERT(varchar(100), b.ClosedOrHairTime, 20) as ClosedOrHairTime,
-                                    b.MessageId,
-                                    b.WorkFlowId,
-                                    --流程发起人
-                                    a.MessageIssuedBy AS InitiateEmplId,
-                                    d.EmplName AS InitiateEmplName,
-                                    --流程类型
-                                    a.MessageTitle,
-                                    --环节
-                                    c.NodeName AS MyTask,
-                                    CONVERT(varchar(100), c.CreateTime, 20) as ReceiveTime,
-                                    a.MessageIssuedBy
-                                     FROM WKF_Message a
-                                    INNER JOIN {0} b
-                                    ON a.MessageID = b.MessageId
-                                    INNER JOIN WKF_MessageHandle c
-                                    ON a.MessageID = c.MessageID
-                                    INNER JOIN ORG_Employee d
-                                    ON a.MessageIssuedBy = d.EmplID
-                                    WHERE c.HandleStatus != 0
-                                    and a.MessageStatus not in (0, 3) 
-                                    and (c.UserID = '{1}' or (c.EntrustBy = '{1}' and c.EntrustBy <> ''))", tableName, emplId));
+	                                                b.WorkFlowId,
+	                                                COUNT ( b.WorkFlowId ) AS MessageCount,
+	                                                a.MessageTitle,
+	                                                f.FolderName 
+                                                FROM
+	                                                WKF_Message a
+	                                                INNER JOIN {0} b ON a.MessageID = b.MessageId
+	                                                INNER JOIN WKF_MessageHandle c ON a.MessageID = c.MessageID
+	                                                INNER JOIN ORG_Employee d ON a.MessageIssuedBy = d.EmplID
+	                                                INNER JOIN WKF_MessageFolder e ON b.WorkFlowId = e.MessageID
+	                                                INNER JOIN WKF_Folder f ON f.FolderID = e.FolderID 
+                                                WHERE
+	                                                c.HandleStatus != 0 
+	                                                AND a.MessageStatus NOT IN ( 0, 3 ) 
+	                                                AND ( c.UserID = '{1}' OR ( c.EntrustBy = '{1}' AND c.EntrustBy <> '' ) ) 
+                                                GROUP BY
+	                                                b.WorkFlowId,
+	                                                a.MessageTitle,
+	                                                f.FolderName", tableName, emplId));
                     // 将SQL语句添加进列表
                     statements.Add(sql);
                 }
             }
             // 获得Union语句
             var unionSql = string.Join(" UNION ", statements);
-            var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.ReceiveTime DESC) number, t.* from ({0}) t", unionSql);
-            // 总数
-            int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+            var countRecords = DbUtil.ExecuteSqlCommand(unionSql, DbUtil.CountMessage);
+            int totalCount = 0;
+            Dictionary<string, List<object>> resultDict = new Dictionary<string, List<object>>();
+            foreach(XYD_DB_Message_Count entity in countRecords)
+            {
+                totalCount += entity.MessageCount;
+                List<object> list = new List<object>();
+                if (resultDict.ContainsKey(entity.FolderName))
+                {
+                    list = resultDict[entity.FolderName];
+
+                }
+                else
+                {
+                    list = new List<object>();
+                }
+                list.Add(entity);
+                resultDict[entity.FolderName] = list;
+            }
+            var resultList = resultDict.Select(n => new { Area = n.Key, Value = n.Value }).ToList();
             return new JsonNetResult(new
             {
-                TotalCount = totalRecouds
+                TotalCount = totalCount,
+                Data = resultList
             });
         }
         #endregion
@@ -194,7 +208,6 @@ namespace XYD.Controllers
                     {
                         sql.Append(string.Format(@" and b.WorkFlowId = '{0}'", query.WorkFlowId));
                     }
-
                     // 将SQL语句添加进列表
                     statements.Add(sql);
                 }
@@ -266,38 +279,54 @@ namespace XYD.Controllers
                 {
                     StringBuilder sql = new StringBuilder();
                     sql.Append(string.Format(@"SELECT
-                                    b.DocumentTitle,
-                                    CONVERT(varchar(100), b.ClosedOrHairTime, 20) as ClosedOrHairTime,
-                                    b.MessageId,
-                                    b.WorkFlowId,
-                                    --流程类型
-                                    a.MessageTitle,
-                                    CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime,
-                                    CONVERT(varchar(100), d.HandledTime, 20) AS ReceiveTime,
-                                    a.MessageIssuedBy,
-                                    c.EmplName
-                                     FROM WKF_Message a
-                                    INNER JOIN {0} b
-                                    ON a.MessageID = b.MessageId
-                                    INNER JOIN (select MAX(HandledTime) as HandledTime,MessageID,HandledBy from WKF_WorkflowHistory 
-									where NodeKey != 'NODE0001' group by MessageID,HandledBy) as d
-                                    ON a.MessageID = d.MessageID
-                                    INNER JOIN ORG_Employee c
-                                    ON a.MessageIssuedBy = c.EmplID
-                                    WHERE d.HandledBy = '{1}'  
-                                    and a.MessageStatus not in (0, 3)", tableName, emplId));
+	                                                b.WorkFlowId,
+	                                                COUNT ( b.WorkFlowId ) AS MessageCount,
+	                                                a.MessageTitle,
+	                                                f.FolderName 
+                                                FROM
+	                                                WKF_Message a
+	                                                INNER JOIN {0} b ON a.MessageID = b.MessageId
+	                                                INNER JOIN ( SELECT MAX ( HandledTime ) AS HandledTime, MessageID, HandledBy FROM WKF_WorkflowHistory WHERE NodeKey != 'NODE0001' GROUP BY MessageID, HandledBy ) AS d ON a.MessageID = d.MessageID
+	                                                INNER JOIN ORG_Employee c ON a.MessageIssuedBy = c.EmplID
+	                                                INNER JOIN WKF_MessageFolder e ON b.WorkFlowId = e.MessageID
+	                                                INNER JOIN WKF_Folder f ON f.FolderID = e.FolderID 
+                                                WHERE
+	                                                d.HandledBy = '{1}' 
+	                                                AND a.MessageStatus NOT IN ( 0, 3 ) 
+                                                GROUP BY
+	                                                b.WorkFlowId,
+	                                                a.MessageTitle,
+	                                                f.FolderName", tableName, emplId));
                     // 将SQL语句添加进列表
                     statements.Add(sql);
                 }
             }
             // 获得Union语句
             var unionSql = string.Join(" UNION ", statements);
-            var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.ReceiveTime DESC) number, t.* from ({0}) t", unionSql);
-            // 总数
-            int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+            var countRecords = DbUtil.ExecuteSqlCommand(unionSql, DbUtil.CountMessage);
+            int totalCount = 0;
+            Dictionary<string, List<object>> resultDict = new Dictionary<string, List<object>>();
+            foreach (XYD_DB_Message_Count entity in countRecords)
+            {
+                totalCount += entity.MessageCount;
+                List<object> list = new List<object>();
+                if (resultDict.ContainsKey(entity.FolderName))
+                {
+                    list = resultDict[entity.FolderName];
+
+                }
+                else
+                {
+                    list = new List<object>();
+                }
+                list.Add(entity);
+                resultDict[entity.FolderName] = list;
+            }
+            var resultList = resultDict.Select(n => new { Area = n.Key, Value = n.Value }).ToList();
             return new JsonNetResult(new
             {
-                TotalCount = totalRecouds
+                TotalCount = totalCount,
+                Data = resultList
             });
         }
         #endregion
@@ -500,46 +529,55 @@ namespace XYD.Controllers
                 {
                     StringBuilder sql = new StringBuilder();
                     sql.Append(string.Format(@"SELECT
-                                     b.DocumentTitle,
-                                     CONVERT(varchar(100), b.ClosedOrHairTime, 20) as ClosedOrHairTime,
-                                     b.MessageId,
-                                     b.WorkFlowId,
-                                     --流程类型
-                                     a.MessageTitle,
-                                     --环节
-                                     c.NodeName AS MyTask,
-                                     CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime
-                                     FROM WKF_Message a
-                                    INNER JOIN {0} b
-                                    ON a.MessageID = b.MessageId
-                                    INNER JOIN WKF_MessageHandle c
-                                    ON a.MessageID = c.MessageID
-                                    WHERE a.MessageStatus != 2
-                                    AND c.HandleStatus != 0
-                                    and a.MessageStatus not in (0, 3)
-                                    and a.MessageIssuedBy = '{1}'", tableName, emplId));
-                    var groupInfo = string.Format(@" GROUP BY a.MessageID, a.MessageCreateTime,
-                                     b.DocumentTitle,
-                                     b.ClosedOrHairTime,b.MessageId,
-                                     b.WorkFlowId,
-									--流程类型
-                                     a.MessageTitle,
-                                     --环节
-                                     c.NodeName,
-                                     a.MessageCreateTime ");
-                    sql.Append(groupInfo);
+	                                                b.WorkFlowId,
+	                                                COUNT ( b.WorkFlowId ) AS MessageCount,
+	                                                a.MessageTitle,
+	                                                f.FolderName 
+                                                FROM
+	                                                WKF_Message a
+	                                                INNER JOIN {0} b ON a.MessageID = b.MessageId
+	                                                INNER JOIN WKF_MessageHandle c ON a.MessageID = c.MessageID
+	                                                INNER JOIN WKF_MessageFolder e ON b.WorkFlowId = e.MessageID
+	                                                INNER JOIN WKF_Folder f ON f.FolderID = e.FolderID 
+                                                WHERE
+	                                                a.MessageStatus != 2 
+	                                                AND c.HandleStatus != 0 
+	                                                AND a.MessageStatus NOT IN ( 0, 3 ) 
+	                                                AND a.MessageIssuedBy = '{1}' 
+                                                GROUP BY
+	                                                b.WorkFlowId,
+	                                                a.MessageTitle,
+	                                                f.FolderName", tableName, emplId));
                     // 将SQL语句添加进列表
                     statements.Add(sql);
                 }
             }
             // 获得Union语句
             var unionSql = string.Join(" UNION ", statements);
-            var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.CreateTime DESC) number, t.* from ({0}) t", unionSql);
-            // 总数
-            int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+            var countRecords = DbUtil.ExecuteSqlCommand(unionSql, DbUtil.CountMessage);
+            int totalCount = 0;
+            Dictionary<string, List<object>> resultDict = new Dictionary<string, List<object>>();
+            foreach (XYD_DB_Message_Count entity in countRecords)
+            {
+                totalCount += entity.MessageCount;
+                List<object> list = new List<object>();
+                if (resultDict.ContainsKey(entity.FolderName))
+                {
+                    list = resultDict[entity.FolderName];
+
+                }
+                else
+                {
+                    list = new List<object>();
+                }
+                list.Add(entity);
+                resultDict[entity.FolderName] = list;
+            }
+            var resultList = resultDict.Select(n => new { Area = n.Key, Value = n.Value }).ToList();
             return new JsonNetResult(new
             {
-                TotalCount = totalRecouds
+                TotalCount = totalCount,
+                Data = resultList
             });
         }
         #endregion
@@ -725,32 +763,53 @@ namespace XYD.Controllers
                 foreach (var tableName in tableList)
                 {
                     StringBuilder sql = new StringBuilder();
-                    sql.Append(string.Format(@"SELECT 
-                                     b.DocumentTitle,
-                                     CONVERT(varchar(100), b.ClosedOrHairTime, 20) AS ClosedOrHairTime,
-                                     b.MessageId,
-                                     b.WorkFlowId,
-                                     --流程类型
-                                     a.MessageTitle,
-                                     CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime,
-                                     CONVERT(varchar(100), a.MessageFinishTime, 20) AS FinishTime
-                                     FROM WKF_Message a
-                                    INNER JOIN {0} b
-                                    ON a.MessageID = b.MessageId
-                                    WHERE a.MessageStatus = 2
-                                    and a.MessageIssuedBy = '{1}'", tableName, emplId));
+                    sql.Append(string.Format(@"SELECT
+	                                                b.WorkFlowId,
+	                                                COUNT ( b.WorkFlowId ) AS MessageCount,
+	                                                a.MessageTitle,
+	                                                f.FolderName 
+                                                FROM
+	                                                WKF_Message a
+	                                                INNER JOIN {0} b ON a.MessageID = b.MessageId
+	                                                INNER JOIN WKF_MessageFolder e ON b.WorkFlowId = e.MessageID
+	                                                INNER JOIN WKF_Folder f ON f.FolderID = e.FolderID 
+                                                WHERE
+	                                                a.MessageStatus = 2 
+	                                                AND a.MessageIssuedBy = '{1}' 
+                                                GROUP BY
+	                                                b.WorkFlowId,
+	                                                a.MessageTitle,
+	                                                f.FolderName", tableName, emplId));
                     // 将SQL语句添加进列表
                     statements.Add(sql);
                 }
             }
             // 获得Union语句
             var unionSql = string.Join(" UNION ", statements);
-            var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.CreateTime DESC) number, t.* from ({0}) t", unionSql);
-            // 总数
-            int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+            var countRecords = DbUtil.ExecuteSqlCommand(unionSql, DbUtil.CountMessage);
+            int totalCount = 0;
+            Dictionary<string, List<object>> resultDict = new Dictionary<string, List<object>>();
+            foreach (XYD_DB_Message_Count entity in countRecords)
+            {
+                totalCount += entity.MessageCount;
+                List<object> list = new List<object>();
+                if (resultDict.ContainsKey(entity.FolderName))
+                {
+                    list = resultDict[entity.FolderName];
+
+                }
+                else
+                {
+                    list = new List<object>();
+                }
+                list.Add(entity);
+                resultDict[entity.FolderName] = list;
+            }
+            var resultList = resultDict.Select(n => new { Area = n.Key, Value = n.Value }).ToList();
             return new JsonNetResult(new
             {
-                TotalCount = totalRecouds
+                TotalCount = totalCount,
+                Data = resultList
             });
         }
         #endregion
@@ -1069,34 +1128,54 @@ namespace XYD.Controllers
                 foreach (var tableName in tableList)
                 {
                     StringBuilder sql = new StringBuilder();
-                    sql.Append(string.Format(@"SELECT 
-                                    b.DocumentTitle,
-                                    CONVERT(varchar(100), b.ClosedOrHairTime, 20) AS ClosedOrHairTime,
-                                    b.MessageId,
-                                    b.WorkFlowId,
-                                    --流程类型
-                                    a.MessageTitle,
-                                    CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime,
-                                    CONVERT(varchar(100), a.MessageFinishTime, 20) AS FinishTime
-                                     FROM WKF_Message a
-                                    INNER JOIN {0} b
-                                    ON a.MessageID = b.MessageId
-                                    WHERE a.MessageStatus = 0
-                                    and a.MessageIssuedBy = '{1}' 
-                                    and a.MessageType = 'file'", tableName, emplId));
+                    sql.Append(string.Format(@"SELECT
+	                                                b.WorkFlowId,
+	                                                COUNT ( b.WorkFlowId ) AS MessageCount,
+	                                                a.MessageTitle,
+	                                                f.FolderName 
+                                                FROM
+	                                                WKF_Message a
+	                                                INNER JOIN {0} b ON a.MessageID = b.MessageId
+	                                                INNER JOIN WKF_MessageFolder e ON b.WorkFlowId = e.MessageID
+	                                                INNER JOIN WKF_Folder f ON f.FolderID = e.FolderID 
+                                                WHERE
+	                                                a.MessageStatus = 0 
+	                                                AND a.MessageIssuedBy = '{1}' 
+	                                                AND a.MessageType = 'file' 
+                                                GROUP BY
+	                                                b.WorkFlowId,
+	                                                a.MessageTitle,
+	                                                f.FolderName", tableName, emplId));
                     // 将SQL语句添加进列表
                     statements.Add(sql);
                 }
             }
             // 获得Union语句
-            // 获得Union语句
             var unionSql = string.Join(" UNION ", statements);
-            var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.CreateTime DESC) number, t.* from ({0}) t", unionSql);
-            // 总数
-            int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+            var countRecords = DbUtil.ExecuteSqlCommand(unionSql, DbUtil.CountMessage);
+            int totalCount = 0;
+            Dictionary<string, List<object>> resultDict = new Dictionary<string, List<object>>();
+            foreach (XYD_DB_Message_Count entity in countRecords)
+            {
+                totalCount += entity.MessageCount;
+                List<object> list = new List<object>();
+                if (resultDict.ContainsKey(entity.FolderName))
+                {
+                    list = resultDict[entity.FolderName];
+
+                }
+                else
+                {
+                    list = new List<object>();
+                }
+                list.Add(entity);
+                resultDict[entity.FolderName] = list;
+            }
+            var resultList = resultDict.Select(n => new { Area = n.Key, Value = n.Value }).ToList();
             return new JsonNetResult(new
             {
-                TotalCount = totalRecouds
+                TotalCount = totalCount,
+                Data = resultList
             });
         }
         #endregion

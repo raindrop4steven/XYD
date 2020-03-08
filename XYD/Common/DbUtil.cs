@@ -753,5 +753,31 @@ namespace XYD.Common
             return ResultList;
         }
         #endregion
+
+
+        /// <summary>
+        /// 查找流程数量
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static List<object> CountMessage(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                string WorkflowId = reader.GetString(0);
+                int MessageCount = reader.GetInt32(1);
+                string MessageTitle = reader.GetString(2);
+                string FolderName = reader.GetString(3);
+                ResultList.Add(new XYD_DB_Message_Count
+                {
+                    WorkflowId = WorkflowId,
+                    MessageCount = MessageCount,
+                    MessageTitle = MessageTitle,
+                    FolderName = FolderName
+                });
+            }
+            return ResultList;
+        }
     }
 }
