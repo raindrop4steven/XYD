@@ -215,9 +215,14 @@ namespace XYD.Controllers
                 var message = mgr.GetMessage(mid);
                 Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
                 Worksheet worksheet = doc.Worksheet;
-                if (node == DEP_Constants.Start_Node_Key)
+                Node currentNode = mgr.GetNode(mid, node);
+                if (currentNode.NodeType == DEP_Constants.NODE_TYPE_START)
                 {
                     operate = DEP_Constants.Audit_Operate_Type_Start;
+                }
+                else if (currentNode.NodeType == DEP_Constants.NODE_TYPE_END)
+                {
+                    operate = DEP_Constants.Audit_Operate_Type_End;
                 }
                 else
                 {
@@ -230,7 +235,7 @@ namespace XYD.Controllers
                     opinion = worksheet.GetWorkcell(auditNode.Opinion.Row, auditNode.Opinion.Col).WorkcellValue;
                 }
 
-                WorkflowUtil.AddWorkflowHistory(user, mid, operate, opinion);
+                WorkflowUtil.AddWorkflowHistory(user, currentNode.NodeName, mid, operate, opinion);
                 return ResponseUtil.OK("添加处理记录成功");
             }
             catch (Exception e)
@@ -418,25 +423,6 @@ namespace XYD.Controllers
                 {
                     fields = fields,
                     handle = handle,
-                    history = history
-                });
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
-        }
-        #endregion
-
-        #region 网页端处理记录
-        public ActionResult ShowHistory(string mid)
-        {
-            try
-            {
-                WorkflowService wkfService = new WorkflowService();
-                var history = wkfService.GetWorkflowHistory(mid);
-                return ResponseUtil.OK(new
-                {
                     history = history
                 });
             }
@@ -700,6 +686,34 @@ namespace XYD.Controllers
                 return ResponseUtil.OK(new
                 {
                     isCEO = isCEO
+                });
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 网页端流程处理记录
+        public ActionResult ShowHistory(string mid)
+        {
+            try
+            {
+                var sql = string.Format(@"SELECT
+	                                            a.NodeName,
+	                                            b.EmplName,
+	                                            a.Operation,
+	                                            a.Opinion,
+	                                            a.CreateTime
+                                            FROM
+	                                            XYD_Audit_Record a
+	                                            INNER JOIN ORG_Employee b ON a.EmplID = b.EmplID
+                                            WHERE a.MessageID = '{0}'", mid);
+                var results = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetHistory);
+                return ResponseUtil.OK(new
+                {
+                    history = results
                 });
             }
             catch (Exception e)

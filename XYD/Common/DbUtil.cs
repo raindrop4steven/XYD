@@ -717,6 +717,24 @@ namespace XYD.Common
             }
             return ResultList;
         }
+
+        public static List<object> GetHistory(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+
+            while (reader.Read())
+            {
+                ResultList.Add(new
+                {
+                    NodeName = reader.GetString(0),
+                    EmplName = reader.GetString(1),
+                    Operation = reader.GetString(2),
+                    Opinion = reader.GetString(3),
+                    CreateTime = reader.GetDateTime(4)
+                });
+            }
+            return ResultList;
+        }
         #endregion
 
         #region 根据用户排序获得用户列表

@@ -257,6 +257,10 @@
     <Compile Include="Migrations\202003060844023_添加用户基本信息.Designer.cs">
       <DependentUpon>202003060844023_添加用户基本信息.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003081539503_add node name in audit record.cs" />
+    <Compile Include="Migrations\202003081539503_add node name in audit record.Designer.cs">
+      <DependentUpon>202003081539503_add node name in audit record.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -617,6 +621,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003060844023_添加用户基本信息.resx">
       <DependentUpon>202003060844023_添加用户基本信息.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003081539503_add node name in audit record.resx">
+      <DependentUpon>202003081539503_add node name in audit record.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

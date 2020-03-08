@@ -298,6 +298,8 @@ namespace XYD.Models
         // ID
         [Key]
         public int ID { get; set; }
+        // 节点
+        public string NodeName { get; set; }
         // 签批人
         public string EmplID { get; set; }
         // 申请ID

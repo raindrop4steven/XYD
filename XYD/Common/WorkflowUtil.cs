@@ -1104,12 +1104,13 @@ namespace XYD.Common
         #endregion
 
         #region 记录流程操作记录
-        public static void AddWorkflowHistory(string EmplID, string MessageID, string Operation, string Opinion)
+        public static void AddWorkflowHistory(string EmplID, string NodeName, string MessageID, string Operation, string Opinion)
         {
             using (var db = new DefaultConnection())
             {
                 var history = new XYD_Audit_Record();
                 history.EmplID = EmplID;
+                history.NodeName = NodeName;
                 history.MessageID = MessageID;
                 history.Operation = Operation;
                 history.Opinion = Opinion;

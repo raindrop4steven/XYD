@@ -26,6 +26,7 @@ namespace XYD.Common
         public static string Audit_Operate_Type_Agree = "同意";
         public static string Audit_Operate_Type_Disagree = "驳回";
         public static string Audit_Operate_Type_Start = "发起申请";
+        public static string Audit_Operate_Type_End = "结束";
 
         /*
          * 资产状态:Available-可申领；Used-已申领；Scraped-已报废；
@@ -128,5 +129,18 @@ namespace XYD.Common
         public static string Config_Type_Audit = "audit";
         public static string Config_Type_Start = "start";
         public static string Config_Type_Event = "event";
+
+        /**
+         * 节点类型
+         */
+        // 发起节点
+        public static int NODE_TYPE_START = 1;
+        public static int NODE_TYPE_NORMAL = 2;
+        public static int NODE_TYPE_AUTO = 3;
+        // 结束节点
+        public static int NODE_TYPE_END = 4;
+        public static int NODE_TYPE_READ = 5;
+        public static int NODE_TYPE_MAIN_NORMAL = 6;
+        public static int NODE_TYPE_SUB = 9;
     }
 }
