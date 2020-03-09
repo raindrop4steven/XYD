@@ -552,6 +552,22 @@
     <Content Include="Content\config\8245bf5f-cb2d-4bd6-8a52-1d47f7b74e85\1\audit.json" />
     <Content Include="Content\config\8245bf5f-cb2d-4bd6-8a52-1d47f7b74e85\1\main.json" />
     <Content Include="Content\config\8245bf5f-cb2d-4bd6-8a52-1d47f7b74e85\1\start.json" />
+    <Content Include="Content\config\84f434ac-4626-4748-b294-fe94b16b953c\1\app-transformer.json" />
+    <Content Include="Content\config\84f434ac-4626-4748-b294-fe94b16b953c\1\audit.json" />
+    <Content Include="Content\config\84f434ac-4626-4748-b294-fe94b16b953c\1\main.json" />
+    <Content Include="Content\config\84f434ac-4626-4748-b294-fe94b16b953c\1\start.json" />
+    <Content Include="Content\config\6f094ce0-f6ca-4afa-bc8f-28683b7335b7\1\app-transformer.json" />
+    <Content Include="Content\config\6f094ce0-f6ca-4afa-bc8f-28683b7335b7\1\audit.json" />
+    <Content Include="Content\config\6f094ce0-f6ca-4afa-bc8f-28683b7335b7\1\main.json" />
+    <Content Include="Content\config\6f094ce0-f6ca-4afa-bc8f-28683b7335b7\1\start.json" />
+    <Content Include="Content\config\06d9b887-ca03-4042-8202-2aafaeaa3634\1\app-transformer.json" />
+    <Content Include="Content\config\06d9b887-ca03-4042-8202-2aafaeaa3634\1\audit.json" />
+    <Content Include="Content\config\06d9b887-ca03-4042-8202-2aafaeaa3634\1\main.json" />
+    <Content Include="Content\config\06d9b887-ca03-4042-8202-2aafaeaa3634\1\start.json" />
+    <Content Include="Content\config\57180696-98ee-4605-9bad-00b1e071d252\1\app-transformer.json" />
+    <Content Include="Content\config\57180696-98ee-4605-9bad-00b1e071d252\1\audit.json" />
+    <Content Include="Content\config\57180696-98ee-4605-9bad-00b1e071d252\1\main.json" />
+    <Content Include="Content\config\57180696-98ee-4605-9bad-00b1e071d252\1\start.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

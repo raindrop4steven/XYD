@@ -2,7 +2,7 @@
     "versions": [
         {
             "WorkflowId": "06d9b887-ca03-4042-8202-2aafaeaa3634",
-            "Version": "0"
+            "Version": "1"
         },
         {
             "WorkflowId": "08d301b1-9344-4e4f-a983-c020ffd95e06",
@@ -50,7 +50,7 @@
         },
         {
             "WorkflowId": "6f094ce0-f6ca-4afa-bc8f-28683b7335b7",
-            "Version": "0"
+            "Version": "1"
         },
         {
             "WorkflowId": "7388148a-8260-48fc-8c16-3c5a018411e7",
@@ -70,7 +70,7 @@
         },
         {
             "WorkflowId": "84f434ac-4626-4748-b294-fe94b16b953c",
-            "Version": "0"
+            "Version": "1"
         },
         {
             "WorkflowId": "953da5bc-9e34-4c75-ab8f-95ef2244f0d2",

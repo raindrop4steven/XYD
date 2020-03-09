@@ -3,33 +3,33 @@
         {
             "NodeID": "NODE0002",
             "Operate": {
-                "Row": 18,
+                "Row": 12,
                 "Col": 7
             },
             "Opinion": {
-                "Row": 18,
+                "Row": 12,
                 "Col": 9
             }
         },
         {
             "NodeID": "NODE0003",
             "Operate": {
-                "Row": 19,
+                "Row": 13,
                 "Col": 7
             },
             "Opinion": {
-                "Row": 19,
+                "Row": 13,
                 "Col": 9
             }
         },
         {
             "NodeID": "NODE0004",
             "Operate": {
-                "Row": 20,
+                "Row": 14,
                 "Col": 7
             },
             "Opinion": {
-                "Row": 20,
+                "Row": 14,
                 "Col": 9
             }
         }
