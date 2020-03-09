@@ -730,7 +730,7 @@ namespace XYD.Common
                     EmplName = reader.GetString(1),
                     Operation = reader.GetString(2),
                     Opinion = reader.GetString(3),
-                    CreateTime = reader.GetDateTime(4)
+                    CreateTime = reader.GetDateTime(4) == null ? string.Empty : reader.GetDateTime(4).ToString("yyyy-MM-dd HH:mm:ss")
                 });
             }
             return ResultList;
