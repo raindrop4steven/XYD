@@ -517,6 +517,10 @@
                 $scope.onSearch();
             }
         }
+        // 更新活跃工作流模版
+        $scope.updateActiveWorkflow = function () {
+            $scope.pageConfig.activeWorkflow = $scope.pageSearch.WorkFlowId;
+        }
 
         function init() {
             $scope.titleObj = {
