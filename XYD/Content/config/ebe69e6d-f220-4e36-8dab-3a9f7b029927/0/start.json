@@ -1,0 +1,564 @@
+﻿{
+    "Fields": [
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "部门",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 5,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请人",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 5,
+                "Col": 9,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 5,
+                "Col": 13,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 3,
+            "Header": [ "费用类别", "所属部门", "所属人员", "金额", "备注"],
+            "Array": [
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 1,
+                        "Options": [ ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属部门",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属人员",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 5,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 7,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 1,
+                        "Options": [ ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属部门",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属人员",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 5,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 7,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 1,
+                        "Options": [ ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属部门",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属人员",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 5,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 7,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 1,
+                        "Options": [ ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属部门",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属人员",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 5,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 7,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 1,
+                        "Options": [ ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属部门",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属人员",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 5,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 7,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 1,
+                        "Options": [ ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属部门",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属人员",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 5,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 7,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "费用类别",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 1,
+                        "Options": [ ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属部门",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "所属人员",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 5,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "金额",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 7,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ]
+            ]
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "费用合计",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 14,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "大写金额",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 15,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 7,
+                    "Col": 7
+                },
+                {
+                    "Row": 8,
+                    "Col": 7
+                },
+                {
+                    "Row": 9,
+                    "Col": 7
+                },
+                {
+                    "Row": 10,
+                    "Col": 7
+                },
+                {
+                    "Row": 11,
+                    "Col": 7
+                },
+                {
+                    "Row": 12,
+                    "Col": 7
+                },
+                {
+                    "Row": 13,
+                    "Col": 7
+                }
+            ],
+            "Dest": {
+                "Row": 14,
+                "Col": 3
+            },
+            "Operation": "sum",
+            "Type": "int"
+        }
+    ]
+}
