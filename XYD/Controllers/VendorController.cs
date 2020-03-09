@@ -75,10 +75,10 @@ namespace XYD.Controllers
             {
                 using (var db = new DefaultConnection())
                 {
-                    var vendor = db.Vendor.Where(n => n.Code == model.Code).FirstOrDefault();
+                    var vendor = db.Vendor.Where(n => n.Code == model.Code || n.Name == model.Name).FirstOrDefault();
                     if (vendor != null)
                     {
-                        return ResponseUtil.Error("不能与现有供应商代码重复");
+                        return ResponseUtil.Error("不能与现有供应商重复");
                     }
                     db.Vendor.Add(model);
                     db.SaveChanges();
