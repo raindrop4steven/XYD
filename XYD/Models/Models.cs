@@ -364,6 +364,8 @@ namespace XYD.Models
         public string EmplID { get; set; }
         // 申请人姓名
         public string EmplName { get; set; }
+        // 部门ID
+        public string DeptID { get; set; }
         // 所属部门
         public string DeptName { get; set; }
         // 申请类别
@@ -374,6 +376,8 @@ namespace XYD.Models
         public DateTime PaybackTime { get; set; }
         // 申请日期
         public DateTime CreateTime { get; set; }
+        // 状态
+        public string Status { get; set; }
     }
     #endregion
 

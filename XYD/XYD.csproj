@@ -266,6 +266,10 @@
     <Compile Include="Migrations\202003090606323_add backup money.Designer.cs">
       <DependentUpon>202003090606323_add backup money.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003091329599_add backup money deptId, status.cs" />
+    <Compile Include="Migrations\202003091329599_add backup money deptId, status.Designer.cs">
+      <DependentUpon>202003091329599_add backup money deptId, status.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -315,6 +319,7 @@
     <Content Include="Content\workflowScript\物品采购费用报销.js" />
     <Content Include="Content\workflowScript\其他现金支付报销.js" />
     <Content Include="Content\workflowScript\车辆费用报销.js" />
+    <Content Include="Content\workflowScript\代付费用报销.js" />
     <Content Include="Content\workflowScript\通用.js" />
     <Content Include="Content\workflows\付款申请.png" />
     <Content Include="Content\workflows\会议室.png" />
@@ -568,6 +573,14 @@
     <Content Include="Content\config\57180696-98ee-4605-9bad-00b1e071d252\1\audit.json" />
     <Content Include="Content\config\57180696-98ee-4605-9bad-00b1e071d252\1\main.json" />
     <Content Include="Content\config\57180696-98ee-4605-9bad-00b1e071d252\1\start.json" />
+    <Content Include="Content\config\44255ef4-4997-460a-a66f-00686e3cd1f3\0\app-transformer.json" />
+    <Content Include="Content\config\44255ef4-4997-460a-a66f-00686e3cd1f3\0\audit.json" />
+    <Content Include="Content\config\44255ef4-4997-460a-a66f-00686e3cd1f3\0\main.json" />
+    <Content Include="Content\config\44255ef4-4997-460a-a66f-00686e3cd1f3\0\start.json" />
+    <Content Include="Content\config\ebe69e6d-f220-4e36-8dab-3a9f7b029927\0\app-transformer.json" />
+    <Content Include="Content\config\ebe69e6d-f220-4e36-8dab-3a9f7b029927\0\audit.json" />
+    <Content Include="Content\config\ebe69e6d-f220-4e36-8dab-3a9f7b029927\0\main.json" />
+    <Content Include="Content\config\ebe69e6d-f220-4e36-8dab-3a9f7b029927\0\start.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -649,6 +662,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003090606323_add backup money.resx">
       <DependentUpon>202003090606323_add backup money.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003091329599_add backup money deptId, status.resx">
+      <DependentUpon>202003091329599_add backup money deptId, status.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

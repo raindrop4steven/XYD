@@ -142,5 +142,15 @@ namespace XYD.Common
         public static int NODE_TYPE_READ = 5;
         public static int NODE_TYPE_MAIN_NORMAL = 6;
         public static int NODE_TYPE_SUB = 9;
+
+        /**
+         * 备用金状态
+         */
+        // 未还款
+        public static string MONEY_WAIT_PAY = "0";
+        // 已还款
+        public static string MONEY_REPAY = "1";
+        // 已逾期
+        public static string MONEY_DELAYED = "2";
     }
 }

@@ -139,17 +139,17 @@ namespace XYD.Controllers
                     new
                     {
                         key = DEP_Constants.Asset_Status_Available,
-                        value = DEP_Constants.Asset_Status_Available
+                        value = "可申领"
                     },
                     new
                     {
                         key = DEP_Constants.Asset_Status_Used,
-                        value = DEP_Constants.Asset_Status_Used
+                        value = "已申领"
                     },
                     new
                     {
                         key = DEP_Constants.Asset_Status_Scraped,
-                        value = DEP_Constants.Asset_Status_Scraped
+                        value = "已报废"
                     }
                 };
                 return ResponseUtil.OK(statusList);
