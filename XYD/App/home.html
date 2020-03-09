@@ -3,19 +3,22 @@
         <div>
             <h3>我的审批</h3>
             <ul>
-                <li ng-class="{'selected' : pageConfig.activeNav === 'needDo'}"><a ng-click="onChangeTemplate('needDo')">待处理审批（{{wkfPendingMessage.TotalCount}}）</a>
-                    <ul ng-show ="showConfig.needDo" ng-repeat="item in wkfPendingMessage.Data">
-                        <li>{{item.Area}}
+                <li ng-class="{'selected' : pageConfig.activeNav === 'needDo'}">
+                    <a ng-click="onChangeTemplate('needDo')"><i ng-show="showConfig.needDo" class="fa fa-angle-down" aria-hidden="true"></i><i ng-show="!showConfig.needDo" class="fa fa-angle-right" aria-hidden="true"></i>待处理审批（{{wkfPendingMessage.TotalCount}}）</a>
+                    <ul ng-show="showConfig.needDo" ng-repeat="item in wkfPendingMessage.Data">
+                        <li>
+                            <span>{{item.Area}}</span>
                             <ul ng-repeat="subItem in item.Value">
                                 <li ng-class="{'selected' : pageConfig.activeNav === 'needDo' && pageConfig.activeWorkflow === subItem.WorkflowId}"><a ng-click="onChangeWorkflow('needDo', subItem.WorkflowId)">{{subItem.MessageTitle}}({{subItem.MessageCount}})</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li ng-class="{'selected' : pageConfig.activeNav === 'iDone'}"><a ng-click="onChangeTemplate('iDone')">已处理审批（{{wkfDealWithMessage.TotalCount}}）</a>
+                <li ng-class="{'selected' : pageConfig.activeNav === 'iDone'}">
+                    <a ng-click="onChangeTemplate('iDone')"><i ng-show="showConfig.iDone" class="fa fa-angle-down" aria-hidden="true"></i><i ng-show="!showConfig.iDone" class="fa fa-angle-right" aria-hidden="true"></i>已处理审批（{{wkfDealWithMessage.TotalCount}}）</a>
                     <ul ng-show="showConfig.iDone" ng-repeat="item in wkfDealWithMessage.Data">
                         <li>
-                            {{item.Area}}
+                            <span>{{item.Area}}</span>
                             <ul ng-repeat="subItem in item.Value">
                                 <li ng-class="{'selected' : pageConfig.activeNav === 'iDone' && pageConfig.activeWorkflow === subItem.WorkflowId}"><a ng-click="onChangeWorkflow('iDone', subItem.WorkflowId)">{{subItem.MessageTitle}}({{subItem.MessageCount}})</a></li>
                             </ul>
@@ -27,30 +30,33 @@
         <div>
             <h3>我的申请</h3>
             <ul>
-                <li ng-class="{'selected' : pageConfig.activeNav === 'mineDoing'}"><a ng-click="onChangeTemplate('mineDoing')">我的待批申请（{{wkfNoCompleteMessage.TotalCount}}）</a>
+                <li ng-class="{'selected' : pageConfig.activeNav === 'mineDoing'}">
+                    <a ng-click="onChangeTemplate('mineDoing')"><i ng-show="showConfig.mineDoing" class="fa fa-angle-down" aria-hidden="true"></i><i ng-show="!showConfig.mineDoing" class="fa fa-angle-right" aria-hidden="true"></i>我的待批申请（{{wkfNoCompleteMessage.TotalCount}}）</a>
                     <ul ng-show="showConfig.mineDoing" ng-repeat="item in wkfNoCompleteMessage.Data">
                         <li>
-                            {{item.Area}}
+                            <span>{{item.Area}}</span>
                             <ul ng-repeat="subItem in item.Value">
                                 <li ng-class="{'selected' : pageConfig.activeNav === 'mineDoing' && pageConfig.activeWorkflow === subItem.WorkflowId}"><a ng-click="onChangeWorkflow('mineDoing', subItem.WorkflowId)">{{subItem.MessageTitle}}({{subItem.MessageCount}})</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li ng-class="{'selected' : pageConfig.activeNav === 'mineDone'}"><a ng-click="onChangeTemplate('mineDone')">我的已批申请（{{wkfCompleteMessage.TotalCount}}）</a>
+                <li ng-class="{'selected' : pageConfig.activeNav === 'mineDone'}">
+                    <a ng-click="onChangeTemplate('mineDone')"><i ng-show="showConfig.mineDone" class="fa fa-angle-down" aria-hidden="true"></i><i ng-show="!showConfig.mineDone" class="fa fa-angle-right" aria-hidden="true"></i>我的已批申请（{{wkfCompleteMessage.TotalCount}}）</a>
                     <ul ng-show="showConfig.mineDone" ng-repeat="item in wkfCompleteMessage.Data">
                         <li>
-                            {{item.Area}}
+                            <span>{{item.Area}}</span>
                             <ul ng-repeat="subItem in item.Value">
                                 <li ng-class="{'selected' : pageConfig.activeNav === 'mineDone' && pageConfig.activeWorkflow === subItem.WorkflowId}"><a ng-click="onChangeWorkflow('mineDone', subItem.WorkflowId)">{{subItem.MessageTitle}}({{subItem.MessageCount}})</a></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-                <li ng-class="{'selected' : pageConfig.activeNav === 'mineDraft'}"><a ng-click="onChangeTemplate('mineDraft')">我的草稿（{{wkfDraftMessage.TotalCount}}）</a>
+                <li ng-class="{'selected' : pageConfig.activeNav === 'mineDraft'}">
+                    <a ng-click="onChangeTemplate('mineDraft')"><i ng-show="showConfig.mineDraft" class="fa fa-angle-down" aria-hidden="true"></i><i ng-show="!showConfig.mineDraft" class="fa fa-angle-right" aria-hidden="true"></i>我的草稿（{{wkfDraftMessage.TotalCount}}）</a>
                     <ul ng-show="showConfig.mineDraft" ng-repeat="item in wkfDraftMessage.Data">
                         <li>
-                            {{item.Area}}
+                            <span>{{item.Area}}</span>
                             <ul ng-repeat="subItem in item.Value">
                                 <li ng-class="{'selected' : pageConfig.activeNav === 'mineDraft' && pageConfig.activeWorkflow === subItem.WorkflowId}"><a ng-click="onChangeWorkflow('mineDraft', subItem.WorkflowId)">{{subItem.MessageTitle}}({{subItem.MessageCount}})</a></li>
                             </ul>
@@ -73,7 +79,7 @@
                 <div class="form-inline">
                     <div class="form-group">
                         <label for="title">申请标题：</label>
-                        <input type="text" class="form-control form-control-sm large" id="title" ng-model="pageSearch.Title" ng-keyup="enterEvent($event)">
+                        <input type="text" class="form-control form-control-sm middle" id="title" ng-model="pageSearch.Title" ng-keyup="enterEvent($event)">
                     </div>
                     <div class="form-group">
                         <label for="sfwrq">申请日期：</label>

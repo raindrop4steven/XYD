@@ -215,6 +215,7 @@
     <Compile Include="Common\XYDCellJsonConverter.cs" />
     <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\AwardController.cs" />
+    <Compile Include="Controllers\BackupMoneyController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
@@ -260,6 +261,10 @@
     <Compile Include="Migrations\202003081539503_add node name in audit record.cs" />
     <Compile Include="Migrations\202003081539503_add node name in audit record.Designer.cs">
       <DependentUpon>202003081539503_add node name in audit record.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003090606323_add backup money.cs" />
+    <Compile Include="Migrations\202003090606323_add backup money.Designer.cs">
+      <DependentUpon>202003090606323_add backup money.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -575,6 +580,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Asset\" />
     <Folder Include="Views\Award\" />
+    <Folder Include="Views\BackupMoney\" />
     <Folder Include="Views\Banner\" />
     <Folder Include="Views\Common\" />
     <Folder Include="Views\Contact\" />
@@ -624,6 +630,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003081539503_add node name in audit record.resx">
       <DependentUpon>202003081539503_add node name in audit record.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003090606323_add backup money.resx">
+      <DependentUpon>202003090606323_add backup money.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

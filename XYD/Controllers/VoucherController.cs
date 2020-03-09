@@ -99,12 +99,12 @@ namespace XYD.Controllers
 
                 // 获取开始月份第一天，结束月份最后一天
                 BeginDate = new DateTime(BeginDate.Year, BeginDate.Month, 1);
-                EndDate = BeginDate.AddMonths(1).AddDays(-1);
+                EndDate = EndDate.AddMonths(1).AddDays(-1);
                 // 记录列表
                 EndDate = CommonUtils.EndOfDay(EndDate);
                 using (var db = new DefaultConnection())
                 {
-                    var list = db.Voucher.Where(n => n.CreateTime > BeginDate.Date && n.CreateTime <= EndDate).ToList();
+                    var list = db.Voucher.Where(n => n.CreateTime > BeginDate.Date && n.CreateTime <= EndDate).OrderBy(n => n.CreateTime).ToList();
                     for (int i = 0; i < list.Count; i++)
                     {
                         var record = list.ElementAt(i);
@@ -196,10 +196,14 @@ namespace XYD.Controllers
         {
             try
             {
+                // 获取开始月份第一天，结束月份最后一天
+                BeginDate = new DateTime(BeginDate.Year, BeginDate.Month, 1);
+                EndDate = EndDate.AddMonths(1).AddDays(-1);
+                // 记录列表
                 EndDate = CommonUtils.EndOfDay(EndDate);
                 using (var db = new DefaultConnection())
                 {
-                    var list = db.Voucher.Where(n => n.CreateTime >= BeginDate.Date && n.CreateTime <= EndDate).ToList();
+                    var list = db.Voucher.Where(n => n.CreateTime >= BeginDate.Date && n.CreateTime <= EndDate).OrderByDescending(n => n.CreateTime ).ToList();
                     var totalCount = list.Count();
                     var results = list.Skip(Page * Size).Take(Size);
                     var totalPage = (int)Math.Ceiling((float)totalCount / Size);

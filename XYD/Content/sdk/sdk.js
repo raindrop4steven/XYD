@@ -22,6 +22,7 @@ function AddCustomCss() {
 function SetReadonlyCells(cells) {
     cells.forEach(function (item) {
         $(item).css("background", "#fbfddf");
+        $(item).data("control", 0);
     });
 }
 
@@ -881,4 +882,38 @@ function OpinionChanged(row, col) {
             SaveCellValue($(opinionCellId), "");
         }
     }
+}
+
+// 根据备用金时间长短，自动选择类型
+function BackMoneyChange(sourceId, destID) {
+    var type = $(sourceId).text();
+    if (type == '长期备用') {
+        var lastDayOfYear = GetLastDayOfYear();
+        SetReadonlyCells([destID]);
+        SaveCellValue($(destID), lastDayOfYear);
+    } else {
+        SetWriteCells([destID]);
+        SaveCellValue($(destID), "");
+    }
+}
+
+// 获得当前年最后一天
+function GetLastDayOfYear() {
+    var lastDate = new Date(new Date().getFullYear(), 11, 31);
+    return formatDate(lastDate);
+}
+
+// 格式化日期
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
 }

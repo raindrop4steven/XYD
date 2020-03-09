@@ -387,6 +387,36 @@
             "mineDraft": false
         }
 
+        $scope.ResetShowConfig = function ResetShowConfig(navId) {
+            if (navId == 'needDo') {
+                $scope.showConfig['iDone'] = false;
+                $scope.showConfig['mineDoing'] = false;
+                $scope.showConfig['mineDone'] = false;
+                $scope.showConfig['mineDraft'] = false;
+            } else if (navId == 'iDone') {
+                $scope.showConfig['needDo'] = false;
+                $scope.showConfig['mineDoing'] = false;
+                $scope.showConfig['mineDone'] = false;
+                $scope.showConfig['mineDraft'] = false;
+            } else if (navId == 'mineDoing') {
+                $scope.showConfig['needDo'] = false;
+                $scope.showConfig['iDone'] = false;
+                $scope.showConfig['mineDone'] = false;
+                $scope.showConfig['mineDraft'] = false;
+            } else if (navId == 'mineDone') {
+                $scope.showConfig['needDo'] = false;
+                $scope.showConfig['iDone'] = false;
+                $scope.showConfig['mineDoing'] = false;
+                $scope.showConfig['mineDraft'] = false;
+            } else {
+                $scope.showConfig['needDo'] = false;
+                $scope.showConfig['iDone'] = false;
+                $scope.showConfig['mineDoing'] = false;
+                $scope.showConfig['mineDone'] = false;
+            }
+            
+        }
+
         $scope.url = 'GetPendingInfo';
         var activeTab = window.location.href.split('#/')[1] || '';
 
@@ -451,6 +481,7 @@
         }
         //导航条切换效果
         $scope.onChangeTemplate = function onChangeTemplate(navId) {
+            $scope.ResetShowConfig(navId);
             $scope.showConfig[navId] = !$scope.showConfig[navId];
             $scope.pageConfig.activeNav = navId;
             $scope.pageConfig.activeWorkflow = '';

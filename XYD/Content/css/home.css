@@ -70,12 +70,22 @@
 }
 
 .home-page .wkf-nav-left ul li.selected {
-    background-color: #31b0d5 !important;
+    /*background-color: #31b0d5 !important;*/
     border-radius: 5px;
 }
 
 .home-page .wkf-nav-left ul li.selected a {
     /*color: #fff !important;*/
+}
+
+.home-page .wkf-nav-left ul li a i{
+    font-size: 16px;
+    padding: 2px 4px;
+}
+
+.home-page .wkf-nav-left ul li span{
+    font-size: 10px;
+    color: #5d5f61;
 }
 
 /*.home-page .wkf-nav-left ul li:hover {

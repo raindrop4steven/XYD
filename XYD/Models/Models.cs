@@ -352,6 +352,31 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 备用金
+    public class XYD_BackupMoney
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 流程ID
+        public string MessageID { get; set; }
+        // 申请人
+        public string EmplID { get; set; }
+        // 申请人姓名
+        public string EmplName { get; set; }
+        // 所属部门
+        public string DeptName { get; set; }
+        // 申请类别
+        public string Type { get; set; }
+        // 申请金额
+        public decimal Amount { get; set; }
+        // 还款时间
+        public DateTime PaybackTime { get; set; }
+        // 申请日期
+        public DateTime CreateTime { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -375,6 +400,7 @@ namespace XYD.Models
         public DbSet<XYD_Audit_Record> Audit_Record { get; set; }
         public DbSet<XYD_Vendor> Vendor { get; set; }
         public DbSet<XYD_Voucher> Voucher { get; set; }
+        public DbSet<XYD_BackupMoney> BackupMoney { get; set; }
     }
     #endregion
 }
