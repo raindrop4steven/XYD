@@ -711,7 +711,7 @@ namespace XYD.Common
         }
         #endregion
 
-        #region 根据用户获得可使用的工作流模版
+        #region 根据用户运行权限获得可使用的工作流模版
         public static List<Message> GetTemplatesByUser(string name)
         {
             List<Message> TemplateList = new List<Message>();
@@ -737,6 +737,28 @@ namespace XYD.Common
                 }
             }
             return TemplateList;
+        }
+        #endregion
+
+        #region 根据用户view权限获得工作流模版
+        public static object GetViewTemplatesByUser(string name)
+        {
+            List<Message> TemplateList = new List<Message>();
+
+            List<Folder> folder1 = mgr.FindFolder("", (Dictionary<string, object>)null, "FolderName");
+            for (int index = folder1.Count - 1; index >= 0; --index)
+            {
+                if (!orgMgr.VerifyPermission(folder1[index].FolderID, name, "user", "view"))
+                    folder1.RemoveAt(index);
+            }
+            Dictionary<string, List<Message>> resultDict = new Dictionary<string, List<Message>>();
+            foreach (Folder folder2 in folder1)
+            {
+                List<Message> templates = mgr.FindTemplates(folder2.FolderID, "", true, "MessageTitle");
+                resultDict[folder2.FolderName] = templates;
+            }
+            var resultList = resultDict.Select(n => new { Area = n.Key, Value = n.Value.Select(m => new { ID = m.MessageID, Title = m.MessageTitle}).ToList() }).ToList();
+            return resultList;
         }
         #endregion
 

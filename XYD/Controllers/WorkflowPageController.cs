@@ -1429,27 +1429,15 @@ namespace XYD.Controllers
             /*
              * 变量定义
              */
-            // 公文表列表
-            var resultList = new List<object>();
-
             // 当前用户
             var emplId = (User.Identity as Appkiz.Library.Security.Authentication.AppkizIdentity).Employee.EmplID;
 
             /*
              * 根据用户获得该用户部门对应的公文
              */
-            var templateList = WorkflowUtil.GetTemplatesByUser(User.Identity.Name);
+            var templateList = WorkflowUtil.GetViewTemplatesByUser(User.Identity.Name);
 
-            foreach(var message in templateList)
-            {
-                resultList.Add(new
-                {
-                    ID = message.MessageID,
-                    Title = message.MessageTypeKey
-                });
-            }
-
-            return ResponseUtil.OK(resultList);
+            return ResponseUtil.OK(templateList);
         }
         #endregion
 

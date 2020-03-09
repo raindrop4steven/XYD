@@ -91,7 +91,9 @@
                         <label for="wkfType">审批类型：</label>
                         <select class="form-control form-control-sm" id="wkfType" ng-model="pageSearch.WorkFlowId" ng-change="updateActiveWorkflow()">
                             <option value="">全选</option>
-                            <option ng-repeat="item in wkfDefaultTempList" value="{{item.ID}}">{{item.Title}}</option>
+                            <optgroup ng-repeat="item in wkfDefaultTempList" label="{{item.Area}}">
+                                <option ng-repeat="subItem in item.Value" value="{{subItem.ID}}">{{subItem.Title}}</option>
+                            </optgroup>
                         </select>
                     </div>
                     <div class="form-group" ng-show="pageConfig.activeNav === 'needDo' || pageConfig.activeNav === 'iDone'">
