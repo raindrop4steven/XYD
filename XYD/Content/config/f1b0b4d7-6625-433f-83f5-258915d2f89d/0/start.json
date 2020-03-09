@@ -1,0 +1,103 @@
+﻿{
+    "Fields": [
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请人",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "所属部门",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 7,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请时间",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 11,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请类别",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": false,
+                "Row": 5,
+                "Col": 3,
+                "Options": [
+                    {
+                        "Value": "长期备用",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "临时备用",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "还款时间",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": false,
+                "Row": 5,
+                "Col": 9,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请事由",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 7,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        }
+    ]
+}

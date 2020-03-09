@@ -581,6 +581,14 @@
     <Content Include="Content\config\ebe69e6d-f220-4e36-8dab-3a9f7b029927\0\audit.json" />
     <Content Include="Content\config\ebe69e6d-f220-4e36-8dab-3a9f7b029927\0\main.json" />
     <Content Include="Content\config\ebe69e6d-f220-4e36-8dab-3a9f7b029927\0\start.json" />
+    <Content Include="Content\config\15fa22ad-6e10-469d-bdb8-4a52dbc29ed4\0\app-transformer.json" />
+    <Content Include="Content\config\15fa22ad-6e10-469d-bdb8-4a52dbc29ed4\0\audit.json" />
+    <Content Include="Content\config\15fa22ad-6e10-469d-bdb8-4a52dbc29ed4\0\main.json" />
+    <Content Include="Content\config\15fa22ad-6e10-469d-bdb8-4a52dbc29ed4\0\start.json" />
+    <Content Include="Content\config\f1b0b4d7-6625-433f-83f5-258915d2f89d\0\app-transformer.json" />
+    <Content Include="Content\config\f1b0b4d7-6625-433f-83f5-258915d2f89d\0\audit.json" />
+    <Content Include="Content\config\f1b0b4d7-6625-433f-83f5-258915d2f89d\0\main.json" />
+    <Content Include="Content\config\f1b0b4d7-6625-433f-83f5-258915d2f89d\0\start.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
