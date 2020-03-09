@@ -722,5 +722,24 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 判断是否是无补贴人员
+        public ActionResult CheckNoAllowance()
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var noAllowanceUser = OrgUtil.CheckRole(employee.EmplID, "无补贴人员");
+                return ResponseUtil.OK(new
+                {
+                    shouldRemove = noAllowanceUser
+                });
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }

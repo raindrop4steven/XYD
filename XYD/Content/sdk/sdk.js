@@ -917,3 +917,24 @@ function formatDate(date) {
 
     return [year, month, day].join('-');
 }
+
+// 根据值移除数组中元素 removeA(arr, target)
+function removeA(arr) {
+    var what, a = arguments, L = a.length, ax;
+    while (L > 1 && arr.length) {
+        what = a[--L];
+        while ((ax = arr.indexOf(what)) !== -1) {
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
+}
+
+// 移除公式
+function RemoveFormula(CellId) {
+    worksheet_formula.forEach(function (item) {
+        if (item.startsWith(CellId)) {
+            removeA(worksheet_formula, item);
+        }
+    });
+}
