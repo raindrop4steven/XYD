@@ -4,15 +4,106 @@
             "WorkflowId": "2b16f8ca-fab9-460a-bdbc-0bfa15ad5c55",
             "Codes": [
                 {
-                    "Code": "660204",
-                    "Name": "汽杂费",
+                    "Code": "66020401",
+                    "Name": "汽油费",
                     "Subs": [
-                        "汽油费",
-                        "过桥费",
-                        "停车费",
-                        "维修费",
+                        "汽油费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020406",
+                    "Name": "过桥费",
+                    "Subs": [
+                        "过桥费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020407",
+                    "Name": "停车费",
+                    "Subs": [
+                        "停车费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020402",
+                    "Name": "维修费",
+                    "Subs": [
+                        "维修费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020408",
+                    "Name": "洗车",
+                    "Subs": [
+                        "洗车"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020410",
+                    "Name": "其他",
+                    "Subs": [
                         "其他"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 }
             ]
         },
@@ -20,15 +111,106 @@
             "WorkflowId": "c97fb2da-1507-4dd1-9d0b-ae28cfda7560",
             "Codes": [
                 {
-                    "Code": "660204",
-                    "Name": "汽杂费",
+                    "Code": "66020401",
+                    "Name": "汽油费",
                     "Subs": [
-                        "汽油费",
-                        "过桥费",
-                        "停车费",
-                        "维修费",
+                        "汽油费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020406",
+                    "Name": "过桥费",
+                    "Subs": [
+                        "过桥费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020407",
+                    "Name": "停车费",
+                    "Subs": [
+                        "停车费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020402",
+                    "Name": "维修费",
+                    "Subs": [
+                        "维修费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020408",
+                    "Name": "洗车",
+                    "Subs": [
+                        "洗车"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020410",
+                    "Name": "其他",
+                    "Subs": [
                         "其他"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 }
             ]
         },
@@ -46,7 +228,17 @@
                         "工作签证费",
                         "退票费",
                         "设备租赁费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 }
             ]
         },
@@ -64,7 +256,17 @@
                         "工作签证费",
                         "退票费",
                         "设备租赁费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 }
             ]
         },
@@ -90,7 +292,17 @@
                         "客户交通费",
                         "客户签证费",
                         "其他"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 }
             ]
         },
@@ -116,7 +328,17 @@
                         "客户交通费",
                         "客户签证费",
                         "其他"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 }
             ]
         },
@@ -129,7 +351,17 @@
                     "Subs": [
                         "文具用品",
                         "办公用品"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660208",
@@ -145,10 +377,20 @@
                         "五金工具",
                         "木制品",
                         "消防器材"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
-                    "Code": "",
+                    "Code": "660227",
                     "Name": "物料消耗",
                     "Subs": [
                         "电脑配件",
@@ -157,14 +399,34 @@
                         "清洁剂",
                         "日用品",
                         "印刷品"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
-                    "Code": "",
+                    "Code": "660228",
                     "Name": "劳保费",
                     "Subs": [
                         "劳保费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 }
             ]
         },
@@ -177,7 +439,17 @@
                     "Subs": [
                         "文具用品",
                         "办公用品"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660208",
@@ -193,10 +465,20 @@
                         "五金工具",
                         "木制品",
                         "消防器材"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
-                    "Code": "",
+                    "Code": "660227",
                     "Name": "物料消耗",
                     "Subs": [
                         "电脑配件",
@@ -205,14 +487,34 @@
                         "清洁剂",
                         "日用品",
                         "印刷品"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
-                    "Code": "",
+                    "Code": "660228",
                     "Name": "劳保费",
                     "Subs": [
                         "劳保费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 }
             ]
         },
@@ -224,15 +526,17 @@
                     "Name": "快递费",
                     "Subs": [
                         "快递费"
-                    ]
-                },
-                {
-                    "Code": "660205",
-                    "Name": "运杂费",
-                    "Subs": [
-                        "运输费",
-                        "搬运费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660102",
@@ -240,7 +544,17 @@
                     "Subs": [
                         "文印费",
                         "制作费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660202",
@@ -251,7 +565,17 @@
                         "装饰品",
                         "咨询费",
                         "培训费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660207",
@@ -259,7 +583,17 @@
                     "Subs": [
                         "电话费",
                         "宽带费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660209",
@@ -269,39 +603,153 @@
                         "电脑维修",
                         "打印机维修",
                         "安装费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
-                    "Code": "660217",
-                    "Name": "打样费",
+                    "Code": "66021701",
+                    "Name": "服装打样费",
                     "Subs": [
-                        "服装打样费",
-                        "面料放样费",
-                        "辅料打样费"
-                    ]
+                        "服装打样费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
-                    "Code": "660218",
+                    "Code": "66021702",
+                    "Name": "面料放样费",
+                    "Subs": [
+                        "面料放样费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66021703",
+                    "Name": "辅料打样费",
+                    "Subs": [
+                        "辅料打样费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "660229",
                     "Name": "样衣采购费用",
                     "Subs": [
                         "样衣采购费用"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
-                    "Code": "660225",
-                    "Name": "保险费",
+                    "Code": "66022501",
+                    "Name": "汽车保险",
                     "Subs": [
-                        "汽车保险",
-                        "财产保险",
-                        "雇员保险"
-                    ]
+                        "汽车保险"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66022502",
+                    "Name": "财产保险",
+                    "Subs": [
+                        "财产保险"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66022503",
+                    "Name": "其他",
+                    "Subs": [
+                        "其他"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660232",
                     "Name": "机构服务费",
                     "Subs": [
                         "服务费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660201",
@@ -310,14 +758,34 @@
                         "设备租赁费",
                         "工作签证费",
                         "市内交通费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660211",
                     "Name": "福利费",
                     "Subs": [
                         "福利费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 }
             ]
         },
@@ -329,15 +797,17 @@
                     "Name": "快递费",
                     "Subs": [
                         "快递费"
-                    ]
-                },
-                {
-                    "Code": "660205",
-                    "Name": "运杂费",
-                    "Subs": [
-                        "运输费",
-                        "搬运费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660102",
@@ -345,7 +815,17 @@
                     "Subs": [
                         "文印费",
                         "制作费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660202",
@@ -356,7 +836,17 @@
                         "装饰品",
                         "咨询费",
                         "培训费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660207",
@@ -364,7 +854,17 @@
                     "Subs": [
                         "电话费",
                         "宽带费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660209",
@@ -374,39 +874,153 @@
                         "电脑维修",
                         "打印机维修",
                         "安装费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
-                    "Code": "660217",
-                    "Name": "打样费",
+                    "Code": "66021701",
+                    "Name": "服装打样费",
                     "Subs": [
-                        "服装打样费",
-                        "面料放样费",
-                        "辅料打样费"
-                    ]
+                        "服装打样费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
-                    "Code": "660218",
+                    "Code": "66021702",
+                    "Name": "面料放样费",
+                    "Subs": [
+                        "面料放样费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66021703",
+                    "Name": "辅料打样费",
+                    "Subs": [
+                        "辅料打样费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "660229",
                     "Name": "样衣采购费用",
                     "Subs": [
                         "样衣采购费用"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
-                    "Code": "660225",
-                    "Name": "保险费",
+                    "Code": "66022501",
+                    "Name": "汽车保险",
                     "Subs": [
-                        "汽车保险",
-                        "财产保险",
-                        "雇员保险"
-                    ]
+                        "汽车保险"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66022502",
+                    "Name": "财产保险",
+                    "Subs": [
+                        "财产保险"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66022503",
+                    "Name": "其他",
+                    "Subs": [
+                        "其他"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660232",
                     "Name": "机构服务费",
                     "Subs": [
                         "服务费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660201",
@@ -415,14 +1029,34 @@
                         "设备租赁费",
                         "工作签证费",
                         "市内交通费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660211",
                     "Name": "福利费",
                     "Subs": [
                         "福利费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 }
             ]
         },
@@ -430,15 +1064,106 @@
             "WorkflowId": "44255ef4-4997-460a-a66f-00686e3cd1f3",
             "Codes": [
                 {
-                    "Code": "660204",
-                    "Name": "汽杂费",
+                    "Code": "66020401",
+                    "Name": "汽油费",
                     "Subs": [
-                        "汽油费",
-                        "过桥费",
-                        "停车费",
-                        "维修费",
+                        "汽油费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020406",
+                    "Name": "过桥费",
+                    "Subs": [
+                        "过桥费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020407",
+                    "Name": "停车费",
+                    "Subs": [
+                        "停车费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020402",
+                    "Name": "维修费",
+                    "Subs": [
+                        "维修费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020408",
+                    "Name": "洗车",
+                    "Subs": [
+                        "洗车"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020410",
+                    "Name": "其他",
+                    "Subs": [
                         "其他汽杂费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660201",
@@ -451,7 +1176,17 @@
                         "工作签证费",
                         "退票费",
                         "设备租赁费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660203",
@@ -472,7 +1207,17 @@
                         "客户交通费",
                         "客户签证费",
                         "其他接待费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 }
             ]
         },
@@ -480,15 +1225,106 @@
             "WorkflowId": "ebe69e6d-f220-4e36-8dab-3a9f7b029927",
             "Codes": [
                 {
-                    "Code": "660204",
-                    "Name": "汽杂费",
+                    "Code": "66020401",
+                    "Name": "汽油费",
                     "Subs": [
-                        "汽油费",
-                        "过桥费",
-                        "停车费",
-                        "维修费",
+                        "汽油费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020406",
+                    "Name": "过桥费",
+                    "Subs": [
+                        "过桥费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020407",
+                    "Name": "停车费",
+                    "Subs": [
+                        "停车费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020402",
+                    "Name": "维修费",
+                    "Subs": [
+                        "维修费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020408",
+                    "Name": "洗车",
+                    "Subs": [
+                        "洗车"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Code": "66020410",
+                    "Name": "其他",
+                    "Subs": [
                         "其他汽杂费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660201",
@@ -501,7 +1337,17 @@
                         "工作签证费",
                         "退票费",
                         "设备租赁费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 },
                 {
                     "Code": "660203",
@@ -522,7 +1368,17 @@
                         "客户交通费",
                         "客户签证费",
                         "其他接待费"
-                    ]
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
                 }
             ]
         }

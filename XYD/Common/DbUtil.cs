@@ -798,5 +798,25 @@ namespace XYD.Common
             }
             return ResultList;
         }
+
+        #region 获得用友数据
+        public static List<object> GetU8Person(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                string cPersonCode = reader.GetString(0);
+                string cPersonName = reader.GetString(1);
+                string cDepCode = reader.GetString(2);
+                ResultList.Add(new XYD_U8_Person
+                {
+                    cPersonCode = cPersonCode,
+                    cPersonName = cPersonName,
+                    cDepCode = cDepCode
+                });
+            }
+            return ResultList;
+        }
+        #endregion
     }
 }

@@ -484,11 +484,25 @@ namespace XYD.Entity
     #endregion
 
     #region XYD_科目分类
+    public class XYD_Debit
+    {
+        public bool EmplNo { get; set; }
+        public bool DeptNo { get; set; }
+        public bool CustomerNo { get; set; }
+        public bool VendorNo { get; set; }
+    }
+    public class XYD_Credit
+    {
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
     public class XYD_SubVoucherCode
     {
         public string Code { get; set; }
         public string Name { get; set; }
         public List<string> Subs { get; set; }
+        public XYD_Debit Debit { get; set; }
+        public XYD_Credit Credit { get; set; }
     }
     public class XYD_VoucherCode
     {

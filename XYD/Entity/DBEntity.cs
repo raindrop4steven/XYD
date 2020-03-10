@@ -23,4 +23,13 @@ namespace XYD.Entity
         public string FolderName { get; set; }
     }
     #endregion
+
+    #region U8 用户
+    public class XYD_U8_Person
+    {
+        public string cPersonCode { get; set; }
+        public string cPersonName { get; set; }
+        public string cDepCode { get; set; }
+    }
+    #endregion
 }

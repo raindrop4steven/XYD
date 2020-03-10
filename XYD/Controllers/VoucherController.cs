@@ -103,6 +103,9 @@ namespace XYD.Controllers
                 EndDate = EndDate.AddMonths(1).AddDays(-1);
                 // 记录列表
                 EndDate = CommonUtils.EndOfDay(EndDate);
+
+                // 获取U8用户字典
+                var u8PersonDict = OrgUtil.GetU8Person();
                 using (var db = new DefaultConnection())
                 {
                     var list = db.Voucher.Where(n => n.CreateTime > BeginDate.Date && n.CreateTime <= EndDate).OrderBy(n => n.CreateTime).ToList();
@@ -129,18 +132,26 @@ namespace XYD.Controllers
                         string voucher = string.Empty;
                         if (string.IsNullOrEmpty(record.Extras))
                         {
+                            XYD_SubVoucherCode subCode = WorkflowUtil.GetSubVoucherCode(record.MessageID, null);
+                            string DeptNo = string.Empty;
+                            if (subCode.Debit.DeptNo)
+                            {
+                                DeptNo = u8PersonDict[ApplyUser.EmplNO];
+                            }
                             // 科目已确定，一条借
-                            voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalAmount, 0, string.Empty, 0, string.Empty, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                            voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalAmount, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
                             Results.Add(voucher);
                             // 一条贷
-                            voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, 0, record.TotalAmount, string.Empty, 0, string.Empty, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                            voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
                             Results.Add(voucher);
                         }
                         else
                         {
                             // 科目未确定，多条借一条贷
                             Dictionary<string, double> voucherDict = new Dictionary<string, double>();
+                            Dictionary<string, XYD_SubVoucherCode> subVoucherCodeDict = new Dictionary<string, XYD_SubVoucherCode>();
                             var lineArray = record.Extras.Split(';').ToList();
+                            XYD_SubVoucherCode subCode = null;
                             foreach (var lineData in lineArray)
                             {
                                 var subLineArray = lineData.Split(',').ToList();
@@ -153,25 +164,32 @@ namespace XYD.Controllers
                                 var subTotal = subAmountArray.Where(n => !string.IsNullOrEmpty(n)).Sum(n => double.Parse(n));
                                 // 获得科目
                                 // 科目
-                                XYD_SubVoucherCode subCode = WorkflowUtil.GetSubVoucherCode(record.MessageID, subLineName);
+                                subCode = WorkflowUtil.GetSubVoucherCode(record.MessageID, subLineName);
                                 if (!voucherDict.Keys.Contains(subCode.Code))
                                 {
                                     voucherDict[subCode.Code] = subTotal;
+                                    subVoucherCodeDict[subCode.Code] = subCode;
                                 }
                                 else
                                 {
-                                    voucherDict[subCode.Code] += subTotal; 
+                                    voucherDict[subCode.Code] += subTotal;
                                 }
                             }
                             // 多条借
                             foreach (var item in voucherDict)
                             {
-                                // 科目已确定，一条借
-                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, item.Key, item.Value, 0, string.Empty, 0, string.Empty, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                                subCode = subVoucherCodeDict[item.Key];
+                                string DeptNo = string.Empty;
+                                if (subCode.Debit.DeptNo)
+                                {
+                                    DeptNo = u8PersonDict[ApplyUser.EmplNO];
+                                }
+                                brief = string.Format("{0} {1} 付 {2} {3}", CreateTime, Sn, subCode.Name, ApplyUser.EmplName);
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, item.Key, item.Value, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
                                 Results.Add(voucher);
                             }
                             // 一条贷
-                            voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, 0, record.TotalAmount, string.Empty, 0, string.Empty, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                            voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
                             Results.Add(voucher);
                         }
                     }
@@ -182,7 +200,27 @@ namespace XYD.Controllers
                     {
                         sb.AppendLine(data);
                     }
-                    return File(Encoding.Default.GetBytes(sb.ToString()), "text/plain", "Voucher.txt");
+                    var voucherTempPath = System.Configuration.ConfigurationManager.AppSettings["VoucherTempPath"];
+                    var fileName = DiskUtil.GetFinalFileName("凭证.txt");
+                    var filePath = Path.Combine(voucherTempPath, fileName);
+                    using (var sw = new StreamWriter(filePath, true))
+                    {
+                        sw.Write(sb.ToString());
+                    }
+                    FileInfo fileInfo = new FileInfo(filePath);
+                    Response.Clear();
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.AddHeader("Content-Disposition", "attachment;filename=凭证.txt");
+                    Response.AddHeader("Content-Length", fileInfo.Length.ToString());
+                    Response.AddHeader("Content-Transfer-Encoding", "binary");
+                    Response.ContentType = "application/octet-stream";
+                    Response.ContentEncoding = Encoding.Default;
+                    Response.WriteFile(filePath);
+                    Response.Flush();
+                    HttpContext.ApplicationInstance.CompleteRequest();
+
+                    return ResponseUtil.OK("导出成功");
                 }
             }
             catch (Exception e)
