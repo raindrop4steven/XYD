@@ -203,7 +203,7 @@ namespace XYD.Controllers
                     var voucherTempPath = System.Configuration.ConfigurationManager.AppSettings["VoucherTempPath"];
                     var fileName = DiskUtil.GetFinalFileName("凭证.txt");
                     var filePath = Path.Combine(voucherTempPath, fileName);
-                    using (var sw = new StreamWriter(filePath, true))
+                    using (var sw = new StreamWriter(filePath, true, Encoding.Default))
                     {
                         sw.Write(sb.ToString());
                     }
