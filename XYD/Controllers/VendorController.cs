@@ -75,11 +75,24 @@ namespace XYD.Controllers
             {
                 using (var db = new DefaultConnection())
                 {
-                    var vendor = db.Vendor.Where(n => n.Code == model.Code || n.Name == model.Name).FirstOrDefault();
+                    var newNumber = string.Empty;
+                    // 获得最大的番号
+                    var maxCode = db.Vendor.OrderByDescending(n => n.Code).FirstOrDefault();
+                    if (maxCode == null)
+                    {
+                        newNumber = 0.ToString("D5");
+                    }
+                    else
+                    {
+                        var maxNumber = int.Parse(maxCode.Code.Substring(5, 5));
+                        newNumber = (maxNumber + 1).ToString("D5");
+                    }
+                    var vendor = db.Vendor.Where(n => n.Name == model.Name).FirstOrDefault();
                     if (vendor != null)
                     {
                         return ResponseUtil.Error("不能与现有供应商重复");
                     }
+                    model.Code = string.Format("OAGYS{0}", newNumber);
                     db.Vendor.Add(model);
                     db.SaveChanges();
                     return ResponseUtil.OK("添加成功");
@@ -105,7 +118,6 @@ namespace XYD.Controllers
                     {
                         return ResponseUtil.Error("供应商不存在");
                     }
-                    vendor.Code = model.Code;
                     vendor.Name = model.Name;
                     db.SaveChanges();
                     return ResponseUtil.OK("更新成功");
