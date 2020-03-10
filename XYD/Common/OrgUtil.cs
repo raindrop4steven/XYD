@@ -48,5 +48,21 @@ namespace XYD.Common
             return u8PersonDict;
         }
         #endregion
+
+        #region 获得U8用户
+        public static List<XYD_U8_Person> GetU8Users()
+        {
+            var u8PersonDict = new Dictionary<string, string>();
+            var sql = @"SELECT cPersonCode, cPersonName, cDepCode from Person";
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
+            var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetU8Person);
+            List<XYD_U8_Person> persons = new List<XYD_U8_Person>();
+            foreach(XYD_U8_Person person in result)
+            {
+                persons.Add(person);
+            }
+            return persons;
+        }
+        #endregion
     }
 }

@@ -270,6 +270,14 @@
     <Compile Include="Migrations\202003091329599_add backup money deptId, status.Designer.cs">
       <DependentUpon>202003091329599_add backup money deptId, status.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003101247110_add dept relation.cs" />
+    <Compile Include="Migrations\202003101247110_add dept relation.Designer.cs">
+      <DependentUpon>202003101247110_add dept relation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003101248574_rm dept relation.cs" />
+    <Compile Include="Migrations\202003101248574_rm dept relation.Designer.cs">
+      <DependentUpon>202003101248574_rm dept relation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -673,6 +681,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003091329599_add backup money deptId, status.resx">
       <DependentUpon>202003091329599_add backup money deptId, status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003101247110_add dept relation.resx">
+      <DependentUpon>202003101247110_add dept relation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003101248574_rm dept relation.resx">
+      <DependentUpon>202003101248574_rm dept relation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -3,6 +3,7 @@ using Appkiz.Library.Security.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using XYD.Common;
@@ -340,6 +341,51 @@ namespace XYD.Controllers
                     info.DoorNo = userInfo.DoorNo;
                     db.SaveChanges();
                     return ResponseUtil.OK("用户信息修改成功");
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region OA用户同步到U8
+        public ActionResult SyncPerson()
+        {
+            try
+            {
+                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
+                var U8Persons = OrgUtil.GetU8Users();
+                var personCodes = U8Persons.Select(n => string.Format("'{0}'", n.cPersonCode)).ToList();
+                var inString = string.Join(",", personCodes);
+                var sql = string.Format(@"SELECT
+	                                            a.EmplNO AS cPersonCode,
+	                                            a.EmplName AS cPersonName,
+	                                            b.DeptDescr AS cDepCode 
+                                            FROM
+	                                            ORG_Employee a
+	                                            INNER JOIN ORG_Department b ON a.DeptID = b.DeptID 
+                                            WHERE
+	                                            a.EmplNO != '' 
+	                                            AND a.EmplNO NOT IN ( {0});", inString);
+                var personList = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetU8Person);
+                var insertSqlList = new StringBuilder();
+                foreach(XYD_U8_Person person in personList)
+                {
+                    string insertSql = string.Format(@"INSERT INTO Person (cPersonCode, cPersonName, cDepCode) VALUES ('{0}', '{1}', '{2}');", person.cPersonCode, person.cPersonName, person.cDepCode);
+                    insertSqlList.Append(insertSql);
+                }
+                // 检查是否有更新
+                var batchSql = insertSqlList.ToString();
+                if (!string.IsNullOrEmpty(batchSql))
+                {
+                    DbUtil.ExecuteSqlCommand(connectionString, batchSql);
+                    return ResponseUtil.OK("同步成功");
+                }
+                else
+                {
+                    return ResponseUtil.OK("记录已是最新，无需同步");
                 }
             }
             catch (Exception e)
