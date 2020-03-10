@@ -9,6 +9,7 @@ using XYD.Common;
 using XYD.Models;
 using XYD.Entity;
 using System.Text;
+using System.IO;
 
 namespace XYD.Controllers
 {
@@ -123,7 +124,7 @@ namespace XYD.Controllers
                         // 制单人
                         var User = orgMgr.GetEmployee(record.User);
                         // 摘要
-                        var brief = string.Format("{0} {1} 付 {2} {3}", CreateTime, Sn, VoucherName, User.EmplName);
+                        var brief = string.Format("{0} {1} 付 {2} {3}", CreateTime, Sn, VoucherName, ApplyUser.EmplName);
 
                         string voucher = string.Empty;
                         if (string.IsNullOrEmpty(record.Extras))
@@ -181,7 +182,7 @@ namespace XYD.Controllers
                     {
                         sb.AppendLine(data);
                     }
-                    return File(new UTF8Encoding().GetBytes(sb.ToString()), "text/plain", "Voucher.txt");
+                    return File(Encoding.Default.GetBytes(sb.ToString()), "text/plain", "Voucher.txt");
                 }
             }
             catch (Exception e)
