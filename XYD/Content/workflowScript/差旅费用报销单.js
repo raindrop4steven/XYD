@@ -37,7 +37,6 @@ function main() {
     onSaveDraft();
     if (nid === 'NODE0001') {
         RenderPage(MessageID);
-        RemoveAllowanceIfNeed();
     }
 }
 
@@ -53,19 +52,6 @@ function RenderPage(MessageID) {
                 GetSerialSn(MessageID);
             }
             SetReadonlyCells(['#C-5-3', '#C-7-13', '#C-8-3', '#C-9-3', '#C-18-3', '#C-18-9', '#C-18-12', '#C-19-3', '#C-18-14']);
-        }
-    })
-}
-
-function RemoveAllowanceIfNeed() {
-    $.ajax({
-        type: "GET",
-        url: "/Apps/XYD/Workflow/CheckNoAllowance",
-        success: function (data) {
-            shouldRemove = data.Data.shouldRemove;
-            if (shouldRemove) {
-                RemoveFormula("N18");
-            }
         }
     })
 }
