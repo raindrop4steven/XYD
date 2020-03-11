@@ -368,6 +368,7 @@ namespace XYD.Controllers
 	                                            INNER JOIN ORG_Department b ON a.DeptID = b.DeptID 
                                             WHERE
 	                                            a.EmplNO != '' 
+                                                AND a.EmplEnabled = 1
 	                                            AND a.EmplNO NOT IN ( {0});", inString);
                 var personList = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetU8Person);
                 var insertSqlList = new StringBuilder();
