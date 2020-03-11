@@ -741,5 +741,34 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 移除表单中公式
+        public ActionResult RemoveFormula(string mid, string user, string role, string formula)
+        {
+            try
+            {
+                var shouldRemove = OrgUtil.CheckRole(user, role);
+                if (shouldRemove)
+                {
+                    var message = mgr.GetMessage(mid);
+                    Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+                    Worksheet worksheet = doc.Worksheet;
+                    var oldDocument = worksheet.Document.Replace(formula, "");
+                    worksheet.Document = oldDocument;
+                    sheetMgr.UpdateWorksheet(worksheet);
+                    return ResponseUtil.OK("移除公式成功");
+                }
+                else
+                {
+                    return ResponseUtil.OK("无需移除公式");
+                }
+                
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }
