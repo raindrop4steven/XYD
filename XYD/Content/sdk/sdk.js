@@ -946,3 +946,28 @@ function RemoveFormula(CellId) {
 function AlphaToNumber(str) {
     return str.charCodeAt(0) - 65 + 1;
 }
+
+// 行级清空
+function ClearLine(cellId) {
+    $(cellId).prevAll().each(function (index) {
+        var id = $(this).attr("id");
+        if (id != undefined && id.length > 0 && id.startsWith("C")) {
+            var text = $(this).text();
+            if (text != undefined && text.length > 0) {
+                SaveCellValue($(this), "");
+            }
+        }
+    })
+}
+
+// 添加按钮，在CellId后面
+function AddClearButton(posCellId) {
+    var clearBtn = document.createElement('BUTTON');
+    clearBtn.id = posCellId.substring(1, posCellId.length) + "clearBtn";
+    clearBtn.onclick = function () {
+        ClearLine("#"+clearBtn.id);
+    };
+    clearBtn.style = 'height:20;position:absolute;right:' + 20 + ';border:none;outline:none;padding:3px 12px;font-size:14px; background: url(/Apps/Workflow/images/drop.png) no-repeat right center;';
+
+    $(posCellId).after(clearBtn);
+}
