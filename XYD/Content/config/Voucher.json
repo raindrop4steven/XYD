@@ -586,7 +586,7 @@
                     ],
                     "Debit": {
                         "EmplNo": true,
-                        "DeptNo": false,
+                        "DeptNo": true,
                         "CustomerNo": false,
                         "VendorNo": false
                     },
@@ -616,60 +616,12 @@
                     }
                 },
                 {
-                    "Code": "66021701",
-                    "Name": "服装打样费",
-                    "Subs": [
-                        "服装打样费"
-                    ],
-                    "Debit": {
-                        "EmplNo": true,
-                        "DeptNo": false,
-                        "CustomerNo": false,
-                        "VendorNo": false
-                    },
-                    "Credit": {
-                        "Code": "10020101",
-                        "Name": "现金银行科目"
-                    }
-                },
-                {
-                    "Code": "66021702",
-                    "Name": "面料放样费",
-                    "Subs": [
-                        "面料放样费"
-                    ],
-                    "Debit": {
-                        "EmplNo": true,
-                        "DeptNo": false,
-                        "CustomerNo": false,
-                        "VendorNo": false
-                    },
-                    "Credit": {
-                        "Code": "10020101",
-                        "Name": "现金银行科目"
-                    }
-                },
-                {
-                    "Code": "66021703",
-                    "Name": "辅料打样费",
-                    "Subs": [
-                        "辅料打样费"
-                    ],
-                    "Debit": {
-                        "EmplNo": true,
-                        "DeptNo": false,
-                        "CustomerNo": false,
-                        "VendorNo": false
-                    },
-                    "Credit": {
-                        "Code": "10020101",
-                        "Name": "现金银行科目"
-                    }
-                },
-                {
                     "Code": "660229",
-                    "Name": "样衣采购费用",
+                    "Name": "个人样衣采购费用",
                     "Subs": [
+                        "服装打样费",
+                        "面料放样费",
+                        "辅料打样费",
                         "样衣采购费用"
                     ],
                     "Debit": {
@@ -857,7 +809,7 @@
                     ],
                     "Debit": {
                         "EmplNo": true,
-                        "DeptNo": false,
+                        "DeptNo": true,
                         "CustomerNo": false,
                         "VendorNo": false
                     },
@@ -887,60 +839,12 @@
                     }
                 },
                 {
-                    "Code": "66021701",
-                    "Name": "服装打样费",
-                    "Subs": [
-                        "服装打样费"
-                    ],
-                    "Debit": {
-                        "EmplNo": true,
-                        "DeptNo": false,
-                        "CustomerNo": false,
-                        "VendorNo": false
-                    },
-                    "Credit": {
-                        "Code": "10020101",
-                        "Name": "现金银行科目"
-                    }
-                },
-                {
-                    "Code": "66021702",
-                    "Name": "面料放样费",
-                    "Subs": [
-                        "面料放样费"
-                    ],
-                    "Debit": {
-                        "EmplNo": true,
-                        "DeptNo": false,
-                        "CustomerNo": false,
-                        "VendorNo": false
-                    },
-                    "Credit": {
-                        "Code": "10020101",
-                        "Name": "现金银行科目"
-                    }
-                },
-                {
-                    "Code": "66021703",
-                    "Name": "辅料打样费",
-                    "Subs": [
-                        "辅料打样费"
-                    ],
-                    "Debit": {
-                        "EmplNo": true,
-                        "DeptNo": false,
-                        "CustomerNo": false,
-                        "VendorNo": false
-                    },
-                    "Credit": {
-                        "Code": "10020101",
-                        "Name": "现金银行科目"
-                    }
-                },
-                {
                     "Code": "660229",
-                    "Name": "样衣采购费用",
+                    "Name": "个人样衣采购费用",
                     "Subs": [
+                        "服装打样费",
+                        "面料放样费",
+                        "辅料打样费",
                         "样衣采购费用"
                     ],
                     "Debit": {

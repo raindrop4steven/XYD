@@ -89,7 +89,7 @@ namespace XYD.Controllers
         /// <param name="BeginDate"></param>
         /// <param name="EndDate"></param>
         /// <returns></returns>
-        public ActionResult DownloadVoucher(DateTime BeginDate, DateTime EndDate)
+        public ActionResult DownloadVoucher(DateTime BeginDate)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace XYD.Controllers
 
                 // 获取开始月份第一天，结束月份最后一天
                 BeginDate = new DateTime(BeginDate.Year, BeginDate.Month, 1);
-                EndDate = EndDate.AddMonths(1).AddDays(-1);
+                var EndDate = BeginDate.AddMonths(1).AddDays(-1);
                 // 记录列表
                 EndDate = CommonUtils.EndOfDay(EndDate);
 
@@ -231,13 +231,13 @@ namespace XYD.Controllers
         #endregion
 
         #region 列表
-        public ActionResult List(DateTime BeginDate, DateTime EndDate, int Page, int Size)
+        public ActionResult List(DateTime BeginDate, int Page, int Size)
         {
             try
             {
                 // 获取开始月份第一天，结束月份最后一天
                 BeginDate = new DateTime(BeginDate.Year, BeginDate.Month, 1);
-                EndDate = EndDate.AddMonths(1).AddDays(-1);
+                var EndDate = BeginDate.AddMonths(1).AddDays(-1);
                 // 记录列表
                 EndDate = CommonUtils.EndOfDay(EndDate);
                 using (var db = new DefaultConnection())
