@@ -120,5 +120,16 @@ namespace XYD.Controllers
                 return ResponseUtil.OK(SubCode);
             }
         }
+
+        public ActionResult TestWeek(DateTime date)
+        {
+            var firstDay = CommonUtils.FirstDayOfWeek(date);
+            var lastDay = CommonUtils.LastDayOfWeek(date);
+            return ResponseUtil.OK(new
+            {
+                firstDay = firstDay,
+                lastDay = lastDay
+            });
+        }
     }
 }

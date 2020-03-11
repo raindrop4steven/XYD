@@ -13,8 +13,11 @@ function onSheetLoad() {
     });
 };
 function onSheetCheck() {
-    if (!isCEO) {
-        return CheckRequiredCells(['#C-5-3']);
+    var nid = getQueryString("nid");
+    if (nid === 'NODE0001') {
+        if (!isCEO) {
+            return CheckRequiredCells(['#C-5-3']);
+        }
     }
 };
 function onAnyCellUpdate(row, col) {

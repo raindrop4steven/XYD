@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -20,6 +21,26 @@ namespace XYD.Common
         public static DateTime EndOfDay(DateTime theDate)
         {
             return theDate.Date.AddDays(1).AddTicks(-1);
+        }
+        #endregion
+
+        #region 周里面第一天
+        public static DateTime FirstDayOfWeek(DateTime date)
+        {
+            CultureInfo ci = new CultureInfo("zh-Hans");
+            ci.DateTimeFormat.FirstDayOfWeek = DayOfWeek.Monday;
+            DayOfWeek fdow = ci.DateTimeFormat.FirstDayOfWeek;
+            int offset = fdow - date.DayOfWeek;
+            DateTime fdowDate = date.AddDays(offset);
+            return fdowDate;
+        }
+        #endregion
+
+        #region 周里面最后一天
+        public static DateTime LastDayOfWeek(DateTime date)
+        {
+            DateTime ldowDate = FirstDayOfWeek(date).AddDays(6);
+            return ldowDate;
         }
         #endregion
 

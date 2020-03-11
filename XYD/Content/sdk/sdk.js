@@ -937,4 +937,12 @@ function RemoveFormula(CellId) {
             removeA(worksheet_formula, item);
         }
     });
+    var Col = AlphaToNumber(CellId.substring(0, 1));
+    var Row = CellId.substring(1, CellId.length);
+    SaveCellValue($("#C-" + Row + "-" + Col), "");
+}
+
+// 字母转数字，1开始
+function AlphaToNumber(str) {
+    return str.charCodeAt(0) - 65 + 1;
 }
