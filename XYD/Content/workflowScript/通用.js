@@ -24,6 +24,10 @@ function main() {
     var MessageID = getQueryString("mid");
     // 保存草稿
     onSaveDraft();
+
+    if (nid === 'NODE0001') {
+        AddClearButtons(['#C-8-7', '#C-9-7', '#C-10-7', '#C-11-7', '#C-12-7', ])
+    }
 }
 
 /******************************************************************

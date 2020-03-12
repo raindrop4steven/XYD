@@ -954,6 +954,7 @@ function ClearLine(cellId) {
         if (id != undefined && id.length > 0 && id.startsWith("C")) {
             var text = $(this).text();
             if (text != undefined && text.length > 0) {
+                $(this).text('');
                 SaveCellValue($(this), "");
             }
         }
@@ -961,13 +962,19 @@ function ClearLine(cellId) {
 }
 
 // 添加按钮，在CellId后面
-function AddClearButton(posCellId) {
-    var clearBtn = document.createElement('BUTTON');
-    clearBtn.id = posCellId.substring(1, posCellId.length) + "clearBtn";
-    clearBtn.onclick = function () {
-        ClearLine("#"+clearBtn.id);
-    };
-    clearBtn.style = 'height:20;position:absolute;right:' + 20 + ';border:none;outline:none;padding:3px 12px;font-size:14px; background: url(/Apps/Workflow/images/drop.png) no-repeat right center;';
-
-    $(posCellId).after(clearBtn);
+function AddClearButtons(startRow, endRow, col) {
+    posCellIds = [];
+    for (var i = startRow; i <= endRow; i++) {
+        posCellIds.push('#C-' + i + '-' + col);
+    }
+    posCellIds.forEach(function (item) {
+        var clearBtn = document.createElement('BUTTON');
+        clearBtn.id = item.substring(1, item.length) + "clearBtn";
+        clearBtn.onclick = function () {
+            ClearLine("#" + clearBtn.id);
+        };
+        clearBtn.style = 'height:20;position:absolute;right:' + 20 + ';border:none;outline:none;padding:3px 12px;font-size:14px; no-repeat right center;';
+        clearBtn.innerHTML = '<i class="fa fa-trash-o"></i>';
+        $(item).after(clearBtn);
+    }); 
 }
