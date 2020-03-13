@@ -45,11 +45,10 @@ namespace XYD.Controllers
 
         #region 查询备用金
         [Authorize]
-        public ActionResult List(string DeptID, string Status, DateTime BeginTime, DateTime EndTime, int Page = 0, int Size = 10)
+        public ActionResult List(string DeptID, string Status, DateTime? BeginTime, DateTime? EndTime, int Page = 0, int Size = 10)
         {
             try
             {
-                EndTime = CommonUtils.EndOfDay(EndTime);
                 var db = new DefaultConnection();
                 var query = db.BackupMoney.Where(n => true);
                 if (!string.IsNullOrEmpty(DeptID))
@@ -60,7 +59,15 @@ namespace XYD.Controllers
                 {
                     query = query.Where(n => n.Status == Status);
                 }
-                query = query.Where(n => n.PaybackTime >= BeginTime.Date && n.PaybackTime <= EndTime);
+                if (BeginTime != null)
+                {
+                    query = query.Where(n => n.PaybackTime >= BeginTime.Value.Date);
+                }
+                if (EndTime != null)
+                {
+                    EndTime = CommonUtils.EndOfDay(EndTime.Value);
+                    query = query.Where(n => n.PaybackTime <= EndTime);
+                }
                 var dataQuery = query;
                 decimal sumQuery = query.ToList().Select(n => n.Amount).Sum();
                 int totalCount = query.Count();

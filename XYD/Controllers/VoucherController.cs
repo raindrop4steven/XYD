@@ -99,10 +99,13 @@ namespace XYD.Controllers
                 var Results = new List<string>();
 
                 // 获取开始月份第一天，结束月份最后一天
-                BeginDate = new DateTime(BeginDate.Year, BeginDate.Month, 1);
-                var EndDate = BeginDate.AddMonths(1).AddDays(-1);
+                //BeginDate = new DateTime(BeginDate.Year, BeginDate.Month, 1);
+                //var EndDate = BeginDate.AddMonths(1).AddDays(-1);
+                var monday = CommonUtils.FirstDayOfWeek(BeginDate);
+                var sunday = CommonUtils.LastDayOfWeek(BeginDate);
                 // 记录列表
-                EndDate = CommonUtils.EndOfDay(EndDate);
+                BeginDate = monday;
+                var EndDate = CommonUtils.EndOfDay(sunday);
 
                 // 获取U8用户字典
                 var u8PersonDict = OrgUtil.GetU8Person();
@@ -236,10 +239,15 @@ namespace XYD.Controllers
             try
             {
                 // 获取开始月份第一天，结束月份最后一天
-                BeginDate = new DateTime(BeginDate.Year, BeginDate.Month, 1);
-                var EndDate = BeginDate.AddMonths(1).AddDays(-1);
+                //BeginDate = new DateTime(BeginDate.Year, BeginDate.Month, 1);
+                //var EndDate = BeginDate.AddMonths(1).AddDays(-1);
+                //// 记录列表
+                //EndDate = CommonUtils.EndOfDay(EndDate);
+                var monday = CommonUtils.FirstDayOfWeek(BeginDate);
+                var sunday = CommonUtils.LastDayOfWeek(BeginDate);
                 // 记录列表
-                EndDate = CommonUtils.EndOfDay(EndDate);
+                BeginDate = monday;
+                var EndDate = CommonUtils.EndOfDay(sunday);
                 using (var db = new DefaultConnection())
                 {
                     var list = db.Voucher.Where(n => n.CreateTime >= BeginDate.Date && n.CreateTime <= EndDate).OrderByDescending(n => n.CreateTime ).ToList();
