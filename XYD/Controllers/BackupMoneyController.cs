@@ -140,11 +140,6 @@ namespace XYD.Controllers
                     {
                         key = DEP_Constants.MONEY_REPAY,
                         value = "已还款"
-                    },
-                    new
-                    {
-                        key = DEP_Constants.MONEY_DELAYED,
-                        value = "已延期"
                     }
                 };
                 return ResponseUtil.OK(statusList);
