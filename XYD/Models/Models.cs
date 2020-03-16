@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace XYD.Models
 {
@@ -381,6 +382,119 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 发票信息表
+    public class XYD_InvoiceInfo
+    {
+        // 发票代码
+        [Key, Column("invoiceDataCode", Order = 0)]
+        public string invoiceDataCode { get; set; }
+        // 发票号
+        [Key, Column("invoiceNumber", Order = 1)]
+        public string invoiceNumber { get; set; }
+        // 科目类别
+        public string voucherType { get; set; }
+        // 发票类型名称
+        public string invoiceTypeName { get; set; }
+        // 发票类型
+        public string invoiceTypeCode { get; set; }
+        // 开票时间
+        public string billingTime { get; set; }
+        // 校验码 
+        public string checkCode { get; set; }
+        // 机器码
+        public string taxDiskCode { get; set; }
+        // 购方名称
+        public string purchaserName { get; set; }
+        // 购方纳税人识别号
+        public string taxpayerNumber { get; set; }
+        // 购方银行账号
+        public string taxpayerBankAccount { get; set; }
+        // 购方地址/电话
+        public string taxpayerAddressOrId { get; set; }
+        // 销方名称
+        public string salesName { get; set; }
+        // 销方纳税人识别号
+        public string salesTaxpayerNum { get; set; }
+        // 销方银行账号
+        public string salesTaxpayerBankAccount { get; set; }
+        // 销方地址/电话
+        public string salesTaxpayerAddress { get; set; }
+        // 价税合计
+        public string totalTaxSum { get; set; }
+        // 税额
+        public string totalTaxNum { get; set; }
+        // 不含税价（金额）
+        public string totalAmount { get; set; }
+        // 备注
+        public string invoiceRemarks { get; set; }
+        // 是否为清单票
+        public string isBillMark { get; set; }
+        // 作废标志
+        public string voidMark { get; set; }
+        // 收货员
+        public string goodsClerk { get; set; }
+        // 收费标志
+        public string tollSign { get; set; }
+        // 收费标志名称
+        public string tollSignName { get; set; }
+        // 认证时间
+        public DateTime? authenticationTime { get; set; }
+        // 作成时间
+        public DateTime createdTime { get; set; }
+        // 作成者
+        public string createdBy { get; set; }
+        // 更新时间
+        public DateTime updatedTime { get; set; }
+        // 更新者
+        public string updatedBy { get; set; }
+    }
+    #endregion
+
+    #region 发票明细表
+    public class XYD_InvoiceDetail
+    {
+        // 发票代码
+        [Key, Column("invoiceDataCode", Order = 0)]
+        public string invoiceDataCode { get; set; }
+        // 发票号
+        [Key, Column("invoiceNumber", Order = 1)]
+        public string invoiceNumber { get; set; }
+        // 行号
+        [Key, Column("lineNum", Order = 2)]
+        public string lineNum { get; set; }
+        // 商品名称
+        public string goodserviceName { get; set; }
+        // 型号
+        public string model { get; set; }
+        // 单位
+        public string unit { get; set; }
+        // 数量
+        public string number { get; set; }
+        // 价格
+        public string price { get; set; }
+        // 金额
+        public string sum { get; set; }
+        // 税率
+        public string taxRate { get; set; }
+        // 税额
+        public string tax { get; set; }
+        // 是否为清单行
+        public string isBillLine { get; set; }
+        // 零税率标志字段
+        public string zeroTaxRateSign { get; set; }
+        // 零税率标志名称
+        public string zeroTaxRateSignName { get; set; }
+        // 作成时间
+        public DateTime createdTime { get; set; }
+        // 作成者
+        public string createdBy { get; set; }
+        // 更新时间
+        public DateTime updatedTime { get; set; }
+        // 更新者
+        public string updatedBy { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -405,6 +519,8 @@ namespace XYD.Models
         public DbSet<XYD_Vendor> Vendor { get; set; }
         public DbSet<XYD_Voucher> Voucher { get; set; }
         public DbSet<XYD_BackupMoney> BackupMoney { get; set; }
+        public DbSet<XYD_InvoiceInfo> InvoiceInfo { get; set; }
+        public DbSet<XYD_InvoiceDetail> InvoiceDetail { get; set; }
     }
     #endregion
 }

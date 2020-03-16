@@ -206,6 +206,7 @@
     <Compile Include="Common\DbUtil.cs" />
     <Compile Include="Common\DEP_Constants.cs" />
     <Compile Include="Common\DiskUtil.cs" />
+    <Compile Include="Common\InvoiceHelper.cs" />
     <Compile Include="Common\JsonNetResult.cs" />
     <Compile Include="Common\OrgUtil.cs" />
     <Compile Include="Common\PermUtil.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\MettingBookController.cs" />
     <Compile Include="Controllers\ResumeController.cs" />
@@ -277,6 +279,14 @@
     <Compile Include="Migrations\202003101248574_rm dept relation.cs" />
     <Compile Include="Migrations\202003101248574_rm dept relation.Designer.cs">
       <DependentUpon>202003101248574_rm dept relation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003160838443_add invoice.cs" />
+    <Compile Include="Migrations\202003160838443_add invoice.Designer.cs">
+      <DependentUpon>202003160838443_add invoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003161004508_add authentication time.cs" />
+    <Compile Include="Migrations\202003161004508_add authentication time.Designer.cs">
+      <DependentUpon>202003161004508_add authentication time.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -632,6 +642,7 @@
     <Folder Include="Views\Content\" />
     <Folder Include="Views\Education\" />
     <Folder Include="Views\Favorite\" />
+    <Folder Include="Views\Invoice\" />
     <Folder Include="Views\Leave\" />
     <Folder Include="Views\MettingBook\" />
     <Folder Include="Views\Resume\" />
@@ -687,6 +698,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003101248574_rm dept relation.resx">
       <DependentUpon>202003101248574_rm dept relation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003160838443_add invoice.resx">
+      <DependentUpon>202003160838443_add invoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003161004508_add authentication time.resx">
+      <DependentUpon>202003161004508_add authentication time.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

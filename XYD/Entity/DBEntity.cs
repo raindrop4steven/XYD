@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using XYD.Models;
 
 namespace XYD.Entity
 {
@@ -30,6 +31,13 @@ namespace XYD.Entity
         public string cPersonCode { get; set; }
         public string cPersonName { get; set; }
         public string cDepCode { get; set; }
+    }
+    #endregion
+
+    #region 发票信息
+    public class XYD_Invoice : XYD_InvoiceInfo
+    {
+       public List<XYD_InvoiceDetail> invoiceDetailData { get; set; }
     }
     #endregion
 }
