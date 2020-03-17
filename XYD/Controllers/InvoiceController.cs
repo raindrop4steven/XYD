@@ -170,5 +170,24 @@ namespace XYD.Controllers
             return null;
         }
         #endregion
+
+        #region 科目列表
+        public ActionResult VoucherTypes()
+        {
+            try
+            {
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "voucherOptions"));
+                using (StreamReader sr = new StreamReader(filePathName))
+                {
+                    var Credits = JsonConvert.DeserializeObject<XYD_VoucherOptions>(sr.ReadToEnd());
+                    return ResponseUtil.OK(Credits);
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }

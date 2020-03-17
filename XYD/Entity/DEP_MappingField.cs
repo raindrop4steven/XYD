@@ -513,6 +513,11 @@ namespace XYD.Entity
     {
         public List<XYD_VoucherCode> VoucherCodes { get; set; }
     }
+
+    public class XYD_VoucherOptions
+    {
+        public List<XYD_Credit> Options { get; set; }
+    }
     #endregion
 
     #region XYD_配置版本
