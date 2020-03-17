@@ -10,6 +10,7 @@ namespace XYD.Common
 {
     public class TransformUtil
     {
+        #region 根据输入对象，转化array
         public static object TransformArray(string inObj)
         {
             JArray jObj = JArray.FromObject(JsonConvert.DeserializeObject(inObj));
@@ -23,13 +24,9 @@ namespace XYD.Common
                 return jObj;
             }
         }
+        #endregion
 
-        public static object TestFunc(string arg1, string arg2, string arg3, string arg4)
-        {
-            return string.Format("{0},{1},{2},{3}", arg1, arg2, arg3, arg4);
-        }
-
-        #region 获取数据库下拉选项
+        #region 解析Fields获取数据库下拉选项
         public static List<XYD_Cell_Options> GetDBOptions(string sql)
         {
             try
@@ -46,6 +43,20 @@ namespace XYD.Common
             {
                 return null;
             }
+        }
+        #endregion
+
+        #region 测试方法
+        public static object TestFunc(XYD_Event_Argument eventArgument, string arg1, string arg2, string arg3, string arg4)
+        {
+            return new
+            {
+                arguments = eventArgument,
+                arg1 = arg1,
+                arg2 = arg2,
+                arg3 = arg3,
+                arg4 = arg4
+            };
         }
         #endregion
     }

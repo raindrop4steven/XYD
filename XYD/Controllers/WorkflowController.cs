@@ -647,31 +647,42 @@ namespace XYD.Controllers
         [Authorize]
         public ActionResult CellUpdateEvent()
         {
-            var employee = (User.Identity as AppkizIdentity).Employee;
-
-            Stream stream = Request.InputStream;
-            stream.Seek(0, SeekOrigin.Begin);
-            string json = new StreamReader(stream).ReadToEnd();
-            var eventArguments = JsonConvert.DeserializeObject<XYD_Event_Argument>(json, new XYDCellJsonConverter());
-
-            var eventConfig = WorkflowUtil.GetCellEvent(eventArguments.MessageId, eventArguments.CurrentCellValue.Row, eventArguments.CurrentCellValue.Col);
-            var customFunc = CommonUtils.ParseCustomFunc(eventConfig.Event);
-            var resultArguments = new List<string>();
-            foreach (var arg in customFunc.ArgumentsArray)
+            try
             {
-                // 区分一下正常参数和Cell参数吧，不知道会不会用到
-                if (arg.StartsWith("#"))
+                var employee = (User.Identity as AppkizIdentity).Employee;
+
+                Stream stream = Request.InputStream;
+                stream.Seek(0, SeekOrigin.Begin);
+                string json = new StreamReader(stream).ReadToEnd();
+                var eventArguments = JsonConvert.DeserializeObject<XYD_Event_Argument>(json, new XYDCellJsonConverter());
+
+                var eventConfig = WorkflowUtil.GetCellEvent(eventArguments.MessageId, eventArguments.CurrentCellValue.Row, eventArguments.CurrentCellValue.Col);
+                var customFunc = CommonUtils.ParseCustomFunc(eventConfig.Event);
+                var resultArguments = new List<object>();
+                foreach (var arg in customFunc.ArgumentsArray)
                 {
-                    var fieldValue = WorkflowUtil.GetFieldValue(eventArguments.Fields, arg);
-                    resultArguments.Add(fieldValue);
+                    // 区分一下正常参数和Cell参数吧，不知道会不会用到
+                    if (arg.StartsWith("#"))
+                    {
+                        var fieldValue = WorkflowUtil.GetFieldValue(eventArguments.Fields, arg);
+                        resultArguments.Add(fieldValue);
+                    }
+                    else if (arg.StartsWith("$")) // $表示eventArguments
+                    {
+                        resultArguments.Add(eventArguments);
+                    }
+                    else
+                    {
+                        resultArguments.Add(arg);
+                    }
                 }
-                else
-                {
-                    resultArguments.Add(arg);
-                }
+                var result = CommonUtils.caller(customFunc.ClassName, customFunc.MethodName, resultArguments);
+                return ResponseUtil.OK(result);
             }
-            var result = CommonUtils.caller(customFunc.ClassName, customFunc.MethodName, resultArguments);
-            return ResponseUtil.OK(result);
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
         }
         #endregion
 

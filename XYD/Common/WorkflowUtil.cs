@@ -395,7 +395,7 @@ namespace XYD.Common
         public static List<XYD_Cell_Options> GetOptionValues(string originStr)
         {
             XYD_Custom_Func customFunc = CommonUtils.ParseCustomFunc(originStr);
-            return (List<XYD_Cell_Options>)CommonUtils.caller(customFunc.ClassName, customFunc.MethodName, customFunc.ArgumentsArray);
+            return (List<XYD_Cell_Options>)CommonUtils.caller(customFunc.ClassName, customFunc.MethodName, customFunc.ArgumentsArray.Cast<object>().ToList());
         }
         #endregion
 
@@ -1169,7 +1169,8 @@ namespace XYD.Common
 
                 Message message = mgr.GetMessage(mid);
                 var templateID = message.FromTemplate;
-                var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Event);
+                var defaultVersion = GetDefaultConfigVersion(templateID);
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], templateID, defaultVersion, "event.json");
                 //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-event.json", templateID));
 
                 using (StreamReader sr = new StreamReader(filePathName))
@@ -1391,6 +1392,84 @@ namespace XYD.Common
                 throw new Exception("未找到对应单元格");
             }
             return resultValue;
+        }
+        #endregion
+
+        #region 更新流程页面数据
+        public static XYD_Cell_Value GetFieldsCellValue(List<XYD_Base_Cell> fields, int row, int col)
+        {
+            foreach (XYD_Base_Cell cell in fields)
+            {
+                XYD_Single_Cell singleCell = null;
+                XYD_Array_Cell arrayCell = null;
+                if (cell.Type == 0)
+                {
+                    singleCell = (XYD_Single_Cell)cell;
+                    if (singleCell.Value.Row == row && singleCell.Value.Col == col)
+                    {
+                        return singleCell.Value;
+                    }
+                }
+                else if (cell.Type == 3)
+                {
+                    arrayCell = (XYD_Array_Cell)cell;
+                    foreach (List<XYD_Cell_Value> rowCells in arrayCell.Array)
+                    {
+                        foreach (XYD_Cell_Value innerCell in rowCells)
+                        {
+                            if (innerCell.Row == row && innerCell.Col == col)
+                            {
+                                return innerCell;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("不支持的类型");
+                }
+            }
+            throw new Exception("未找到对应单元格");
+        }
+        #endregion
+
+        #region 更新流程页面数据
+        public static void UpdateFieldsCellValue(List<XYD_Base_Cell> fields, XYD_Cell_Value value)
+        {
+            foreach (XYD_Base_Cell cell in fields)
+            {
+                XYD_Single_Cell singleCell = null;
+                XYD_Array_Cell arrayCell = null;
+                if (cell.Type == 0)
+                {
+                    singleCell = (XYD_Single_Cell)cell;
+                    if (singleCell.Value.Row == value.Row && singleCell.Value.Col == value.Col)
+                    {
+                        singleCell.Value = value;
+                        break;
+                    }
+                }
+                else if (cell.Type == 3)
+                {
+                    arrayCell = (XYD_Array_Cell)cell;
+                    foreach (List<XYD_Cell_Value> rowCells in arrayCell.Array)
+                    {
+                        for (int i=0; i< rowCells.Count; i++)
+                        {
+                            XYD_Cell_Value innerCell = rowCells[i];
+                            if (innerCell.Row == value.Row && innerCell.Col == value.Col)
+                            {
+                                innerCell = value;
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("不支持的类型");
+                }
+            }
         }
         #endregion
 

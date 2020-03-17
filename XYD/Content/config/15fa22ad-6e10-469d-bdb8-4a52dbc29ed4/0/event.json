@@ -1,0 +1,9 @@
+﻿{
+    "cells": [
+        {
+            "Row": 5,
+            "Col": 3,
+            "Event": "#custom(XYD.Common.CellEvents, BM_01_ApplyTypeUpdate, $, #C-5-3)"
+        }
+    ]
+}

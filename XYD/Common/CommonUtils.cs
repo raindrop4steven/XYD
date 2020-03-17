@@ -58,7 +58,7 @@ namespace XYD.Common
         #endregion
 
         #region 反射调用
-        public static object caller(string myclass, string mymethod, List<string> parameters)
+        public static object caller(string myclass, string mymethod, List<object> parameters)
         {
             Assembly.GetEntryAssembly();
             return Type.GetType(myclass).GetMethod(mymethod).Invoke((object)null, parameters.Cast<object>().ToArray());
