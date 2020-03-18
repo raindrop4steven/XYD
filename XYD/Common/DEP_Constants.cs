@@ -21,6 +21,11 @@ namespace XYD.Common
         public static string JPush_Workflow_Type = "Workflow";
 
         /*
+         * 自定义方法头
+         */
+        public static string Custom_Func_Header = "#custom";
+
+        /*
          * 工作流操作
          */
         public static string Audit_Operate_Type_Agree = "同意";

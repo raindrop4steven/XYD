@@ -331,13 +331,13 @@ namespace XYD.Entity
         // 类型
         public int Type;
         // 是否可以编辑
-        public bool CanEdit { get; set; }
+        public dynamic CanEdit { get; set; }
         // 行
         public int Row { get; set; }
         // 列
         public int Col { get; set; }
         // 意见列表
-        public List<XYD_Cell_Options> Options { get; set; }
+        public dynamic Options { get; set; }
         // 是否需要刷新
         public bool NeedRefresh { get; set; }
         // 是否必填

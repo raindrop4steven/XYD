@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using XYD.Entity;
+using XYD.Models;
 
 namespace XYD.Common
 {
@@ -43,6 +44,32 @@ namespace XYD.Common
             {
                 return null;
             }
+        }
+        #endregion
+
+        #region 解析Feilds中事务编号列表
+        public static List<XYD_Cell_Options> GetSerialOptions(string user, string mid)
+        {
+            if (OrgUtil.CheckCEO(user))
+            {
+                return null;
+            }
+            else
+            {
+                XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
+                using (var db = new DefaultConnection())
+                {
+                    var records = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == user).OrderByDescending(n => n.CreateTime).Select(n => new XYD_Cell_Options() { Value = n.Sn, InterValue = string.Empty }).ToList();
+                    return records;
+                }
+            }
+        }
+        #endregion
+
+        #region 判断是否为CEO
+        public static bool CheckIsCEO(string user, string mid)
+        {
+            return !OrgUtil.CheckCEO(user);
         }
         #endregion
 

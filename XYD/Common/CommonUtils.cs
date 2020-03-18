@@ -44,6 +44,7 @@ namespace XYD.Common
         }
         #endregion
 
+        // 众妙之门 START ：）
         #region 解析自定义方法参数
         public static XYD_Custom_Func ParseCustomFunc(string originStr)
         {
@@ -64,5 +65,33 @@ namespace XYD.Common
             return Type.GetType(myclass).GetMethod(mymethod).Invoke((object)null, parameters.Cast<object>().ToArray());
         }
         #endregion
+
+        #region 获取FieldValue
+        public static dynamic GetFieldValue(string user, string mid, string customFuncStr)
+        {
+            XYD_Custom_Func customFunc = ParseCustomFunc(customFuncStr);
+            customFunc.ArgumentsArray.Insert(0, user);
+            customFunc.ArgumentsArray.Insert(1, mid);
+            return caller(customFunc.ClassName, customFunc.MethodName, customFunc.ArgumentsArray.Cast<object>().ToList());
+        }
+        #endregion
+
+        #region 填充CellValue
+        public static XYD_Cell_Value ParseCellValue(string emplId, string MessageID, XYD_Cell_Value cellValue)
+        {
+            PropertyInfo[] properties = typeof(XYD_Cell_Value).GetProperties();
+            foreach (PropertyInfo property in properties)
+            {
+                var propertyValue = property.GetValue(cellValue);
+                if (propertyValue != null && propertyValue is string && propertyValue.ToString().StartsWith(DEP_Constants.Custom_Func_Header))
+                {
+                    var resultValue = CommonUtils.GetFieldValue(emplId, MessageID, propertyValue.ToString());
+                    property.SetValue(cellValue, resultValue);
+                }
+            }
+            return cellValue;
+        }
+        #endregion
+        // 众妙之门 END ：）
     }
 }

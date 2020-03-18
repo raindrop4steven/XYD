@@ -333,54 +333,20 @@ namespace XYD.Common
                     singleCell.Value.Value = workcell.WorkcellValue;
                     singleCell.Value.InterValue = workcell.WorkcellInternalValue;
                 }
-                // TODO: 这个可以用方法重构，目前如果刷新，默认填充的是事务编号
-                if (singleCell.Value.NeedRefresh)
-                {
-                    singleCell.Value.Options = FillOptions(emplId, MessageID);
-                }
-                // 填充选项
-                var options = singleCell.Value.Options;
-                if (options != null && options.Count == 1 && options.FirstOrDefault().Value.StartsWith("#custom"))
-                {
-                    var originStr = options.FirstOrDefault().Value;
-                    singleCell.Value.Options = GetOptionValues(originStr);
-                }
-                // 是否可以编辑
-                if (!canEdit)
-                {
-                    singleCell.Value.Required = false;
-                    singleCell.Value.CanEdit = false;
-                    singleCell.Value.Options = null;
-                }
+                singleCell.Value = CommonUtils.ParseCellValue(emplId, MessageID, singleCell.Value);
             }
             else if (cell.Type == 3)
             {
                 arrayCell = (XYD_Array_Cell)cell;
                 foreach (List<XYD_Cell_Value> rowCells in arrayCell.Array)
                 {
-                    foreach (XYD_Cell_Value innerCell in rowCells)
+                    for (int i= 0; i < rowCells.Count; i++)
                     {
+                        XYD_Cell_Value innerCell = rowCells[i];
                         var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
                         innerCell.Value = workcell.WorkcellValue;
                         innerCell.InterValue = workcell.WorkcellInternalValue;
-                        if (innerCell.NeedRefresh)
-                        {
-                            innerCell.Options = FillOptions(emplId, MessageID);
-                        }
-                        // 填充选项
-                        var options = innerCell.Options;
-                        if (options != null && options.Count == 1 && options.FirstOrDefault().Value.StartsWith("#custom"))
-                        {
-                            var originStr = options.FirstOrDefault().Value;
-                            singleCell.Value.Options = GetOptionValues(originStr);
-                        }
-                        // 是否可以编辑
-                        if (!canEdit)
-                        {
-                            innerCell.Required = false;
-                            innerCell.CanEdit = false;
-                            innerCell.Options = null;
-                        }
+                        innerCell = CommonUtils.ParseCellValue(emplId, MessageID, innerCell);
                     }
                 }
             }
@@ -391,25 +357,7 @@ namespace XYD.Common
         }
         #endregion
 
-        #region 填充根据自定义方法Options值
-        public static List<XYD_Cell_Options> GetOptionValues(string originStr)
-        {
-            XYD_Custom_Func customFunc = CommonUtils.ParseCustomFunc(originStr);
-            return (List<XYD_Cell_Options>)CommonUtils.caller(customFunc.ClassName, customFunc.MethodName, customFunc.ArgumentsArray.Cast<object>().ToList());
-        }
-        #endregion
 
-        #region 填充Options值
-        public static List<XYD_Cell_Options> FillOptions(string emplId, string mid)
-        {
-            XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
-            using (var db = new DefaultConnection())
-            {
-                var records = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == emplId).OrderByDescending(n => n.CreateTime).Select(n => new XYD_Cell_Options() { Value = n.Sn, InterValue = string.Empty }).ToList();
-                return records;
-            }
-        }
-        #endregion
 
         #region 获得Cell的值
         /*

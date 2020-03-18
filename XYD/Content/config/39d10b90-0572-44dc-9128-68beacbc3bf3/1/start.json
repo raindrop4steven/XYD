@@ -8,10 +8,10 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 1,
-                "CanEdit": true,
+                "CanEdit": "#custom(XYD.Common.TransformUtil, CheckIsCEO)",
                 "Row": 5,
                 "Col": 3,
-                "Options": null,
+                "Options": "#custom(XYD.Common.TransformUtil, GetSerialOptions)",
                 "NeedRefresh": true,
                 "Required": true
             }
