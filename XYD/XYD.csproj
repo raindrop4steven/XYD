@@ -610,6 +610,7 @@
     <Content Include="Content\config\f1b0b4d7-6625-433f-83f5-258915d2f89d\0\start.json" />
     <Content Include="Content\config\voucherOptions.json" />
     <Content Include="Content\config\15fa22ad-6e10-469d-bdb8-4a52dbc29ed4\0\event.json" />
+    <Content Include="Content\config\f1b0b4d7-6625-433f-83f5-258915d2f89d\0\event.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
