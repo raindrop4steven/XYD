@@ -9,6 +9,10 @@ using XYD.Models;
 
 namespace XYD.Common
 {
+    /// <summary>
+    /// 解析页面字段，前3个参数固定为：
+    /// 用户ID、节点ID、流程ID
+    /// </summary>
     public class TransformUtil
     {
         #region 根据输入对象，转化array
@@ -28,7 +32,7 @@ namespace XYD.Common
         #endregion
 
         #region 解析Fields获取数据库下拉选项
-        public static List<XYD_Cell_Options> GetDBOptions(string sql)
+        public static List<XYD_Cell_Options> GetDBOptions(string user, string nid, string mid, string sql)
         {
             try
             {
@@ -48,7 +52,7 @@ namespace XYD.Common
         #endregion
 
         #region 解析Feilds中事务编号列表
-        public static List<XYD_Cell_Options> GetSerialOptions(string user, string mid)
+        public static List<XYD_Cell_Options> GetSerialOptions(string user, string nid, string mid)
         {
             if (OrgUtil.CheckCEO(user))
             {
@@ -67,13 +71,13 @@ namespace XYD.Common
         #endregion
 
         #region 判断是否为CEO
-        public static bool CheckIsCEO(string user, string mid)
+        public static bool CheckIsCEO(string user, string nid, string mid)
         {
             return !OrgUtil.CheckCEO(user);
         }
         #endregion
 
-        #region 测试方法
+        #region 测试event方法
         public static object TestFunc(XYD_Event_Argument eventArgument, string arg1, string arg2, string arg3, string arg4)
         {
             return new

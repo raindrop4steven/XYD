@@ -320,7 +320,7 @@ namespace XYD.Common
         #endregion
 
         #region 填充cell的值
-        public static void FillCellValue(string emplId, string MessageID, Worksheet worksheet, XYD_Base_Cell cell, bool canEdit)
+        public static void FillCellValue(string emplId, string NodeId, string MessageID, Worksheet worksheet, XYD_Base_Cell cell, bool canEdit)
         {
             XYD_Single_Cell singleCell = null;
             XYD_Array_Cell arrayCell = null;
@@ -333,7 +333,7 @@ namespace XYD.Common
                     singleCell.Value.Value = workcell.WorkcellValue;
                     singleCell.Value.InterValue = workcell.WorkcellInternalValue;
                 }
-                singleCell.Value = CommonUtils.ParseCellValue(emplId, MessageID, singleCell.Value);
+                singleCell.Value = CommonUtils.ParseCellValue(emplId, NodeId, MessageID, singleCell.Value);
             }
             else if (cell.Type == 3)
             {
@@ -346,7 +346,7 @@ namespace XYD.Common
                         var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
                         innerCell.Value = workcell.WorkcellValue;
                         innerCell.InterValue = workcell.WorkcellInternalValue;
-                        innerCell = CommonUtils.ParseCellValue(emplId, MessageID, innerCell);
+                        innerCell = CommonUtils.ParseCellValue(emplId, NodeId, MessageID, innerCell);
                     }
                 }
             }
@@ -711,7 +711,7 @@ namespace XYD.Common
         #endregion
 
         #region 获得发起流程的表单配置
-        public static XYD_Fields GetStartFields(string emplId, string MessageID)
+        public static XYD_Fields GetStartFields(string emplId, string NodeId, string MessageID)
         {
             Message message = mgr.GetMessage(MessageID);
             Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
@@ -727,7 +727,7 @@ namespace XYD.Common
                 foreach (XYD_Base_Cell cell in fields.Fields)
                 {
                     // 查找对应的值
-                    FillCellValue(emplId, MessageID, worksheet, cell, true);
+                    FillCellValue(emplId, NodeId, MessageID, worksheet, cell, true);
                 }
                 return fields;
             }
@@ -735,7 +735,7 @@ namespace XYD.Common
         #endregion
 
         #region 获得表单详情
-        public static XYD_Fields GetWorkflowFields(string emplId, string MessageID)
+        public static XYD_Fields GetWorkflowFields(string emplId, string NodeId, string MessageID)
         {
             Message message = mgr.GetMessage(MessageID);
             Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
@@ -751,7 +751,7 @@ namespace XYD.Common
                 foreach (XYD_Base_Cell cell in fields.Fields)
                 {
                     // 查找对应的值
-                    FillCellValue(emplId, MessageID, worksheet, cell, false);
+                    FillCellValue(emplId, NodeId, MessageID, worksheet, cell, false);
                 }
                 return fields;
             }

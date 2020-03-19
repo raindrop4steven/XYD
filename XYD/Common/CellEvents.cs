@@ -6,6 +6,13 @@ using XYD.Entity;
 
 namespace XYD.Common
 {
+    /// <summary>
+    /// Cell变更事件方法：
+    /// 1. 语法：
+    ///     $:XYD_Event_Argument 整体
+    ///     #C-5-3: 将会取C-5-3的值作为参数
+    ///     普通字符串：直接传入
+    /// </summary>
     public class CellEvents
     {
         #region 测试方法

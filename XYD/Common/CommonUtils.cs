@@ -67,17 +67,18 @@ namespace XYD.Common
         #endregion
 
         #region 获取FieldValue
-        public static dynamic GetFieldValue(string user, string mid, string customFuncStr)
+        public static dynamic GetFieldValue(string user, string nid, string mid, string customFuncStr)
         {
             XYD_Custom_Func customFunc = ParseCustomFunc(customFuncStr);
             customFunc.ArgumentsArray.Insert(0, user);
-            customFunc.ArgumentsArray.Insert(1, mid);
+            customFunc.ArgumentsArray.Insert(1, nid);
+            customFunc.ArgumentsArray.Insert(2, mid);
             return caller(customFunc.ClassName, customFunc.MethodName, customFunc.ArgumentsArray.Cast<object>().ToList());
         }
         #endregion
 
         #region 填充CellValue
-        public static XYD_Cell_Value ParseCellValue(string emplId, string MessageID, XYD_Cell_Value cellValue)
+        public static XYD_Cell_Value ParseCellValue(string emplId, string NodeId, string MessageID, XYD_Cell_Value cellValue)
         {
             PropertyInfo[] properties = typeof(XYD_Cell_Value).GetProperties();
             foreach (PropertyInfo property in properties)
@@ -85,7 +86,7 @@ namespace XYD.Common
                 var propertyValue = property.GetValue(cellValue);
                 if (propertyValue != null && propertyValue is string && propertyValue.ToString().StartsWith(DEP_Constants.Custom_Func_Header))
                 {
-                    var resultValue = CommonUtils.GetFieldValue(emplId, MessageID, propertyValue.ToString());
+                    var resultValue = GetFieldValue(emplId, NodeId, MessageID, propertyValue.ToString());
                     property.SetValue(cellValue, resultValue);
                 }
             }
