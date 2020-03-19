@@ -612,6 +612,14 @@
     <Content Include="Content\config\15fa22ad-6e10-469d-bdb8-4a52dbc29ed4\0\event.json" />
     <Content Include="Content\config\f1b0b4d7-6625-433f-83f5-258915d2f89d\0\event.json" />
     <Content Include="Content\config\39d10b90-0572-44dc-9128-68beacbc3bf3\1\event.json" />
+    <Content Include="Content\config\1a52ffae-7ad0-44cd-ab66-fbddde933159\1\app-transformer.json" />
+    <Content Include="Content\config\1a52ffae-7ad0-44cd-ab66-fbddde933159\1\audit.json" />
+    <Content Include="Content\config\1a52ffae-7ad0-44cd-ab66-fbddde933159\1\main.json" />
+    <Content Include="Content\config\1a52ffae-7ad0-44cd-ab66-fbddde933159\1\start.json" />
+    <Content Include="Content\config\dcc59ddf-caeb-4888-bf23-a967b7523979\1\app-transformer.json" />
+    <Content Include="Content\config\dcc59ddf-caeb-4888-bf23-a967b7523979\1\audit.json" />
+    <Content Include="Content\config\dcc59ddf-caeb-4888-bf23-a967b7523979\1\main.json" />
+    <Content Include="Content\config\dcc59ddf-caeb-4888-bf23-a967b7523979\1\start.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
