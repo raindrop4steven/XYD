@@ -189,5 +189,39 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 认证
+        [Authorize]
+        public ActionResult Auth()
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var employee = (User.Identity as AppkizIdentity).Employee;
+                    Stream stream = Request.InputStream;
+                    stream.Seek(0, SeekOrigin.Begin);
+                    string json = new StreamReader(stream).ReadToEnd();
+                    var invoiceAuth = JsonConvert.DeserializeObject<XYD_Invoice_Auth>(json);
+                    foreach(XYD_Invoice_Key key in invoiceAuth.keys)
+                    {
+                        var invoiceInfo = db.InvoiceInfo.Where(n => n.invoiceDataCode == key.invoiceDataCode && n.invoiceNumber == key.invoiceNumber).FirstOrDefault();
+                        if (invoiceInfo != null)
+                        {
+                            invoiceInfo.authenticationTime = invoiceAuth.authenticationTime;
+                            invoiceInfo.updatedBy = employee.EmplID;
+                            invoiceInfo.updatedTime = DateTime.Now;
+                        }
+                    }
+                    db.SaveChanges();
+                    return ResponseUtil.OK("认证成功");
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }

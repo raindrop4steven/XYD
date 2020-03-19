@@ -40,4 +40,18 @@ namespace XYD.Entity
        public List<XYD_InvoiceDetail> invoiceDetailData { get; set; }
     }
     #endregion
+
+    #region 认证发票
+    public class XYD_Invoice_Auth
+    {
+        public DateTime authenticationTime { get; set; }
+        public List<XYD_Invoice_Key> keys { get; set; }
+    }
+
+    public class XYD_Invoice_Key
+    {
+        public string invoiceDataCode { get; set; }
+        public string invoiceNumber { get; set; }
+    }
+    #endregion
 }
