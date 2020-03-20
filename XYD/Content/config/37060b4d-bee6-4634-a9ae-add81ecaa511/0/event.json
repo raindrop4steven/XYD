@@ -1,9 +1,0 @@
-﻿{
-    "cells": [
-        {
-            "Row": 10,
-            "Col": 8,
-            "Event": "#custom(XYD.Common.CellEvents, TestFunc, #C-5-5, #C-5-13, #C-9-3, #C-9-5)"
-        }
-    ]
-}

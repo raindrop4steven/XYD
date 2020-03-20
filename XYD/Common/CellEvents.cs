@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using XYD.Entity;
+using XYD.Models;
 
 namespace XYD.Common
 {
@@ -16,7 +17,7 @@ namespace XYD.Common
     public class CellEvents
     {
         #region 测试方法
-        public static object TestFunc(XYD_Event_Argument eventArgument, string arg1, string arg2, string arg3, string arg4)
+        public static object TestFunc(string user, XYD_Event_Argument eventArgument, string arg1, string arg2, string arg3, string arg4)
         {
             return new
             {
@@ -30,7 +31,7 @@ namespace XYD.Common
         #endregion
 
         #region 备用金申请
-        public static object BM_01_ApplyTypeUpdate(XYD_Event_Argument eventArgument, string applyType)
+        public static object BM_01_ApplyTypeUpdate(string user, XYD_Event_Argument eventArgument, string applyType)
         {
             XYD_Cell_Value cellValue;
             var lastDayOfYear = string.Empty;
@@ -54,6 +55,37 @@ namespace XYD.Common
                 refresh = true,
                 fields = eventArgument.Fields
             };
+        }
+        #endregion
+
+        #region 差旅费用报销单
+        /// <summary>
+        /// 事务编号更新事件
+        /// </summary>
+        /// <param name="eventArgument"></param>
+        /// <param name="serialNo"></param>
+        /// <returns></returns>
+        public static object TR_01_SerialNoUpdate(string user, XYD_Event_Argument eventArgument, string serialNo)
+        {
+            var mid = eventArgument.MessageId;
+            var sn = eventArgument.CurrentCellValue.Value;
+            XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
+            // 设置编号已使用
+            using (var db = new DefaultConnection())
+            {
+                var record = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == user && n.Sn == sn).FirstOrDefault();
+                if (record == null)
+                {
+                    throw new Exception("没有找到对应申请记录");
+                }
+                WorkflowUtil.MappingBetweenFlows(record.MessageID, mid, serial.MappingOut);
+                XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, mid);
+                return new
+                {
+                    refresh = true,
+                    fields = fields
+                };
+            }
         }
         #endregion
     }

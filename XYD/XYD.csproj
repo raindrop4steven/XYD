@@ -431,7 +431,6 @@
     <Content Include="Content\config\2b16f8ca-fab9-460a-bdbc-0bfa15ad5c55\0\start.json" />
     <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\0\app-transformer.json" />
     <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\0\audit.json" />
-    <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\0\event.json" />
     <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\0\main.json" />
     <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\0\start.json" />
     <Content Include="Content\config\39d10b90-0572-44dc-9128-68beacbc3bf3\0\app-transformer.json" />
@@ -537,7 +536,6 @@
     <Content Include="Content\config\b74eaee5-6f61-4099-b2c1-52e81ff71792\1\start.json" />
     <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\1\app-transformer.json" />
     <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\1\audit.json" />
-    <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\1\event.json" />
     <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\1\main.json" />
     <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\1\start.json" />
     <Content Include="Content\config\39d10b90-0572-44dc-9128-68beacbc3bf3\1\app-transformer.json" />

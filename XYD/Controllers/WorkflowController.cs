@@ -564,7 +564,6 @@ namespace XYD.Controllers
         }
         #endregion
 
-#if false
 #region 选择编号，映射对应数据到报销单中
         public ActionResult MappingSourceToDest(string sn, string mid, int row=0, int col=0)
         {
@@ -589,7 +588,7 @@ namespace XYD.Controllers
                         worksheet.SetCellValue(row, col, sn, string.Empty);
                         worksheet.Save();
                     }
-                    XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, mid);
+                    XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, DEP_Constants.Start_Node_Key, mid);
                     return ResponseUtil.OK(fields);
                 }
             }
@@ -599,7 +598,6 @@ namespace XYD.Controllers
             }
         }
 #endregion
-#endif
 
 #region 映射选择的物品列表到物品申请单中
         [Authorize]
@@ -660,7 +658,10 @@ namespace XYD.Controllers
 
                 var eventConfig = WorkflowUtil.GetCellEvent(eventArguments.MessageId, eventArguments.CurrentCellValue.Row, eventArguments.CurrentCellValue.Col);
                 var customFunc = CommonUtils.ParseCustomFunc(eventConfig.Event);
+                // 事件方法前2个参数固定为【当前用户ID】和EventArgument
                 var resultArguments = new List<object>();
+                resultArguments.Add(employee.EmplID);
+                resultArguments.Add(eventArguments);
                 foreach (var arg in customFunc.ArgumentsArray)
                 {
                     // 区分一下正常参数和Cell参数吧，不知道会不会用到
@@ -668,10 +669,6 @@ namespace XYD.Controllers
                     {
                         var fieldValue = WorkflowUtil.GetFieldValue(eventArguments.Fields, arg);
                         resultArguments.Add(fieldValue);
-                    }
-                    else if (arg.StartsWith("$")) // $表示eventArguments
-                    {
-                        resultArguments.Add(eventArguments);
                     }
                     else
                     {
