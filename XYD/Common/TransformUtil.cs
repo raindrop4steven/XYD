@@ -51,6 +51,20 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 解析Feidls获取司机列表
+        public static List<XYD_Cell_Options> GetDrivers(string user, string nid, string mid)
+        {
+            var sql = @"SELECT a.EmplName, a.EmplID from ORG_Employee a INNER JOIN ORG_EmplDept b on a.EmplID = b.EmplID INNER JOIN ORG_Position c on b.PosID = c.PositionID and c.PositionName = '司机'";
+            var resultOptions = new List<XYD_Cell_Options>();
+            var options = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetOptions);
+            foreach (XYD_Cell_Options option in options)
+            {
+                resultOptions.Add(option);
+            }
+            return resultOptions;
+        }
+        #endregion
+
         #region 解析Feilds中事务编号列表
         public static List<XYD_Cell_Options> GetSerialOptions(string user, string nid, string mid)
         {

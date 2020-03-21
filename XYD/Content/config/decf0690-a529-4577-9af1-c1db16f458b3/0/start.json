@@ -86,16 +86,7 @@
                 "CanEdit": true,
                 "Row": 7,
                 "Col": 3,
-                "Options": [
-                    {
-                        "Value": "驾驶员1",
-                        "InterValue": ""
-                    },
-                    {
-                        "Value": "驾驶员2",
-                        "InterValue": ""
-                    }
-                ],
+                "Options": "#custom(XYD.Common.TransformUtil, GetDrivers)",
                 "Required": true
             }
         },

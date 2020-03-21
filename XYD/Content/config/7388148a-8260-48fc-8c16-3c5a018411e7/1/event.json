@@ -1,0 +1,9 @@
+﻿{
+    "cells": [
+        {
+            "Row": 4,
+            "Col": 3,
+            "Event": "#custom(XYD.Common.CellEvents, GB_01_SerialNoUpdate, #C-4-3)"
+        }
+    ]
+}

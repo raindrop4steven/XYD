@@ -130,5 +130,36 @@ namespace XYD.Common
             return EventResult.OK("费用检测通过");
         }
         #endregion
+
+        #region 物品采购费用报销
+        /// <summary>
+        /// 事务编号更新事件
+        /// </summary>
+        /// <param name="eventArgument"></param>
+        /// <param name="serialNo"></param>
+        /// <returns></returns>
+        public static object GB_01_SerialNoUpdate(string user, XYD_Event_Argument eventArgument, string serialNo)
+        {
+            var mid = eventArgument.MessageId;
+            var sn = eventArgument.CurrentCellValue.Value;
+            XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
+            // 设置编号已使用
+            using (var db = new DefaultConnection())
+            {
+                var record = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == user && n.Sn == sn).FirstOrDefault();
+                if (record == null)
+                {
+                    throw new Exception("没有找到对应申请记录");
+                }
+                WorkflowUtil.MappingBetweenFlows(record.MessageID, mid, serial.MappingOut);
+                Worksheet worksheet = WorkflowUtil.GetWorksheet(mid);
+                // 填充编号
+                WorkflowUtil.UpdateCell(worksheet, 4, 3, serialNo, string.Empty);
+                
+                XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, mid);
+                return EventResult.OK(fields.Fields);
+            }
+        }
+        #endregion
     }
 }

@@ -763,10 +763,11 @@ namespace XYD.Common
             while (reader.Read())
             {
                 string Value = reader.GetString(0);
+                string InterValue = reader.GetString(1);
                 ResultList.Add(new XYD_Cell_Options
                 {
                     Value = Value,
-                    InterValue = string.Empty
+                    InterValue = InterValue
                 });
             }
             return ResultList;

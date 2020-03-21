@@ -11,7 +11,7 @@
                 "CanEdit": false,
                 "Row": 4,
                 "Col": 3,
-                "Options": null,
+                "Options": "#custom(XYD.Common.TransformUtil, GetSerialOptions)",
                 "Required": true
             }
         },

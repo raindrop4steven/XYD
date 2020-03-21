@@ -620,6 +620,10 @@
     <Content Include="Content\config\dcc59ddf-caeb-4888-bf23-a967b7523979\1\main.json" />
     <Content Include="Content\config\dcc59ddf-caeb-4888-bf23-a967b7523979\1\start.json" />
     <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\1\event.json" />
+    <Content Include="Content\config\7388148a-8260-48fc-8c16-3c5a018411e7\1\event.json" />
+    <Content Include="Content\config\25ee8aa4-4141-4aeb-b148-c8d66722b0b2\1\event.json" />
+    <Content Include="Content\config\b2602bba-550f-430e-8e01-a9da5cf6f1d3\1\event.json" />
+    <Content Include="Content\config\b4b9da44-0ea8-4b03-b428-7eeafbf9875e\1\event.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
