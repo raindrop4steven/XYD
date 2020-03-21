@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Appkiz.Apps.Workflow.Library;
+using Appkiz.Library.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +18,10 @@ namespace XYD.Common
     /// </summary>
     public class CellEvents
     {
+        static WorkflowMgr mgr = new WorkflowMgr();
+        static SheetMgr sheetMgr = new SheetMgr();
+        static OrgMgr orgMgr = new OrgMgr();
+
         #region 测试方法
         public static object TestFunc(string user, XYD_Event_Argument eventArgument, string arg1, string arg2, string arg3, string arg4)
         {
@@ -50,11 +56,7 @@ namespace XYD.Common
                 cellValue.CanEdit = true;
             }
             WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, cellValue);
-            return new
-            {
-                refresh = true,
-                fields = eventArgument.Fields
-            };
+            return EventResult.OK(eventArgument.Fields);
         }
         #endregion
 
@@ -79,13 +81,53 @@ namespace XYD.Common
                     throw new Exception("没有找到对应申请记录");
                 }
                 WorkflowUtil.MappingBetweenFlows(record.MessageID, mid, serial.MappingOut);
+                Worksheet worksheet = WorkflowUtil.GetWorksheet(mid);
+                // 填充编号
+                WorkflowUtil.UpdateCell(worksheet, 5, 3, serialNo, string.Empty);
+                // 计算补贴
+                CaculateAllowacne(ref worksheet, user, "#C-7-13", "#C-18-14");
                 XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, mid);
-                return new
-                {
-                    refresh = true,
-                    fields = fields
-                };
+                return EventResult.OK(fields.Fields);
             }
+        }
+        /// <summary>
+        /// 计算补贴
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="days"></param>
+        public static void CaculateAllowacne(ref Worksheet worksheet, string user, string dayId, string allowanceId)
+        {
+            if (!OrgUtil.CheckRole(user, "无补贴人员"))
+            {
+                var dayPos = WorkflowUtil.GetCellPos(dayId);
+                var allowancePos = WorkflowUtil.GetCellPos(allowanceId);
+                int dayValue = int.Parse(WorkflowUtil.GetCellValue(worksheet, dayPos.row, dayPos.col, 0).ToString());
+                var allowance = 65 + (dayValue - 1) * 100;
+                WorkflowUtil.UpdateCell(worksheet, allowancePos.row, allowancePos.col, allowance.ToString(), string.Empty);
+            }
+        }
+
+        /// <summary>
+        /// 判断住宿费是否超过预算
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="eventArguments"></param>
+        /// <param name="city"></param>
+        /// <param name="hotelFee"></param>
+        /// <returns></returns>
+        public static object TR_01_HotelFeeUpdate(string user, XYD_Event_Argument eventArguments, string city, string dayStr, string hotelFee)
+        {
+            var mid = eventArguments.MessageId;
+            int day = int.Parse(dayStr);
+            if (!OrgUtil.CheckCEO(user))
+            {
+                int standard = WorkflowUtil.GetHotelStandard(mid, city, day * 24);
+                if (float.Parse(hotelFee) > standard)
+                {
+                    throw new Exception("住宿费用超过补贴标准");
+                }
+            }
+            return EventResult.OK("费用检测通过");
         }
         #endregion
     }

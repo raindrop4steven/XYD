@@ -1343,6 +1343,28 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 根据CellID获取行列
+        public static DEP_CellPos GetCellPos(string cellId)
+        {
+            // 提取CellId中的Row、Col
+            var cellPos = new DEP_CellPos();
+            var cellPosArray = cellId.Split('-').ToList();
+            cellPos.row = int.Parse(cellPosArray.ElementAt(1));
+            cellPos.col = int.Parse(cellPosArray.ElementAt(2));
+            return cellPos;
+        }
+        #endregion
+
+        #region 根据mid获得worksheet
+        public static Worksheet GetWorksheet(string mid)
+        {
+            Message message = mgr.GetMessage(mid);
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+            Worksheet worksheet = doc.Worksheet;
+            return worksheet;
+        }
+        #endregion
+
         #region 更新流程页面数据
         public static XYD_Cell_Value GetFieldsCellValue(List<XYD_Base_Cell> fields, int row, int col)
         {

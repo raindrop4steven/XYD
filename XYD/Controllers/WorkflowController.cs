@@ -678,6 +678,10 @@ namespace XYD.Controllers
                 var result = CommonUtils.caller(customFunc.ClassName, customFunc.MethodName, resultArguments);
                 return ResponseUtil.OK(result);
             }
+            catch(TargetInvocationException e)
+            {
+                return ResponseUtil.Error(e.InnerException.Message);
+            }
             catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
