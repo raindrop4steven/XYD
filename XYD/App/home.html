@@ -159,6 +159,7 @@
                     <td>{{row.ClosedOrHairTime.split(' ')[0]}}</td>
                     <td>{{row.CreateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td>{{row.ReceiveTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{row.MessageStatusName}}</td>
                 </tr>
                 <tr ng-if="pageConfig.activeNav === 'iStop' && activeTableData.length > 0" ng-repeat="row in activeTableData">
                     <td>{{($index+1)+(pageSearch.PageNumber-1)*pageSearch.PageSize}}</td>

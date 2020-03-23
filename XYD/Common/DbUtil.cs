@@ -519,6 +519,7 @@ namespace XYD.Common
                 string MessageTitle = reader.GetString(5);
                 string CreateTime = reader.GetString(6);
                 string ReceiveTime = reader.GetString(7);
+                string MessageStatusName = reader.GetString(8);
 
                 ResultList.Add(new
                 {
@@ -529,6 +530,7 @@ namespace XYD.Common
                     MessageTitle = MessageTitle,
                     CreateTime = CreateTime,
                     ReceiveTime = ReceiveTime,
+                    MessageStatusName= MessageStatusName
                 });
             }
 

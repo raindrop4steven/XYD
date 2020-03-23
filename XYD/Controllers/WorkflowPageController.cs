@@ -890,7 +890,17 @@ namespace XYD.Controllers
                                      --流程类型
                                      a.MessageTitle,
                                      CONVERT(varchar(100), a.MessageCreateTime, 20) AS CreateTime,
-                                     CONVERT(varchar(100), a.MessageFinishTime, 20) AS FinishTime
+                                     CONVERT(varchar(100), a.MessageFinishTime, 20) AS FinishTime,
+                                    CASE
+		                                WHEN a.MessageStatus = 0 THEN
+		                                '草稿' 
+		                                WHEN a.MessageStatus = 1 THEN
+		                                '运行中' 
+		                                WHEN a.MessageStatus = 2 THEN
+		                                '已完成' 
+		                                WHEN a.MessageStatus = 3 THEN
+		                                '终止信息' ELSE NULL 
+	                                END AS MessageStatusName 
                                      FROM WKF_Message a
                                     INNER JOIN {0} b
                                     ON a.MessageID = b.MessageId
