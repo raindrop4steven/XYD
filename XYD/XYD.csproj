@@ -233,6 +233,7 @@
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Controllers\VoucherController.cs" />
     <Compile Include="Controllers\WorkExperienceController.cs" />
+    <Compile Include="Controllers\WorkflowAttController.cs" />
     <Compile Include="Controllers\WorkflowController.cs" />
     <Compile Include="Entity\BaseQueryInfo.cs" />
     <Compile Include="Entity\DBEntity.cs" />
@@ -669,6 +670,7 @@
     <Folder Include="Views\Vendor\" />
     <Folder Include="Views\Voucher\" />
     <Folder Include="Views\WorkExperience\" />
+    <Folder Include="Views\WorkflowAtt\" />
     <Folder Include="Views\WorkflowPage\" />
   </ItemGroup>
   <ItemGroup>

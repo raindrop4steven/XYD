@@ -189,7 +189,8 @@ namespace XYD.Controllers
                 if (operateString == "0")
                 {
                     operate = "同意";
-                } else
+                }
+                else
                 {
                     operate = "驳回";
                 }
@@ -564,8 +565,8 @@ namespace XYD.Controllers
         }
         #endregion
 
-#region 选择编号，映射对应数据到报销单中
-        public ActionResult MappingSourceToDest(string sn, string mid, int row=0, int col=0)
+        #region 选择编号，映射对应数据到报销单中
+        public ActionResult MappingSourceToDest(string sn, string mid, int row = 0, int col = 0)
         {
             try
             {
@@ -581,7 +582,7 @@ namespace XYD.Controllers
                     }
                     WorkflowUtil.MappingBetweenFlows(record.MessageID, mid, serial.MappingOut);
                     // 填充表单编号
-                    if (row > 0 && col >0)
+                    if (row > 0 && col > 0)
                     {
                         Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
                         Worksheet worksheet = doc.Worksheet;
@@ -597,9 +598,9 @@ namespace XYD.Controllers
                 return ResponseUtil.Error(e.Message);
             }
         }
-#endregion
+        #endregion
 
-#region 映射选择的物品列表到物品申请单中
+        #region 映射选择的物品列表到物品申请单中
         [Authorize]
         public ActionResult MappingGoods(string mid, string goods)
         {
@@ -609,14 +610,14 @@ namespace XYD.Controllers
                 WorkflowUtil.FillApplyGoods(mid, goodsArray);
                 return ResponseUtil.OK("产品映射成功");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }
         }
-#endregion
+        #endregion
 
-#region 判断住宿费用是否超过标准
+        #region 判断住宿费用是否超过标准
         public ActionResult CheckHotelLimit(string city, int day, float realHotel)
         {
             try
@@ -636,14 +637,14 @@ namespace XYD.Controllers
                     return ResponseUtil.OK("住宿费用检测通过");
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }
         }
-#endregion
+        #endregion
 
-#region Cell内容更新事件
+        #region Cell内容更新事件
         [Authorize]
         public ActionResult CellUpdateEvent()
         {
@@ -678,7 +679,7 @@ namespace XYD.Controllers
                 var result = CommonUtils.caller(customFunc.ClassName, customFunc.MethodName, resultArguments);
                 return ResponseUtil.OK(result);
             }
-            catch(TargetInvocationException e)
+            catch (TargetInvocationException e)
             {
                 return ResponseUtil.Error(e.InnerException.Message);
             }
@@ -687,9 +688,9 @@ namespace XYD.Controllers
                 return ResponseUtil.Error(e.Message);
             }
         }
-#endregion
+        #endregion
 
-#region 判断报销是否能直接填写
+        #region 判断报销是否能直接填写
         [Authorize]
         public ActionResult CheckDirectRefund()
         {
@@ -707,9 +708,9 @@ namespace XYD.Controllers
                 return ResponseUtil.Error(e.Message);
             }
         }
-#endregion
+        #endregion
 
-#region 网页端流程处理记录
+        #region 网页端流程处理记录
         public ActionResult ShowHistory(string mid)
         {
             try
@@ -735,9 +736,9 @@ namespace XYD.Controllers
                 return ResponseUtil.Error(e.Message);
             }
         }
-#endregion
+        #endregion
 
-#region 判断是否是无补贴人员
+        #region 判断是否是无补贴人员
         public ActionResult CheckNoAllowance()
         {
             try
@@ -754,9 +755,9 @@ namespace XYD.Controllers
                 return ResponseUtil.Error(e.Message);
             }
         }
-#endregion
+        #endregion
 
-#region 移除表单中公式
+        #region 移除表单中公式
         public ActionResult RemoveFormula(string mid, string user, string role, string formula)
         {
             try
@@ -776,13 +777,13 @@ namespace XYD.Controllers
                 {
                     return ResponseUtil.OK("无需移除公式");
                 }
-                
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }
         }
-#endregion
+        #endregion
     }
 }
