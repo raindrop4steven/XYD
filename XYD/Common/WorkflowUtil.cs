@@ -328,11 +328,30 @@ namespace XYD.Common
             {
                 singleCell = (XYD_Single_Cell)cell;
                 var workcell = worksheet.GetWorkcell(singleCell.Value.Row, singleCell.Value.Col);
-                if (workcell != null)
+                if (singleCell.Value.Type == 0)
                 {
                     singleCell.Value.Value = workcell.WorkcellValue;
                     singleCell.Value.InterValue = workcell.WorkcellInternalValue;
+                } else
+                {
+                    // 10，附件
+                    var attachments = new List<object>();
+                    var internalAttachs = workcell.WorkcellInternalValue.Split(';').ToList();
+                    foreach (var attachId in internalAttachs)
+                    {
+                        if (string.IsNullOrEmpty(attachId))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            var attachment = mgr.GetAttachment(attachId);
+                            attachments.Add(attachment);
+                        }
+                    }
+                    singleCell.Value.Atts = attachments;
                 }
+                
                 singleCell.Value = CommonUtils.ParseCellValue(emplId, NodeId, MessageID, singleCell.Value);
             }
             else if (cell.Type == 3)
@@ -344,8 +363,31 @@ namespace XYD.Common
                     {
                         XYD_Cell_Value innerCell = rowCells[i];
                         var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
-                        innerCell.Value = workcell.WorkcellValue;
-                        innerCell.InterValue = workcell.WorkcellInternalValue;
+                        if (innerCell.Type == 0)
+                        {
+                            innerCell.Value = workcell.WorkcellValue;
+                            innerCell.InterValue = workcell.WorkcellInternalValue;
+                        }
+                        else
+                        {
+                            // 10，附件
+                            var attachments = new List<object>();
+                            var internalAttachs = workcell.WorkcellInternalValue.Split(';').ToList();
+                            foreach (var attachId in internalAttachs)
+                            {
+                                if (string.IsNullOrEmpty(attachId))
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    var attachment = mgr.GetAttachment(attachId);
+                                    attachments.Add(attachment);
+                                }
+                            }
+                            innerCell.Atts = attachments;
+                        }
+                        
                         innerCell = CommonUtils.ParseCellValue(emplId, NodeId, MessageID, innerCell);
                     }
                 }
@@ -1512,6 +1554,18 @@ namespace XYD.Common
                     }
                 }
                 throw new Exception("流程对应版本不存在");
+            }
+        }
+        #endregion
+
+        #region 获得科目类型列表
+        public static XYD_VoucherOptions GetVoucherOptions()
+        {
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "voucherOptions"));
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var Credits = JsonConvert.DeserializeObject<XYD_VoucherOptions>(sr.ReadToEnd());
+                return Credits;
             }
         }
         #endregion

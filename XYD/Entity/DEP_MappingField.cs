@@ -328,6 +328,8 @@ namespace XYD.Entity
         public string Value { get; set; }
         // 内部值
         public string InterValue { get; set; }
+        // 附件
+        public List<object> Atts { get; set; }
         // 类型
         public int Type;
         // 是否可以编辑

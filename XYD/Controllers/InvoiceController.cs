@@ -10,11 +10,15 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Appkiz.Library.Security.Authentication;
+using Appkiz.Library.Security;
 
 namespace XYD.Controllers
 {
     public class InvoiceController : Controller
     {
+
+        OrgMgr orgMgr = new OrgMgr();
+
         #region 列表
         public ActionResult List(string salesName, string invoiceNumber, DateTime? authenticationTime, int Page = 0, int Size = 10)
         {
@@ -41,10 +45,13 @@ namespace XYD.Controllers
                 var list = dataQuery.OrderByDescending(n => n.createdTime).Skip(Page * Size).Take(Size);
                 var totalPage = (int)Math.Ceiling((float)totalCount / Size);
                 // 发票详情
+                var voucherOptions = WorkflowUtil.GetVoucherOptions().Options.ToDictionary(x => x.Code, x=> x.Name);
                 var resultList = new List<XYD_Invoice>() ;
                 foreach(XYD_InvoiceInfo invoiceInfo in list)
                 {
                     XYD_Invoice invoice = (XYD_Invoice)invoiceInfo;
+                    invoice.createdBy = orgMgr.GetEmployee(invoice.createdBy).EmplName;
+                    invoice.voucherType = voucherOptions[invoice.voucherType];
                     invoice.invoiceDetailData = db.InvoiceDetail.Where(n => n.invoiceDataCode == invoiceInfo.invoiceDataCode && n.invoiceNumber == invoiceInfo.invoiceNumber).ToList();
                     resultList.Add(invoice);
                 }
