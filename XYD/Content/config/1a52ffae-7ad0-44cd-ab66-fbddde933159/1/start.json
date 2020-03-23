@@ -144,6 +144,22 @@
                 "Options": null,
                 "Required": true
             }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "附件",
+                "Value": "",
+                "InterValue": "",
+                "Type": 10,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
         }
     ]
 }

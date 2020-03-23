@@ -497,6 +497,54 @@
                 "NeedRefresh": false,
                 "Required": true
             }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "附件",
+                "Value": "",
+                "InterValue": "",
+                "Type": 10,
+                "CanEdit": true,
+                "Row": 15,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 8,
+                    "Col": 5
+                },
+                {
+                    "Row": 9,
+                    "Col": 5
+                },
+                {
+                    "Row": 10,
+                    "Col": 5
+                },
+                {
+                    "Row": 11,
+                    "Col": 5
+                },
+                {
+                    "Row": 12,
+                    "Col": 5
+                }
+            ],
+            "Dest": {
+                "Row": 13,
+                "Col": 3
+            },
+            "Operation": "sum",
+            "Type": "int"
         }
     ]
 }

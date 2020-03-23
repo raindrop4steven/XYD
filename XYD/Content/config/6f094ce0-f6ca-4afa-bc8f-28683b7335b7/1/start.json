@@ -52,7 +52,7 @@
                 "Title": "公章名称",
                 "Value": "",
                 "InterValue": "",
-                "Type": 0,
+                "Type": 1,
                 "CanEdit": true,
                 "Row": 5,
                 "Col": 3,
@@ -86,8 +86,39 @@
                 "InterValue": "",
                 "Type": 0,
                 "CanEdit": true,
-                "Row": 6,
+                "Row": 5,
                 "Col": 9,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "盖章文件",
+                "Value": "",
+                "InterValue": "",
+                "Type": 10,
+                "CanEdit": true,
+                "Row": 6,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请事由",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 7,
+                "Col": 3,
                 "Options": null,
                 "Required": true
             }

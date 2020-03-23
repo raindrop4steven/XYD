@@ -152,6 +152,17 @@
                         "Col": 9,
                         "Options": null,
                         "Required": false
+                    },
+                    {
+                        "Title": "附件",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 10,
+                        "CanEdit": true,
+                        "Row": 6,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
                     }
                 ],
                 [
@@ -242,6 +253,17 @@
                         "Col": 9,
                         "Options": null,
                         "Required": false
+                    },
+                    {
+                        "Title": "附件",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 10,
+                        "CanEdit": true,
+                        "Row": 7,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
                     }
                 ],
                 [
@@ -332,6 +354,17 @@
                         "Col": 9,
                         "Options": null,
                         "Required": false
+                    },
+                    {
+                        "Title": "附件",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 10,
+                        "CanEdit": true,
+                        "Row": 8,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
                     }
                 ],
                 [
@@ -422,6 +455,17 @@
                         "Col": 9,
                         "Options": null,
                         "Required": false
+                    },
+                    {
+                        "Title": "附件",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 10,
+                        "CanEdit": true,
+                        "Row": 9,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
                     }
                 ],
                 [
@@ -512,6 +556,17 @@
                         "Col": 9,
                         "Options": null,
                         "Required": false
+                    },
+                    {
+                        "Title": "附件",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 10,
+                        "CanEdit": true,
+                        "Row": 10,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
                     }
                 ],
                 [
@@ -602,6 +657,17 @@
                         "Col": 9,
                         "Options": null,
                         "Required": false
+                    },
+                    {
+                        "Title": "附件",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 10,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 13,
+                        "Options": null,
+                        "Required": false
                     }
                 ],
                 [
@@ -690,6 +756,17 @@
                         "CanEdit": true,
                         "Row": 12,
                         "Col": 9,
+                        "Options": null,
+                        "Required": false
+                    },
+                    {
+                        "Title": "附件",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 10,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 13,
                         "Options": null,
                         "Required": false
                     }
