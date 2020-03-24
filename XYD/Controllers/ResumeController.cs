@@ -336,9 +336,9 @@ namespace XYD.Controllers
                         db.UserInfo.Add(info);
                         db.SaveChanges();
                     }
-                    info.BankNo = userInfo.BankNo;
-                    info.CredNo = userInfo.CredNo;
-                    info.DoorNo = userInfo.DoorNo;
+                    info.BankNo = userInfo.BankNo.Trim();
+                    info.CredNo = userInfo.CredNo.Trim();
+                    info.DoorNo = userInfo.DoorNo.Trim();
                     db.SaveChanges();
                     return ResponseUtil.OK("用户信息修改成功");
                 }
