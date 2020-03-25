@@ -551,6 +551,44 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 用车申请
+    public class XYD_CarRecord
+    {
+        [Key]
+        public int ID { get; set; }
+        // 流程ID
+        public string MessageID { get; set; }
+        // 用车人ID
+        public string ApplyUserID { get; set; }
+        // 申请部门
+        public string ApplyDept { get; set; }
+        // 用车人
+        public string ApplyUser { get; set; }
+        // 日期
+        public DateTime ApplyDate { get; set; }
+        // 事由
+        public string Reason { get; set; }
+        // 地点
+        public string Location { get; set; }
+        // 司机ID
+        public string DriverID { get; set; }
+        // 车号
+        public string CarNo { get; set; }
+        // 开始公里数
+        public int StartMiles { get; set; }
+        // 结束公里数
+        public int EndMiles { get; set; }
+        // 实际公里数
+        public int Miles { get; set; }
+        // 状态
+        public string Status { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -578,6 +616,7 @@ namespace XYD.Models
         public DbSet<XYD_InvoiceInfo> InvoiceInfo { get; set; }
         public DbSet<XYD_InvoiceDetail> InvoiceDetail { get; set; }
         public DbSet<XYD_UserCompanyInfo> UserCompanyInfo { get; set; }
+        public DbSet<XYD_CarRecord> CarRecord { get; set; }
     }
     #endregion
 }

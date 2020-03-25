@@ -219,6 +219,7 @@
     <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\AwardController.cs" />
     <Compile Include="Controllers\BackupMoneyController.cs" />
+    <Compile Include="Controllers\CarRecordController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
@@ -254,6 +255,18 @@
     <Compile Include="Migrations\202003251425540_add area to asset.cs" />
     <Compile Include="Migrations\202003251425540_add area to asset.Designer.cs">
       <DependentUpon>202003251425540_add area to asset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003251606140_add car record table.cs" />
+    <Compile Include="Migrations\202003251606140_add car record table.Designer.cs">
+      <DependentUpon>202003251606140_add car record table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003251636336_update car record table.cs" />
+    <Compile Include="Migrations\202003251636336_update car record table.Designer.cs">
+      <DependentUpon>202003251636336_update car record table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003251642316_update car record table2.cs" />
+    <Compile Include="Migrations\202003251642316_update car record table2.Designer.cs">
+      <DependentUpon>202003251642316_update car record table2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -619,6 +632,7 @@
     <Folder Include="Views\Award\" />
     <Folder Include="Views\BackupMoney\" />
     <Folder Include="Views\Banner\" />
+    <Folder Include="Views\CarRecord\" />
     <Folder Include="Views\Common\" />
     <Folder Include="Views\Contact\" />
     <Folder Include="Views\Content\" />
@@ -661,6 +675,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003251425540_add area to asset.resx">
       <DependentUpon>202003251425540_add area to asset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251606140_add car record table.resx">
+      <DependentUpon>202003251606140_add car record table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251636336_update car record table.resx">
+      <DependentUpon>202003251636336_update car record table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251642316_update car record table2.resx">
+      <DependentUpon>202003251642316_update car record table2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

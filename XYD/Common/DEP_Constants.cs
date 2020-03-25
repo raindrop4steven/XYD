@@ -161,5 +161,13 @@ namespace XYD.Common
         public static string ASSET_CATEGORY_ASSET = "Asset";
         // 日常用品
         public static string ASSET_CATEGORY_CONSUME = "Consume";
+
+        /**
+         * 车辆公里填写状态
+         */
+        // 未填写
+        public static string CAR_MILES_UNFINISH = "UNFINISH";
+        // 已填写
+        public static string CAR_MILES_FINISH = "FINISH";
     }
 }
