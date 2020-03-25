@@ -17,12 +17,9 @@ namespace XYD.Controllers
         {
             try
             {
-                // 当前用户
-                var employee = (User.Identity as AppkizIdentity).Employee;
-
                 using (var db = new DefaultConnection())
                 {
-                    model.EmplID = employee.EmplID;
+                    model.EmplID = model.EmplID;
                     model.CreateTime = DateTime.Now;
                     model.UpdateTime = DateTime.Now;
                     db.Education.Add(model);

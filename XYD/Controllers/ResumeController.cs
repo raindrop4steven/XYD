@@ -3,6 +3,7 @@ using Appkiz.Library.Security.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -16,7 +17,6 @@ namespace XYD.Controllers
     {
         // 用户管理
         OrgMgr orgMgr = new OrgMgr();
-
 
         #region 用户简历信息
         [Authorize]
@@ -37,6 +37,8 @@ namespace XYD.Controllers
             {
                 // 用户信息
                 var userInfo = db.UserInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
+                // 用户公司信息
+                var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
                 // 联系人
                 var contacts = db.Contact.Where(n => n.EmplID == employee.EmplID).OrderByDescending(n => n.UpdateTime).ToList();
                 // 工作经历
@@ -46,6 +48,7 @@ namespace XYD.Controllers
                 // 证书情况
                 var awards = db.Award.ToList().Where(n => n.EmplID == employee.EmplID).OrderBy(n => n.CreateTime).Select(n => new {
                     ID = n.ID,
+                    EmplID = n.EmplID,
                     Name = n.Name,
                     Attachments = db.Attachment.ToList().Where(m => n.Attachment.Split(',').Select(int.Parse).ToList().Contains(m.ID)).Select(m => new {
                         id = m.ID,
@@ -56,7 +59,8 @@ namespace XYD.Controllers
 
                 return ResponseUtil.OK(new {
                     baseInfo = employee,
-                    userInfo = userInfo == null ? new XYD_UserInfo() : userInfo,
+                    userInfo = userInfo == null ? new XYD_UserInfo() { EmplID = employee.EmplID } : userInfo,
+                    userCompanyInfo = userCompanyInfo == null ? new XYD_UserCompanyInfo() { EmplID = employee.EmplID } : userCompanyInfo,
                     contacts = contacts,
                     experiences = experiences,
                     educations = educations,
@@ -141,7 +145,7 @@ namespace XYD.Controllers
 
         #region 网页端查询工资
         [Authorize]
-        public ActionResult QueryDetailSalary(DateTime BeginDate, DateTime EndDate, string UserName, int Page, int Size)
+        public ActionResult QueryDetailSalary(DateTime BeginDate, DateTime EndDate, string UserName, string Area, int Page, int Size)
         {
             try
             {
@@ -189,13 +193,13 @@ namespace XYD.Controllers
                     sql = string.Format(@"SELECT
                                             {0}
                                             WHERE
-	                                            cGZGradeNum = '001' 
+	                                            cGZGradeNum LIKE '{6}%' 
 	                                            AND cPsn_Num in ({1})
 	                                            AND iYear >= {2}
                                                 AND iYear <= {3}
 	                                            AND iMonth >= {4}
 	                                            AND iMonth <= {5}
-                                                ORDER BY b.cDepCode, iYear, iMonth", selectClause, inClause, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month);
+                                                ORDER BY b.cDepCode, iYear, iMonth", selectClause, inClause, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month, Area);
                 }
                 else
                 {
@@ -208,8 +212,7 @@ namespace XYD.Controllers
                     sql = string.Format(@"SELECT
 	                                           {0}
                                             WHERE
-	                                            cGZGradeNum = '001' 
-	                                            AND cPsn_Num = '{1}'
+	                                            cPsn_Num = '{1}'
 	                                            AND iYear >= {2}
                                                 AND iYear <= {3}
 	                                            AND iMonth >= {4}
@@ -244,6 +247,25 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 地区列表
+        [Authorize]
+        public ActionResult SalaryAreaList()
+        {
+            return ResponseUtil.OK(new List<object>{
+                new
+                {
+                    Code = "001",
+                    Name = "无锡"
+                },
+                new
+                {
+                    Code = "002",
+                    Name = "上海"
+                }
+            });
+        }
+        #endregion
+
         #region 检查身份证是否完善和正确
         public ActionResult CheckCredNo(string inputCredNo)
         {
@@ -273,26 +295,34 @@ namespace XYD.Controllers
 
         #region 员工列表
         [Authorize]
-        public ActionResult EmployeeList(int Page, int Size, string UserName)
+        public ActionResult EmployeeList(int Page, int Size, string UserName, string ContractDate)
         {
             try
             {
+                var contractDateCondition = string.Empty;
+                if (!string.IsNullOrEmpty(ContractDate))
+                {
+                    contractDateCondition = string.Format(@"AND Convert(varchar,e.ContractDate,120) LIKE '%{0}%'", ContractDate);
+                }
                 var sql = string.Format(@"SELECT
-                                                ISNULL(a.EmplID, ''),
-	                                            ISNULL(a.EmplNO, ''),
-	                                            ISNULL(a.EmplName, ''),
-	                                            ISNULL(b.DeptName, ''),
-	                                            ISNULL(d.PositionName, '')
-                                            FROM
-	                                            ORG_Employee a
-	                                            LEFT JOIN ORG_Department b ON a.DeptID = b.DeptID
-	                                            INNER JOIN ORG_EmplDept c ON c.EmplID = a.EmplID
-	                                            INNER JOIN ORG_Position d ON d.PositionID = c.PosID 
-                                            WHERE
-	                                            a.EmplEnabled = 1 
-	                                            AND a.EmplName LIKE '%{0}%' 
-                                            ORDER BY
-	                                            GlobalSortNo DESC", UserName);
+	                                        ISNULL( a.EmplID, '' ) AS EmplID,
+	                                        ISNULL( a.EmplNO, '' ) AS EmplNO,
+	                                        ISNULL( a.EmplName, '' ) AS EmplName,
+	                                        ISNULL( b.DeptName, '' ) AS DeptName,
+	                                        ISNULL( d.PositionName, '' ) AS PositionName,
+	                                        e.ContractDate
+                                        FROM
+	                                        ORG_Employee a
+	                                        LEFT JOIN ORG_Department b ON a.DeptID = b.DeptID
+	                                        INNER JOIN ORG_EmplDept c ON c.EmplID = a.EmplID
+	                                        INNER JOIN ORG_Position d ON d.PositionID = c.PosID 
+	                                        LEFT JOIN XYD_UserCompanyInfo e on a.EmplID = e.EmplID
+                                        WHERE
+	                                        a.EmplEnabled = 1 
+	                                        AND a.EmplName LIKE '%{0}%' 
+	                                        {1}
+                                        ORDER BY
+	                                        GlobalSortNo DESC", UserName, contractDateCondition);
                 var list = DbUtil.ExecuteSqlCommand(sql, DbUtil.searchEmployee);
                 var totalCount = list.Count();
                 var results = list.Skip(Page * Size).Take(Size);
@@ -324,23 +354,48 @@ namespace XYD.Controllers
         {
             try
             {
-                var employee = (User.Identity as AppkizIdentity).Employee;
-
                 using (var db = new DefaultConnection())
                 {
-                    var info = db.UserInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
+                    var info = db.UserInfo.Where(n => n.EmplID == userInfo.EmplID).FirstOrDefault();
                     if (info == null)
                     {
-                        info = new XYD_UserInfo();
-                        info.EmplID = employee.EmplID;
+                        info = userInfo;
                         db.UserInfo.Add(info);
-                        db.SaveChanges();
+                    } else
+                    {
+                        CommonUtils.CopyProperties<XYD_UserInfo>(userInfo, info);
                     }
-                    info.BankNo = userInfo.BankNo;
-                    info.CredNo = userInfo.CredNo;
-                    info.DoorNo = userInfo.DoorNo;
                     db.SaveChanges();
-                    return ResponseUtil.OK("用户信息修改成功");
+                    return ResponseUtil.OK("更改成功");
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 用户公司信息修改
+        [Authorize]
+        public ActionResult AddOrUpdateUserCompany(XYD_UserCompanyInfo userCompanyInfo)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var companyInfo = db.UserCompanyInfo.Where(n => n.EmplID == userCompanyInfo.EmplID).FirstOrDefault();
+                    if (companyInfo == null)
+                    {
+                        companyInfo = userCompanyInfo;
+                        db.UserCompanyInfo.Add(companyInfo);
+                    }
+                    else
+                    {
+                        CommonUtils.CopyProperties<XYD_UserCompanyInfo>(userCompanyInfo, companyInfo);
+                    }
+                    db.SaveChanges();
+                    return ResponseUtil.OK("更新成功");
                 }
             }
             catch (Exception e)
@@ -387,6 +442,37 @@ namespace XYD.Controllers
                 else
                 {
                     return ResponseUtil.OK("记录已是最新，无需同步");
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 续签
+        [Authorize]
+        public ActionResult ContinueContract(string EmplID)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == EmplID).FirstOrDefault();
+                    if (userCompanyInfo == null)
+                    {
+                        return ResponseUtil.Error("记录不存在");
+                    } else if (userCompanyInfo.ContractDate == null)
+                    {
+                        return ResponseUtil.Error("请先补全劳动合同日期");
+                    } else
+                    {
+                        userCompanyInfo.ContractDate = userCompanyInfo.ContractDate.Value.AddYears(1);
+                        userCompanyInfo.ContinueCount += 1;
+                        db.SaveChanges();
+                        return ResponseUtil.OK("合同续签成功");
+                    }
                 }
             }
             catch (Exception e)

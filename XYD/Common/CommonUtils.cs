@@ -94,5 +94,21 @@ namespace XYD.Common
         }
         #endregion
         // 众妙之门 END ：）
+
+        #region 复制对象属性
+        public static void CopyProperties<T>(object src, object dest)
+        {
+            Type t = src.GetType();
+            PropertyInfo[] properties = t.GetProperties();
+
+            foreach (PropertyInfo pi in properties)
+            {
+                if (pi.CanWrite)
+                {
+                    pi.SetValue(dest, pi.GetValue(src, null), null);
+                }
+            }
+        }
+        #endregion
     }
 }

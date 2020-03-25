@@ -18,10 +18,9 @@ namespace XYD.Controllers
             try
             {
                 // 当前用户
-                var employee = (User.Identity as AppkizIdentity).Employee;
                 using (var db = new DefaultConnection())
                 {
-                    model.EmplID = employee.EmplID;
+                    model.EmplID = model.EmplID;
                     model.CreateTime = DateTime.Now;
                     model.UpdateTime = DateTime.Now;
                     db.Contact.Add(model);
@@ -43,7 +42,6 @@ namespace XYD.Controllers
             try
             {
                 // 当前用户
-                var employee = (User.Identity as AppkizIdentity).Employee;
                 using (var db = new DefaultConnection())
                 {
                     var contact = db.Contact.Where(n => n.ID == model.ID).FirstOrDefault();

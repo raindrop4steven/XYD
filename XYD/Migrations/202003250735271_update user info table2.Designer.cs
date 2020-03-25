@@ -7,13 +7,13 @@ namespace XYD.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addinvoice : IMigrationMetadata
+    public sealed partial class updateuserinfotable2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addinvoice));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(updateuserinfotable2));
         
         string IMigrationMetadata.Id
         {
-            get { return "202003160838443_add invoice"; }
+            get { return "202003250735271_update user info table2"; }
         }
         
         string IMigrationMetadata.Source

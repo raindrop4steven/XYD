@@ -243,53 +243,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002211423236_add vendor.cs" />
-    <Compile Include="Migrations\202002211423236_add vendor.Designer.cs">
-      <DependentUpon>202002211423236_add vendor.cs</DependentUpon>
+    <Compile Include="Migrations\202003250727327_update user info table.cs" />
+    <Compile Include="Migrations\202003250727327_update user info table.Designer.cs">
+      <DependentUpon>202003250727327_update user info table.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202002260901594_add voucher.cs" />
-    <Compile Include="Migrations\202002260901594_add voucher.Designer.cs">
-      <DependentUpon>202002260901594_add voucher.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002260902495_add voucher2.cs" />
-    <Compile Include="Migrations\202002260902495_add voucher2.Designer.cs">
-      <DependentUpon>202002260902495_add voucher2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202002280257442_refractor voucher model.cs" />
-    <Compile Include="Migrations\202002280257442_refractor voucher model.Designer.cs">
-      <DependentUpon>202002280257442_refractor voucher model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003060844023_添加用户基本信息.cs" />
-    <Compile Include="Migrations\202003060844023_添加用户基本信息.Designer.cs">
-      <DependentUpon>202003060844023_添加用户基本信息.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003081539503_add node name in audit record.cs" />
-    <Compile Include="Migrations\202003081539503_add node name in audit record.Designer.cs">
-      <DependentUpon>202003081539503_add node name in audit record.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003090606323_add backup money.cs" />
-    <Compile Include="Migrations\202003090606323_add backup money.Designer.cs">
-      <DependentUpon>202003090606323_add backup money.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003091329599_add backup money deptId, status.cs" />
-    <Compile Include="Migrations\202003091329599_add backup money deptId, status.Designer.cs">
-      <DependentUpon>202003091329599_add backup money deptId, status.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003101247110_add dept relation.cs" />
-    <Compile Include="Migrations\202003101247110_add dept relation.Designer.cs">
-      <DependentUpon>202003101247110_add dept relation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003101248574_rm dept relation.cs" />
-    <Compile Include="Migrations\202003101248574_rm dept relation.Designer.cs">
-      <DependentUpon>202003101248574_rm dept relation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003160838443_add invoice.cs" />
-    <Compile Include="Migrations\202003160838443_add invoice.Designer.cs">
-      <DependentUpon>202003160838443_add invoice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003161004508_add authentication time.cs" />
-    <Compile Include="Migrations\202003161004508_add authentication time.Designer.cs">
-      <DependentUpon>202003161004508_add authentication time.cs</DependentUpon>
+    <Compile Include="Migrations\202003250735271_update user info table2.cs" />
+    <Compile Include="Migrations\202003250735271_update user info table2.Designer.cs">
+      <DependentUpon>202003250735271_update user info table2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -667,6 +627,7 @@
     <Folder Include="Views\SerialNo\" />
     <Folder Include="Views\System\" />
     <Folder Include="Views\Test\" />
+    <Folder Include="Views\UserCompany\" />
     <Folder Include="Views\Vendor\" />
     <Folder Include="Views\Voucher\" />
     <Folder Include="Views\WorkExperience\" />
@@ -688,41 +649,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202002211423236_add vendor.resx">
-      <DependentUpon>202002211423236_add vendor.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003250727327_update user info table.resx">
+      <DependentUpon>202003250727327_update user info table.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002260901594_add voucher.resx">
-      <DependentUpon>202002260901594_add voucher.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002260902495_add voucher2.resx">
-      <DependentUpon>202002260902495_add voucher2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202002280257442_refractor voucher model.resx">
-      <DependentUpon>202002280257442_refractor voucher model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003060844023_添加用户基本信息.resx">
-      <DependentUpon>202003060844023_添加用户基本信息.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003081539503_add node name in audit record.resx">
-      <DependentUpon>202003081539503_add node name in audit record.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003090606323_add backup money.resx">
-      <DependentUpon>202003090606323_add backup money.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003091329599_add backup money deptId, status.resx">
-      <DependentUpon>202003091329599_add backup money deptId, status.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003101247110_add dept relation.resx">
-      <DependentUpon>202003101247110_add dept relation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003101248574_rm dept relation.resx">
-      <DependentUpon>202003101248574_rm dept relation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003160838443_add invoice.resx">
-      <DependentUpon>202003160838443_add invoice.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003161004508_add authentication time.resx">
-      <DependentUpon>202003161004508_add authentication time.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003250735271_update user info table2.resx">
+      <DependentUpon>202003250735271_update user info table2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
