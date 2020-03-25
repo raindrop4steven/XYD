@@ -794,7 +794,7 @@ namespace XYD.Controllers
 	                                                INNER JOIN WKF_MessageFolder e ON b.WorkFlowId = e.MessageID
 	                                                INNER JOIN WKF_Folder f ON f.FolderID = e.FolderID 
                                                 WHERE
-	                                                a.MessageStatus = 2 
+	                                                a.MessageStatus in (2,3) 
 	                                                AND a.MessageIssuedBy = '{1}' 
                                                 GROUP BY
 	                                                b.WorkFlowId,
@@ -899,12 +899,12 @@ namespace XYD.Controllers
 		                                WHEN a.MessageStatus = 2 THEN
 		                                '已完成' 
 		                                WHEN a.MessageStatus = 3 THEN
-		                                '终止信息' ELSE NULL 
+		                                '已终止' ELSE NULL 
 	                                END AS MessageStatusName 
                                      FROM WKF_Message a
                                     INNER JOIN {0} b
                                     ON a.MessageID = b.MessageId
-                                    WHERE a.MessageStatus = 2
+                                    WHERE a.MessageStatus in (2,3)
                                     and a.MessageIssuedBy = '{1}'", tableName, emplId));
 
                     //公文标题
