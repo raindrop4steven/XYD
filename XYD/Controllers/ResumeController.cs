@@ -432,5 +432,36 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 续签
+        [Authorize]
+        public ActionResult ContinueContract(string EmplID)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == EmplID).FirstOrDefault();
+                    if (userCompanyInfo == null)
+                    {
+                        return ResponseUtil.Error("记录不存在");
+                    } else if (userCompanyInfo.ContractDate == null)
+                    {
+                        return ResponseUtil.Error("请先补全劳动合同日期");
+                    } else
+                    {
+                        userCompanyInfo.ContractDate = userCompanyInfo.ContractDate.Value.AddYears(1);
+                        userCompanyInfo.ContinueCount += 1;
+                        db.SaveChanges();
+                        return ResponseUtil.OK("合同续签成功");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }
