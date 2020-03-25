@@ -18,7 +18,6 @@ namespace XYD.Controllers
         // 用户管理
         OrgMgr orgMgr = new OrgMgr();
 
-
         #region 用户简历信息
         [Authorize]
         public ActionResult Info(string EmplID)
@@ -278,26 +277,34 @@ namespace XYD.Controllers
 
         #region 员工列表
         [Authorize]
-        public ActionResult EmployeeList(int Page, int Size, string UserName)
+        public ActionResult EmployeeList(int Page, int Size, string UserName, string ContractDate)
         {
             try
             {
+                var contractDateCondition = string.Empty;
+                if (!string.IsNullOrEmpty(ContractDate))
+                {
+                    contractDateCondition = string.Format(@"AND Convert(varchar,e.ContractDate,120) LIKE '%{0}%'", ContractDate);
+                }
                 var sql = string.Format(@"SELECT
-                                                ISNULL(a.EmplID, ''),
-	                                            ISNULL(a.EmplNO, ''),
-	                                            ISNULL(a.EmplName, ''),
-	                                            ISNULL(b.DeptName, ''),
-	                                            ISNULL(d.PositionName, '')
-                                            FROM
-	                                            ORG_Employee a
-	                                            LEFT JOIN ORG_Department b ON a.DeptID = b.DeptID
-	                                            INNER JOIN ORG_EmplDept c ON c.EmplID = a.EmplID
-	                                            INNER JOIN ORG_Position d ON d.PositionID = c.PosID 
-                                            WHERE
-	                                            a.EmplEnabled = 1 
-	                                            AND a.EmplName LIKE '%{0}%' 
-                                            ORDER BY
-	                                            GlobalSortNo DESC", UserName);
+	                                        ISNULL( a.EmplID, '' ) AS EmplID,
+	                                        ISNULL( a.EmplNO, '' ) AS EmplNO,
+	                                        ISNULL( a.EmplName, '' ) AS EmplName,
+	                                        ISNULL( b.DeptName, '' ) AS DeptName,
+	                                        ISNULL( d.PositionName, '' ) AS PositionName,
+	                                        e.ContractDate
+                                        FROM
+	                                        ORG_Employee a
+	                                        LEFT JOIN ORG_Department b ON a.DeptID = b.DeptID
+	                                        INNER JOIN ORG_EmplDept c ON c.EmplID = a.EmplID
+	                                        INNER JOIN ORG_Position d ON d.PositionID = c.PosID 
+	                                        LEFT JOIN XYD_UserCompanyInfo e on a.EmplID = e.EmplID
+                                        WHERE
+	                                        a.EmplEnabled = 1 
+	                                        AND a.EmplName LIKE '%{0}%' 
+	                                        {1}
+                                        ORDER BY
+	                                        GlobalSortNo DESC", UserName, contractDateCondition);
                 var list = DbUtil.ExecuteSqlCommand(sql, DbUtil.searchEmployee);
                 var totalCount = list.Count();
                 var results = list.Skip(Page * Size).Take(Size);
@@ -350,8 +357,6 @@ namespace XYD.Controllers
             }
         }
         #endregion
-
-
 
         #region 用户公司信息修改
         [Authorize]

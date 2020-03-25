@@ -391,7 +391,8 @@ namespace XYD.Common
                     EmplNO = reader.GetString(1),
                     EmplName = reader.GetString(2),
                     DeptName = reader.GetString(3),
-                    PositionName = reader.GetString(4)
+                    PositionName = reader.GetString(4),
+                    ContractDate = reader.IsDBNull(5) ? string.Empty : reader.GetDateTime(5).ToString("yyyy-MM-dd")
                 });
             }
 
