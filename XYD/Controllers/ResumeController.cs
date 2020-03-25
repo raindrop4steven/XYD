@@ -145,7 +145,7 @@ namespace XYD.Controllers
 
         #region 网页端查询工资
         [Authorize]
-        public ActionResult QueryDetailSalary(DateTime BeginDate, DateTime EndDate, string UserName, int Page, int Size)
+        public ActionResult QueryDetailSalary(DateTime BeginDate, DateTime EndDate, string UserName, string Area, int Page, int Size)
         {
             try
             {
@@ -193,13 +193,13 @@ namespace XYD.Controllers
                     sql = string.Format(@"SELECT
                                             {0}
                                             WHERE
-	                                            cGZGradeNum = '001' 
+	                                            cGZGradeNum LIKE '{6}%' 
 	                                            AND cPsn_Num in ({1})
 	                                            AND iYear >= {2}
                                                 AND iYear <= {3}
 	                                            AND iMonth >= {4}
 	                                            AND iMonth <= {5}
-                                                ORDER BY b.cDepCode, iYear, iMonth", selectClause, inClause, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month);
+                                                ORDER BY b.cDepCode, iYear, iMonth", selectClause, inClause, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month, Area);
                 }
                 else
                 {
@@ -212,8 +212,7 @@ namespace XYD.Controllers
                     sql = string.Format(@"SELECT
 	                                           {0}
                                             WHERE
-	                                            cGZGradeNum = '001' 
-	                                            AND cPsn_Num = '{1}'
+	                                            cPsn_Num = '{1}'
 	                                            AND iYear >= {2}
                                                 AND iYear <= {3}
 	                                            AND iMonth >= {4}
@@ -245,6 +244,25 @@ namespace XYD.Controllers
             {
                 return ResponseUtil.Error(e.Message);
             }
+        }
+        #endregion
+
+        #region 地区列表
+        [Authorize]
+        public ActionResult SalaryAreaList()
+        {
+            return ResponseUtil.OK(new List<object>{
+                new
+                {
+                    Code = "001",
+                    Name = "无锡"
+                },
+                new
+                {
+                    Code = "002",
+                    Name = "上海"
+                }
+            });
         }
         #endregion
 
