@@ -362,7 +362,21 @@ namespace XYD.Controllers
                     // 记录总页数
                     var totalPage = (int)Math.Ceiling((float)totalCount / Size);
                     var results = list.OrderByDescending(n => n.CreateTime).Skip(Page * Size).Take(Size).ToList();
-
+                    foreach(var asset in results)
+                    {
+                        var status = string.Empty;
+                        if (asset.Status == DEP_Constants.Asset_Status_Available)
+                        {
+                            status = "可申领";
+                        } else if (asset.Status == DEP_Constants.Asset_Status_Used)
+                        {
+                            status = "已申领";
+                        } else
+                        {
+                            status = "已报废";
+                        }
+                        asset.Status = status;
+                    }
                     return ResponseUtil.OK(new {
                         records = results,
                         meta = new
