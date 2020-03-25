@@ -11,18 +11,16 @@ namespace XYD.Controllers
 {
     public class WorkExperienceController : Controller
     {
-        #region 工作经历列表
+        #region 添加工作经历
         [Authorize]
         public ActionResult Add(XYD_WorkExperience model)
         {
             try
             {
                 // 当前用户
-                var employee = (User.Identity as AppkizIdentity).Employee;
-
                 using (var db = new DefaultConnection())
                 {
-                    model.EmplID = employee.EmplID;
+                    model.EmplID = model.EmplID;
                     model.CreateTime = DateTime.Now;
                     model.UpdateTime = DateTime.Now;
                     db.WorkExperience.Add(model);

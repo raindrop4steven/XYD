@@ -18,10 +18,9 @@ namespace XYD.Controllers
             try
             {
                 // 当前用户
-                var employee = (User.Identity as AppkizIdentity).Employee;
                 using (var db = new DefaultConnection())
                 {
-                    model.EmplID = employee.EmplID;
+                    model.EmplID = model.EmplID;
                     model.CreateTime = DateTime.Now;
                     model.UpdateTime = DateTime.Now;
                     db.Award.Add(model);
@@ -43,7 +42,6 @@ namespace XYD.Controllers
             try
             {
                 // 当前用户
-                var employee = (User.Identity as AppkizIdentity).Employee;
                 using (var db = new DefaultConnection())
                 {
                     var entity = db.Award.Where(n => n.ID == model.ID).FirstOrDefault();
@@ -106,6 +104,7 @@ namespace XYD.Controllers
                     return ResponseUtil.OK(new
                     {
                         ID = entity.ID,
+                        EmplID = entity.EmplID,
                         Name = entity.Name,
                         Attachment = db.Attachment.ToList().Where(n => entity.Attachment.Split(',').Select(int.Parse).ToList().Contains(n.ID)).Select(n => new
                         {

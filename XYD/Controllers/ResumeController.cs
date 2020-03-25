@@ -3,6 +3,7 @@ using Appkiz.Library.Security.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -37,6 +38,8 @@ namespace XYD.Controllers
             {
                 // 用户信息
                 var userInfo = db.UserInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
+                // 用户公司信息
+                var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
                 // 联系人
                 var contacts = db.Contact.Where(n => n.EmplID == employee.EmplID).OrderByDescending(n => n.UpdateTime).ToList();
                 // 工作经历
@@ -46,6 +49,7 @@ namespace XYD.Controllers
                 // 证书情况
                 var awards = db.Award.ToList().Where(n => n.EmplID == employee.EmplID).OrderBy(n => n.CreateTime).Select(n => new {
                     ID = n.ID,
+                    EmplID = n.EmplID,
                     Name = n.Name,
                     Attachments = db.Attachment.ToList().Where(m => n.Attachment.Split(',').Select(int.Parse).ToList().Contains(m.ID)).Select(m => new {
                         id = m.ID,
@@ -56,7 +60,8 @@ namespace XYD.Controllers
 
                 return ResponseUtil.OK(new {
                     baseInfo = employee,
-                    userInfo = userInfo == null ? new XYD_UserInfo() : userInfo,
+                    userInfo = userInfo == null ? new XYD_UserInfo() { EmplID = employee.EmplID } : userInfo,
+                    userCompanyInfo = userCompanyInfo == null ? new XYD_UserCompanyInfo() { EmplID = employee.EmplID } : userCompanyInfo,
                     contacts = contacts,
                     experiences = experiences,
                     educations = educations,
@@ -324,23 +329,50 @@ namespace XYD.Controllers
         {
             try
             {
-                var employee = (User.Identity as AppkizIdentity).Employee;
-
                 using (var db = new DefaultConnection())
                 {
-                    var info = db.UserInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
+                    var info = db.UserInfo.Where(n => n.EmplID == userInfo.EmplID).FirstOrDefault();
                     if (info == null)
                     {
-                        info = new XYD_UserInfo();
-                        info.EmplID = employee.EmplID;
+                        info = userInfo;
                         db.UserInfo.Add(info);
-                        db.SaveChanges();
+                    } else
+                    {
+                        CommonUtils.CopyProperties<XYD_UserInfo>(userInfo, info);
                     }
-                    info.BankNo = userInfo.BankNo.Trim();
-                    info.CredNo = userInfo.CredNo.Trim();
-                    info.DoorNo = userInfo.DoorNo.Trim();
                     db.SaveChanges();
-                    return ResponseUtil.OK("用户信息修改成功");
+                    return ResponseUtil.OK("更改成功");
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+
+
+        #region 用户公司信息修改
+        [Authorize]
+        public ActionResult AddOrUpdateUserCompany(XYD_UserCompanyInfo userCompanyInfo)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var companyInfo = db.UserCompanyInfo.Where(n => n.EmplID == userCompanyInfo.EmplID).FirstOrDefault();
+                    if (companyInfo == null)
+                    {
+                        companyInfo = userCompanyInfo;
+                        db.UserCompanyInfo.Add(companyInfo);
+                    }
+                    else
+                    {
+                        CommonUtils.CopyProperties<XYD_UserCompanyInfo>(userCompanyInfo, companyInfo);
+                    }
+                    db.SaveChanges();
+                    return ResponseUtil.OK("更新成功");
                 }
             }
             catch (Exception e)

@@ -44,19 +44,67 @@ namespace XYD.Models
     }
     #endregion
 
-    #region 其他信息
+    #region 用户其他信息
     public class XYD_UserInfo
     {
         [Key]
         public int ID { get; set; }
         // 用户ID
         public string EmplID { get; set; }
+        // 籍贯
+        public string BirthPlace { get; set; }
+        // 民族
+        public string Nation { get; set; }
+        // 最高文化程度
+        public string TopDegree { get; set; }
+        // 婚姻状况
+        public bool Marriage { get; set; }
         // 身份证号
         public string CredNo { get; set; }
-        // 银行卡号
-        public string BankNo { get; set; }
+        // 护照号
+        public string PassportNo { get; set; }
+        // 港澳通行证号
+        public string ExitEntryNo { get; set; }
         // 门禁卡号
         public string DoorNo { get; set; }
+        // 户籍所在地
+        public string Residence { get; set; }
+        // 现居地址
+        public string CurrentAddress { get; set; }
+    }
+    #endregion
+
+    #region 员工公司信息
+    public class XYD_UserCompanyInfo
+    {
+        [Key]
+        public int ID { get; set; }
+        // 用户ID
+        public string EmplID { get; set; }
+        // 入职日期
+        public DateTime? EmployeeDate { get; set; }
+        // 试用日期
+        public DateTime? TrialDate { get; set; }
+        // 试用期工资
+        public float? TrialSalary { get; set; }
+        // 劳动合同期限
+        public DateTime? ContractDate { get; set; }
+        // 转正日期
+        public DateTime? FormalDate { get; set; }
+        // 转正工资
+        public float? FormalSalary { get; set; }
+        // 公积金账号
+        public string HousingFundNo { get; set; }
+        // 社保账号
+        public string SocialInsuranceNo { get; set; }
+        // 社保缴纳起始月
+        public DateTime? SocialInsuranceStartDate { get; set; }
+        // 缴纳月数
+        public int SocialInsuranceTotalMonth { get; set; }
+        // 工资卡号
+        public string BankNo { get; set; }
+        // 续签次数
+        public int ContinueCount { get; set; }
     }
     #endregion
 
@@ -521,6 +569,7 @@ namespace XYD.Models
         public DbSet<XYD_BackupMoney> BackupMoney { get; set; }
         public DbSet<XYD_InvoiceInfo> InvoiceInfo { get; set; }
         public DbSet<XYD_InvoiceDetail> InvoiceDetail { get; set; }
+        public DbSet<XYD_UserCompanyInfo> UserCompanyInfo { get; set; }
     }
     #endregion
 }
