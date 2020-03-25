@@ -88,6 +88,7 @@ namespace XYD.Controllers
 
                 // 解析成发票信息
                 XYD_Invoice invoice = JsonConvert.DeserializeObject<XYD_Invoice>(json);
+                checkExistInvoice(invoice.invoiceDataCode, invoice.invoiceNumber);
                 using (var db = new DefaultConnection())
                 {
                     XYD_InvoiceInfo invoiceInfo = invoice;
@@ -115,6 +116,20 @@ namespace XYD.Controllers
             catch(Exception e)
             {
                 return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 判断重复发票
+        public void checkExistInvoice(string invoiceCode, string invoiceNumber)
+        {
+            using (var db = new DefaultConnection())
+            {
+                var invoiceInfo = db.InvoiceInfo.Where(n => n.invoiceDataCode == invoiceCode && n.invoiceNumber == invoiceNumber).FirstOrDefault();
+                if (invoiceInfo != null)
+                {
+                    throw new Exception("数据库已存在相同发票");
+                }
             }
         }
         #endregion
