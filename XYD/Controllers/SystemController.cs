@@ -89,12 +89,12 @@ namespace XYD.Controllers
                 new
                 {
                     key = DEP_Constants.System_Config_Area_SH,
-                    value = DEP_Constants.System_Config_Area_SH
+                    value = DEP_Constants.System_Config_Name_SH
                 },
                 new
                 {
                     key = DEP_Constants.System_Config_Area_WX,
-                    value = DEP_Constants.System_Config_Area_WX
+                    value = DEP_Constants.System_Config_Name_WX
                 }
             });
         }

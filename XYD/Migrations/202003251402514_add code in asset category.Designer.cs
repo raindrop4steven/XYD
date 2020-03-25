@@ -7,13 +7,13 @@ namespace XYD.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class updateuserinfotable : IMigrationMetadata
+    public sealed partial class addcodeinassetcategory : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(updateuserinfotable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addcodeinassetcategory));
         
         string IMigrationMetadata.Id
         {
-            get { return "202003250727327_update user info table"; }
+            get { return "202003251402514_add code in asset category"; }
         }
         
         string IMigrationMetadata.Source

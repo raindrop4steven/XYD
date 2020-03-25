@@ -243,13 +243,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003250727327_update user info table.cs" />
-    <Compile Include="Migrations\202003250727327_update user info table.Designer.cs">
-      <DependentUpon>202003250727327_update user info table.cs</DependentUpon>
+    <Compile Include="Migrations\202003251402514_add code in asset category.cs" />
+    <Compile Include="Migrations\202003251402514_add code in asset category.Designer.cs">
+      <DependentUpon>202003251402514_add code in asset category.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003250735271_update user info table2.cs" />
-    <Compile Include="Migrations\202003250735271_update user info table2.Designer.cs">
-      <DependentUpon>202003250735271_update user info table2.cs</DependentUpon>
+    <Compile Include="Migrations\202003251421398_update asset.cs" />
+    <Compile Include="Migrations\202003251421398_update asset.Designer.cs">
+      <DependentUpon>202003251421398_update asset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003251425540_add area to asset.cs" />
+    <Compile Include="Migrations\202003251425540_add area to asset.Designer.cs">
+      <DependentUpon>202003251425540_add area to asset.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -649,11 +653,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003250727327_update user info table.resx">
-      <DependentUpon>202003250727327_update user info table.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003251402514_add code in asset category.resx">
+      <DependentUpon>202003251402514_add code in asset category.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003250735271_update user info table2.resx">
-      <DependentUpon>202003250735271_update user info table2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003251421398_update asset.resx">
+      <DependentUpon>202003251421398_update asset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251425540_add area to asset.resx">
+      <DependentUpon>202003251425540_add area to asset.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

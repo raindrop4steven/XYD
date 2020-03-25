@@ -13,11 +13,11 @@ namespace XYD.Controllers
     {
         #region 资产导入
         /// <summary>
-        /// assets规则：资产名称，资产数量，备注;资产名称，资产数量，备注
+        /// assets规则：资产名称，型号，数量，单位，单价;资产名称，型号，数量，单位，单价
         /// </summary>
         /// <param name="assets"></param>
         /// <returns></returns>
-        public ActionResult Import(string assets)
+        public ActionResult Import(string area, string assets)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace XYD.Controllers
                         }
                         else
                         {
-                            var cols = line.Split(',').Select(n => n).Where(n => !string.IsNullOrEmpty(n)).ToList();
+                            var cols = line.Split(',').ToList();
                             if (cols.Count < 2)
                             {
                                 continue;
@@ -41,18 +41,26 @@ namespace XYD.Controllers
                             else
                             {
                                 string name = cols.ElementAt(0);
-                                int count = int.Parse(cols.ElementAt(1));
+                                string model = cols.ElementAt(1);
+                                int count = int.Parse(cols.ElementAt(2));
+                                string unit = cols.ElementAt(3);
+                                decimal unitPrice = decimal.Parse(cols.ElementAt(4));
                                 string memo = cols.ElementAt(2);
+                                string category = unitPrice >= 3000 ? DEP_Constants.ASSET_CATEGORY_ASSET : DEP_Constants.ASSET_CATEGORY_CONSUME;
                                 for (int i = 0; i < count; i++)
                                 {
-                                    XYD_Asset model = new XYD_Asset();
-                                    model.Name = name;
-                                    model.Memo = memo;
-                                    model.Sn = DiskUtil.GetFormNumber();
-                                    model.Status = DEP_Constants.Asset_Status_Available;
-                                    model.CreateTime = DateTime.Now;
-                                    model.UpdateTime = DateTime.Now;
-                                    list.Add(model);
+                                    XYD_Asset asset = new XYD_Asset();
+                                    asset.Sn = DiskUtil.GetFormNumber();
+                                    asset.Name = name;
+                                    asset.Model = model;
+                                    asset.Unit = unit;
+                                    asset.UnitPrice = unitPrice;
+                                    asset.Category = category;
+                                    asset.Status = DEP_Constants.Asset_Status_Available;
+                                    asset.Area = area;
+                                    asset.CreateTime = DateTime.Now;
+                                    asset.UpdateTime = DateTime.Now;
+                                    list.Add(asset);
                                 }
                             }
                         }
@@ -72,7 +80,7 @@ namespace XYD.Controllers
         }
         #endregion
 
-        #region 资产添加
+        #region 资产添加（未使用）
         [Authorize]
         public ActionResult Add(XYD_Asset model)
         {
@@ -116,7 +124,10 @@ namespace XYD.Controllers
                 var employee = (User.Identity as AppkizIdentity).Employee;
                 using (var db = new DefaultConnection())
                 {
-                    var list = db.AssetCategory.OrderBy(n => n.Order).ToList();
+                    var list = db.AssetCategory.OrderBy(n => n.Order).Select(n => new {
+                        Code = n.Code,
+                        Name = n.Name
+                    }).ToList();
                     return ResponseUtil.OK(list);
                 }
             }
@@ -175,11 +186,7 @@ namespace XYD.Controllers
                     {
                         return ResponseUtil.Error("记录不存在");
                     }
-                    entity.Sn = model.Sn;
-                    entity.Name = model.Name;
-                    entity.Category = model.Category;
-                    entity.Memo = model.Memo;
-                    entity.Status = model.Status;
+                    CommonUtils.CopyProperties<XYD_Asset>(model, entity);
                     entity.UpdateTime = DateTime.Now;
                     db.SaveChanges();
                     return ResponseUtil.OK("更新成功");
@@ -345,17 +352,21 @@ namespace XYD.Controllers
                 using (var db = new DefaultConnection())
                 {
                     var list = db.Asset.Where(n => true);
-                    if (model.Category != DEP_Constants.Asset_Category_All)
+                    if (!string.IsNullOrEmpty(model.Category))
                     {
                         list = list.Where(n => n.Category == model.Category);
                     }
-                    if (model.Status != DEP_Constants.Asset_Status_All)
+                    if (!string.IsNullOrEmpty(model.Status))
                     {
                         list = list.Where(n => n.Status == model.Status);
                     }
                     if (!string.IsNullOrEmpty(model.Name))
                     {
                         list.Where(n => n.Name.Contains(model.Name));
+                    }
+                    if (!string.IsNullOrEmpty(model.Area))
+                    {
+                        list.Where(n => n.Area == model.Area);
                     }
                     // 记录总数
                     var totalCount = list.Count();
@@ -487,6 +498,38 @@ namespace XYD.Controllers
                 });
             }
             catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 统计资产数目
+        [Authorize]
+        public ActionResult Summary(string area, string status)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var assets = db.Asset.Where(n => n.Area == area && n.Status == status)
+                        .GroupBy(n => new { n.Name, n.Model })
+                        .Select(n => new
+                        {
+                            Name = n.FirstOrDefault().Name,
+                            Model = n.FirstOrDefault().Model,
+                            Unit = n.FirstOrDefault().Unit,
+                            Price = n.Sum(x => x.UnitPrice),
+                            Count = n.Count()
+                        }).ToList();
+                    var totalCount = assets.Sum(n => n.Count);
+                    return ResponseUtil.OK(new {
+                        assets = assets,
+                        totalCount = totalCount
+                    });
+                }
+            }
+            catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }

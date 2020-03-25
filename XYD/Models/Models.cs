@@ -219,12 +219,18 @@ namespace XYD.Models
         public string Sn { get; set; }
         // 资产名称
         public string Name { get; set; }
+        // 型号
+        public string Model { get; set; }
+        // 单位
+        public string Unit { get; set; }
+        // 单价
+        public decimal? UnitPrice { get; set; }
         // 资产类别
-        public int Category { get; set; }
-        // 备注
-        public string Memo { get; set; }
+        public string Category { get; set; }
         // 资产状态：可申领，已申领，已报废
         public string Status { get; set; }
+        // 地区
+        public string Area { get; set; }
         // 创建时间
         public DateTime CreateTime { get; set; }
         // 更新时间
@@ -259,6 +265,8 @@ namespace XYD.Models
         // ID
         [Key]
         public int ID { get; set; }
+        // 代码
+        public string Code { get; set; }
         // 名字
         public string Name { get; set; }
         // 排序

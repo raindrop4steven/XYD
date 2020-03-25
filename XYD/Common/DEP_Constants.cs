@@ -39,7 +39,6 @@ namespace XYD.Common
         public static string Asset_Status_Available = "Available";
         public static string Asset_Status_Used = "Used";
         public static string Asset_Status_Scraped = "Scraped";
-        public static string Asset_Status_All = "-1";
         /*
          * 资产操作类型: 添加、申请、归还、报废
          */
@@ -49,16 +48,13 @@ namespace XYD.Common
         public static string Asset_Operation_Scrap = "Scrap";
 
         /*
-         * 选项所有值
-         */
-        public static int Asset_Category_All = -1;
-
-        /*
          * 地区
          */
         public static string System_Config_Area_All = "-1";
         public static string System_Config_Area_SH = "SH";
+        public static string System_Config_Name_SH = "上海";
         public static string System_Config_Area_WX = "WX";
+        public static string System_Config_Name_WX = "无锡";
 
         /*
          * 学历列表
@@ -157,5 +153,13 @@ namespace XYD.Common
         public static string MONEY_REPAY = "1";
         // 已逾期
         public static string MONEY_DELAYED = "2";
+
+        /**
+         * 资产类别
+         */
+        // 固定资产
+        public static string ASSET_CATEGORY_ASSET = "Asset";
+        // 日常用品
+        public static string ASSET_CATEGORY_CONSUME = "Consume";
     }
 }
