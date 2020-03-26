@@ -32,6 +32,7 @@ namespace XYD.Controllers
                     return ResponseUtil.OK("没有同意，无需添加申请记录");
                 }
                 var message = mgr.GetMessage(mid);
+                var applyUser = orgMgr.GetEmployee(message.MessageIssuedBy);
                 var driver = orgMgr.FindEmployee("EmplName=@EmplName", new System.Collections.Hashtable()
               {
                 {
@@ -46,7 +47,8 @@ namespace XYD.Controllers
                     {
                         model.MessageID = mid;
                         model.ApplyUserID = message.MessageIssuedBy;
-                        model.ApplyUser = orgMgr.GetEmployee(model.ApplyUserID).EmplName;
+                        model.ApplyUser = applyUser.EmplName;
+                        model.ApplyDept = applyUser.DeptName;
                         model.DriverID = driver.EmplID;
                         model.CreateTime = DateTime.Now;
                         model.UpdateTime = DateTime.Now;
@@ -67,6 +69,26 @@ namespace XYD.Controllers
             {
                 return ResponseUtil.Error(e.Message);
             }
+        }
+        #endregion
+
+        #region 申请里程填写状态列表
+        [Authorize]
+        public ActionResult CarRecordStatus()
+        {
+            return ResponseUtil.OK(new List<object>()
+            {
+                new
+                {
+                    Code = DEP_Constants.CAR_MILES_UNFINISH,
+                    Name = "待填写"
+                },
+                new
+                {
+                    Code = DEP_Constants.CAR_MILES_FINISH,
+                    Name = "已填写"
+                }
+            });
         }
         #endregion
 
@@ -166,7 +188,7 @@ namespace XYD.Controllers
                         {
                             ApplyDept = n.FirstOrDefault().ApplyDept,
                             Miles = n.Sum(x => x.Miles)
-                        }).ToList();
+                        }).OrderByDescending(n => n.Miles).ToList();
                     return ResponseUtil.OK(list);
                 }
             }

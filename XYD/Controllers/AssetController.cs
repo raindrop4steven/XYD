@@ -1,6 +1,8 @@
 ﻿using Appkiz.Library.Security.Authentication;
+using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -536,6 +538,95 @@ namespace XYD.Controllers
             {
                 return ResponseUtil.Error(e.Message);
             }
+        }
+        #endregion
+
+        #region 资产统计下载
+        [Authorize]
+        public void Download(string area)
+        {
+            try
+            {
+                var db = new DefaultConnection();
+                // 当前资产列表
+                var assets = db.Asset.Where(n => n.Area == area)
+                        .GroupBy(n => new { n.Name, n.Model })
+                        .Select(n => new
+                        {
+                            Name = n.FirstOrDefault().Name,
+                            Model = n.FirstOrDefault().Model,
+                            Unit = n.FirstOrDefault().Unit,
+                            Price = n.Sum(x => x.UnitPrice * x.Count),
+                            Count = n.Sum(x => x.Count)
+                        });
+                var currentCount = assets.Sum(n => n.Count);
+                var usedCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Apply).ToList().Sum(n => n.Count);
+                var returnCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Return).ToList().Sum(n => n.Count);
+                var scrapedCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Scrap).ToList().Sum(n => n.Count);
+
+                // 准备生成Excel文件
+                // 1. 数据列表
+                var titles = new List<string[]>() { new string[] { "物品名称", "物品型号", "单位", "总价", "数量" } };
+                var wb = new XLWorkbook();
+                var ws = wb.Worksheets.Add("资产统计");
+                ws.Cell(1, 1).InsertData(titles);
+                ws.Range(1, 1, 1, 5).AddToNamed("Titles");
+                ws.Cell(2, 1).InsertData(assets);
+                // 2. 统计数据
+                var summaryTitles = new List<string[]>() { new string[] { "类别", "数量" } };
+                ws.Cell(1, 7).InsertData(summaryTitles);
+                ws.Range(1, 7, 1, 8).AddToNamed("Titles");
+                var summaryData = new List<object>()
+                {
+                    new object[]
+                    {
+                        "可申领资产", currentCount
+                    },
+                    new object[]
+                    {
+                        "已申领数量", usedCount
+                    },
+                    new object[]
+                    {
+                        "已归还数量", returnCount
+                    },
+                    new object[]
+                    {
+                        "已报废数量", scrapedCount
+                    }
+                };
+                ws.Cell(2, 7).InsertData(summaryData);
+                // Prepare the style for the titles
+                var titlesStyle = wb.Style;
+                titlesStyle.Font.Bold = true;
+                titlesStyle.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                titlesStyle.Fill.BackgroundColor = XLColor.Orange;
+
+                // Format all titles in one shot
+                wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
+                ws.Columns().AdjustToContents();
+                string myName = Server.UrlEncode("资产统计" + "_" + DateTime.Now.ToShortDateString() + ".xlsx");
+                MemoryStream stream = GetStream(wb);
+
+                Response.Clear();
+                Response.Buffer = true;
+                Response.AddHeader("content-disposition", "attachment; filename=" + myName);
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.BinaryWrite(stream.ToArray());
+                Response.End();
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
+
+        public MemoryStream GetStream(XLWorkbook excelWorkbook)
+        {
+            MemoryStream fs = new MemoryStream();
+            excelWorkbook.SaveAs(fs);
+            fs.Position = 0;
+            return fs;
         }
         #endregion
     }
