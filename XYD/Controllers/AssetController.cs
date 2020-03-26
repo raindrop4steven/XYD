@@ -47,21 +47,18 @@ namespace XYD.Controllers
                                 decimal unitPrice = decimal.Parse(cols.ElementAt(4));
                                 string memo = cols.ElementAt(2);
                                 string category = unitPrice >= 3000 ? DEP_Constants.ASSET_CATEGORY_ASSET : DEP_Constants.ASSET_CATEGORY_CONSUME;
-                                for (int i = 0; i < count; i++)
-                                {
-                                    XYD_Asset asset = new XYD_Asset();
-                                    asset.Sn = DiskUtil.GetFormNumber();
-                                    asset.Name = name;
-                                    asset.Model = model;
-                                    asset.Unit = unit;
-                                    asset.UnitPrice = unitPrice;
-                                    asset.Category = category;
-                                    asset.Status = DEP_Constants.Asset_Status_Available;
-                                    asset.Area = area;
-                                    asset.CreateTime = DateTime.Now;
-                                    asset.UpdateTime = DateTime.Now;
-                                    list.Add(asset);
-                                }
+                                XYD_Asset asset = new XYD_Asset();
+                                asset.Sn = DiskUtil.GetFormNumber();
+                                asset.Name = name;
+                                asset.Model = model;
+                                asset.Count = count;
+                                asset.Unit = unit;
+                                asset.UnitPrice = unitPrice;
+                                asset.Category = category;
+                                asset.Area = area;
+                                asset.CreateTime = DateTime.Now;
+                                asset.UpdateTime = DateTime.Now;
+                                list.Add(asset);
                             }
                         }
                     }
@@ -80,7 +77,7 @@ namespace XYD.Controllers
         }
         #endregion
 
-        #region 资产添加（未使用）
+        #region 资产添加
         [Authorize]
         public ActionResult Add(XYD_Asset model)
         {
@@ -90,7 +87,6 @@ namespace XYD.Controllers
                 using (var db = new DefaultConnection())
                 {
                     // 添加资产
-                    model.Status = DEP_Constants.Asset_Status_Available;
                     model.CreateTime = DateTime.Now;
                     model.UpdateTime = DateTime.Now;
                     db.Asset.Add(model);
@@ -224,7 +220,7 @@ namespace XYD.Controllers
 
         #region 资产申领
         [Authorize]
-        public ActionResult Apply(int id)
+        public ActionResult Apply(int id, int count)
         {
             try
             {
@@ -236,11 +232,11 @@ namespace XYD.Controllers
                     {
                         return ResponseUtil.Error("记录不存在");
                     }
-                    if (entity.Status != DEP_Constants.Asset_Status_Available)
+                    if (entity.Count < count)
                     {
-                        return ResponseUtil.Error("当前资产不可申领");
+                        return ResponseUtil.Error("申领数量超过库存数量");
                     }
-                    entity.Status = DEP_Constants.Asset_Status_Used;
+                    entity.Count -= count;
                     entity.UpdateTime = DateTime.Now;
                     // 记录
                     var record = new XYD_Asset_Record();
@@ -264,7 +260,7 @@ namespace XYD.Controllers
 
         #region 资产归还
         [Authorize]
-        public ActionResult Return(int id)
+        public ActionResult Return(int id, int count)
         {
             try
             {
@@ -276,11 +272,7 @@ namespace XYD.Controllers
                     {
                         return ResponseUtil.Error("记录不存在");
                     }
-                    if (entity.Status != DEP_Constants.Asset_Status_Used)
-                    {
-                        return ResponseUtil.Error("当前资产不可归还");
-                    }
-                    entity.Status = DEP_Constants.Asset_Status_Available;
+                    entity.Count += count;
                     entity.UpdateTime = DateTime.Now;
                     // 记录
                     var record = new XYD_Asset_Record();
@@ -302,9 +294,9 @@ namespace XYD.Controllers
         }
         #endregion
 
-        #region 资产报销
+        #region 资产报废
         [Authorize]
-        public ActionResult Scrap(int id)
+        public ActionResult Scrap(int id, int count)
         {
             try
             {
@@ -316,11 +308,11 @@ namespace XYD.Controllers
                     {
                         return ResponseUtil.Error("记录不存在");
                     }
-                    if (entity.Status != DEP_Constants.Asset_Status_Available)
+                    if (entity.Count < count)
                     {
-                        return ResponseUtil.Error("当前资产不可报废");
+                        return ResponseUtil.Error("报废数量超过库存");
                     }
-                    entity.Status = DEP_Constants.Asset_Status_Scraped;
+                    entity.Count -= count;
                     entity.UpdateTime = DateTime.Now;
                     // 记录
                     var record = new XYD_Asset_Record();
@@ -355,10 +347,11 @@ namespace XYD.Controllers
                     if (!string.IsNullOrEmpty(model.Category))
                     {
                         list = list.Where(n => n.Category == model.Category);
-                    }
-                    if (!string.IsNullOrEmpty(model.Status))
-                    {
-                        list = list.Where(n => n.Status == model.Status);
+                        // 固定资产有归还操作，所以数量为0的资产也可以显示
+                        if (model.Category == DEP_Constants.ASSET_CATEGORY_CONSUME)
+                        {
+                            list = list.Where(n => n.Count > 0);
+                        }
                     }
                     if (!string.IsNullOrEmpty(model.Name))
                     {
@@ -373,21 +366,6 @@ namespace XYD.Controllers
                     // 记录总页数
                     var totalPage = (int)Math.Ceiling((float)totalCount / Size);
                     var results = list.OrderByDescending(n => n.CreateTime).Skip(Page * Size).Take(Size).ToList();
-                    foreach(var asset in results)
-                    {
-                        var status = string.Empty;
-                        if (asset.Status == DEP_Constants.Asset_Status_Available)
-                        {
-                            status = "可申领";
-                        } else if (asset.Status == DEP_Constants.Asset_Status_Used)
-                        {
-                            status = "已申领";
-                        } else
-                        {
-                            status = "已报废";
-                        }
-                        asset.Status = status;
-                    }
                     return ResponseUtil.OK(new {
                         records = results,
                         meta = new
@@ -416,7 +394,7 @@ namespace XYD.Controllers
             {
                 var results = new List<object>();
                 var db = new DefaultConnection();
-
+                var asset = db.Asset.Where(n => n.ID == id).FirstOrDefault();
                 var records = db.AssetRecord.Where(n => n.AssetID == id).OrderBy(n => n.ID);
                 // 记录总数
                 var totalCount = records.Count();
@@ -428,7 +406,11 @@ namespace XYD.Controllers
                     var result = new
                     {
                         ID = record.ID,
-                        Asset = db.Asset.Where(n => n.ID == record.AssetID).FirstOrDefault().Name,
+                        Name = asset.Name,
+                        Model = asset.Model,
+                        Unit = asset.Unit,
+                        Count = asset.Count,
+                        UnitPrice = asset.UnitPrice,
                         Operation = record.Operation,
                         EmplName = record.EmplName,
                         DeptName = record.DeptName,
@@ -466,7 +448,7 @@ namespace XYD.Controllers
 
                 using (var db = new DefaultConnection())
                 {
-                    var assets = db.Asset.Where(n => n.Status == DEP_Constants.Asset_Status_Available)
+                    var assets = db.Asset.Where(n => n.Count > 0)
                         .GroupBy(n => n.Name)
                         .Select(n => new
                         {
@@ -506,20 +488,20 @@ namespace XYD.Controllers
 
         #region 统计资产数目
         [Authorize]
-        public ActionResult Summary(string area, string status)
+        public ActionResult Summary(string area)
         {
             try
             {
                 using (var db = new DefaultConnection())
                 {
-                    var assets = db.Asset.Where(n => n.Area == area && n.Status == status)
+                    var assets = db.Asset.Where(n => n.Area == area)
                         .GroupBy(n => new { n.Name, n.Model })
                         .Select(n => new
                         {
                             Name = n.FirstOrDefault().Name,
                             Model = n.FirstOrDefault().Model,
                             Unit = n.FirstOrDefault().Unit,
-                            Price = n.Sum(x => x.UnitPrice),
+                            Price = n.Sum(x => x.UnitPrice * x.Count),
                             Count = n.Count()
                         }).ToList();
                     var totalCount = assets.Sum(n => n.Count);

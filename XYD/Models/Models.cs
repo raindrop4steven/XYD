@@ -221,14 +221,14 @@ namespace XYD.Models
         public string Name { get; set; }
         // 型号
         public string Model { get; set; }
+        // 数量
+        public int Count { get; set; }
         // 单位
         public string Unit { get; set; }
         // 单价
         public decimal? UnitPrice { get; set; }
         // 资产类别
         public string Category { get; set; }
-        // 资产状态：可申领，已申领，已报废
-        public string Status { get; set; }
         // 地区
         public string Area { get; set; }
         // 创建时间
