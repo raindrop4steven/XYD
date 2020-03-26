@@ -244,10 +244,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003251402514_add code in asset category.cs" />
-    <Compile Include="Migrations\202003251402514_add code in asset category.Designer.cs">
-      <DependentUpon>202003251402514_add code in asset category.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202003251421398_update asset.cs" />
     <Compile Include="Migrations\202003251421398_update asset.Designer.cs">
       <DependentUpon>202003251421398_update asset.cs</DependentUpon>
@@ -667,9 +663,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003251402514_add code in asset category.resx">
-      <DependentUpon>202003251402514_add code in asset category.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003251421398_update asset.resx">
       <DependentUpon>202003251421398_update asset.cs</DependentUpon>
     </EmbeddedResource>
