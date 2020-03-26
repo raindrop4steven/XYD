@@ -1,4 +1,5 @@
-﻿using Appkiz.Library.Security.Authentication;
+﻿using Appkiz.Apps.Workflow.Library;
+using Appkiz.Library.Security.Authentication;
 using ClosedXML.Excel;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace XYD.Controllers
 {
     public class AssetController : Controller
     {
+        WorkflowMgr mgr = new WorkflowMgr();
+
         #region 资产导入
         /// <summary>
         /// assets规则：资产名称，型号，数量，单位，单价;资产名称，型号，数量，单位，单价
@@ -444,15 +447,17 @@ namespace XYD.Controllers
 
         #region 可申领物品列表
         [Authorize]
-        public ActionResult AvailableAssets()
+        public ActionResult AvailableAssets(string WorkflowId)
         {
             try
             {
+                var folderName = mgr.GetMessage(WorkflowId).Folder.FolderName;
+                var area = folderName.Contains(DEP_Constants.System_Config_Name_WX) ? DEP_Constants.System_Config_Area_WX : DEP_Constants.System_Config_Area_SH;
                 var AssetImage = System.Configuration.ConfigurationManager.AppSettings["AssetImage"];
 
                 using (var db = new DefaultConnection())
                 {
-                    var assets = db.Asset.Where(n => n.Count > 0)
+                    var assets = db.Asset.Where(n => n.Count > 0 && n.Area == area)
                         .GroupBy(n => n.Name)
                         .Select(n => new
                         {

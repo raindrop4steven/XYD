@@ -263,14 +263,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003260615041_update from home.cs" />
-    <Compile Include="Migrations\202003260615041_update from home.Designer.cs">
-      <DependentUpon>202003260615041_update from home.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003260643359_rm sn.cs" />
-    <Compile Include="Migrations\202003260643359_rm sn.Designer.cs">
-      <DependentUpon>202003260643359_rm sn.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -668,14 +660,6 @@
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003260615041_update from home.resx">
-      <DependentUpon>202003260615041_update from home.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003260643359_rm sn.resx">
-      <DependentUpon>202003260643359_rm sn.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
