@@ -244,29 +244,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003251421398_update asset.cs" />
-    <Compile Include="Migrations\202003251421398_update asset.Designer.cs">
-      <DependentUpon>202003251421398_update asset.cs</DependentUpon>
+    <Compile Include="Migrations\202003260615041_update from home.cs" />
+    <Compile Include="Migrations\202003260615041_update from home.Designer.cs">
+      <DependentUpon>202003260615041_update from home.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003251425540_add area to asset.cs" />
-    <Compile Include="Migrations\202003251425540_add area to asset.Designer.cs">
-      <DependentUpon>202003251425540_add area to asset.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003251606140_add car record table.cs" />
-    <Compile Include="Migrations\202003251606140_add car record table.Designer.cs">
-      <DependentUpon>202003251606140_add car record table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003251636336_update car record table.cs" />
-    <Compile Include="Migrations\202003251636336_update car record table.Designer.cs">
-      <DependentUpon>202003251636336_update car record table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003251642316_update car record table2.cs" />
-    <Compile Include="Migrations\202003251642316_update car record table2.Designer.cs">
-      <DependentUpon>202003251642316_update car record table2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003260521464_update asset table remove status.cs" />
-    <Compile Include="Migrations\202003260521464_update asset table remove status.Designer.cs">
-      <DependentUpon>202003260521464_update asset table remove status.cs</DependentUpon>
+    <Compile Include="Migrations\202003260643359_rm sn.cs" />
+    <Compile Include="Migrations\202003260643359_rm sn.Designer.cs">
+      <DependentUpon>202003260643359_rm sn.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -667,23 +651,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003251421398_update asset.resx">
-      <DependentUpon>202003251421398_update asset.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003260615041_update from home.resx">
+      <DependentUpon>202003260615041_update from home.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251425540_add area to asset.resx">
-      <DependentUpon>202003251425540_add area to asset.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251606140_add car record table.resx">
-      <DependentUpon>202003251606140_add car record table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251636336_update car record table.resx">
-      <DependentUpon>202003251636336_update car record table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251642316_update car record table2.resx">
-      <DependentUpon>202003251642316_update car record table2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003260521464_update asset table remove status.resx">
-      <DependentUpon>202003260521464_update asset table remove status.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003260643359_rm sn.resx">
+      <DependentUpon>202003260643359_rm sn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

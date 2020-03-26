@@ -3,16 +3,16 @@ namespace XYD.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addareatoasset : DbMigration
+    public partial class rmsn : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.XYD_Asset", "Area", c => c.String());
+            DropColumn("dbo.XYD_Asset", "Sn");
         }
         
         public override void Down()
         {
-            DropColumn("dbo.XYD_Asset", "Area");
+            AddColumn("dbo.XYD_Asset", "Sn", c => c.String());
         }
     }
 }

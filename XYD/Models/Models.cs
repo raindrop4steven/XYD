@@ -215,8 +215,6 @@ namespace XYD.Models
         // ID
         [Key]
         public int ID { get; set; }
-        // 资产编号
-        public string Sn { get; set; }
         // 资产名称
         public string Name { get; set; }
         // 型号

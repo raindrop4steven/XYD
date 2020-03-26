@@ -48,7 +48,6 @@ namespace XYD.Controllers
                                 string memo = cols.ElementAt(2);
                                 string category = unitPrice >= 3000 ? DEP_Constants.ASSET_CATEGORY_ASSET : DEP_Constants.ASSET_CATEGORY_CONSUME;
                                 XYD_Asset asset = new XYD_Asset();
-                                asset.Sn = DiskUtil.GetFormNumber();
                                 asset.Name = name;
                                 asset.Model = model;
                                 asset.Count = count;
@@ -491,7 +490,7 @@ namespace XYD.Controllers
 
         #region 统计资产数目
         [Authorize]
-        public ActionResult Summary(string area)
+        public ActionResult Summary(string area, int Page, int Size)
         {
             try
             {
@@ -506,14 +505,27 @@ namespace XYD.Controllers
                             Unit = n.FirstOrDefault().Unit,
                             Price = n.Sum(x => x.UnitPrice * x.Count),
                             Count = n.Sum(x => x.Count)
-                        }).ToList();
+                        });
+                // 记录总数
+                var totalCount = assets.Count();
+                // 记录总页数
+                var totalPage = (int)Math.Ceiling((float)totalCount / Size);
+                var results = assets.OrderByDescending(n => n.Count).Skip(Page * Size).Take(Size).ToList();
                 var currentCount = assets.Sum(n => n.Count);
-                var usedCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Apply).Sum(n => n.Count);
-                var returnCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Return).Sum(n => n.Count);
-                var scrapedCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Scrap).Sum(n => n.Count);
+                var usedCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Apply).ToList().Sum(n => n.Count);
+                var returnCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Return).ToList().Sum(n => n.Count);
+                var scrapedCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Scrap).ToList().Sum(n => n.Count);
                 return ResponseUtil.OK(new
                 {
-                    assets = assets,
+                    assets = results,
+                    meta = new
+                    {
+                        current_page = Page,
+                        total_page = totalPage,
+                        current_count = Page * Size + results.Count(),
+                        total_count = totalCount,
+                        per_page = Size
+                    },
                     currentCount = currentCount,
                     usedCount = usedCount,
                     returnCount = returnCount,

@@ -7,13 +7,13 @@ namespace XYD.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addcarrecordtable : IMigrationMetadata
+    public sealed partial class rmsn : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addcarrecordtable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(rmsn));
         
         string IMigrationMetadata.Id
         {
-            get { return "202003251606140_add car record table"; }
+            get { return "202003260643359_rm sn"; }
         }
         
         string IMigrationMetadata.Source
