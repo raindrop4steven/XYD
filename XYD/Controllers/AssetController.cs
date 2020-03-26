@@ -241,6 +241,7 @@ namespace XYD.Controllers
                     // 记录
                     var record = new XYD_Asset_Record();
                     record.AssetID = entity.ID;
+                    record.Count = count;
                     record.Operation = DEP_Constants.Asset_Operation_Apply;
                     record.EmplName = employee.EmplName;
                     record.DeptName = employee.DeptName;
@@ -277,6 +278,7 @@ namespace XYD.Controllers
                     // 记录
                     var record = new XYD_Asset_Record();
                     record.AssetID = entity.ID;
+                    record.Count = count;
                     record.Operation = DEP_Constants.Asset_Operation_Return ;
                     record.EmplName = employee.EmplName;
                     record.DeptName = employee.DeptName;
@@ -317,6 +319,7 @@ namespace XYD.Controllers
                     // 记录
                     var record = new XYD_Asset_Record();
                     record.AssetID = entity.ID;
+                    record.Count = count;
                     record.Operation = DEP_Constants.Asset_Status_Scraped;
                     record.EmplName = employee.EmplName;
                     record.DeptName = employee.DeptName;
@@ -409,7 +412,7 @@ namespace XYD.Controllers
                         Name = asset.Name,
                         Model = asset.Model,
                         Unit = asset.Unit,
-                        Count = asset.Count,
+                        Count = record.Count,
                         UnitPrice = asset.UnitPrice,
                         Operation = record.Operation,
                         EmplName = record.EmplName,
@@ -492,9 +495,9 @@ namespace XYD.Controllers
         {
             try
             {
-                using (var db = new DefaultConnection())
-                {
-                    var assets = db.Asset.Where(n => n.Area == area)
+                var db = new DefaultConnection();
+                // 当前资产列表
+                var assets = db.Asset.Where(n => n.Area == area)
                         .GroupBy(n => new { n.Name, n.Model })
                         .Select(n => new
                         {
@@ -502,14 +505,20 @@ namespace XYD.Controllers
                             Model = n.FirstOrDefault().Model,
                             Unit = n.FirstOrDefault().Unit,
                             Price = n.Sum(x => x.UnitPrice * x.Count),
-                            Count = n.Count()
+                            Count = n.Sum(x => x.Count)
                         }).ToList();
-                    var totalCount = assets.Sum(n => n.Count);
-                    return ResponseUtil.OK(new {
-                        assets = assets,
-                        totalCount = totalCount
-                    });
-                }
+                var currentCount = assets.Sum(n => n.Count);
+                var usedCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Apply).Sum(n => n.Count);
+                var returnCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Return).Sum(n => n.Count);
+                var scrapedCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Scrap).Sum(n => n.Count);
+                return ResponseUtil.OK(new
+                {
+                    assets = assets,
+                    currentCount = currentCount,
+                    usedCount = usedCount,
+                    returnCount = returnCount,
+                    scrapedCount = scrapedCount
+                });
             }
             catch (Exception e)
             {

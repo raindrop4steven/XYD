@@ -246,6 +246,8 @@ namespace XYD.Models
         public int ID { get; set; }
         // 资产ID
         public int AssetID { get; set; }
+        // 数量
+        public int Count { get; set; }
         // 操作类别：添加、申请、归还、报废
         public string Operation { get; set; }
         // 使用人员

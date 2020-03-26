@@ -264,6 +264,10 @@
     <Compile Include="Migrations\202003251642316_update car record table2.Designer.cs">
       <DependentUpon>202003251642316_update car record table2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003260521464_update asset table remove status.cs" />
+    <Compile Include="Migrations\202003260521464_update asset table remove status.Designer.cs">
+      <DependentUpon>202003260521464_update asset table remove status.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -677,6 +681,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003251642316_update car record table2.resx">
       <DependentUpon>202003251642316_update car record table2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003260521464_update asset table remove status.resx">
+      <DependentUpon>202003260521464_update asset table remove status.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
