@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link rel="stylesheet" href="~/Content/static/layui/css/layui.css" />
+    <script src="~/Content/static/layui/layui.js"></script>
+</head>
+<body>
+    <div>
+        <table lay-even class="layui-hide" id="goods" lay-filter="goods"></table>
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="choose">选择</a>
+        </script>
+    </div>
+    <script>
+        layui.use(['layer', 'table'], function () {
+            var layer = layui.layer;
+            var table = layui.table;
+
+            table.render({
+                elem: '#goods',
+                url: '/Apps/XYD/Asset/AvailableAssets?WorkflowId=ee3999e1-bd3d-4032-bc4b-be38771b894d&isWeb=true',
+                request: {
+                    pageName: 'Page',
+                    limitName: 'Size'
+                },
+                cols: [[
+                    { field: 'Name', title: '物品名称' },
+                    { field: 'Model', title: '物品型号' },
+                    { field: 'Unit', title: '单位' },
+                    { field: 'Count', title: '库存' },
+                    { title: '操作', toolbar: '#barDemo' }
+                ]],
+                page: true,
+                parseData: function (res) {
+                    return {
+                        "code": res.Succeed != true,
+                        "count": res.Data.meta.total_count,
+                        "data": res.Data.records
+                    };
+                }
+            });
+
+            table.on('tool(goods)', function (obj) {
+                alert(obj)
+                var data = obj.data;
+                if (obj.event == 'choose') {
+                    console.log(data.Name);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

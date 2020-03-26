@@ -17,5 +17,10 @@ namespace XYD.Controllers
         {
             return PartialView("gw_html");
         }
+
+        public ActionResult ShowGoods()
+        {
+            return PartialView("ShowGoods");
+        }
     }
 }

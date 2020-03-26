@@ -447,10 +447,14 @@ namespace XYD.Controllers
 
         #region 可申领物品列表
         [Authorize]
-        public ActionResult AvailableAssets(string WorkflowId)
+        public ActionResult AvailableAssets(string WorkflowId, int Page, int Size, bool? isWeb)
         {
             try
             {
+                if (isWeb)
+                {
+                    Page -= 1;
+                }
                 var folderName = mgr.GetMessage(WorkflowId).Folder.FolderName;
                 var area = folderName.Contains(DEP_Constants.System_Config_Name_WX) ? DEP_Constants.System_Config_Area_WX : DEP_Constants.System_Config_Area_SH;
                 var AssetImage = System.Configuration.ConfigurationManager.AppSettings["AssetImage"];
@@ -458,14 +462,32 @@ namespace XYD.Controllers
                 using (var db = new DefaultConnection())
                 {
                     var assets = db.Asset.Where(n => n.Count > 0 && n.Area == area)
-                        .GroupBy(n => n.Name)
+                        .GroupBy(n => new { n.Name, n.Model, n.Unit})
                         .Select(n => new
                         {
                             Name = n.FirstOrDefault().Name,
+                            Model = n.FirstOrDefault().Model,
+                            Unit = n.FirstOrDefault().Unit,
                             Image = AssetImage,
                             Count = n.Count()
-                        }).ToList();
-                    return ResponseUtil.OK(assets);
+                        });
+                    // 记录总数
+                    var totalCount = assets.Count();
+                    // 记录总页数
+                    var totalPage = (int)Math.Ceiling((float)totalCount / Size);
+                    var results = assets.OrderByDescending(n => n.Name).Skip(Page * Size).Take(Size).ToList();
+                    return ResponseUtil.OK(new
+                    {
+                        records = results,
+                        meta = new
+                        {
+                            current_page = Page,
+                            total_page = totalPage,
+                            current_count = Page * Size + results.Count(),
+                            total_count = totalCount,
+                            per_page = Size
+                        }
+                    });
                 }
             }
             catch(Exception e)
