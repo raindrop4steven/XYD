@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using XYD.Common;
@@ -54,7 +55,7 @@ namespace XYD.Controllers
                                 string category = unitPrice >= 3000 ? DEP_Constants.ASSET_CATEGORY_ASSET : DEP_Constants.ASSET_CATEGORY_CONSUME;
                                 XYD_Asset asset = new XYD_Asset();
                                 asset.Name = name;
-                                asset.Model = model;
+                                asset.ModelName = model;
                                 asset.Count = count;
                                 asset.Unit = unit;
                                 asset.UnitPrice = unitPrice;
@@ -161,6 +162,45 @@ namespace XYD.Controllers
                     {
                         key = DEP_Constants.Asset_Status_Scraped,
                         value = "已报废"
+                    }
+                };
+                return ResponseUtil.OK(statusList);
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 资产操作类型列表
+        [Authorize]
+        public ActionResult OperationList()
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var statusList = new List<object>
+                {
+                    new
+                    {
+                        Code = DEP_Constants.Asset_Operation_Add,
+                        Name = "入库"
+                    },
+                    new
+                    {
+                        Code = DEP_Constants.Asset_Operation_Apply,
+                        Name = "申领"
+                    },
+                    new
+                    {
+                        Code = DEP_Constants.Asset_Operation_Return,
+                        Name = "归还"
+                    },
+                    new
+                    {
+                        Code = DEP_Constants.Asset_Operation_Scrap,
+                        Name = "报废"
                     }
                 };
                 return ResponseUtil.OK(statusList);
@@ -414,7 +454,7 @@ namespace XYD.Controllers
                     {
                         ID = record.ID,
                         Name = asset.Name,
-                        Model = asset.Model,
+                        Model = asset.ModelName,
                         Unit = asset.Unit,
                         Count = record.Count,
                         UnitPrice = asset.UnitPrice,
@@ -445,15 +485,73 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 资产操作记录
+        [Authorize]
+        public ActionResult TotalRecords(string type, int Page = 0, int Size = 10)
+        {
+            try
+            {
+                var results = new List<object>();
+                var db = new DefaultConnection();
+                var records = db.AssetRecord.Where(n => n.Operation == type).OrderByDescending(n => n.CreateTime);
+                // 记录总数
+                var totalCount = records.Count();
+                // 记录总页数
+                var totalPage = (int)Math.Ceiling((float)totalCount / Size);
+                var list = records.Skip(Page * Size).Take(Size).ToList();
+                foreach (var record in list)
+                {
+                    var asset = db.Asset.Where(n => n.ID == record.AssetID).FirstOrDefault();
+                    var result = new
+                    {
+                        ID = record.ID,
+                        Name = asset.Name,
+                        Model = asset.ModelName,
+                        Unit = asset.Unit,
+                        Count = record.Count,
+                        UnitPrice = asset.UnitPrice,
+                        Operation = record.Operation,
+                        EmplName = record.EmplName,
+                        DeptName = record.DeptName,
+                        CreateTime = record.CreateTime,
+                        UpdateTime = record.UpdateTime
+                    };
+                    results.Add(result);
+                }
+                return ResponseUtil.OK(new
+                {
+                    records = results,
+                    meta = new
+                    {
+                        current_page = Page,
+                        total_page = totalPage,
+                        current_count = Page * Size + results.Count(),
+                        total_count = totalCount,
+                        per_page = Size
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
         #region 可申领物品列表
         [Authorize]
         public ActionResult AvailableAssets(string WorkflowId, int Page, int Size, bool? isWeb)
         {
             try
             {
-                if (isWeb)
+                if (isWeb.Value)
                 {
                     Page -= 1;
+                }
+                var message = mgr.GetMessage(WorkflowId);
+                if (message.IsTemplate == 0)
+                {
+                    WorkflowId = message.FromTemplate;
                 }
                 var folderName = mgr.GetMessage(WorkflowId).Folder.FolderName;
                 var area = folderName.Contains(DEP_Constants.System_Config_Name_WX) ? DEP_Constants.System_Config_Area_WX : DEP_Constants.System_Config_Area_SH;
@@ -462,11 +560,11 @@ namespace XYD.Controllers
                 using (var db = new DefaultConnection())
                 {
                     var assets = db.Asset.Where(n => n.Count > 0 && n.Area == area)
-                        .GroupBy(n => new { n.Name, n.Model, n.Unit})
+                        .GroupBy(n => new { n.Name, n.ModelName, n.Unit})
                         .Select(n => new
                         {
                             Name = n.FirstOrDefault().Name,
-                            Model = n.FirstOrDefault().Model,
+                            ModelName = n.FirstOrDefault().ModelName,
                             Unit = n.FirstOrDefault().Unit,
                             Image = AssetImage,
                             Count = n.Count()
@@ -526,11 +624,11 @@ namespace XYD.Controllers
                 var db = new DefaultConnection();
                 // 当前资产列表
                 var assets = db.Asset.Where(n => n.Area == area)
-                        .GroupBy(n => new { n.Name, n.Model })
+                        .GroupBy(n => new { n.Name, n.ModelName })
                         .Select(n => new
                         {
                             Name = n.FirstOrDefault().Name,
-                            Model = n.FirstOrDefault().Model,
+                            Model = n.FirstOrDefault().ModelName,
                             Unit = n.FirstOrDefault().Unit,
                             Price = n.Sum(x => x.UnitPrice * x.Count),
                             Count = n.Sum(x => x.Count)
@@ -570,18 +668,18 @@ namespace XYD.Controllers
 
         #region 资产统计下载
         [Authorize]
-        public void Download(string area)
+        public ActionResult Download(string area)
         {
             try
             {
                 var db = new DefaultConnection();
                 // 当前资产列表
                 var assets = db.Asset.Where(n => n.Area == area)
-                        .GroupBy(n => new { n.Name, n.Model })
+                        .GroupBy(n => new { n.Name, n.ModelName })
                         .Select(n => new
                         {
                             Name = n.FirstOrDefault().Name,
-                            Model = n.FirstOrDefault().Model,
+                            Model = n.FirstOrDefault().ModelName,
                             Unit = n.FirstOrDefault().Unit,
                             Price = n.Sum(x => x.UnitPrice * x.Count),
                             Count = n.Sum(x => x.Count)
@@ -636,15 +734,19 @@ namespace XYD.Controllers
                 MemoryStream stream = GetStream(wb);
 
                 Response.Clear();
-                Response.Buffer = true;
-                Response.AddHeader("content-disposition", "attachment; filename=" + myName);
+                Response.ClearContent();
+                Response.ClearHeaders();
+                Response.AddHeader("content-disposition", "attachment;filename=" + myName);
                 Response.ContentType = "application/vnd.ms-excel";
+                Response.ContentEncoding = Encoding.Default;
                 Response.BinaryWrite(stream.ToArray());
-                Response.End();
+                Response.Flush();
+                HttpContext.ApplicationInstance.CompleteRequest();
+                return ResponseUtil.OK("导出成功");
             }
             catch (Exception e)
             {
-                
+                return ResponseUtil.Error(e.Message);
             }
         }
 

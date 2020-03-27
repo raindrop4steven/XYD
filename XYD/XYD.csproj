@@ -263,6 +263,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003270223005_rename asset model.cs" />
+    <Compile Include="Migrations\202003270223005_rename asset model.Designer.cs">
+      <DependentUpon>202003270223005_rename asset model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -409,6 +413,7 @@
     <Content Include="Content\static\layui\lay\modules\util.js" />
     <Content Include="Content\workflowScript\业务接待费报销.js" />
     <Content Include="Content\workflowScript\业务接待申请.js" />
+    <Content Include="Content\workflowScript\物品领用申请.js" />
     <Content Include="Content\workflowScript\请假申请.js" />
     <Content Include="Content\workflowScript\出差申请.js" />
     <Content Include="Content\workflowScript\差旅费用报销单.js" />
@@ -770,6 +775,11 @@
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202003270223005_rename asset model.resx">
+      <DependentUpon>202003270223005_rename asset model.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

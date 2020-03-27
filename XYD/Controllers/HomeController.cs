@@ -18,9 +18,13 @@ namespace XYD.Controllers
             return PartialView("gw_html");
         }
 
-        public ActionResult ShowGoods()
+        public ActionResult ShowGoods(string nameId, string modelId, string unitId, string mid)
         {
-            return PartialView("ShowGoods");
+            ViewBag.nameId = nameId;
+            ViewBag.modelId = modelId;
+            ViewBag.unitId = unitId;
+            ViewBag.mid = mid;
+            return View("ShowGoods");
         }
     }
 }

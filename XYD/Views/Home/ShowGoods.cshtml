@@ -19,23 +19,25 @@
         </script>
     </div>
     <script>
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
         layui.use(['layer', 'table'], function () {
-            var layer = layui.layer;
             var table = layui.table;
 
             table.render({
                 elem: '#goods',
-                url: '/Apps/XYD/Asset/AvailableAssets?WorkflowId=ee3999e1-bd3d-4032-bc4b-be38771b894d&isWeb=true',
+                even: true,
+                size: 'sm',
+                url: '/Apps/XYD/Asset/AvailableAssets?WorkflowId=@ViewBag.mid&isWeb=true',
                 request: {
                     pageName: 'Page',
                     limitName: 'Size'
                 },
                 cols: [[
                     { field: 'Name', title: '物品名称' },
-                    { field: 'Model', title: '物品型号' },
+                    { field: 'ModelName', title: '物品型号' },
                     { field: 'Unit', title: '单位' },
                     { field: 'Count', title: '库存' },
-                    { title: '操作', toolbar: '#barDemo' }
+                    { align: 'center', title: '操作', toolbar: '#barDemo' }
                 ]],
                 page: true,
                 parseData: function (res) {
@@ -48,12 +50,18 @@
             });
 
             table.on('tool(goods)', function (obj) {
-                alert(obj)
                 var data = obj.data;
                 if (obj.event == 'choose') {
-                    console.log(data.Name);
+                    parent.$("#@ViewBag.nameId").text(data.Name);
+                    parent.$("#@ViewBag.modelId").text(data.ModelName == null ? '' : data.ModelName);
+                    parent.$("#@ViewBag.unitId").text(data.Unit);
+                    parent.SaveCellValue(parent.$("#@ViewBag.nameId"), data.Name);
+                    parent.SaveCellValue(parent.$("#@ViewBag.modelId"), data.ModelName == null ? '' : data.ModelName);
+                    parent.SaveCellValue(parent.$("#@ViewBag.unitId"), data.Unit);
+                    parent.layer.close(index);
                 }
             });
+
         });
     </script>
 </body>

@@ -218,7 +218,7 @@ namespace XYD.Models
         // 资产名称
         public string Name { get; set; }
         // 型号
-        public string Model { get; set; }
+        public string ModelName { get; set; }
         // 数量
         public int Count { get; set; }
         // 单位
