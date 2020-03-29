@@ -19,6 +19,7 @@ using Newtonsoft.Json.Linq;
 using Appkiz.Apps.Workflow.Web.Controllers;
 using XYD.Common;
 using System.Reflection;
+using Appkiz.Apps.Workflow.Web.Models;
 
 namespace XYD.Controllers
 {
@@ -517,7 +518,22 @@ namespace XYD.Controllers
                 XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
                 using (var db = new DefaultConnection())
                 {
-                    var records = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == employee.EmplID).OrderByDescending(n => n.CreateTime).ToList();
+                    bool isBaoxiaoRole = OrgUtil.CheckBaoxiaoUser(employee.EmplID);
+                    var query = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false);
+                    if (isBaoxiaoRole)
+                    {
+                        query = query.Where(n => n.EmplID == employee.EmplID);
+                    }
+                    var records = query.OrderByDescending(n => n.CreateTime).ToList().Where(m => mgr.GetMessage(m.MessageID).MessageStatus == 2);
+                    if (isBaoxiaoRole)
+                    {
+                        foreach(var record in records)
+                        {
+                            var user = orgMgr.GetEmployee(record.EmplID).EmplName;
+                            var Sn = string.Format("{0} {1}", user, record.Sn);
+                            record.Sn = Sn;
+                        }
+                    }
                     return ResponseUtil.OK(new
                     {
                         records = records
@@ -545,6 +561,18 @@ namespace XYD.Controllers
                 // 设置编号已使用
                 using (var db = new DefaultConnection())
                 {
+                    if (sn.Contains(" "))
+                    {
+                        var snArray = sn.Split(' ').ToList();
+                        employee = orgMgr.FindEmployee("EmplName=@EmplName", new System.Collections.Hashtable()
+                          {
+                            {
+                              "@EmplName",
+                              snArray[0]
+                            }
+                          }, string.Empty, 0, 1).FirstOrDefault();
+                        sn = snArray[1];
+                    }
                     var record = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == employee.EmplID && n.Sn == sn).FirstOrDefault();
                     if (record == null)
                     {
@@ -575,6 +603,18 @@ namespace XYD.Controllers
                 // 设置编号已使用
                 using (var db = new DefaultConnection())
                 {
+                    if (sn.Contains(" "))
+                    {
+                        var snArray = sn.Split(' ');
+                        employee = orgMgr.FindEmployee("EmplName=@EmplName", new System.Collections.Hashtable()
+                          {
+                            {
+                              "@EmplName",
+                              snArray[0]
+                            }
+                          }, string.Empty, 0, 1).FirstOrDefault();
+                        sn = snArray[1];
+                    }
                     var record = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == employee.EmplID && n.Sn == sn).FirstOrDefault();
                     if (record == null)
                     {

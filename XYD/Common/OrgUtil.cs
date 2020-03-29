@@ -34,6 +34,14 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 检查是否是报销专员
+        public static bool CheckBaoxiaoUser(string emplId)
+        {
+            var baoxiaoRole = System.Configuration.ConfigurationManager.AppSettings["BaoXiaoUser"];
+            return CheckRole(emplId, baoxiaoRole);
+        }
+        #endregion
+
         #region 获得U8用户表数据
         public static Dictionary<string, string> GetU8Person()
         {
