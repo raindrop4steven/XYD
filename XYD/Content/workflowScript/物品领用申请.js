@@ -51,7 +51,7 @@ function ShowGoods(nameId, modelId, unitId) {
                 type: 2,
                 title: '库存物品清单',
                 content: [window.location.origin + "/Apps/XYD/Home/ShowGoods?nameId=" + nameId + "&modelId=" + modelId + "&unitId=" + unitId + "&mid=" + MessageID, 'no'],
-                area: ['820px', '424px']
+                area: ['820px', '434px']
             });
         });
     });

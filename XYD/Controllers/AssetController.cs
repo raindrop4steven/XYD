@@ -1,4 +1,5 @@
 ﻿using Appkiz.Apps.Workflow.Library;
+using Appkiz.Library.Security;
 using Appkiz.Library.Security.Authentication;
 using ClosedXML.Excel;
 using System;
@@ -16,6 +17,7 @@ namespace XYD.Controllers
     public class AssetController : Controller
     {
         WorkflowMgr mgr = new WorkflowMgr();
+        OrgMgr orgMgr = new OrgMgr();
 
         #region 资产导入
         /// <summary>
@@ -303,6 +305,112 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 工作流使用资产
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mid"></param>
+        /// <param name="user"></param>
+        /// <param name="assets">物品名称$型号$数量$单位:物品名称$型号$数量$单位</param>
+        /// <returns></returns>
+        public ActionResult UseAsset(string mid, string user, string assets)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var message = mgr.GetMessage(mid);
+                    var applyUser = orgMgr.GetEmployee(message.MessageIssuedBy);
+                    var rows = assets.Split('^').ToList();
+                    var applyAssets = new List<XYD_Asset>();
+                    foreach (var line in rows)
+                    {
+                        if (string.IsNullOrEmpty(line.Replace("$", "")))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            var cols = line.Split('$').ToList();
+                            string name = cols.ElementAtOrDefault(0);
+                            string modelName = cols.ElementAtOrDefault(1);
+                            int count = int.Parse(cols.ElementAtOrDefault(2));
+                            string unit = cols.ElementAtOrDefault(3);
+
+                            var assetQuery = db.Asset.Where(n => n.Name == name && n.Unit == unit);
+                            if (!string.IsNullOrEmpty(modelName))
+                            {
+                                assetQuery = assetQuery.Where(n => n.ModelName == modelName);
+                            }
+                            var assetCount = assetQuery.Sum(n => n.Count);
+                            if (assetCount < count)
+                            {
+                                return ResponseUtil.Error(string.Format("{0}申领数量超过库存", name));
+                            }
+                            else
+                            {
+                                applyAssets.Add(new XYD_Asset()
+                                {
+                                    Name = name,
+                                    ModelName = modelName,
+                                    Unit = unit,
+                                    Count = count
+                                });
+                            }
+                        }
+                    }
+                    // 数量检测通过，准备扣除库存
+                    
+                    foreach (var asset in applyAssets)
+                    {
+                        var assetRecord = new List<XYD_Asset_Record>();
+                        var currentAssets = db.Asset.Where(n => n.Name == asset.Name && n.ModelName == asset.ModelName && n.Unit == asset.Unit).ToList();
+                        foreach(var item in currentAssets)
+                        {
+                            if (item.Count >= asset.Count)
+                            {
+                                item.Count -= asset.Count;
+                                assetRecord.Add(new XYD_Asset_Record()
+                                {
+                                    AssetID = item.ID,
+                                    Count = asset.Count,
+                                    Operation = DEP_Constants.Asset_Operation_Apply,
+                                    EmplName = applyUser.EmplName,
+                                    DeptName = applyUser.DeptName,
+                                    CreateTime = DateTime.Now,
+                                    UpdateTime = DateTime.Now
+                                });
+                                break;
+                            }
+                            else
+                            {
+                                asset.Count -= item.Count;
+                                assetRecord.Add(new XYD_Asset_Record()
+                                {
+                                    AssetID = item.ID,
+                                    Count = item.Count,
+                                    Operation = DEP_Constants.Asset_Operation_Apply,
+                                    EmplName = applyUser.EmplName,
+                                    DeptName = applyUser.DeptName,
+                                    CreateTime = DateTime.Now,
+                                    UpdateTime = DateTime.Now
+                                });
+                                item.Count = 0;
+                            }
+                        }
+                        db.AssetRecord.AddRange(assetRecord);
+                        db.SaveChanges();
+                    }
+                    return ResponseUtil.OK("物品申领成功");
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
         #region 资产归还
         [Authorize]
         public ActionResult Return(int id, int count)
@@ -567,7 +675,7 @@ namespace XYD.Controllers
                             ModelName = n.FirstOrDefault().ModelName,
                             Unit = n.FirstOrDefault().Unit,
                             Image = AssetImage,
-                            Count = n.Count()
+                            Count = n.Sum(x => x.Count)
                         });
                     // 记录总数
                     var totalCount = assets.Count();
