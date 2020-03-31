@@ -419,7 +419,7 @@
                     ],
                     "Debit": {
                         "EmplNo": true,
-                        "DeptNo": false,
+                        "DeptNo": true,
                         "CustomerNo": false,
                         "VendorNo": false
                     },
@@ -507,7 +507,7 @@
                     ],
                     "Debit": {
                         "EmplNo": true,
-                        "DeptNo": false,
+                        "DeptNo": true,
                         "CustomerNo": false,
                         "VendorNo": false
                     },
