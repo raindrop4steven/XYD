@@ -108,7 +108,7 @@ namespace XYD.Controllers
                 var EndDate = CommonUtils.EndOfDay(sunday);
 
                 // 获取U8用户字典
-                var u8PersonDict = OrgUtil.GetU8Person();
+                //var u8PersonDict = OrgUtil.GetU8Person();
                 using (var db = new DefaultConnection())
                 {
                     var list = db.Voucher.Where(n => n.CreateTime > BeginDate.Date && n.CreateTime <= EndDate).OrderBy(n => n.CreateTime).ToList();
@@ -139,7 +139,8 @@ namespace XYD.Controllers
                             string DeptNo = string.Empty;
                             if (subCode.Debit.DeptNo)
                             {
-                                DeptNo = u8PersonDict[ApplyUser.EmplNO];
+                                var dept = orgMgr.GetDepartment(ApplyUser.DeptID);
+                                DeptNo = dept.DeptDescr;
                             }
                             // 科目已确定，一条借
                             voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalAmount, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
@@ -185,7 +186,8 @@ namespace XYD.Controllers
                                 string DeptNo = string.Empty;
                                 if (subCode.Debit.DeptNo)
                                 {
-                                    DeptNo = u8PersonDict[ApplyUser.EmplNO];
+                                    var dept = orgMgr.GetDepartment(ApplyUser.DeptID);
+                                    DeptNo = dept.DeptDescr;
                                 }
                                 brief = string.Format("{0} {1} 付 {2} {3}", CreateTime, Sn, subCode.Name, ApplyUser.EmplName);
                                 voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, item.Key, item.Value, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
