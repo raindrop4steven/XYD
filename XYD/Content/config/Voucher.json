@@ -1285,6 +1285,50 @@
                     }
                 }
             ]
+        },
+        {
+            "WorkflowId": "84f434ac-4626-4748-b294-fe94b16b953c",
+            "Codes": [
+                {
+                    "Code": "220201",
+                    "Name": "应付账款",
+                    "Subs": [
+
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                }
+            ]
+        },
+        {
+            "WorkflowId": "06d9b887-ca03-4042-8202-2aafaeaa3634",
+            "Codes": [
+                {
+                    "Code": "220201",
+                    "Name": "应付账款",
+                    "Subs": [
+                        
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Credit": {
+                        "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                }
+            ]
         }
     ]
 }

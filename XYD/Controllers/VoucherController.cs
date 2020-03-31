@@ -22,7 +22,7 @@ namespace XYD.Controllers
         public const string VoucherFormat = "{0},{1},{2},0,{3},{4},{5},{6},{7},{8},{14},,,,,{9},{10},{11},{12},,{13},,,,,,,0,,0,,,,,,,,,0,0,0,0,0,,0,0,0,0";
 
         #region 记录凭证
-        public ActionResult CreateVoucher(string mid, string user, string sn, string total, string extras)
+        public ActionResult CreateVoucher(string mid, string user, string sn, string total, string vendorName, string extras)
         {
             try
             {
@@ -39,7 +39,6 @@ namespace XYD.Controllers
                     // 科目
                     subCode = WorkflowUtil.GetSubVoucherCode(mid, null);
                 }
-                
 
                 using (var db = new DefaultConnection())
                 {
@@ -51,6 +50,11 @@ namespace XYD.Controllers
                     voucher.VoucherCode = !string.IsNullOrEmpty(extras) ? string.Empty : subCode.Code;
                     voucher.VoucherName = !string.IsNullOrEmpty(extras) ? string.Empty : subCode.Name;
                     voucher.Sn = sn;
+                    if (!string.IsNullOrEmpty(vendorName))
+                    {
+                        var vendor = db.Vendor.Where(n => n.Name == vendorName).FirstOrDefault();
+                        voucher.VendorNo = vendor.Code;
+                    }
                     voucher.TotalAmount = total;
                     voucher.Extras = extras;
                     db.Voucher.Add(voucher);

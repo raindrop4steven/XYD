@@ -400,6 +400,10 @@ namespace XYD.Models
         public string VoucherCode { get; set; }
         // 科目名称
         public string VoucherName { get; set; }
+        // 客户编号
+        public string CustomerNo { get; set; }
+        // 供应商编号
+        public string VendorNo { get; set; }
         // 金额借方
         public string TotalAmount { get; set; }
         // 额外参数
