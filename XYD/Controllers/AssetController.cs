@@ -510,11 +510,11 @@ namespace XYD.Controllers
                     }
                     if (!string.IsNullOrEmpty(model.Name))
                     {
-                        list.Where(n => n.Name.Contains(model.Name));
+                        list = list.Where(n => n.Name.Contains(model.Name));
                     }
                     if (!string.IsNullOrEmpty(model.Area))
                     {
-                        list.Where(n => n.Area == model.Area);
+                        list = list.Where(n => n.Area == model.Area);
                     }
                     // 记录总数
                     var totalCount = list.Count();
@@ -536,7 +536,7 @@ namespace XYD.Controllers
             }
             catch(Exception e)
             {
-                return ResponseUtil.Error(e.Message);
+                return ResponseUtil.Error(e.InnerException.Message);
             }
         }
         #endregion
