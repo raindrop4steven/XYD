@@ -227,6 +227,7 @@
     <Compile Include="Common\DEP_Constants.cs" />
     <Compile Include="Common\DiskUtil.cs" />
     <Compile Include="Common\EventResult.cs" />
+    <Compile Include="Common\ExceptionHelper.cs" />
     <Compile Include="Common\InvoiceHelper.cs" />
     <Compile Include="Common\JsonNetResult.cs" />
     <Compile Include="Common\OrgUtil.cs" />
