@@ -96,6 +96,7 @@ namespace XYD.Controllers
                     invoiceInfo.updatedBy = employee.EmplID;
                     invoiceInfo.createdTime = DateTime.Now;
                     invoiceInfo.updatedTime = DateTime.Now;
+                    invoiceInfo.authenticationTime = null;
                     List<XYD_InvoiceDetail> invoiceDetails = new List<XYD_InvoiceDetail>();
                     foreach (XYD_InvoiceDetail detail in invoice.invoiceDetailData)
                     {
