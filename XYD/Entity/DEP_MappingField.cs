@@ -493,6 +493,11 @@ namespace XYD.Entity
         public bool CustomerNo { get; set; }
         public bool VendorNo { get; set; }
     }
+    public class XYD_Tax
+    {
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
     public class XYD_Credit
     {
         public string Code { get; set; }
@@ -500,10 +505,13 @@ namespace XYD.Entity
     }
     public class XYD_SubVoucherCode
     {
+        // 1: 付款; 2: 发票
+        public int Type { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public List<string> Subs { get; set; }
         public XYD_Debit Debit { get; set; }
+        public XYD_Tax Tax { get; set; }
         public XYD_Credit Credit { get; set; }
     }
     public class XYD_VoucherCode

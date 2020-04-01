@@ -169,5 +169,10 @@ namespace XYD.Common
         public static string CAR_MILES_UNFINISH = "UNFINISH";
         // 已填写
         public static string CAR_MILES_FINISH = "FINISH";
+
+        /**
+         * 发票对应workflowID
+         */
+        public static string INVOICE_WORKFLOW_ID = "Invoice";
     }
 }

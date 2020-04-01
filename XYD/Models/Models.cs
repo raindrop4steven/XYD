@@ -497,6 +497,8 @@ namespace XYD.Models
         public string tollSign { get; set; }
         // 收费标志名称
         public string tollSignName { get; set; }
+        // 快递费用，可空
+        public string express { get; set; }
         // 认证时间
         public DateTime? authenticationTime { get; set; }
         // 作成时间
@@ -593,6 +595,22 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 快递费明细
+    public class XYD_Express
+    {
+        [Key]
+        public int ID { get; set; }
+        // 寄件人ID
+        public string SenderId { get; set; }
+        // 金额
+        public decimal Amount { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -621,6 +639,7 @@ namespace XYD.Models
         public DbSet<XYD_InvoiceDetail> InvoiceDetail { get; set; }
         public DbSet<XYD_UserCompanyInfo> UserCompanyInfo { get; set; }
         public DbSet<XYD_CarRecord> CarRecord { get; set; }
+        public DbSet<XYD_Express> Express { get; set; }
     }
     #endregion
 }

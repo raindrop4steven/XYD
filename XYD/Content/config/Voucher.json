@@ -4,6 +4,7 @@
             "WorkflowId": "2b16f8ca-fab9-460a-bdbc-0bfa15ad5c55",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "66020401",
                     "Name": "汽油费",
                     "Subs": [
@@ -21,6 +22,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020406",
                     "Name": "过桥费",
                     "Subs": [
@@ -38,6 +40,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020407",
                     "Name": "停车费",
                     "Subs": [
@@ -55,6 +58,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020402",
                     "Name": "维修费",
                     "Subs": [
@@ -72,6 +76,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020408",
                     "Name": "洗车",
                     "Subs": [
@@ -89,6 +94,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020410",
                     "Name": "其他",
                     "Subs": [
@@ -111,6 +117,7 @@
             "WorkflowId": "c97fb2da-1507-4dd1-9d0b-ae28cfda7560",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "66020401",
                     "Name": "汽油费",
                     "Subs": [
@@ -128,6 +135,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020406",
                     "Name": "过桥费",
                     "Subs": [
@@ -145,6 +153,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020407",
                     "Name": "停车费",
                     "Subs": [
@@ -162,6 +171,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020402",
                     "Name": "维修费",
                     "Subs": [
@@ -179,6 +189,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020408",
                     "Name": "洗车",
                     "Subs": [
@@ -196,6 +207,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020410",
                     "Name": "其他",
                     "Subs": [
@@ -218,6 +230,7 @@
             "WorkflowId": "37060b4d-bee6-4634-a9ae-add81ecaa511",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "660201",
                     "Name": "差旅费",
                     "Subs": [
@@ -246,6 +259,7 @@
             "WorkflowId": "39d10b90-0572-44dc-9128-68beacbc3bf3",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "660201",
                     "Name": "差旅费",
                     "Subs": [
@@ -274,6 +288,7 @@
             "WorkflowId": "b2602bba-550f-430e-8e01-a9da5cf6f1d3",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "660203",
                     "Name": "业务招待费",
                     "Subs": [
@@ -310,6 +325,7 @@
             "WorkflowId": "b4b9da44-0ea8-4b03-b428-7eeafbf9875e",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "660203",
                     "Name": "业务招待费",
                     "Subs": [
@@ -346,6 +362,7 @@
             "WorkflowId": "7388148a-8260-48fc-8c16-3c5a018411e7",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "660202",
                     "Name": "办公费",
                     "Subs": [
@@ -364,6 +381,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660208",
                     "Name": "低值易耗品摊销",
                     "Subs": [
@@ -390,6 +408,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660227",
                     "Name": "物料消耗",
                     "Subs": [
@@ -412,6 +431,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660228",
                     "Name": "劳保费",
                     "Subs": [
@@ -434,6 +454,7 @@
             "WorkflowId": "25ee8aa4-4141-4aeb-b148-c8d66722b0b2",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "660202",
                     "Name": "办公费",
                     "Subs": [
@@ -452,6 +473,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660208",
                     "Name": "低值易耗品摊销",
                     "Subs": [
@@ -478,6 +500,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660227",
                     "Name": "物料消耗",
                     "Subs": [
@@ -500,6 +523,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660228",
                     "Name": "劳保费",
                     "Subs": [
@@ -522,6 +546,7 @@
             "WorkflowId": "97b6e52f-4042-482e-9562-eb6a443e79c7",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "660101",
                     "Name": "快递费",
                     "Subs": [
@@ -539,6 +564,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660102",
                     "Name": "广告费",
                     "Subs": [
@@ -557,6 +583,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660202",
                     "Name": "办公费",
                     "Subs": [
@@ -578,6 +605,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660207",
                     "Name": "邮电通讯费",
                     "Subs": [
@@ -596,6 +624,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660209",
                     "Name": "修理费",
                     "Subs": [
@@ -616,6 +645,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660229",
                     "Name": "个人样衣采购费用",
                     "Subs": [
@@ -636,6 +666,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66022501",
                     "Name": "汽车保险",
                     "Subs": [
@@ -653,6 +684,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66022502",
                     "Name": "财产保险",
                     "Subs": [
@@ -670,6 +702,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66022503",
                     "Name": "其他",
                     "Subs": [
@@ -687,6 +720,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660232",
                     "Name": "机构服务费",
                     "Subs": [
@@ -704,6 +738,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660201",
                     "Name": "差旅费",
                     "Subs": [
@@ -723,6 +758,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660211",
                     "Name": "福利费",
                     "Subs": [
@@ -745,6 +781,7 @@
             "WorkflowId": "08d301b1-9344-4e4f-a983-c020ffd95e06",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "660101",
                     "Name": "快递费",
                     "Subs": [
@@ -762,6 +799,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660102",
                     "Name": "广告费",
                     "Subs": [
@@ -780,6 +818,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660202",
                     "Name": "办公费",
                     "Subs": [
@@ -801,6 +840,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660207",
                     "Name": "邮电通讯费",
                     "Subs": [
@@ -819,6 +859,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660209",
                     "Name": "修理费",
                     "Subs": [
@@ -839,6 +880,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660229",
                     "Name": "个人样衣采购费用",
                     "Subs": [
@@ -859,6 +901,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66022501",
                     "Name": "汽车保险",
                     "Subs": [
@@ -876,6 +919,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66022502",
                     "Name": "财产保险",
                     "Subs": [
@@ -893,6 +937,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66022503",
                     "Name": "其他",
                     "Subs": [
@@ -910,6 +955,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660232",
                     "Name": "机构服务费",
                     "Subs": [
@@ -927,6 +973,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660201",
                     "Name": "差旅费",
                     "Subs": [
@@ -946,6 +993,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660211",
                     "Name": "福利费",
                     "Subs": [
@@ -968,6 +1016,7 @@
             "WorkflowId": "44255ef4-4997-460a-a66f-00686e3cd1f3",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "66020401",
                     "Name": "汽油费",
                     "Subs": [
@@ -985,6 +1034,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020406",
                     "Name": "过桥费",
                     "Subs": [
@@ -1002,6 +1052,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020407",
                     "Name": "停车费",
                     "Subs": [
@@ -1019,6 +1070,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020402",
                     "Name": "维修费",
                     "Subs": [
@@ -1036,6 +1088,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020408",
                     "Name": "洗车",
                     "Subs": [
@@ -1053,6 +1106,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020410",
                     "Name": "其他",
                     "Subs": [
@@ -1070,6 +1124,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660201",
                     "Name": "差旅费",
                     "Subs": [
@@ -1093,6 +1148,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660203",
                     "Name": "业务招待费",
                     "Subs": [
@@ -1129,6 +1185,7 @@
             "WorkflowId": "ebe69e6d-f220-4e36-8dab-3a9f7b029927",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "66020401",
                     "Name": "汽油费",
                     "Subs": [
@@ -1146,6 +1203,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020406",
                     "Name": "过桥费",
                     "Subs": [
@@ -1163,6 +1221,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020407",
                     "Name": "停车费",
                     "Subs": [
@@ -1180,6 +1239,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020402",
                     "Name": "维修费",
                     "Subs": [
@@ -1197,6 +1257,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020408",
                     "Name": "洗车",
                     "Subs": [
@@ -1214,6 +1275,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "66020410",
                     "Name": "其他",
                     "Subs": [
@@ -1231,6 +1293,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660201",
                     "Name": "差旅费",
                     "Subs": [
@@ -1254,6 +1317,7 @@
                     }
                 },
                 {
+                    "Type": 1,
                     "Code": "660203",
                     "Name": "业务招待费",
                     "Subs": [
@@ -1290,6 +1354,7 @@
             "WorkflowId": "84f434ac-4626-4748-b294-fe94b16b953c",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "220201",
                     "Name": "应付账款",
                     "Subs": [
@@ -1312,10 +1377,11 @@
             "WorkflowId": "06d9b887-ca03-4042-8202-2aafaeaa3634",
             "Codes": [
                 {
+                    "Type": 1,
                     "Code": "220201",
                     "Name": "应付账款",
                     "Subs": [
-                        
+
                     ],
                     "Debit": {
                         "EmplNo": true,
@@ -1325,6 +1391,1199 @@
                     },
                     "Credit": {
                         "Code": "10020101",
+                        "Name": "现金银行科目"
+                    }
+                }
+            ]
+        },
+        {
+            "WorkflowId": "Invoice",
+            "Codes": [
+                {
+                    "Type": 2,
+                    "Code": "6601",
+                    "Name": "销售费用",
+                    "Subs": [
+                        "销售费用"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660101",
+                    "Name": "快递费",
+                    "Subs": [
+                        "快递费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660102",
+                    "Name": "广告费",
+                    "Subs": [
+                        "广告费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660103",
+                    "Name": "样衣费",
+                    "Subs": [
+                        "样衣费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660199",
+                    "Name": "其他",
+                    "Subs": [
+                        "其他"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "6602",
+                    "Name": "管理费用",
+                    "Subs": [
+                        "管理费用"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660201",
+                    "Name": "差旅费",
+                    "Subs": [
+                        "差旅费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660202",
+                    "Name": "办公费",
+                    "Subs": [
+                        "办公费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660203",
+                    "Name": "业务招待费",
+                    "Subs": [
+                        "业务招待费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660204",
+                    "Name": "汽杂费",
+                    "Subs": [
+                        "汽杂费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020401",
+                    "Name": "汽油费",
+                    "Subs": [
+                        "汽油费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020402",
+                    "Name": "修理费",
+                    "Subs": [
+                        "修理费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020403",
+                    "Name": "汽车租赁费",
+                    "Subs": [
+                        "汽车租赁费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020404",
+                    "Name": "司机加班费",
+                    "Subs": [
+                        "司机加班费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020405",
+                    "Name": "司机服务费",
+                    "Subs": [
+                        "司机服务费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020406",
+                    "Name": "过路过桥费",
+                    "Subs": [
+                        "过路过桥费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020407",
+                    "Name": "停车费",
+                    "Subs": [
+                        "停车费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020408",
+                    "Name": "洗车费",
+                    "Subs": [
+                        "洗车费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020410",
+                    "Name": "其他",
+                    "Subs": [
+                        "其他"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660205",
+                    "Name": "运杂费",
+                    "Subs": [
+                        "运杂费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660206",
+                    "Name": "物业租赁水电汽费",
+                    "Subs": [
+                        "物业租赁水电汽费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020601",
+                    "Name": "物业费",
+                    "Subs": [
+                        "物业费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020602",
+                    "Name": "租赁费",
+                    "Subs": [
+                        "租赁费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020603",
+                    "Name": "水费",
+                    "Subs": [
+                        "水费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020604",
+                    "Name": "电费",
+                    "Subs": [
+                        "电费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66020605",
+                    "Name": "蒸汽费",
+                    "Subs": [
+                        "蒸汽费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660207",
+                    "Name": "邮电通讯费",
+                    "Subs": [
+                        "邮电通讯费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660208",
+                    "Name": "低值易耗品摊销",
+                    "Subs": [
+                        "低值易耗品摊销"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660209",
+                    "Name": "修理费",
+                    "Subs": [
+                        "修理费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660214",
+                    "Name": "职工教育经费",
+                    "Subs": [
+                        "职工教育经费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660215",
+                    "Name": "工会经费",
+                    "Subs": [
+                        "工会经费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660217",
+                    "Name": "打样费",
+                    "Subs": [
+                        "打样费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66021701",
+                    "Name": "服装打样费",
+                    "Subs": [
+                        "服装打样费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66021702",
+                    "Name": "面料放样费",
+                    "Subs": [
+                        "面料放样费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66021703",
+                    "Name": "辅料打样费",
+                    "Subs": [
+                        "辅料打样费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660218",
+                    "Name": "样衣采购费用",
+                    "Subs": [
+                        "样衣采购费用"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660219",
+                    "Name": "修织费",
+                    "Subs": [
+                        "修织费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660220",
+                    "Name": "检测费",
+                    "Subs": [
+                        "检测费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66022001",
+                    "Name": "面料检测费",
+                    "Subs": [
+                        "面料检测费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66022002",
+                    "Name": "服装检测费",
+                    "Subs": [
+                        "服装检测费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660221",
+                    "Name": "检品费",
+                    "Subs": [
+                        "检品费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660222",
+                    "Name": "残疾人就业保障金",
+                    "Subs": [
+                        "残疾人就业保障金"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660225",
+                    "Name": "保险费",
+                    "Subs": [
+                        "保险费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66022501",
+                    "Name": "汽车保险",
+                    "Subs": [
+                        "汽车保险"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66022502",
+                    "Name": "财产保险",
+                    "Subs": [
+                        "财产保险"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "66022503",
+                    "Name": "其他",
+                    "Subs": [
+                        "其他"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660226",
+                    "Name": "折旧费",
+                    "Subs": [
+                        "折旧费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660227",
+                    "Name": "物料消耗",
+                    "Subs": [
+                        "物料消耗"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660228",
+                    "Name": "劳动保护费",
+                    "Subs": [
+                        "劳动保护费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660229",
+                    "Name": "OA样衣采购费用",
+                    "Subs": [
+                        "OA样衣采购费用"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660230",
+                    "Name": "房屋租赁费",
+                    "Subs": [
+                        "房屋租赁费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660231",
+                    "Name": "研发支出",
+                    "Subs": [
+                        "研发支出"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660232",
+                    "Name": "机构服务费",
+                    "Subs": [
+                        "机构服务费"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 2,
+                    "Code": "660299",
+                    "Name": "其他",
+                    "Subs": [
+                        "其他"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": true,
+                        "CustomerNo": false,
+                        "VendorNo": true
+                    },
+                    "Tax": {
+                        "Code": "2221010102",
+                        "Name": "税金科目"
+                    },
+                    "Credit": {
+                        "Code": "220201",
                         "Name": "现金银行科目"
                     }
                 }

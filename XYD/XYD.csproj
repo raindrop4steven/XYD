@@ -264,9 +264,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003270223005_rename asset model.cs" />
-    <Compile Include="Migrations\202003270223005_rename asset model.Designer.cs">
-      <DependentUpon>202003270223005_rename asset model.cs</DependentUpon>
+    <Compile Include="Migrations\202004010553078_add express table.cs" />
+    <Compile Include="Migrations\202004010553078_add express table.Designer.cs">
+      <DependentUpon>202004010553078_add express table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004010746386_add express table2.cs" />
+    <Compile Include="Migrations\202004010746386_add express table2.Designer.cs">
+      <DependentUpon>202004010746386_add express table2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004010818155_add express ids in invoice.cs" />
+    <Compile Include="Migrations\202004010818155_add express ids in invoice.Designer.cs">
+      <DependentUpon>202004010818155_add express ids in invoice.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -778,8 +786,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003270223005_rename asset model.resx">
-      <DependentUpon>202003270223005_rename asset model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004010553078_add express table.resx">
+      <DependentUpon>202004010553078_add express table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004010746386_add express table2.resx">
+      <DependentUpon>202004010746386_add express table2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004010818155_add express ids in invoice.resx">
+      <DependentUpon>202004010818155_add express ids in invoice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -808,6 +822,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

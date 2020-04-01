@@ -37,7 +37,7 @@ namespace XYD.Entity
     #region 发票信息
     public class XYD_Invoice : XYD_InvoiceInfo
     {
-       public List<XYD_InvoiceDetail> invoiceDetailData { get; set; }
+        public List<XYD_InvoiceDetail> invoiceDetailData { get; set; }
     }
     #endregion
 

@@ -139,16 +139,32 @@ namespace XYD.Controllers
                         string voucher = string.Empty;
                         if (string.IsNullOrEmpty(record.Extras))
                         {
-                            XYD_SubVoucherCode subCode = WorkflowUtil.GetSubVoucherCode(record.MessageID, null);
+                            string voucherName = null;
+                            XYD_SubVoucherCode subCode = null;
+                            if (record.MessageID == DEP_Constants.INVOICE_WORKFLOW_ID)
+                            {
+                                voucherName = record.VoucherName;
+                            }
+                            subCode = WorkflowUtil.GetSubVoucherCode(record.MessageID, voucherName);
                             string DeptNo = string.Empty;
+                            string VendorNo = string.Empty;
                             if (subCode.Debit.DeptNo)
                             {
                                 var dept = orgMgr.GetDepartment(ApplyUser.DeptID);
                                 DeptNo = dept.DeptDescr;
                             }
+                            if (subCode.Debit.VendorNo)
+                            {
+                                VendorNo = record.VendorNo;
+                            }
                             // 科目已确定，一条借
                             voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalAmount, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
                             Results.Add(voucher);
+                            if (subCode.Type == 2) // 发票凭证，加一条税金科目
+                            {
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Tax.Code, record.TotalAmount, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                                Results.Add(voucher);
+                            }
                             // 一条贷
                             voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
                             Results.Add(voucher);
@@ -266,11 +282,19 @@ namespace XYD.Controllers
                     {
                         var applyUser = orgMgr.GetEmployee(voucher.ApplyUser).EmplName;
                         var auditUser = orgMgr.GetEmployee(voucher.User).EmplName;
-                        var message = mgr.GetMessage(voucher.MessageID);
+                        var message = string.Empty;
+                        if (voucher.MessageID == DEP_Constants.INVOICE_WORKFLOW_ID)
+                        {
+                            message = "发票凭证";
+                        }
+                        else
+                        {
+                            message = mgr.GetMessage(voucher.MessageID).MessageTitle;
+                        }
                         resultVouchers.Add(new
                         {
                             ID = voucher.ID,
-                            Message = message.MessageTitle,
+                            Message = message,
                             Sn = voucher.Sn,
                             CreateTime = voucher.CreateTime,
                             TotalAmount = voucher.TotalAmount,

@@ -7,13 +7,13 @@ namespace XYD.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class renameassetmodel : IMigrationMetadata
+    public sealed partial class addexpresstable2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(renameassetmodel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addexpresstable2));
         
         string IMigrationMetadata.Id
         {
-            get { return "202003270223005_rename asset model"; }
+            get { return "202004010746386_add express table2"; }
         }
         
         string IMigrationMetadata.Source

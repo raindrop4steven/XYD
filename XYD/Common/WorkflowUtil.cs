@@ -1489,8 +1489,17 @@ namespace XYD.Common
         public static XYD_SubVoucherCode GetSubVoucherCode(string mid, string name)
         {
             XYD_SubVoucherCode SubCode = null;
-            Message message = mgr.GetMessage(mid);
-            var workflowId = message.FromTemplate;
+            var workflowId = string.Empty;
+            if (mid == DEP_Constants.INVOICE_WORKFLOW_ID)
+            {
+                workflowId = DEP_Constants.INVOICE_WORKFLOW_ID;
+            }
+            else
+            {
+                Message message = mgr.GetMessage(mid);
+                workflowId = message.FromTemplate;
+            }
+
             var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("Voucher.json"));
 
             using (StreamReader sr = new StreamReader(filePathName))
