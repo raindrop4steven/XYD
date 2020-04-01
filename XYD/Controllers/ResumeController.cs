@@ -186,7 +186,28 @@ namespace XYD.Controllers
 	                                        LEFT JOIN Department b ON b.cDepCode = a.cDept_Num ";
                 if (isLeader)
                 {
-                    List<Employee> employees = orgMgr.FindEmployeeBySQL(string.Format("select * from ORG_Employee where EmplName like '%{0}%' and EmplNO != ''", UserName));
+                    var areaCondition = string.Empty;
+                    if (!string.IsNullOrEmpty(Area))
+                    {
+                        var AreaName = string.Empty;
+                        if (Area == "001")
+                        {
+                            AreaName = "无锡";
+                        }
+                        else
+                        {
+                            AreaName = "上海";
+                        }
+                        areaCondition = string.Format(@" INNER JOIN ORG_EmplRole b on a.EmplID = b.EmplID INNER JOIN ORG_Role c on b.RoleID = c.RoleID and c.RoleName = '{0}'", AreaName);
+                    }
+                    List<Employee> employees = orgMgr.FindEmployeeBySQL(string.Format(@"SELECT
+                                                                                            *
+                                                                                        FROM
+                                                                                            ORG_Employee a
+                                                                                            {0}
+                                                                                        WHERE
+                                                                                            a.EmplName LIKE '%{1}%'
+                                                                                            AND a.EmplNO != ''", areaCondition, UserName));
                     List<string> idList = employees.Select(n => "'" + n.EmplNO +"'").ToList();
                     string inClause = string.Join(",", idList);
                     // 构造查询 
