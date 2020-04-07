@@ -99,9 +99,18 @@ namespace XYD.Controllers
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
+                var isAdmin = false;
+                if (PermUtil.CheckPermission(employee.EmplID, "CarRecord", "admin"))
+                {
+                    isAdmin = true;
+                }
                 using (var db = new DefaultConnection())
                 {
-                    var list = db.CarRecord.Where(n => n.DriverID == employee.EmplID);
+                    var list = db.CarRecord.Where(n => true);
+                    if (!isAdmin)
+                    {
+                        list = list.Where(n => n.DriverID == employee.EmplID);
+                    }
                     if (!string.IsNullOrEmpty(status))
                     {
                         list = list.Where(n => n.Status == status);
