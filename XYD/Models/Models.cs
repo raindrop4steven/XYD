@@ -61,10 +61,28 @@ namespace XYD.Models
         public bool Marriage { get; set; }
         // 身份证号
         public string CredNo { get; set; }
+        // 身份证照片正面
+        public int CredFront { get; set; }
+        // 身份证照片反面
+        public int CredBack { get; set; }
         // 护照号
         public string PassportNo { get; set; }
+        // 护照正面
+        public int PassportFront { get; set; }
+        // 护照反面
+        public int PassportBack { get; set; }
         // 港澳通行证号
         public string ExitEntryNo { get; set; }
+        // 港澳通行证正面
+        public int ExitEntryFront { get; set; }
+        // 港澳通行证反面
+        public int ExitEntryBack { get; set; }
+        // 入台通行证
+        public string TaiNo { get; set; }
+        // 入台通行证正面
+        public int TaiFront { get; set; }
+        // 入台通行证反面
+        public int TaiEnd { get; set; }
         // 门禁卡号
         public string DoorNo { get; set; }
         // 户籍所在地
@@ -105,6 +123,8 @@ namespace XYD.Models
         public string BankNo { get; set; }
         // 续签次数
         public int ContinueCount { get; set; }
+        // 实际工龄（月）
+        public int RealWorkMonth { get; set; }
     }
     #endregion
 

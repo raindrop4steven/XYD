@@ -288,6 +288,14 @@
     <Compile Include="Migrations\202004070707554_add voucher taxSum and taxFreeSum.Designer.cs">
       <DependentUpon>202004070707554_add voucher taxSum and taxFreeSum.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004070735157_add att to userinfo.cs" />
+    <Compile Include="Migrations\202004070735157_add att to userinfo.Designer.cs">
+      <DependentUpon>202004070735157_add att to userinfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004070748270_add real month to usercompanyinfo.cs" />
+    <Compile Include="Migrations\202004070748270_add real month to usercompanyinfo.Designer.cs">
+      <DependentUpon>202004070748270_add real month to usercompanyinfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -815,6 +823,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004070707554_add voucher taxSum and taxFreeSum.resx">
       <DependentUpon>202004070707554_add voucher taxSum and taxFreeSum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004070735157_add att to userinfo.resx">
+      <DependentUpon>202004070735157_add att to userinfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004070748270_add real month to usercompanyinfo.resx">
+      <DependentUpon>202004070748270_add real month to usercompanyinfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
