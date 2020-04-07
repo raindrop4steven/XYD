@@ -184,7 +184,7 @@ namespace XYD.Controllers
 
         #region 统计公里数
         [Authorize]
-        public ActionResult Summary(DateTime BeginDate, DateTime EndDate)
+        public ActionResult Summary(DateTime BeginDate, DateTime EndDate, int Page, int Size)
         {
             try
             {
@@ -198,8 +198,24 @@ namespace XYD.Controllers
                             ApplyUser = n.FirstOrDefault().ApplyUser,
                             ApplyDept = n.FirstOrDefault().ApplyDept,
                             Miles = n.Sum(x => x.Miles)
-                        }).OrderByDescending(n => n.Miles).ToList();
-                    return ResponseUtil.OK(list);
+                        });
+                    // 记录总数
+                    var totalCount = list.Count();
+                    // 记录总页数
+                    var totalPage = (int)Math.Ceiling((float)totalCount / Size);
+                    var results = list.OrderByDescending(n => n.Miles).Skip(Page * Size).Take(Size).ToList();
+                    return ResponseUtil.OK(new
+                    {
+                        records = results,
+                        meta = new
+                        {
+                            current_page = Page,
+                            total_page = totalPage,
+                            current_count = Page * Size + results.Count(),
+                            total_count = totalCount,
+                            per_page = Size
+                        }
+                    });
                 }
             }
             catch (Exception e)
