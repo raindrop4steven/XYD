@@ -262,10 +262,14 @@ namespace XYD.Controllers
                                 CreateTime = invoiceAuth.authenticationTime,
                                 VoucherCode = invoiceInfo.voucherType,
                                 VoucherName = optionDict[invoiceInfo.voucherType],
-                                TotalAmount = invoiceInfo.totalAmount,
+                                TotalAmount = invoiceInfo.totalTaxSum,
+                                TotalTaxNum = invoiceInfo.totalTaxNum,
+                                TotalTaxFreeNum = invoiceInfo.totalAmount,
                                 User = invoiceInfo.createdBy,
                                 ApplyUser = invoiceInfo.updatedBy,
-                                VendorNo = vendor.Code
+                                VendorNo = vendor.Code,
+                                DeptNo = invoiceInfo.deptNo,
+                                Extras = invoiceInfo.voucherType == DEP_Constants.INVOICE_VOUCHER_TYPE_EXPRESS ? invoiceInfo.express : string.Empty
                             });
                         }
                     }
@@ -278,6 +282,27 @@ namespace XYD.Controllers
             {
                 return ResponseUtil.Error(e.Message);
             }
+        }
+        #endregion
+
+        #region 部门列表
+        [Authorize]
+        public ActionResult DeptList()
+        {
+            var depts = new List<object>()
+            {
+                new
+                {
+                    Code = DEP_Constants.INVOICE_DEPT_SH_CODE,
+                    Name = DEP_Constants.INVOICE_DEPT_SH_NAME
+                },
+                new
+                {
+                    Code = DEP_Constants.INVOICE_DEPT_WX_CODE,
+                    Name = DEP_Constants.INVOICE_DEPT_WX_NAME
+                }
+            };
+            return ResponseUtil.OK(depts);
         }
         #endregion
 

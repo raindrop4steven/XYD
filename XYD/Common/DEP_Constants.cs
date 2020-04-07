@@ -174,5 +174,17 @@ namespace XYD.Common
          * 发票对应workflowID
          */
         public static string INVOICE_WORKFLOW_ID = "Invoice";
+        public static string INVOICE_DEPT_SH_CODE = "20";
+        public static string INVOICE_DEPT_SH_NAME = "上海综合管理部";
+        public static string INVOICE_DEPT_WX_CODE = "3";
+        public static string INVOICE_DEPT_WX_NAME = "无锡综合管理部";
+        public static string INVOICE_VOUCHER_TYPE_EXPRESS = "660101";
+        /**
+         * 凭证类型
+         */
+        // 普通凭证
+        public static int VOUCHER_TYPE_NORMAL = 1;
+        // 发票凭证
+        public static int VOUCHER_TYPE_INVOICE = 2;
     }
 }

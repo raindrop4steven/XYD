@@ -276,6 +276,18 @@
     <Compile Include="Migrations\202004010818155_add express ids in invoice.Designer.cs">
       <DependentUpon>202004010818155_add express ids in invoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004070537402_add voucher deptNo.cs" />
+    <Compile Include="Migrations\202004070537402_add voucher deptNo.Designer.cs">
+      <DependentUpon>202004070537402_add voucher deptNo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004070538583_add invoice deptNo.cs" />
+    <Compile Include="Migrations\202004070538583_add invoice deptNo.Designer.cs">
+      <DependentUpon>202004070538583_add invoice deptNo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004070707554_add voucher taxSum and taxFreeSum.cs" />
+    <Compile Include="Migrations\202004070707554_add voucher taxSum and taxFreeSum.Designer.cs">
+      <DependentUpon>202004070707554_add voucher taxSum and taxFreeSum.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -794,6 +806,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004010818155_add express ids in invoice.resx">
       <DependentUpon>202004010818155_add express ids in invoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004070537402_add voucher deptNo.resx">
+      <DependentUpon>202004070537402_add voucher deptNo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004070538583_add invoice deptNo.resx">
+      <DependentUpon>202004070538583_add invoice deptNo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004070707554_add voucher taxSum and taxFreeSum.resx">
+      <DependentUpon>202004070707554_add voucher taxSum and taxFreeSum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

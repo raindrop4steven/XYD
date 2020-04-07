@@ -400,11 +400,17 @@ namespace XYD.Models
         public string VoucherCode { get; set; }
         // 科目名称
         public string VoucherName { get; set; }
+        // 部门编号
+        public string DeptNo { get; set; }
         // 客户编号
         public string CustomerNo { get; set; }
         // 供应商编号
         public string VendorNo { get; set; }
-        // 金额借方
+        // 税额
+        public string TotalTaxNum { get; set; }
+        // 不含税价
+        public string TotalTaxFreeNum { get; set; }
+        // 总金额
         public string TotalAmount { get; set; }
         // 额外参数
         public string Extras { get; set; }
@@ -453,6 +459,8 @@ namespace XYD.Models
         public string invoiceNumber { get; set; }
         // 科目类别
         public string voucherType { get; set; }
+        // 部门编号
+        public string deptNo { get; set; }
         // 发票类型名称
         public string invoiceTypeName { get; set; }
         // 发票类型

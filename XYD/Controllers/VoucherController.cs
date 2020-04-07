@@ -146,23 +146,40 @@ namespace XYD.Controllers
                                 voucherName = record.VoucherName;
                             }
                             subCode = WorkflowUtil.GetSubVoucherCode(record.MessageID, voucherName);
+                            // 获取部门编号和供应商编号
                             string DeptNo = string.Empty;
                             string VendorNo = string.Empty;
                             if (subCode.Debit.DeptNo)
                             {
-                                var dept = orgMgr.GetDepartment(ApplyUser.DeptID);
-                                DeptNo = dept.DeptDescr;
+                                if (subCode.Type == DEP_Constants.VOUCHER_TYPE_INVOICE)
+                                {
+                                    DeptNo = record.DeptNo;
+                                }
+                                else
+                                {
+                                    var dept = orgMgr.GetDepartment(ApplyUser.DeptID);
+                                    DeptNo = dept.DeptDescr;
+                                }
                             }
                             if (subCode.Debit.VendorNo)
                             {
                                 VendorNo = record.VendorNo;
                             }
-                            // 科目已确定，一条借
-                            voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalAmount, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
-                            Results.Add(voucher);
-                            if (subCode.Type == 2) // 发票凭证，加一条税金科目
+                            
+                            // 发票凭证
+                            if (subCode.Type == DEP_Constants.VOUCHER_TYPE_INVOICE)
                             {
-                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Tax.Code, record.TotalAmount, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                                // 科目已确定，一条借
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalTaxFreeNum, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                                Results.Add(voucher);
+                                // 加一条税金科目
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Tax.Code, record.TotalTaxNum, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                                Results.Add(voucher);
+                            }
+                            else
+                            {
+                                // 科目已确定，一条借
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalAmount, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
                                 Results.Add(voucher);
                             }
                             // 一条贷
@@ -171,51 +188,104 @@ namespace XYD.Controllers
                         }
                         else
                         {
-                            // 科目未确定，多条借一条贷
-                            Dictionary<string, double> voucherDict = new Dictionary<string, double>();
-                            Dictionary<string, XYD_SubVoucherCode> subVoucherCodeDict = new Dictionary<string, XYD_SubVoucherCode>();
-                            var lineArray = record.Extras.Split(';').ToList();
-                            XYD_SubVoucherCode subCode = null;
-                            foreach (var lineData in lineArray)
+                            // 凭证是否是发票快递费
+                            if (record.VoucherCode == DEP_Constants.INVOICE_VOUCHER_TYPE_EXPRESS)
                             {
-                                var subLineArray = lineData.Split(',').ToList();
-                                var subLineName = subLineArray.ElementAt(0);
-                                if (string.IsNullOrEmpty(subLineName))
-                                {
-                                    continue;
-                                }
-                                var subAmountArray = subLineArray.Skip(1).Take(subLineArray.Count - 1);
-                                var subTotal = subAmountArray.Where(n => !string.IsNullOrEmpty(n)).Sum(n => double.Parse(n));
-                                // 获得科目
-                                // 科目
-                                subCode = WorkflowUtil.GetSubVoucherCode(record.MessageID, subLineName);
-                                if (!voucherDict.Keys.Contains(subCode.Code))
-                                {
-                                    voucherDict[subCode.Code] = subTotal;
-                                    subVoucherCodeDict[subCode.Code] = subCode;
-                                }
-                                else
-                                {
-                                    voucherDict[subCode.Code] += subTotal;
-                                }
-                            }
-                            // 多条借
-                            foreach (var item in voucherDict)
-                            {
-                                subCode = subVoucherCodeDict[item.Key];
+                                // 发票快递费，科目已确定，总金额已确定
+                                var expressIds = record.Extras.Split(',').Select(int.Parse).ToList();
+                                var expressList = db.Express.Where(n => expressIds.Contains(n.ID)).ToList();
                                 string DeptNo = string.Empty;
+                                string VendorNo = string.Empty;
+                                string voucherName = record.VoucherName;
+                                XYD_SubVoucherCode subCode = null;
+                                subCode = WorkflowUtil.GetSubVoucherCode(record.MessageID, voucherName);
                                 if (subCode.Debit.DeptNo)
                                 {
-                                    var dept = orgMgr.GetDepartment(ApplyUser.DeptID);
-                                    DeptNo = dept.DeptDescr;
+                                    DeptNo = record.DeptNo;
                                 }
-                                brief = string.Format("{0} {1} 付 {2} {3}", CreateTime, Sn, subCode.Name, ApplyUser.EmplName);
-                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, item.Key, item.Value, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                                if (subCode.Debit.VendorNo)
+                                {
+                                    VendorNo = record.VendorNo;
+                                }
+                                // 累计总额，最后一个借需要税前-累计，因为有四舍五入
+                                float currentSum = 0.0f;
+                                // 按照人员，多个借，多个税金，一个贷
+                                for(int j = 0; j < expressList.Count; j++)
+                                {
+                                    var express = expressList[j];
+                                    var amount = 0.0f;
+                                    // 申请人从快递表里取
+                                    ApplyUser = orgMgr.GetEmployee(express.SenderId);
+                                    brief = string.Format("{0} {1} 付 {2} {3}", CreateTime, Sn, subCode.Name, ApplyUser.EmplName);
+                                    if (j == expressList.Count - 1)
+                                    {
+                                        // 最后一条
+                                        amount = float.Parse(record.TotalTaxFreeNum) - currentSum;
+                                    }
+                                    else
+                                    {
+                                        amount = float.Parse(express.Amount.ToString());
+                                        currentSum += float.Parse(express.Amount.ToString());
+                                    }
+                                    // 科目已确定，一条借
+                                    voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, amount.ToString(), 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                                    Results.Add(voucher);
+                                }
+                                // 一条税金科目
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Tax.Code, record.TotalTaxNum, 0, string.Empty, 0, DeptNo, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+                                Results.Add(voucher);
+                                // 一条贷
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
                                 Results.Add(voucher);
                             }
-                            // 一条贷
-                            voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-                            Results.Add(voucher);
+                            else
+                            {
+                                // 普通发票，科目未确定，多条借一条贷
+                                Dictionary<string, double> voucherDict = new Dictionary<string, double>();
+                                Dictionary<string, XYD_SubVoucherCode> subVoucherCodeDict = new Dictionary<string, XYD_SubVoucherCode>();
+                                var lineArray = record.Extras.Split(';').ToList();
+                                XYD_SubVoucherCode subCode = null;
+                                foreach (var lineData in lineArray)
+                                {
+                                    var subLineArray = lineData.Split(',').ToList();
+                                    var subLineName = subLineArray.ElementAt(0);
+                                    if (string.IsNullOrEmpty(subLineName))
+                                    {
+                                        continue;
+                                    }
+                                    var subAmountArray = subLineArray.Skip(1).Take(subLineArray.Count - 1);
+                                    var subTotal = subAmountArray.Where(n => !string.IsNullOrEmpty(n)).Sum(n => double.Parse(n));
+                                    // 获得科目
+                                    // 科目
+                                    subCode = WorkflowUtil.GetSubVoucherCode(record.MessageID, subLineName);
+                                    if (!voucherDict.Keys.Contains(subCode.Code))
+                                    {
+                                        voucherDict[subCode.Code] = subTotal;
+                                        subVoucherCodeDict[subCode.Code] = subCode;
+                                    }
+                                    else
+                                    {
+                                        voucherDict[subCode.Code] += subTotal;
+                                    }
+                                }
+                                // 多条借
+                                foreach (var item in voucherDict)
+                                {
+                                    subCode = subVoucherCodeDict[item.Key];
+                                    string DeptNo = string.Empty;
+                                    if (subCode.Debit.DeptNo)
+                                    {
+                                        var dept = orgMgr.GetDepartment(ApplyUser.DeptID);
+                                        DeptNo = dept.DeptDescr;
+                                    }
+                                    brief = string.Format("{0} {1} 付 {2} {3}", CreateTime, Sn, subCode.Name, ApplyUser.EmplName);
+                                    voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, item.Key, item.Value, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                                    Results.Add(voucher);
+                                }
+                                // 一条贷
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+                                Results.Add(voucher);
+                            }
                         }
                     }
                     // 数据转换成文件下载
