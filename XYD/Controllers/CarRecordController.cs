@@ -192,9 +192,10 @@ namespace XYD.Controllers
                 using (var db = new DefaultConnection())
                 {
                     var list = db.CarRecord.Where(n => n.Status == DEP_Constants.CAR_MILES_FINISH && n.CreateTime >= BeginDate.Date && n.CreateTime <= EndDate)
-                        .GroupBy(n => n.ApplyDept)
+                        .GroupBy(n => n.ApplyUserID)
                         .Select(n => new
                         {
+                            ApplyUser = n.FirstOrDefault().ApplyUser,
                             ApplyDept = n.FirstOrDefault().ApplyDept,
                             Miles = n.Sum(x => x.Miles)
                         }).OrderByDescending(n => n.Miles).ToList();
