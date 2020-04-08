@@ -230,6 +230,7 @@
     <Compile Include="Common\ExceptionHelper.cs" />
     <Compile Include="Common\InvoiceHelper.cs" />
     <Compile Include="Common\JsonNetResult.cs" />
+    <Compile Include="Common\MailHelper.cs" />
     <Compile Include="Common\OrgUtil.cs" />
     <Compile Include="Common\PermUtil.cs" />
     <Compile Include="Common\ResponseUtil.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\MettingBookController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ResumeController.cs" />
     <Compile Include="Controllers\SerialNoController.cs" />
     <Compile Include="Controllers\SummaryController.cs" />
@@ -781,6 +783,7 @@
     <Folder Include="Views\Invoice\" />
     <Folder Include="Views\Leave\" />
     <Folder Include="Views\MettingBook\" />
+    <Folder Include="Views\Notification\" />
     <Folder Include="Views\Resume\" />
     <Folder Include="Views\SerialNo\" />
     <Folder Include="Views\Summary\" />

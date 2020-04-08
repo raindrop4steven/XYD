@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using XYD.Common;
@@ -130,6 +131,20 @@ namespace XYD.Controllers
                 firstDay = firstDay,
                 lastDay = lastDay
             });
+        }
+
+        public async Task<ActionResult> SendEmail(string Tos)
+        {
+            await Task.Run(() => { new MailHelper().SendAsync("Send Async Email Test", "This is Send Async Email Test", Tos, null); });
+            return ResponseUtil.OK("ok");
+        }
+        /// <summary>
+        /// 邮件发送后的回调方法
+        /// </summary>
+        /// <param name="message"></param>
+        static void emailCompleted(string message)
+        {
+            
         }
     }
 }
