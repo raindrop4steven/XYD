@@ -54,4 +54,13 @@ namespace XYD.Entity
         public string invoiceNumber { get; set; }
     }
     #endregion
+
+    #region 发布文章通知
+    public class XYD_CMS_Notification
+    {
+        public string url { get; set; }
+        public string title { get; set; }
+        public List<string> unsavedReaders { get; set; }
+    }
+    #endregion
 }

@@ -9,6 +9,7 @@ using Appkiz.Apps.Workflow.Library;
 using Appkiz.Library.Security;
 using System.Threading.Tasks;
 using System.Configuration;
+using XYD.Entity;
 
 namespace XYD.Controllers
 {
@@ -33,6 +34,42 @@ namespace XYD.Controllers
                 return ResponseUtil.OK("send success");
             }
             catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 文章发布通知
+        public async Task<ActionResult> SendCMSEmail(XYD_CMS_Notification notification)
+        {
+            try
+            {
+                var findSql = @"select * from ORG_Employee ";
+                if (notification.unsavedReaders != null && notification.unsavedReaders.Count > 0)
+                {
+                    var inSql = string.Join(",", notification.unsavedReaders.Select(n => "'" + n.Trim() + "'"));
+                    findSql = findSql + string.Format(" where EmplID in ({0})", inSql);
+                }
+                
+                List<Employee> employees = orgMgr.FindEmployeeBySQL(findSql);
+                List<string> emailList = new List<string>();
+                foreach(var employee in employees)
+                {
+                    var email = orgMgr.GetEmplContactInfo(employee.EmplID, "email");
+                    if (!string.IsNullOrEmpty(email))
+                    {
+                        emailList.Add(email);
+                    }
+                }
+                var tos = string.Join(",", emailList);
+                var subject = notification.title;
+                var url = string.Format(@"{0}{1}", ConfigurationManager.AppSettings["ServerDomain"], notification.url);
+                var body = string.Format(@"您有新的公告通知，点击查看详情：<a href='{0}'>{1}</a>", url, notification.title);
+                await Task.Run(() => { new MailHelper().SendAsync(subject, body, tos, null); });
+                return ResponseUtil.OK("send success");
+            }
+            catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }
