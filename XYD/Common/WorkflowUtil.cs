@@ -399,8 +399,6 @@ namespace XYD.Common
         }
         #endregion
 
-
-
         #region 获得Cell的值
         /*
          * 获得Cell的值
