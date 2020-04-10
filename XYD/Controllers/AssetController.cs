@@ -364,7 +364,16 @@ namespace XYD.Controllers
                     foreach (var asset in applyAssets)
                     {
                         var assetRecord = new List<XYD_Asset_Record>();
-                        var currentAssets = db.Asset.Where(n => n.Name == asset.Name && n.ModelName == asset.ModelName && n.Unit == asset.Unit).ToList();
+                        var currentAssetsQuery = db.Asset.Where(n => n.Name == asset.Name);
+                        if (!string.IsNullOrEmpty(asset.ModelName))
+                        {
+                            currentAssetsQuery = currentAssetsQuery.Where(n => n.ModelName == asset.ModelName);
+                        }
+                        if (!string.IsNullOrEmpty(asset.Unit))
+                        {
+                            currentAssetsQuery = currentAssetsQuery.Where(n => n.Unit == asset.Unit);
+                        }
+                        var currentAssets = currentAssetsQuery.ToList();
                         foreach(var item in currentAssets)
                         {
                             if (item.Count >= asset.Count)
