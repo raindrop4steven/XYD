@@ -488,6 +488,7 @@
                 "Title": "附件",
                 "Value": "",
                 "InterValue": "",
+                "Atts": null,
                 "Type": 10,
                 "CanEdit": true,
                 "Row": 16,

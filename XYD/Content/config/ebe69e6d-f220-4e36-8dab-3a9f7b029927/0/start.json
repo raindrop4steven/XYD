@@ -527,6 +527,7 @@
                 "Title": "附件",
                 "Value": "",
                 "InterValue": "",
+                "Atts": null,
                 "Type": 10,
                 "CanEdit": true,
                 "Row": 16,
@@ -574,6 +575,20 @@
                 "Col": 3
             },
             "Operation": "sum",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 14,
+                    "Col": 3
+                }
+            ],
+            "Dest": {
+                "Row": 15,
+                "Col": 3
+            },
+            "Operation": "capital",
             "Type": "int"
         }
     ]

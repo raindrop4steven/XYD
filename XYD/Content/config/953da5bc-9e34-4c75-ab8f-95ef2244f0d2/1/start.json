@@ -62,7 +62,7 @@
         },
         {
             "Type": 3,
-            "Header": [ "物品名称", "型号", "数量", "单位", "单价", "小计", "采购方式", "备注", "附件"],
+            "Header": [ "物品名称", "型号", "数量", "单位", "单价", "小计", "采购方式", "备注", "附件" ],
             "Array": [
                 [
                     {
@@ -157,6 +157,7 @@
                         "Title": "附件",
                         "Value": "",
                         "InterValue": "",
+                        "Atts": null,
                         "Type": 10,
                         "CanEdit": true,
                         "Row": 6,
@@ -258,6 +259,7 @@
                         "Title": "附件",
                         "Value": "",
                         "InterValue": "",
+                        "Atts": null,
                         "Type": 10,
                         "CanEdit": true,
                         "Row": 7,
@@ -359,6 +361,7 @@
                         "Title": "附件",
                         "Value": "",
                         "InterValue": "",
+                        "Atts": null,
                         "Type": 10,
                         "CanEdit": true,
                         "Row": 8,
@@ -460,6 +463,7 @@
                         "Title": "附件",
                         "Value": "",
                         "InterValue": "",
+                        "Atts": null,
                         "Type": 10,
                         "CanEdit": true,
                         "Row": 9,
@@ -561,6 +565,7 @@
                         "Title": "附件",
                         "Value": "",
                         "InterValue": "",
+                        "Atts": null,
                         "Type": 10,
                         "CanEdit": true,
                         "Row": 10,
@@ -662,6 +667,7 @@
                         "Title": "附件",
                         "Value": "",
                         "InterValue": "",
+                        "Atts": null,
                         "Type": 10,
                         "CanEdit": true,
                         "Row": 11,
@@ -763,6 +769,7 @@
                         "Title": "附件",
                         "Value": "",
                         "InterValue": "",
+                        "Atts": null,
                         "Type": 10,
                         "CanEdit": true,
                         "Row": 12,
@@ -802,6 +809,134 @@
                 "Options": null,
                 "Required": true
             }
+        }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 6,
+                    "Col": 4
+                },
+                {
+                    "Row": 6,
+                    "Col": 6
+                }
+            ],
+            "Dest": {
+                "Row": 6,
+                "Col": 7
+            },
+            "Operation": "multiple",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 7,
+                    "Col": 4
+                },
+                {
+                    "Row": 7,
+                    "Col": 6
+                }
+            ],
+            "Dest": {
+                "Row": 7,
+                "Col": 7
+            },
+            "Operation": "multiple",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 8,
+                    "Col": 4
+                },
+                {
+                    "Row": 8,
+                    "Col": 6
+                }
+            ],
+            "Dest": {
+                "Row": 8,
+                "Col": 7
+            },
+            "Operation": "multiple",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 9,
+                    "Col": 4
+                },
+                {
+                    "Row": 9,
+                    "Col": 6
+                }
+            ],
+            "Dest": {
+                "Row": 9,
+                "Col": 7
+            },
+            "Operation": "multiple",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 10,
+                    "Col": 4
+                },
+                {
+                    "Row": 10,
+                    "Col": 6
+                }
+            ],
+            "Dest": {
+                "Row": 10,
+                "Col": 7
+            },
+            "Operation": "multiple",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 11,
+                    "Col": 4
+                },
+                {
+                    "Row": 11,
+                    "Col": 6
+                }
+            ],
+            "Dest": {
+                "Row": 11,
+                "Col": 7
+            },
+            "Operation": "multiple",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 12,
+                    "Col": 4
+                },
+                {
+                    "Row": 12,
+                    "Col": 6
+                }
+            ],
+            "Dest": {
+                "Row": 12,
+                "Col": 7
+            },
+            "Operation": "multiple",
+            "Type": "int"
         }
     ]
 }

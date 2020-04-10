@@ -142,7 +142,7 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "天数",
+                "Title": "小时数",
                 "Value": "",
                 "InterValue": "",
                 "Type": 2,
@@ -152,6 +152,26 @@
                 "Options": null,
                 "Required": true
             }
+        }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 6,
+                    "Col": 3
+                },
+                {
+                    "Row": 6,
+                    "Col": 7
+                }
+            ],
+            "Dest": {
+                "Row": 6,
+                "Col": 11
+            },
+            "Operation": "minus",
+            "Type": "minute"
         }
     ]
 }
