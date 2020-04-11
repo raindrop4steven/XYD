@@ -488,6 +488,7 @@
                 "Title": "附件",
                 "Value": "",
                 "InterValue": "",
+                "Atts": null,
                 "Type": 10,
                 "CanEdit": true,
                 "Row": 16,
@@ -496,6 +497,22 @@
                 "NeedRefresh": false,
                 "Required": true
             }
+        }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 14,
+                    "Col": 3
+                }
+            ],
+            "Dest": {
+                "Row": 15,
+                "Col": 3
+            },
+            "Operation": "capital",
+            "Type": "int"
         }
     ]
 }

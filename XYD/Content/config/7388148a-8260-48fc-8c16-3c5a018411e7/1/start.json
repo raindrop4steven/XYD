@@ -489,6 +489,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 10,
+                "Atts": null,
                 "CanEdit": true,
                 "Row": 16,
                 "Col": 3,

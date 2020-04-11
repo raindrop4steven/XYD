@@ -153,5 +153,25 @@
                 "Required": true
             }
         }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 6,
+                    "Col": 3
+                },
+                {
+                    "Row": 6,
+                    "Col": 7
+                }
+            ],
+            "Dest": {
+                "Row": 6,
+                "Col": 11
+            },
+            "Operation": "minus",
+            "Type": "minute"
+        }
     ]
 }

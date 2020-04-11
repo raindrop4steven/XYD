@@ -978,3 +978,50 @@ function AddClearButtons(startRow, endRow, col) {
         $(item).after(clearBtn);
     }); 
 }
+
+// 判断行是否全空
+function IsEmptyLine(row, startCol, endCol) {
+    var emptyLine = true;
+    posCellIds = [];
+    for (var i = startCol; i <= endCol; i++) {
+        posCellIds.push('#C-' + row + '-' + i);
+    }
+    posCellIds.forEach(function (item) {
+        var content = $(item).text();
+        if (content !== undefined && content.length > 0) {
+            emptyLine = false;
+        }
+    });
+    return emptyLine;
+}
+
+// 判断指定列是否都有值
+function IsCellNotEmpty(row, cols) {
+    var notEmpty = true;
+    posCellIds = [];
+    for (var i = 0; i < cols.length; i++) {
+        posCellIds.push('#C-' + row + '-' + cols[i]);
+    }
+    posCellIds.forEach(function (item) {
+        var content = $(item).text();
+        if (content == undefined || content.length == 0) {
+            notEmpty = false;
+        }
+    });
+    return notEmpty;
+}
+
+// 检查行必填项
+function CheckLineRequired(startRow, endRow, startCol, endCol, checkCols) {
+    for (var i = startRow; i <= endRow; i++) {
+        if (IsEmptyLine(i, startCol, endCol)) {
+            continue;
+        }
+        if (IsCellNotEmpty(i, checkCols)) {
+            continue;
+        } else {
+            return '请检查必填项';
+        }
+    }
+    return null;
+}
