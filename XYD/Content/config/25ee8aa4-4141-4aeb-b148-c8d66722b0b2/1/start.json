@@ -7,7 +7,7 @@
                 "Title": "事务编号",
                 "Value": "",
                 "InterValue": "",
-                "Type": 0,
+                "Type": 1,
                 "CanEdit": true,
                 "Row": 4,
                 "Col": 3,
@@ -498,6 +498,60 @@
                 "NeedRefresh": false,
                 "Required": true
             }
+        }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 7,
+                    "Col": 5
+                },
+                {
+                    "Row": 8,
+                    "Col": 5
+                },
+                {
+                    "Row": 9,
+                    "Col": 5
+                },
+                {
+                    "Row": 10,
+                    "Col": 5
+                },
+                {
+                    "Row": 11,
+                    "Col": 5
+                },
+                {
+                    "Row": 12,
+                    "Col": 5
+                },
+                {
+                    "Row": 13,
+                    "Col": 5
+                }
+            ],
+            "Dest": {
+                "Row": 14,
+                "Col": 3
+            },
+            "Operation": "sum",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 14,
+                    "Col": 3
+                }
+            ],
+            "Dest": {
+                "Row": 15,
+                "Col": 3
+            },
+            "Operation": "capital",
+            "Type": "int"
         }
     ]
 }
