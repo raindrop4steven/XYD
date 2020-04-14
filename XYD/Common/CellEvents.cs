@@ -56,7 +56,8 @@ namespace XYD.Common
                 cellValue.CanEdit = true;
             }
             WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, cellValue);
-            return EventResult.OK(eventArgument.Fields);
+            XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, eventArgument.MessageId);
+            return EventResult.OK(fields);
         }
         #endregion
 
@@ -87,7 +88,7 @@ namespace XYD.Common
                 // 计算补贴
                 CaculateAllowacne(ref worksheet, user, "#C-7-13", "#C-18-14");
                 XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, mid);
-                return EventResult.OK(fields.Fields);
+                return EventResult.OK(fields);
             }
         }
         /// <summary>
@@ -157,7 +158,7 @@ namespace XYD.Common
                 WorkflowUtil.UpdateCell(worksheet, 4, 3, eventArgument.CurrentCellValue.Value, string.Empty);
                 
                 XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, mid);
-                return EventResult.OK(fields.Fields);
+                return EventResult.OK(fields);
             }
         }
         #endregion

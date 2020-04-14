@@ -11,7 +11,7 @@ namespace XYD.Common
         /// <param name="refresh"></param>
         /// <param name="Fields"></param>
         /// <returns></returns>
-        public static object OK(List<XYD_Base_Cell> Fields)
+        public static object OK(object Fields)
         {
             return new
             {
