@@ -8,11 +8,12 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
+                "CanEdit": true,
                 "Row": 4,
                 "Col": 3,
                 "Options": "#custom(XYD.Common.TransformUtil, GetSerialOptions)",
-                "Required": true
+                "Required": true,
+                "NeedRefresh": true
             }
         },
         {

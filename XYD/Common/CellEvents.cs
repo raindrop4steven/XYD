@@ -83,7 +83,7 @@ namespace XYD.Common
                 WorkflowUtil.MappingBetweenFlows(record.MessageID, mid, serial.MappingOut);
                 Worksheet worksheet = WorkflowUtil.GetWorksheet(mid);
                 // 填充编号
-                WorkflowUtil.UpdateCell(worksheet, 5, 3, serialNo, string.Empty);
+                WorkflowUtil.UpdateCell(worksheet, 5, 3, eventArgument.CurrentCellValue.Value, string.Empty);
                 // 计算补贴
                 CaculateAllowacne(ref worksheet, user, "#C-7-13", "#C-18-14");
                 XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, mid);
@@ -154,7 +154,7 @@ namespace XYD.Common
                 WorkflowUtil.MappingBetweenFlows(record.MessageID, mid, serial.MappingOut);
                 Worksheet worksheet = WorkflowUtil.GetWorksheet(mid);
                 // 填充编号
-                WorkflowUtil.UpdateCell(worksheet, 4, 3, serialNo, string.Empty);
+                WorkflowUtil.UpdateCell(worksheet, 4, 3, eventArgument.CurrentCellValue.Value, string.Empty);
                 
                 XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, mid);
                 return EventResult.OK(fields.Fields);

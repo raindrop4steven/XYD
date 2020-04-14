@@ -346,6 +346,7 @@ namespace XYD.Common
                         else
                         {
                             var attachment = mgr.GetAttachment(attachId);
+                            attachment.AttFileSize = attachment.AttFileSize / 1000;
                             attachments.Add(attachment);
                         }
                     }
