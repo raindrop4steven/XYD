@@ -520,7 +520,7 @@ namespace XYD.Controllers
                 {
                     bool isBaoxiaoRole = OrgUtil.CheckBaoxiaoUser(employee.EmplID);
                     var query = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false);
-                    if (isBaoxiaoRole)
+                    if (!isBaoxiaoRole)
                     {
                         query = query.Where(n => n.EmplID == employee.EmplID);
                     }

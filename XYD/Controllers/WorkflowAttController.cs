@@ -1,6 +1,8 @@
 ﻿using Appkiz.Apps.Workflow.Library;
 using Appkiz.Library.Common;
 using Appkiz.Library.Security.Authentication;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 using XYD.Common;
+using XYD.Entity;
 
 namespace XYD.Controllers
 {
@@ -32,9 +35,11 @@ namespace XYD.Controllers
                 var sid = collection["sid"];
                 var row = int.Parse(collection["row"]);
                 var col = int.Parse(collection["col"]);
+                var inputFields =collection["fields"];
                 // 当前用户
                 var employee = (User.Identity as AppkizIdentity).Employee;
 
+                WorkflowUtil.ConfirmStartWorkflow(mid, inputFields);
                 /*
                  * 获取原附件信息
                  */
@@ -142,6 +147,8 @@ namespace XYD.Controllers
                 var attId = collection["attId"];
                 var row = int.Parse(collection["row"]);
                 var col = int.Parse(collection["col"]);
+                var inputFields = collection["fields"];
+                WorkflowUtil.ConfirmStartWorkflow(mid, inputFields);
                 // 当前用户
                 var employee = (User.Identity as AppkizIdentity).Employee;
 
