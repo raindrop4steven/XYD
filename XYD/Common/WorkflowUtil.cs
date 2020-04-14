@@ -799,15 +799,16 @@ namespace XYD.Common
         #endregion
 
         #region 填充物品采购表单
-        public static void FillApplyGoods(string MessageID, List<string> goodsArray)
+        public static void FillApplyGoods(string MessageID, string goods)
         {
+            List<string> goodsArray = goods.Split(';').ToList();
             Message message = mgr.GetMessage(MessageID);
             Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
             Worksheet worksheet = doc.Worksheet;
             XYD_Array_Cell arrayCell = null;
 
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-start.json", message.FromTemplate));
-
+            var defaultVersion = GetDefaultConfigVersion(message.FromTemplate);
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], message.FromTemplate, defaultVersion, "start.json");
             using (StreamReader sr = new StreamReader(filePathName))
             {
                 var fields = JsonConvert.DeserializeObject<XYD_Fields>(sr.ReadToEnd(), new XYDCellJsonConverter());
@@ -831,11 +832,23 @@ namespace XYD.Common
                 var updateCells = new List<Workcell>();
                 for (int i = 0; i < goodsArray.Count; i++)
                 {
+                    var rowArray = goodsArray.ElementAt(i).Split(',');
                     List<XYD_Cell_Value> rowCells = arrayCell.Array.ElementAt(i);
+                    // 物品名称
                     XYD_Cell_Value goodsCell = rowCells.ElementAt(0);
                     var cell = worksheet.GetWorkcell(goodsCell.Row, goodsCell.Col);
-                    cell.WorkcellValue = goodsArray.ElementAt(i);
+                    cell.WorkcellValue = rowArray.ElementAt(0);
                     updateCells.Add(cell);
+                    // 型号
+                    XYD_Cell_Value modelCell = rowCells.ElementAt(1);
+                    var cell2 = worksheet.GetWorkcell(modelCell.Row, modelCell.Col);
+                    cell2.WorkcellValue = rowArray.ElementAt(1);
+                    updateCells.Add(cell2);
+                    // 单位
+                    XYD_Cell_Value unitCell = rowCells.ElementAt(3);
+                    var cell3 = worksheet.GetWorkcell(unitCell.Row, unitCell.Col);
+                    cell3.WorkcellValue = rowArray.ElementAt(2);
+                    updateCells.Add(cell3);
                 }
                 worksheet.UpdateWorkcells(updateCells);
             }
