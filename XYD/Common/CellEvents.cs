@@ -56,8 +56,8 @@ namespace XYD.Common
                 cellValue.CanEdit = true;
             }
             WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, cellValue);
-            XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, eventArgument.MessageId);
-            return EventResult.OK(fields);
+            // 填充编号
+            return EventResult.OK(new XYD_Fields() { Fields = eventArgument.Fields});
         }
         #endregion
 

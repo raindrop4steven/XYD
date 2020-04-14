@@ -53,7 +53,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 1,
-                "CanEdit": false,
+                "CanEdit": true,
                 "Row": 5,
                 "Col": 3,
                 "Options": [
@@ -66,7 +66,8 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": true,
+                "NeedRefresh": true
             }
         },
         {
@@ -76,8 +77,8 @@
                 "Title": "还款时间",
                 "Value": "",
                 "InterValue": "",
-                "Type": 1,
-                "CanEdit": false,
+                "Type": 2,
+                "CanEdit": true,
                 "Row": 5,
                 "Col": 9,
                 "Options": null,

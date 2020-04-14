@@ -1,6 +1,20 @@
 ﻿{
     "workflows": [
         {
+            "Id": "15fa22ad-6e10-469d-bdb8-4a52dbc29ed4",
+            "Name": "备用金申请",
+            "Image": "Content/workflows/车辆费用报销.png",
+            "Order": 0,
+            "Type": ""
+        },
+        {
+            "Id": "f1b0b4d7-6625-433f-83f5-258915d2f89d",
+            "Name": "备用金申请",
+            "Image": "Content/workflows/车辆费用报销.png",
+            "Order": 0,
+            "Type": ""
+        },
+        {
             "Id": "c97fb2da-1507-4dd1-9d0b-ae28cfda7560",
             "Name": "车辆费用报销",
             "Image": "Content/workflows/车辆费用报销.png",
