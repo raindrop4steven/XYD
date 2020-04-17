@@ -123,7 +123,7 @@ namespace XYD.Controllers
                     smgr.UpdateWorksheet(worksheet);
                 }
                 var fields = WorkflowUtil.GetStartFields(employee.EmplID, nid, mid);
-                return ResponseUtil.OK(EventResult.OK(fields.Fields));
+                return ResponseUtil.OK(EventResult.OK(fields));
             }
             catch (Exception e)
             {
@@ -175,7 +175,7 @@ namespace XYD.Controllers
                 worksheet.Save();
                 this.wmgr.DelAttachment(attId);
                 var fields = WorkflowUtil.GetStartFields(employee.EmplID, nid, mid);
-                return ResponseUtil.OK(EventResult.OK(fields.Fields));
+                return ResponseUtil.OK(EventResult.OK(fields));
             }
             catch (Exception e)
             {

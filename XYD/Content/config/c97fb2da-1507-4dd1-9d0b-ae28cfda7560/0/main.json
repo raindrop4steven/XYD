@@ -29,7 +29,14 @@
 
         ],
         "details": [
-            
+            {
+                "key": "Attachments",
+                "value": {
+                    "row": 15,
+                    "col": 3
+                },
+                "type": 10
+            }
         ],
         "controls": [
 
