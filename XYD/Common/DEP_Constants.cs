@@ -186,5 +186,17 @@ namespace XYD.Common
         public static int VOUCHER_TYPE_NORMAL = 1;
         // 发票凭证
         public static int VOUCHER_TYPE_INVOICE = 2;
+
+        public enum CALENDAR_TYPE
+        {
+            Holiday = 0, // 节日
+            Adjust = 1, // 调休
+            Rest = 2, // 休息
+            Work = 3, // 上班
+            Late = 4, // 迟到
+            LeaveEarly = 5, // 早退
+            Absent = 6, // 旷工
+            Leave = 7 // 请假
+        }
     }
 }

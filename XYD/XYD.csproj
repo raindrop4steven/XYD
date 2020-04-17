@@ -221,6 +221,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\CalendarUtil.cs" />
     <Compile Include="Common\CellEvents.cs" />
     <Compile Include="Common\CommonUtils.cs" />
     <Compile Include="Common\DbUtil.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Controllers\AssetController.cs" />
     <Compile Include="Controllers\AwardController.cs" />
     <Compile Include="Controllers\BackupMoneyController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\CarRecordController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
@@ -743,6 +745,7 @@
     <Content Include="Content\static\layui\font\iconfont.ttf" />
     <Content Include="Content\static\layui\font\iconfont.woff" />
     <Content Include="Content\static\layui\font\iconfont.woff2" />
+    <Content Include="Content\config\holidays\2020.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -774,6 +777,7 @@
     <Folder Include="Views\Award\" />
     <Folder Include="Views\BackupMoney\" />
     <Folder Include="Views\Banner\" />
+    <Folder Include="Views\Calendar\" />
     <Folder Include="Views\CarRecord\" />
     <Folder Include="Views\Common\" />
     <Folder Include="Views\Contact\" />
@@ -862,7 +866,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" />
+      <UserProperties content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

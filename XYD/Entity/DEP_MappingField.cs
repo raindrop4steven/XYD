@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using static XYD.Common.DEP_Constants;
 
 namespace XYD.Entity
 {
@@ -539,6 +540,25 @@ namespace XYD.Entity
     public class XYD_Config_Version
     {
         public List<XYD_Version> versions { get; set; }
+    }
+    #endregion
+
+    #region XYD_日历
+    public class XYD_Calendar
+    {
+        public List<XYD_CalendarItem> holidays { get; set; }
+        public List<XYD_CalendarItem> adjust { get; set; }
+    }
+    public class XYD_CalendarItem
+    {
+        public string Name { get; set; }
+        public List<string> Days { get; set; }
+    }
+    public class XYD_CalendarEntity
+    {
+        public string Name { get; set; }
+        public string Date { get; set; }
+        public CALENDAR_TYPE Type { get; set; }
     }
     #endregion
 }
