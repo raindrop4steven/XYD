@@ -89,6 +89,36 @@
             "Type": 0,
             "Header": null,
             "Value": {
+                "Title": "申请金额(小写)",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 6,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "申请金额(大写)",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 6,
+                "Col": 9,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
                 "Title": "申请事由",
                 "Value": "",
                 "InterValue": "",
@@ -99,6 +129,22 @@
                 "Options": null,
                 "Required": true
             }
+        }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 6,
+                    "Col": 3
+                }
+            ],
+            "Dest": {
+                "Row": 6,
+                "Col": 9
+            },
+            "Operation": "capital",
+            "Type": "int"
         }
     ]
 }
