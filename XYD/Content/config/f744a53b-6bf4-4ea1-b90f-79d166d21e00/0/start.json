@@ -82,12 +82,12 @@
                 "Title": "驾驶员",
                 "Value": "",
                 "InterValue": "",
-                "Type": 0,
-                "CanEdit": true,
+                "Type": 1,
+                "CanEdit": false,
                 "Row": 7,
                 "Col": 3,
                 "Options": "#custom(XYD.Common.TransformUtil, GetDrivers)",
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -97,10 +97,10 @@
                 "Title": "车号",
                 "Value": "",
                 "InterValue": "",
-                "Type": 0,
-                "CanEdit": true,
+                "Type": 1,
+                "CanEdit": false,
                 "Row": 7,
-                "Col": 10,
+                "Col": 7,
                 "Options": [
                     {
                         "Value": "苏B7BU15",
@@ -111,7 +111,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         }
     ]

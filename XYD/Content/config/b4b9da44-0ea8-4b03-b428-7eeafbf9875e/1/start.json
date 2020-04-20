@@ -7,8 +7,8 @@
                 "Title": "事务编号",
                 "Value": "",
                 "InterValue": "",
-                "Type": 0,
-                "CanEdit": false,
+                "Type": 1,
+                "CanEdit": true,
                 "Row": 4,
                 "Col": 3,
                 "Options": "#custom(XYD.Common.TransformUtil, GetSerialOptions)",
@@ -75,11 +75,63 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "预付卡",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "餐费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "食品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "饮品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "香烟",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "酒水",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "礼品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "水果",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "鲜花",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "蛋糕",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "门票",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户住宿费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
                                 "InterValue": ""
                             }
                         ],
@@ -130,11 +182,63 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "预付卡",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "餐费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "食品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "饮品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "香烟",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "酒水",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "礼品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "水果",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "鲜花",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "蛋糕",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "门票",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户住宿费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
                                 "InterValue": ""
                             }
                         ],
@@ -185,11 +289,63 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "预付卡",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "餐费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "食品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "饮品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "香烟",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "酒水",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "礼品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "水果",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "鲜花",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "蛋糕",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "门票",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户住宿费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
                                 "InterValue": ""
                             }
                         ],
@@ -240,11 +396,63 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "预付卡",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "餐费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "食品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "饮品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "香烟",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "酒水",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "礼品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "水果",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "鲜花",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "蛋糕",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "门票",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户住宿费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
                                 "InterValue": ""
                             }
                         ],
@@ -295,11 +503,63 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "预付卡",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "餐费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "食品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "饮品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "香烟",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "酒水",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "礼品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "水果",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "鲜花",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "蛋糕",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "门票",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户住宿费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
                                 "InterValue": ""
                             }
                         ],
@@ -350,11 +610,63 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "预付卡",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "餐费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "食品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "饮品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "香烟",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "酒水",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "礼品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "水果",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "鲜花",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "蛋糕",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "门票",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户住宿费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
                                 "InterValue": ""
                             }
                         ],
@@ -405,11 +717,63 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "预付卡",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "餐费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "食品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "饮品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "香烟",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "酒水",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "礼品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "水果",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "鲜花",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "蛋糕",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "门票",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户住宿费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "客户签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "其他",
                                 "InterValue": ""
                             }
                         ],
@@ -500,6 +864,44 @@
         }
     ],
     "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 7,
+                    "Col": 5
+                },
+                {
+                    "Row": 8,
+                    "Col": 5
+                },
+                {
+                    "Row": 9,
+                    "Col": 5
+                },
+                {
+                    "Row": 10,
+                    "Col": 5
+                },
+                {
+                    "Row": 11,
+                    "Col": 5
+                },
+                {
+                    "Row": 12,
+                    "Col": 5
+                },
+                {
+                    "Row": 13,
+                    "Col": 5
+                }
+            ],
+            "Dest": {
+                "Row": 14,
+                "Col": 3
+            },
+            "Operation": "sum",
+            "Type": "int"
+        },
         {
             "Origin": [
                 {
