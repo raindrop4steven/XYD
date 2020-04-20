@@ -354,6 +354,11 @@ namespace XYD.Common
                 }
                 
                 singleCell.Value = CommonUtils.ParseCellValue(emplId, NodeId, MessageID, singleCell.Value);
+                if (!canEdit)
+                {
+                    singleCell.Value.CanEdit = canEdit;
+                    singleCell.Value.Required = false;
+                }
             }
             else if (cell.Type == 3)
             {
@@ -390,6 +395,11 @@ namespace XYD.Common
                         }
                         
                         innerCell = CommonUtils.ParseCellValue(emplId, NodeId, MessageID, innerCell);
+                        if (!canEdit)
+                        {
+                            innerCell.CanEdit = canEdit;
+                            innerCell.Required = false;
+                        }
                     }
                 }
             }

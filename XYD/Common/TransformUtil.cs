@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Appkiz.Apps.Workflow.Library;
+using Appkiz.Library.Security;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,9 @@ namespace XYD.Common
     /// </summary>
     public class TransformUtil
     {
+        static OrgMgr orgMgr = new OrgMgr();
+        static WorkflowMgr mgr = new WorkflowMgr();
+
         #region 根据输入对象，转化array
         public static object TransformArray(string inObj)
         {
@@ -65,6 +70,34 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 解析Fields获取供应商列表
+        public static List<XYD_Cell_Options> GetVendors(string user, string nid, string mid)
+        {
+            var sql = @"select Name, Code from XYD_Vendor ORDER BY Code";
+            var resultOptions = new List<XYD_Cell_Options>();
+            var options = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetOptions);
+            foreach (XYD_Cell_Options option in options)
+            {
+                resultOptions.Add(option);
+            }
+            return resultOptions;
+        }
+        #endregion
+
+        #region 解析Fields获取部门列表
+        public static List<XYD_Cell_Options> GetDepts(string user, string nid, string mid)
+        {
+            var sql = @"select DeptName, DeptID from ORG_Department WHERE DeptDescr != '' ORDER BY DeptDescr";
+            var resultOptions = new List<XYD_Cell_Options>();
+            var options = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetOptions);
+            foreach (XYD_Cell_Options option in options)
+            {
+                resultOptions.Add(option);
+            }
+            return resultOptions;
+        }
+        #endregion
+
         #region 解析Feilds中事务编号列表
         public static List<XYD_Cell_Options> GetSerialOptions(string user, string nid, string mid)
         {
@@ -77,8 +110,23 @@ namespace XYD.Common
                 XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
                 using (var db = new DefaultConnection())
                 {
-                    var records = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == user).OrderByDescending(n => n.CreateTime).Select(n => new XYD_Cell_Options() { Value = n.Sn, InterValue = string.Empty }).ToList();
-                    return records;
+                    bool isBaoxiaoRole = OrgUtil.CheckBaoxiaoUser(user);
+                    var query = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false);
+                    if (!isBaoxiaoRole)
+                    {
+                        query = query.Where(n => n.EmplID == user);
+                    }
+                    var records = query.OrderByDescending(n => n.CreateTime).ToList().Where(m => mgr.GetMessage(m.MessageID).MessageStatus == 2);
+                    if (isBaoxiaoRole)
+                    {
+                        foreach (var record in records)
+                        {
+                            var thisUser = orgMgr.GetEmployee(record.EmplID).EmplName;
+                            var Sn = string.Format("{0} {1}", thisUser, record.Sn);
+                            record.Sn = Sn;
+                        }
+                    }
+                    return records.Select(n => new XYD_Cell_Options() { Value = n.Sn, InterValue = string.Empty }).ToList();
                 }
             }
         }

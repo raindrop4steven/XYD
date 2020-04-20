@@ -52,11 +52,11 @@
                 "Title": "收款单位",
                 "Value": "",
                 "InterValue": "",
-                "Type": 0,
+                "Type": 1,
                 "CanEdit": true,
                 "Row": 5,
                 "Col": 3,
-                "Options": null,
+                "Options": "#custom(XYD.Common.TransformUtil, GetVendors)",
                 "Required": true
             }
         },
@@ -159,7 +159,7 @@
                 "InterValue": "",
                 "Atts": null,
                 "Type": 10,
-                "CanEdit": true,
+                "CanEdit": false,
                 "Row": 10,
                 "Col": 3,
                 "Options": null,

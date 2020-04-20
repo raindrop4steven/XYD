@@ -458,11 +458,13 @@
     <Content Include="Content\workflowScript\代付费用报销.js" />
     <Content Include="Content\workflowScript\通用.js" />
     <Content Include="Content\workflows\付款申请.png" />
+    <Content Include="Content\workflows\代付费用报销.png" />
     <Content Include="Content\workflows\会议室.png" />
     <Content Include="Content\workflows\住宿申请.png" />
     <Content Include="Content\workflows\公章借出.png" />
     <Content Include="Content\workflows\出差申请.png" />
     <Content Include="Content\workflows\合同会签.png" />
+    <Content Include="Content\workflows\备用金申请.png" />
     <Content Include="Content\workflows\差旅报销.png" />
     <Content Include="Content\workflows\报销申请.png" />
     <Content Include="Content\workflows\接待申请.png" />
@@ -866,7 +868,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" />
+      <UserProperties content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

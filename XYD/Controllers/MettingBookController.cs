@@ -37,13 +37,10 @@ namespace XYD.Controllers
         #endregion
 
         #region 检查会议室是否可用
-        [Authorize]
         public ActionResult CheckMeetingBook(XYD_MettingBook model)
         {
             try
             {
-                var employee = (User.Identity as AppkizIdentity).Employee;
-
                 using (var db = new DefaultConnection())
                 {
                     // 检查该会议室是否被占用

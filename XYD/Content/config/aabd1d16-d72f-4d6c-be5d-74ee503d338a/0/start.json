@@ -67,7 +67,7 @@
                 "Title": "使用时间",
                 "Value": "",
                 "InterValue": "",
-                "Type": 2,
+                "Type": 3,
                 "CanEdit": true,
                 "Row": 5,
                 "Col": 7,
@@ -82,7 +82,7 @@
                 "Title": "结束时间",
                 "Value": "",
                 "InterValue": "",
-                "Type": 2,
+                "Type": 3,
                 "CanEdit": true,
                 "Row": 5,
                 "Col": 11,
@@ -194,7 +194,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -218,7 +218,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -242,7 +242,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -266,7 +266,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -290,7 +290,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -314,7 +314,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -338,7 +338,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -362,7 +362,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -386,7 +386,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -410,7 +410,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -434,7 +434,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -458,7 +458,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -473,7 +473,7 @@
                 "Row": 10,
                 "Col": 8,
                 "Options": null,
-                "Required": true
+                "Required": false
             }
         },
         {

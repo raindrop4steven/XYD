@@ -12,7 +12,7 @@
                 "Row": 4,
                 "Col": 3,
                 "Options": null,
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -83,7 +83,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": true,
+                "CanEdit": false,
                 "Row": 5,
                 "Col": 11,
                 "Options": null,
@@ -106,6 +106,10 @@
                         "Value": "汽车",
                         "InterValue": ""
                     },
+					{
+                        "Value": "公司车",
+                        "InterValue": ""
+                    },
                     {
                         "Value": "火车",
                         "InterValue": ""
@@ -126,7 +130,7 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "预定方式",
+                "Title": "预订方式",
                 "Value": "",
                 "InterValue": "",
                 "Type": 1,
@@ -140,6 +144,10 @@
                     },
                     {
                         "Value": "公司订",
+                        "InterValue": ""
+                    },
+					{
+                        "Value": "已预约",
                         "InterValue": ""
                     }
                 ],
@@ -174,7 +182,7 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "预定方式",
+                "Title": "预订方式",
                 "Value": "",
                 "InterValue": "",
                 "Type": 1,
@@ -188,6 +196,10 @@
                     },
                     {
                         "Value": "公司订",
+                        "InterValue": ""
+                    },
+					{
+                        "Value": "已预约",
                         "InterValue": ""
                     }
                 ],
@@ -228,7 +240,7 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "事由",
+                "Title": "出差事由",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,

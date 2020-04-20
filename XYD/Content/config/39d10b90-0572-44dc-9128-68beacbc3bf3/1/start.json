@@ -178,7 +178,7 @@
         },
         {
             "Type": 3,
-            "Header": [ "日期", "出差行程", "交通方式", "交通费用", "住宿类别", "住宿费用", "补贴" ],
+            "Header": [ "日期", "出差行程", "交通方式", "交通费", "住宿方式", "住宿费", "备注" ],
             "Array": [
                 [
                     {
@@ -284,7 +284,7 @@
                         "Required": false
                     },
                     {
-                        "Title": "补贴",
+                        "Title": "备注",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
@@ -400,7 +400,7 @@
                         "Required": false
                     },
                     {
-                        "Title": "补贴",
+                        "Title": "备注",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
@@ -516,7 +516,7 @@
                         "Required": false
                     },
                     {
-                        "Title": "补贴",
+                        "Title": "备注",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
@@ -632,7 +632,7 @@
                         "Required": false
                     },
                     {
-                        "Title": "补贴",
+                        "Title": "备注",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
@@ -748,7 +748,7 @@
                         "Required": false
                     },
                     {
-                        "Title": "补贴",
+                        "Title": "备注",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
@@ -864,7 +864,7 @@
                         "Required": false
                     },
                     {
-                        "Title": "补贴",
+                        "Title": "备注",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
@@ -980,7 +980,7 @@
                         "Required": false
                     },
                     {
-                        "Title": "补贴",
+                        "Title": "备注",
                         "Value": "",
                         "InterValue": "",
                         "Type": 0,
@@ -1190,44 +1190,6 @@
         {
             "Origin": [
                 {
-                    "Row": 11,
-                    "Col": 13
-                },
-                {
-                    "Row": 12,
-                    "Col": 13
-                },
-                {
-                    "Row": 13,
-                    "Col": 13
-                },
-                {
-                    "Row": 14,
-                    "Col": 13
-                },
-                {
-                    "Row": 15,
-                    "Col": 13
-                },
-                {
-                    "Row": 16,
-                    "Col": 13
-                },
-                {
-                    "Row": 17,
-                    "Col": 13
-                }
-            ],
-            "Dest": {
-                "Row": 18,
-                "Col": 14
-            },
-            "Operation": "sum",
-            "Type": "int"
-        },
-        {
-            "Origin": [
-                {
                     "Row": 18,
                     "Col": 9
                 },
@@ -1245,6 +1207,20 @@
                 "Col": 3
             },
             "Operation": "sum",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 18,
+                    "Col": 3
+                }
+            ],
+            "Dest": {
+                "Row": 19,
+                "Col": 3
+            },
+            "Operation": "capital",
             "Type": "int"
         }
     ]

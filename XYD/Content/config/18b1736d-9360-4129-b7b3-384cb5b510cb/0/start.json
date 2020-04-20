@@ -85,6 +85,14 @@
                         "Value": "丧假",
                         "InterValue": ""
                     },
+					{
+                        "Value": "加班",
+                        "InterValue": ""
+                    },
+					{
+                        "Value": "调休",
+                        "InterValue": ""
+                    },
                     {
                         "Value": "其他",
                         "InterValue": ""
@@ -142,11 +150,11 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "天数",
+                "Title": "小时数",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": true,
+                "CanEdit": false,
                 "Row": 6,
                 "Col": 11,
                 "Options": null,
@@ -171,7 +179,7 @@
                 "Col": 11
             },
             "Operation": "minus",
-            "Type": "minute"
+            "Type": "hour"
         }
     ]
 }

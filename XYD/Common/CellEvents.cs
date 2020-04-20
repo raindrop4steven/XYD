@@ -76,6 +76,18 @@ namespace XYD.Common
             // 设置编号已使用
             using (var db = new DefaultConnection())
             {
+                if (sn.Contains(" "))
+                {
+                    var snArray = sn.Split(' ');
+                    user = orgMgr.FindEmployee("EmplName=@EmplName", new System.Collections.Hashtable()
+                          {
+                            {
+                              "@EmplName",
+                              snArray[0]
+                            }
+                          }, string.Empty, 0, 1).FirstOrDefault().EmplID;
+                    sn = snArray[1];
+                }
                 var record = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == user && n.Sn == sn).FirstOrDefault();
                 if (record == null)
                 {
@@ -147,6 +159,18 @@ namespace XYD.Common
             // 设置编号已使用
             using (var db = new DefaultConnection())
             {
+                if (sn.Contains(" "))
+                {
+                    var snArray = sn.Split(' ');
+                    user = orgMgr.FindEmployee("EmplName=@EmplName", new System.Collections.Hashtable()
+                          {
+                            {
+                              "@EmplName",
+                              snArray[0]
+                            }
+                          }, string.Empty, 0, 1).FirstOrDefault().EmplID;
+                    sn = snArray[1];
+                }
                 var record = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == user && n.Sn == sn).FirstOrDefault();
                 if (record == null)
                 {

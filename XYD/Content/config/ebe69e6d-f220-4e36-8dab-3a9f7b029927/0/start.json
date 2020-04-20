@@ -26,7 +26,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 5,
-                "Col": 9,
+                "Col": 7,
                 "Options": null,
                 "NeedRefresh": false,
                 "Required": true
@@ -42,7 +42,7 @@
                 "Type": 0,
                 "CanEdit": false,
                 "Row": 5,
-                "Col": 13,
+                "Col": 11,
                 "Options": null,
                 "NeedRefresh": false,
                 "Required": true
@@ -61,27 +61,128 @@
                         "CanEdit": true,
                         "Row": 7,
                         "Col": 1,
-                        "Options": [ ],
+                        "Options": [ 
+							{
+								"Value": "汽油费",
+								"InterValue": ""
+							},
+							{
+								"Value": "过桥费",
+								"InterValue": ""
+							},
+							{
+								"Value": "停车费",
+								"InterValue": ""
+							},
+							{
+								"Value": "维修费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他汽杂费",
+								"InterValue": ""
+							},
+							{
+								"Value": "机票",
+								"InterValue": ""
+							},
+							{
+								"Value": "住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "补贴",
+								"InterValue": ""
+							},
+							{
+								"Value": "退票费",
+								"InterValue": ""
+							},
+							{
+								"Value": "预付卡",
+								"InterValue": ""
+							},
+							{
+								"Value": "餐费",
+								"InterValue": ""
+							},
+							{
+								"Value": "食品",
+								"InterValue": ""
+							},
+							{
+								"Value": "饮品",
+								"InterValue": ""
+							},
+							{
+								"Value": "香烟",
+								"InterValue": ""
+							},
+							{
+								"Value": "酒水",
+								"InterValue": ""
+							},
+							{
+								"Value": "礼品",
+								"InterValue": ""
+							},
+							{
+								"Value": "水果",
+								"InterValue": ""
+							},
+							{
+								"Value": "鲜花",
+								"InterValue": ""
+							},
+							{
+								"Value": "蛋糕",
+								"InterValue": ""
+							},
+							{
+								"Value": "门票",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户签证费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他接待费",
+								"InterValue": ""
+							}
+						],
                         "NeedRefresh": false,
                         "Required": false
                     },
-                    {
-                        "Title": "所属部门",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 7,
-                        "Col": 3,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
+					{
+						"Title": "所属部门",
+						"Value": "",
+						"InterValue": "",
+						"Type": 1,
+						"CanEdit": true,
+						"Row": 7,
+						"Col": 3,
+						"Options": "#custom(XYD.Common.TransformUtil, GetDepts)",
+						"NeedRefresh": false,
+						"Required": false
+					},
                     {
                         "Title": "所属人员",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 1,
+                        "Type": 0,
                         "CanEdit": true,
                         "Row": 7,
                         "Col": 5,
@@ -123,34 +224,135 @@
                         "CanEdit": true,
                         "Row": 8,
                         "Col": 1,
-                        "Options": [ ],
+                        "Options": [ 
+							{
+								"Value": "汽油费",
+								"InterValue": ""
+							},
+							{
+								"Value": "过桥费",
+								"InterValue": ""
+							},
+							{
+								"Value": "停车费",
+								"InterValue": ""
+							},
+							{
+								"Value": "维修费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他汽杂费",
+								"InterValue": ""
+							},
+							{
+								"Value": "机票",
+								"InterValue": ""
+							},
+							{
+								"Value": "住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "补贴",
+								"InterValue": ""
+							},
+							{
+								"Value": "退票费",
+								"InterValue": ""
+							},
+							{
+								"Value": "预付卡",
+								"InterValue": ""
+							},
+							{
+								"Value": "餐费",
+								"InterValue": ""
+							},
+							{
+								"Value": "食品",
+								"InterValue": ""
+							},
+							{
+								"Value": "饮品",
+								"InterValue": ""
+							},
+							{
+								"Value": "香烟",
+								"InterValue": ""
+							},
+							{
+								"Value": "酒水",
+								"InterValue": ""
+							},
+							{
+								"Value": "礼品",
+								"InterValue": ""
+							},
+							{
+								"Value": "水果",
+								"InterValue": ""
+							},
+							{
+								"Value": "鲜花",
+								"InterValue": ""
+							},
+							{
+								"Value": "蛋糕",
+								"InterValue": ""
+							},
+							{
+								"Value": "门票",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户签证费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他接待费",
+								"InterValue": ""
+							}
+						],
                         "NeedRefresh": false,
                         "Required": false
                     },
-                    {
-                        "Title": "所属部门",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 8,
-                        "Col": 3,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "所属人员",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 1,
-                        "CanEdit": true,
-                        "Row": 8,
-                        "Col": 5,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
+					{
+						"Title": "所属部门",
+						"Value": "",
+						"InterValue": "",
+						"Type": 1,
+						"CanEdit": true,
+						"Row": 8,
+						"Col": 3,
+						"Options": "#custom(XYD.Common.TransformUtil, GetDepts)",
+						"NeedRefresh": false,
+						"Required": false
+					},
+					{
+						"Title": "所属人员",
+						"Value": "",
+						"InterValue": "",
+						"Type": 0,
+						"CanEdit": true,
+						"Row": 8,
+						"Col": 5,
+						"Options": null,
+						"NeedRefresh": false,
+						"Required": false
+					},
                     {
                         "Title": "金额",
                         "Value": "",
@@ -185,34 +387,135 @@
                         "CanEdit": true,
                         "Row": 9,
                         "Col": 1,
-                        "Options": [ ],
+                        "Options": [ 
+							{
+								"Value": "汽油费",
+								"InterValue": ""
+							},
+							{
+								"Value": "过桥费",
+								"InterValue": ""
+							},
+							{
+								"Value": "停车费",
+								"InterValue": ""
+							},
+							{
+								"Value": "维修费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他汽杂费",
+								"InterValue": ""
+							},
+							{
+								"Value": "机票",
+								"InterValue": ""
+							},
+							{
+								"Value": "住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "补贴",
+								"InterValue": ""
+							},
+							{
+								"Value": "退票费",
+								"InterValue": ""
+							},
+							{
+								"Value": "预付卡",
+								"InterValue": ""
+							},
+							{
+								"Value": "餐费",
+								"InterValue": ""
+							},
+							{
+								"Value": "食品",
+								"InterValue": ""
+							},
+							{
+								"Value": "饮品",
+								"InterValue": ""
+							},
+							{
+								"Value": "香烟",
+								"InterValue": ""
+							},
+							{
+								"Value": "酒水",
+								"InterValue": ""
+							},
+							{
+								"Value": "礼品",
+								"InterValue": ""
+							},
+							{
+								"Value": "水果",
+								"InterValue": ""
+							},
+							{
+								"Value": "鲜花",
+								"InterValue": ""
+							},
+							{
+								"Value": "蛋糕",
+								"InterValue": ""
+							},
+							{
+								"Value": "门票",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户签证费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他接待费",
+								"InterValue": ""
+							}
+						],
                         "NeedRefresh": false,
                         "Required": false
                     },
-                    {
-                        "Title": "所属部门",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 9,
-                        "Col": 3,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "所属人员",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 1,
-                        "CanEdit": true,
-                        "Row": 9,
-                        "Col": 5,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
+					{
+						"Title": "所属部门",
+						"Value": "",
+						"InterValue": "",
+						"Type": 1,
+						"CanEdit": true,
+						"Row": 9,
+						"Col": 3,
+						"Options": "#custom(XYD.Common.TransformUtil, GetDepts)",
+						"NeedRefresh": false,
+						"Required": false
+					},
+					{
+						"Title": "所属人员",
+						"Value": "",
+						"InterValue": "",
+						"Type": 0,
+						"CanEdit": true,
+						"Row": 9,
+						"Col": 5,
+						"Options": null,
+						"NeedRefresh": false,
+						"Required": false
+					},
                     {
                         "Title": "金额",
                         "Value": "",
@@ -247,34 +550,135 @@
                         "CanEdit": true,
                         "Row": 10,
                         "Col": 1,
-                        "Options": [ ],
+                        "Options": [ 
+							{
+								"Value": "汽油费",
+								"InterValue": ""
+							},
+							{
+								"Value": "过桥费",
+								"InterValue": ""
+							},
+							{
+								"Value": "停车费",
+								"InterValue": ""
+							},
+							{
+								"Value": "维修费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他汽杂费",
+								"InterValue": ""
+							},
+							{
+								"Value": "机票",
+								"InterValue": ""
+							},
+							{
+								"Value": "住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "补贴",
+								"InterValue": ""
+							},
+							{
+								"Value": "退票费",
+								"InterValue": ""
+							},
+							{
+								"Value": "预付卡",
+								"InterValue": ""
+							},
+							{
+								"Value": "餐费",
+								"InterValue": ""
+							},
+							{
+								"Value": "食品",
+								"InterValue": ""
+							},
+							{
+								"Value": "饮品",
+								"InterValue": ""
+							},
+							{
+								"Value": "香烟",
+								"InterValue": ""
+							},
+							{
+								"Value": "酒水",
+								"InterValue": ""
+							},
+							{
+								"Value": "礼品",
+								"InterValue": ""
+							},
+							{
+								"Value": "水果",
+								"InterValue": ""
+							},
+							{
+								"Value": "鲜花",
+								"InterValue": ""
+							},
+							{
+								"Value": "蛋糕",
+								"InterValue": ""
+							},
+							{
+								"Value": "门票",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户签证费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他接待费",
+								"InterValue": ""
+							}
+						],
                         "NeedRefresh": false,
                         "Required": false
                     },
-                    {
-                        "Title": "所属部门",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 10,
-                        "Col": 3,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "所属人员",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 1,
-                        "CanEdit": true,
-                        "Row": 10,
-                        "Col": 5,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
+					{
+						"Title": "所属部门",
+						"Value": "",
+						"InterValue": "",
+						"Type": 0,
+						"CanEdit": true,
+						"Row": 10,
+						"Col": 3,
+						"Options": "#custom(XYD.Common.TransformUtil, GetDepts)",
+						"NeedRefresh": false,
+						"Required": false
+					},
+					{
+						"Title": "所属人员",
+						"Value": "",
+						"InterValue": "",
+						"Type": 0,
+						"CanEdit": true,
+						"Row": 10,
+						"Col": 5,
+						"Options": null,
+						"NeedRefresh": false,
+						"Required": false
+					},
                     {
                         "Title": "金额",
                         "Value": "",
@@ -309,34 +713,135 @@
                         "CanEdit": true,
                         "Row": 11,
                         "Col": 1,
-                        "Options": [ ],
+                        "Options": [ 
+							{
+								"Value": "汽油费",
+								"InterValue": ""
+							},
+							{
+								"Value": "过桥费",
+								"InterValue": ""
+							},
+							{
+								"Value": "停车费",
+								"InterValue": ""
+							},
+							{
+								"Value": "维修费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他汽杂费",
+								"InterValue": ""
+							},
+							{
+								"Value": "机票",
+								"InterValue": ""
+							},
+							{
+								"Value": "住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "补贴",
+								"InterValue": ""
+							},
+							{
+								"Value": "退票费",
+								"InterValue": ""
+							},
+							{
+								"Value": "预付卡",
+								"InterValue": ""
+							},
+							{
+								"Value": "餐费",
+								"InterValue": ""
+							},
+							{
+								"Value": "食品",
+								"InterValue": ""
+							},
+							{
+								"Value": "饮品",
+								"InterValue": ""
+							},
+							{
+								"Value": "香烟",
+								"InterValue": ""
+							},
+							{
+								"Value": "酒水",
+								"InterValue": ""
+							},
+							{
+								"Value": "礼品",
+								"InterValue": ""
+							},
+							{
+								"Value": "水果",
+								"InterValue": ""
+							},
+							{
+								"Value": "鲜花",
+								"InterValue": ""
+							},
+							{
+								"Value": "蛋糕",
+								"InterValue": ""
+							},
+							{
+								"Value": "门票",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户签证费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他接待费",
+								"InterValue": ""
+							}
+						],
                         "NeedRefresh": false,
                         "Required": false
                     },
-                    {
-                        "Title": "所属部门",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 11,
-                        "Col": 3,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "所属人员",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 1,
-                        "CanEdit": true,
-                        "Row": 11,
-                        "Col": 5,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
+					{
+						"Title": "所属部门",
+						"Value": "",
+						"InterValue": "",
+						"Type": 1,
+						"CanEdit": true,
+						"Row": 11,
+						"Col": 3,
+						"Options": "#custom(XYD.Common.TransformUtil, GetDepts)",
+						"NeedRefresh": false,
+						"Required": false
+					},
+					{
+						"Title": "所属人员",
+						"Value": "",
+						"InterValue": "",
+						"Type": 0,
+						"CanEdit": true,
+						"Row": 11,
+						"Col": 5,
+						"Options": null,
+						"NeedRefresh": false,
+						"Required": false
+					},
                     {
                         "Title": "金额",
                         "Value": "",
@@ -371,34 +876,135 @@
                         "CanEdit": true,
                         "Row": 12,
                         "Col": 1,
-                        "Options": [ ],
+                        "Options": [ 
+							{
+								"Value": "汽油费",
+								"InterValue": ""
+							},
+							{
+								"Value": "过桥费",
+								"InterValue": ""
+							},
+							{
+								"Value": "停车费",
+								"InterValue": ""
+							},
+							{
+								"Value": "维修费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他汽杂费",
+								"InterValue": ""
+							},
+							{
+								"Value": "机票",
+								"InterValue": ""
+							},
+							{
+								"Value": "住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "补贴",
+								"InterValue": ""
+							},
+							{
+								"Value": "退票费",
+								"InterValue": ""
+							},
+							{
+								"Value": "预付卡",
+								"InterValue": ""
+							},
+							{
+								"Value": "餐费",
+								"InterValue": ""
+							},
+							{
+								"Value": "食品",
+								"InterValue": ""
+							},
+							{
+								"Value": "饮品",
+								"InterValue": ""
+							},
+							{
+								"Value": "香烟",
+								"InterValue": ""
+							},
+							{
+								"Value": "酒水",
+								"InterValue": ""
+							},
+							{
+								"Value": "礼品",
+								"InterValue": ""
+							},
+							{
+								"Value": "水果",
+								"InterValue": ""
+							},
+							{
+								"Value": "鲜花",
+								"InterValue": ""
+							},
+							{
+								"Value": "蛋糕",
+								"InterValue": ""
+							},
+							{
+								"Value": "门票",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户签证费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他接待费",
+								"InterValue": ""
+							}
+						],
                         "NeedRefresh": false,
                         "Required": false
                     },
-                    {
-                        "Title": "所属部门",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 12,
-                        "Col": 3,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "所属人员",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 1,
-                        "CanEdit": true,
-                        "Row": 12,
-                        "Col": 5,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
+					{
+						"Title": "所属部门",
+						"Value": "",
+						"InterValue": "",
+						"Type": 1,
+						"CanEdit": true,
+						"Row": 12,
+						"Col": 3,
+						"Options": "#custom(XYD.Common.TransformUtil, GetDepts)",
+						"NeedRefresh": false,
+						"Required": false
+					},
+					{
+						"Title": "所属人员",
+						"Value": "",
+						"InterValue": "",
+						"Type": 0,
+						"CanEdit": true,
+						"Row": 12,
+						"Col": 5,
+						"Options": null,
+						"NeedRefresh": false,
+						"Required": false
+					},
                     {
                         "Title": "金额",
                         "Value": "",
@@ -433,34 +1039,135 @@
                         "CanEdit": true,
                         "Row": 13,
                         "Col": 1,
-                        "Options": [ ],
+                        "Options": [ 
+							{
+								"Value": "汽油费",
+								"InterValue": ""
+							},
+							{
+								"Value": "过桥费",
+								"InterValue": ""
+							},
+							{
+								"Value": "停车费",
+								"InterValue": ""
+							},
+							{
+								"Value": "维修费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他汽杂费",
+								"InterValue": ""
+							},
+							{
+								"Value": "机票",
+								"InterValue": ""
+							},
+							{
+								"Value": "住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "补贴",
+								"InterValue": ""
+							},
+							{
+								"Value": "退票费",
+								"InterValue": ""
+							},
+							{
+								"Value": "预付卡",
+								"InterValue": ""
+							},
+							{
+								"Value": "餐费",
+								"InterValue": ""
+							},
+							{
+								"Value": "食品",
+								"InterValue": ""
+							},
+							{
+								"Value": "饮品",
+								"InterValue": ""
+							},
+							{
+								"Value": "香烟",
+								"InterValue": ""
+							},
+							{
+								"Value": "酒水",
+								"InterValue": ""
+							},
+							{
+								"Value": "礼品",
+								"InterValue": ""
+							},
+							{
+								"Value": "水果",
+								"InterValue": ""
+							},
+							{
+								"Value": "鲜花",
+								"InterValue": ""
+							},
+							{
+								"Value": "蛋糕",
+								"InterValue": ""
+							},
+							{
+								"Value": "门票",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户住宿费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户交通费",
+								"InterValue": ""
+							},
+							{
+								"Value": "客户签证费",
+								"InterValue": ""
+							},
+							{
+								"Value": "其他接待费",
+								"InterValue": ""
+							}
+						],
                         "NeedRefresh": false,
                         "Required": false
                     },
-                    {
-                        "Title": "所属部门",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 0,
-                        "CanEdit": true,
-                        "Row": 13,
-                        "Col": 3,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
-                    {
-                        "Title": "所属人员",
-                        "Value": "",
-                        "InterValue": "",
-                        "Type": 1,
-                        "CanEdit": true,
-                        "Row": 13,
-                        "Col": 5,
-                        "Options": null,
-                        "NeedRefresh": false,
-                        "Required": false
-                    },
+					{
+						"Title": "所属部门",
+						"Value": "",
+						"InterValue": "",
+						"Type": 1,
+						"CanEdit": true,
+						"Row": 13,
+						"Col": 3,
+						"Options": "#custom(XYD.Common.TransformUtil, GetDepts)",
+						"NeedRefresh": false,
+						"Required": false
+					},
+					{
+						"Title": "所属人员",
+						"Value": "",
+						"InterValue": "",
+						"Type": 0,
+						"CanEdit": true,
+						"Row": 13,
+						"Col": 5,
+						"Options": null,
+						"NeedRefresh": false,
+						"Required": false
+					},
                     {
                         "Title": "金额",
                         "Value": "",

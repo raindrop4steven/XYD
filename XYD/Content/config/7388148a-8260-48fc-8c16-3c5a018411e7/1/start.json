@@ -7,12 +7,13 @@
                 "Title": "事务编号",
                 "Value": "",
                 "InterValue": "",
-                "Type": 0,
-                "CanEdit": false,
+                "Type": 1,
+                "CanEdit": true,
                 "Row": 4,
                 "Col": 3,
                 "Options": "#custom(XYD.Common.TransformUtil, GetSerialOptions)",
-                "Required": true
+                "Required": true,
+                "NeedRefresh": true
             }
         },
         {
@@ -75,11 +76,79 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "文具用品",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "办公用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "不锈钢制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电子设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "小家电",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "玻璃制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "塑料制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "办公设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "五金工具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "木制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "消防器材",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑配件",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "纸制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "卫生洁具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "清洁剂",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "日用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "劳保费",
                                 "InterValue": ""
                             }
                         ],
@@ -130,11 +199,79 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "文具用品",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "办公用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "不锈钢制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电子设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "小家电",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "玻璃制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "塑料制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "办公设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "五金工具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "木制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "消防器材",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑配件",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "纸制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "卫生洁具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "清洁剂",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "日用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "劳保费",
                                 "InterValue": ""
                             }
                         ],
@@ -185,11 +322,79 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "文具用品",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "办公用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "不锈钢制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电子设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "小家电",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "玻璃制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "塑料制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "办公设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "五金工具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "木制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "消防器材",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑配件",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "纸制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "卫生洁具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "清洁剂",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "日用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "劳保费",
                                 "InterValue": ""
                             }
                         ],
@@ -240,11 +445,79 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "文具用品",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "办公用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "不锈钢制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电子设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "小家电",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "玻璃制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "塑料制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "办公设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "五金工具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "木制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "消防器材",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑配件",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "纸制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "卫生洁具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "清洁剂",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "日用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "劳保费",
                                 "InterValue": ""
                             }
                         ],
@@ -295,11 +568,79 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "文具用品",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "办公用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "不锈钢制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电子设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "小家电",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "玻璃制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "塑料制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "办公设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "五金工具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "木制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "消防器材",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑配件",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "纸制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "卫生洁具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "清洁剂",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "日用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "劳保费",
                                 "InterValue": ""
                             }
                         ],
@@ -350,11 +691,79 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "文具用品",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "办公用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "不锈钢制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电子设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "小家电",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "玻璃制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "塑料制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "办公设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "五金工具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "木制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "消防器材",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑配件",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "纸制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "卫生洁具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "清洁剂",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "日用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "劳保费",
                                 "InterValue": ""
                             }
                         ],
@@ -405,11 +814,79 @@
                         "Col": 1,
                         "Options": [
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "文具用品",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "办公用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "不锈钢制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电子设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "小家电",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "玻璃制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "塑料制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "办公设备",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "五金工具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "木制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "消防器材",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑配件",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "纸制品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "卫生洁具",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "清洁剂",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "日用品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "劳保费",
                                 "InterValue": ""
                             }
                         ],
@@ -488,8 +965,8 @@
                 "Title": "附件",
                 "Value": "",
                 "InterValue": "",
-                "Type": 10,
                 "Atts": null,
+                "Type": 10,
                 "CanEdit": true,
                 "Row": 16,
                 "Col": 3,
@@ -497,6 +974,60 @@
                 "NeedRefresh": false,
                 "Required": true
             }
+        }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 7,
+                    "Col": 5
+                },
+                {
+                    "Row": 8,
+                    "Col": 5
+                },
+                {
+                    "Row": 9,
+                    "Col": 5
+                },
+                {
+                    "Row": 10,
+                    "Col": 5
+                },
+                {
+                    "Row": 11,
+                    "Col": 5
+                },
+                {
+                    "Row": 12,
+                    "Col": 5
+                },
+                {
+                    "Row": 13,
+                    "Col": 5
+                }
+            ],
+            "Dest": {
+                "Row": 14,
+                "Col": 3
+            },
+            "Operation": "sum",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 14,
+                    "Col": 3
+                }
+            ],
+            "Dest": {
+                "Row": 15,
+                "Col": 3
+            },
+            "Operation": "capital",
+            "Type": "int"
         }
     ]
 }
