@@ -40,13 +40,11 @@ namespace XYD.Common
         public static object BM_01_ApplyTypeUpdate(string user, XYD_Event_Argument eventArgument, string applyType)
         {
             XYD_Cell_Value cellValue;
-            var lastDayOfYear = string.Empty;
             if (applyType == "长期备用")
             {
                 var date = DateTime.Now;
-                lastDayOfYear = string.Format("{0}-12-31", date.Year);
                 cellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 5, 9);
-                cellValue.Value = lastDayOfYear;
+                cellValue.Value = string.Format("{0}-12-31", date.Year);
                 cellValue.CanEdit = false;
             }
             else
@@ -57,7 +55,8 @@ namespace XYD.Common
             }
             WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, cellValue);
             // 填充编号
-            return EventResult.OK(new XYD_Fields() { Fields = eventArgument.Fields});
+            XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, eventArgument.MessageId);
+            return EventResult.OK(new XYD_Fields() { Fields = eventArgument.Fields, Operations = fields.Operations});
         }
         #endregion
 

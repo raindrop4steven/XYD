@@ -108,7 +108,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": true,
+                "CanEdit": false,
                 "Row": 6,
                 "Col": 9,
                 "Options": null,
