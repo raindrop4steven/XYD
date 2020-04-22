@@ -159,6 +159,7 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 获得用户区域
         public string GetUserArea(string emplID)
         {
             if (OrgUtil.CheckRole(emplID, DEP_Constants.Role_Name_WuXi))
@@ -170,5 +171,6 @@ namespace XYD.Controllers
                 return DEP_Constants.System_Config_Area_SH;
             }
         }
+        #endregion
     }
 }
