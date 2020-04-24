@@ -294,7 +294,10 @@ namespace XYD.Common
                     F_24 = reader.IsDBNull(36) ? 0m : reader.GetDecimal(36),
                     F_1004 = reader.IsDBNull(37) ? 0m : reader.GetDecimal(37),
                     F_2 = reader.IsDBNull(38) ? 0m : reader.GetDecimal(38),
-                    F_3 = reader.IsDBNull(39) ? 0m : reader.GetDecimal(39)
+                    F_3 = reader.IsDBNull(39) ? 0m : reader.GetDecimal(39),
+                    cDepCode = reader.GetString(40),
+                    iYear = reader.GetInt32(41),
+                    iMonth = reader.GetByte(42)
                 });
             }
             return ResultList;

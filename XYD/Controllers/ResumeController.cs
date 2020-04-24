@@ -180,13 +180,15 @@ namespace XYD.Controllers
 	                                        F_24,
 	                                        F_1004,
 	                                        F_2,
-	                                        F_3 
+	                                        F_3,
+                                            b.cDepCode,
+                                            iYear,
+                                            iMonth
                                         FROM
 	                                        WA_GZData a
 	                                        LEFT JOIN Department b ON b.cDepCode = a.cDept_Num ";
                 if (isLeader)
                 {
-                    var areaCondition = string.Empty;
                     if (!string.IsNullOrEmpty(Area))
                     {
                         var AreaName = string.Empty;
@@ -198,29 +200,16 @@ namespace XYD.Controllers
                         {
                             AreaName = "上海";
                         }
-                        areaCondition = string.Format(@" INNER JOIN ORG_EmplRole b on a.EmplID = b.EmplID INNER JOIN ORG_Role c on b.RoleID = c.RoleID and c.RoleName = '{0}'", AreaName);
+                        sql = string.Format("select * from ({0}) a order by a.cDepCode, a.iYear, a.iMonth", GetLeaderQuerySql(selectClause, BeginDate, EndDate, Area, UserName));
                     }
-                    List<Employee> employees = orgMgr.FindEmployeeBySQL(string.Format(@"SELECT
-                                                                                            *
-                                                                                        FROM
-                                                                                            ORG_Employee a
-                                                                                            {0}
-                                                                                        WHERE
-                                                                                            a.EmplName LIKE '%{1}%'
-                                                                                            AND a.EmplNO != ''", areaCondition, UserName));
-                    List<string> idList = employees.Select(n => "'" + n.EmplNO +"'").ToList();
-                    string inClause = string.Join(",", idList);
-                    // 构造查询 
-                    sql = string.Format(@"SELECT
-                                            {0}
-                                            WHERE
-	                                            cGZGradeNum LIKE '{6}%' 
-	                                            AND cPsn_Num in ({1})
-	                                            AND iYear >= {2}
-                                                AND iYear <= {3}
-	                                            AND iMonth >= {4}
-	                                            AND iMonth <= {5}
-                                                ORDER BY b.cDepCode, iYear, iMonth", selectClause, inClause, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month, Area);
+                    else
+                    {
+                        // 无锡sql
+                        var wxSql = GetLeaderQuerySql(selectClause, BeginDate, EndDate, "001", UserName);
+                        // 上海sql
+                        var shSql = GetLeaderQuerySql(selectClause, BeginDate, EndDate, "002", UserName);
+                        sql = string.Format("select * from ({0} union {1}) a order by a.cDepCode, a.iYear, a.iMonth", wxSql, shSql);
+                    }
                 }
                 else
                 {
@@ -265,6 +254,41 @@ namespace XYD.Controllers
             {
                 return ResponseUtil.Error(e.Message);
             }
+        }
+
+        public string GetLeaderQuerySql(string selectClause, DateTime BeginDate, DateTime EndDate, string Area, string UserName)
+        {
+            var AreaName = string.Empty;
+            if (Area == "001")
+            {
+                AreaName = "无锡";
+            }
+            else
+            {
+                AreaName = "上海";
+            }
+            var areaCondition = string.Format(@" INNER JOIN ORG_EmplRole b on a.EmplID = b.EmplID INNER JOIN ORG_Role c on b.RoleID = c.RoleID and c.RoleName = '{0}'", AreaName);
+            List<Employee> employees = orgMgr.FindEmployeeBySQL(string.Format(@"SELECT
+                                                                                            *
+                                                                                        FROM
+                                                                                            ORG_Employee a
+                                                                                            {0}
+                                                                                        WHERE
+                                                                                            a.EmplName LIKE '%{1}%'
+                                                                                            AND a.EmplNO != ''", areaCondition, UserName));
+            List<string> idList = employees.Select(n => "'" + n.EmplNO + "'").ToList();
+            string inClause = string.Join(",", idList);
+            // 构造查询 
+            var sql = string.Format(@"SELECT
+                                            {0}
+                                            WHERE
+	                                            cGZGradeNum LIKE '{6}%' 
+	                                            AND cPsn_Num in ({1})
+	                                            AND iYear >= {2}
+                                                AND iYear <= {3}
+	                                            AND iMonth >= {4}
+	                                            AND iMonth <= {5} ", selectClause, inClause, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month, Area);
+            return sql;
         }
         #endregion
 
