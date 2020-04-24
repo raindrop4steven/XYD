@@ -26,5 +26,12 @@ namespace XYD.Controllers
             ViewBag.mid = mid;
             return View("ShowGoods");
         }
+
+        public ActionResult ShowVendors(string cellId, string mid)
+        {
+            ViewBag.cellId = cellId;
+            ViewBag.mid = mid;
+            return View("ShowVendors");
+        }
     }
 }

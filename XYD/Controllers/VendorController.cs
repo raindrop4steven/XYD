@@ -45,6 +45,45 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 搜索供应商列表
+        [Authorize]
+        public ActionResult SearchList(string Name, int Page, int Size)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    Page -= 1;
+                    var list = db.Vendor.Where(n => true);
+                    if (!string.IsNullOrEmpty(Name))
+                    {
+                        list = list.Where(n => n.Name.Contains(Name));
+                    }
+                    var totalCount = list.Count();
+                    // 记录总页数
+                    var totalPage = (int)Math.Ceiling((float)totalCount / Size);
+                    var results = list.OrderBy(n => n.ID).Skip(Page * Size).Take(Size).ToList();
+                    return ResponseUtil.OK(new
+                    {
+                        vendors = results,
+                        meta = new
+                        {
+                            current_page = Page,
+                            total_page = totalPage,
+                            current_count = Page * Size + results.Count(),
+                            total_count = totalCount,
+                            per_page = Size
+                        }
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
         #region 供应商详情
         [Authorize]
         public ActionResult Detail(int id)
