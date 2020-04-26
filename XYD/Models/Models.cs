@@ -101,8 +101,12 @@ namespace XYD.Models
         public string EmplID { get; set; }
         // 入职日期
         public DateTime? EmployeeDate { get; set; }
-        // 试用日期
-        public DateTime? TrialDate { get; set; }
+        // 实习开始日期
+        public DateTime? InternStartDate { get; set; }
+        // 实习结束日期
+        public DateTime? InternEndDate { get; set; }
+        // 试用期限
+        public int Trial { get; set; }
         // 试用期工资
         public float? TrialSalary { get; set; }
         // 劳动合同期限
@@ -119,6 +123,8 @@ namespace XYD.Models
         public DateTime? SocialInsuranceStartDate { get; set; }
         // 缴纳月数
         public int SocialInsuranceTotalMonth { get; set; }
+        // 开户银行
+        public string BankName { get; set; }
         // 工资卡号
         public string BankNo { get; set; }
         // 续签次数

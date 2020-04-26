@@ -497,8 +497,16 @@ namespace XYD.Controllers
         #endregion
 
         #region 续签
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="EmplID"></param>
+        /// <param name="year">
+        /// 1,2,3,5,10,
+        /// </param>
+        /// <returns></returns>
         [Authorize]
-        public ActionResult ContinueContract(string EmplID)
+        public ActionResult ContinueContract(string EmplID, int year)
         {
             try
             {
@@ -513,8 +521,16 @@ namespace XYD.Controllers
                         return ResponseUtil.Error("请先补全劳动合同日期");
                     } else
                     {
-                        userCompanyInfo.ContractDate = userCompanyInfo.ContractDate.Value.AddYears(1);
-                        userCompanyInfo.ContinueCount += 1;
+                        if (year == 0)
+                        {
+                            // 无期限
+                            userCompanyInfo.ContractDate = null;
+                        }
+                        else
+                        {
+                            userCompanyInfo.ContractDate = userCompanyInfo.ContractDate.Value.AddYears(1);
+                        }
+                        userCompanyInfo.ContinueCount += year;
                         db.SaveChanges();
                         return ResponseUtil.OK("合同续签成功");
                     }
