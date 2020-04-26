@@ -175,16 +175,19 @@ namespace XYD.Controllers
                                 // 加一条税金科目
                                 voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Tax.Code, record.TotalTaxNum, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
                                 Results.Add(voucher);
+                                // 一条贷
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, DeptNo, string.Empty, string.Empty, VendorNo, string.Empty, string.Empty);
+                                Results.Add(voucher);
                             }
                             else
                             {
                                 // 科目已确定，一条借
                                 voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalAmount, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
                                 Results.Add(voucher);
+                                // 一条贷
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+                                Results.Add(voucher);
                             }
-                            // 一条贷
-                            voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-                            Results.Add(voucher);
                         }
                         else
                         {
@@ -235,12 +238,12 @@ namespace XYD.Controllers
                                 voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Tax.Code, record.TotalTaxNum, 0, string.Empty, 0, DeptNo, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
                                 Results.Add(voucher);
                                 // 一条贷
-                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, DeptNo, string.Empty, string.Empty, VendorNo, string.Empty, string.Empty);
                                 Results.Add(voucher);
                             }
                             else
                             {
-                                // 普通发票，科目未确定，多条借一条贷
+                                // 普通凭证，科目未确定，多条借一条贷
                                 Dictionary<string, double> voucherDict = new Dictionary<string, double>();
                                 Dictionary<string, XYD_SubVoucherCode> subVoucherCodeDict = new Dictionary<string, XYD_SubVoucherCode>();
                                 var lineArray = record.Extras.Split(';').ToList();
