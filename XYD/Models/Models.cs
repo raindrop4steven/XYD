@@ -645,6 +645,25 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 考勤信息
+    public class XYD_Attence
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 用友工号
+        public string EmplNo { get; set; }
+        // 员工姓名
+        public string EmplName { get; set; }
+        // 上班时间
+        public DateTime? StartTime { get; set; }
+        // 下班时间
+        public DateTime? EndTime { get; set; }
+        // 设备ID
+        public string DeviceID { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -674,6 +693,7 @@ namespace XYD.Models
         public DbSet<XYD_UserCompanyInfo> UserCompanyInfo { get; set; }
         public DbSet<XYD_CarRecord> CarRecord { get; set; }
         public DbSet<XYD_Express> Express { get; set; }
+        public DbSet<XYD_Attence> Attence { get; set; }
     }
     #endregion
 }

@@ -19,19 +19,16 @@ namespace XYD.Controllers
         OrgMgr orgMgr = new OrgMgr();
 
         #region 添加请假记录
-        [Authorize]
-        public ActionResult Add(XYD_Leave_Record model, string mid)
+        public ActionResult Add(XYD_Leave_Record model, string user, string mid)
         {
             try
-            {
-                var employee = (User.Identity as AppkizIdentity).Employee;
-                
+            {                
                 using (var db = new DefaultConnection())
                 {
-                    var leave = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID && n.MessageID == mid).FirstOrDefault();
+                    var leave = db.LeaveRecord.Where(n => n.EmplID == user && n.MessageID == mid).FirstOrDefault();
                     if (leave == null)
                     {
-                        model.EmplID = employee.EmplID;
+                        model.EmplID = user;
                         model.MessageID = mid;
                         model.CreateTime = DateTime.Now;
                         model.UpdateTime = DateTime.Now;

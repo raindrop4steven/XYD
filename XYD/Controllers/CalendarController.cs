@@ -53,6 +53,7 @@ namespace XYD.Controllers
                         entity.Type = DEP_Constants.CALENDAR_TYPE.Rest;
                     } else
                     {
+                        // 上班日期里再根据请假，考勤判断是：请假，迟到，早退，正常上班
                         entity.Name = "上班";
                         entity.Type = DEP_Constants.CALENDAR_TYPE.Work;
                     }
