@@ -49,6 +49,8 @@ namespace XYD.Controllers
                 // 获得对应城市工作时间配置
                 var workArea = OrgUtil.GetWorkArea(employee.EmplID);
                 var sysConfig = db.SystemConfig.Where(n => n.Area == workArea).FirstOrDefault();
+                // 今天
+                var today = DateTime.Now.Date;
                 // 判断每一天状态
                 for(DateTime d = StartDate; d <= EndDate; d =  d.AddDays(1))
                 {
@@ -70,49 +72,61 @@ namespace XYD.Controllers
                         entity.Type = CALENDAR_TYPE.Rest;
                     } else
                     {
-                        // 上班日期里再根据请假，考勤判断是：请假，迟到，早退，正常上班
-                        var attence = attenceRecords.Where(n => n.StartTime >= d.Date && n.EndTime <= CommonUtils.EndOfDay(d)).FirstOrDefault();
-                        if (attence == null)
+                        // 超过今天的，不用做判断，直接上班
+                        if (d > today)
                         {
-                            // 判断是否请假
-                            var leave = leaveRecord.Where(n => n.StartDate >= d.Date || n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
-                            if (leave == null)
+                            entity.Name = "上班";
+                            entity.Type = CALENDAR_TYPE.Work;
+                        } else
+                        {
+                            // 上班日期里再根据请假，考勤判断是：请假，迟到，早退，正常上班
+                            var attence = attenceRecords.Where(n => n.StartTime >= d.Date && n.EndTime <= CommonUtils.EndOfDay(d)).FirstOrDefault();
+                            if (attence == null)
                             {
-                                // 判断是否有出差
-                                var bizTrip = bizTripRecord.Where(n => n.StartDate >= d.Date || n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
-                                if (bizTrip == null)
+                                // 判断是否请假
+                                var leave = leaveRecord.Where(n => n.StartDate >= d.Date || n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
+                                if (leave == null)
                                 {
-                                    entity.Name = "出差";
-                                    entity.Type = CALENDAR_TYPE.BizTrp;
-                                } else
+                                    // 判断是否有出差
+                                    var bizTrip = bizTripRecord.Where(n => n.StartDate >= d.Date || n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
+                                    if (bizTrip == null)
+                                    {
+                                        entity.Name = "出差";
+                                        entity.Type = CALENDAR_TYPE.BizTrp;
+                                    }
+                                    else
+                                    {
+                                        // 没有请假，没有出差，没有打卡，就是旷工
+                                        entity.Name = "旷工";
+                                        entity.Type = CALENDAR_TYPE.Absent;
+                                    }
+                                }
+                                else
                                 {
-                                    // 没有请假，没有出差，没有打卡，就是旷工
-                                    entity.Name = "旷工";
-                                    entity.Type = CALENDAR_TYPE.Absent;
+                                    entity.Name = "请假";
+                                    entity.Type = CALENDAR_TYPE.Leave;
                                 }
                             }
                             else
                             {
-                                entity.Name = "请假";
-                                entity.Type = CALENDAR_TYPE.Leave;
-                            }
-                        } else
-                        {
-                            // 判断考勤状态
-                            var shouldStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.StartWorkTime)));
-                            var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));
-                            if (attence.StartTime > shouldStartTime)
-                            {
-                                entity.Name = "迟到";
-                                entity.Type = CALENDAR_TYPE.Late;
-                            } else if (attence.EndTime < shouldEndTime)
-                            {
-                                entity.Name = "早退";
-                                entity.Type = CALENDAR_TYPE.LeaveEarly;
-                            } else
-                            {
-                                entity.Name = "上班";
-                                entity.Type = CALENDAR_TYPE.Work;
+                                // 判断考勤状态
+                                var shouldStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.StartWorkTime)));
+                                var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));
+                                if (attence.StartTime > shouldStartTime)
+                                {
+                                    entity.Name = "迟到";
+                                    entity.Type = CALENDAR_TYPE.Late;
+                                }
+                                else if (attence.EndTime < shouldEndTime)
+                                {
+                                    entity.Name = "早退";
+                                    entity.Type = CALENDAR_TYPE.LeaveEarly;
+                                }
+                                else
+                                {
+                                    entity.Name = "上班";
+                                    entity.Type = CALENDAR_TYPE.Work;
+                                }
                             }
                         }
                     }
