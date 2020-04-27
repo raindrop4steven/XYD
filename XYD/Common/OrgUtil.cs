@@ -34,6 +34,20 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 检查是否是无锡
+        public static string GetWorkArea(string emplId)
+        {
+            if (CheckRole(emplId, DEP_Constants.Role_Name_WuXi))
+            {
+                return DEP_Constants.System_Config_Area_WX;
+            }
+            else
+            {
+                return DEP_Constants.System_Config_Area_SH;
+            }
+        }
+        #endregion
+
         #region 检查是否是报销专员
         public static bool CheckBaoxiaoUser(string emplId)
         {

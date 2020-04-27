@@ -668,6 +668,26 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 出差记录
+    public class XYD_BizTrip
+    {
+        [Key]
+        public int ID { get; set; }
+        // 流程ID
+        public string MessageID { get; set; }
+        // 用户ID
+        public string EmplID { get; set; }
+        // 出差开始日期
+        public DateTime StartDate { get; set; }
+        // 出差结束日期
+        public DateTime EndDate { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -698,6 +718,7 @@ namespace XYD.Models
         public DbSet<XYD_CarRecord> CarRecord { get; set; }
         public DbSet<XYD_Express> Express { get; set; }
         public DbSet<XYD_Attence> Attence { get; set; }
+        public DbSet<XYD_BizTrip> BizTrip { get; set; }
     }
     #endregion
 }
