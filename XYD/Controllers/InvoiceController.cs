@@ -247,6 +247,10 @@ namespace XYD.Controllers
                         if (invoiceInfo != null)
                         {
                             // 发票
+                            if (invoiceInfo.authenticationTime != null)
+                            {
+                                return ResponseUtil.Error("不能重复认证");
+                            }
                             invoiceInfo.authenticationTime = invoiceAuth.authenticationTime;
                             invoiceInfo.updatedBy = employee.EmplID;
                             invoiceInfo.updatedTime = DateTime.Now;
