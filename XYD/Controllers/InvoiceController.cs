@@ -259,6 +259,8 @@ namespace XYD.Controllers
                             vouchers.Add(new XYD_Voucher
                             {
                                 MessageID = DEP_Constants.INVOICE_WORKFLOW_ID,
+                                InvoiceDataCode = invoiceInfo.invoiceDataCode,
+                                InvoiceNumber = invoiceInfo.invoiceNumber,
                                 CreateTime = invoiceAuth.authenticationTime,
                                 VoucherCode = invoiceInfo.voucherType,
                                 VoucherName = optionDict[invoiceInfo.voucherType],

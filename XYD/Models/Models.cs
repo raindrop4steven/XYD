@@ -412,6 +412,10 @@ namespace XYD.Models
         public int ID { get; set; }
         // MessageID
         public string MessageID { get; set; }
+        // 发票代码
+        public string InvoiceDataCode { get; set; }
+        // 发票号
+        public string InvoiceNumber { get; set; }
         // 制单日期
         public DateTime CreateTime { get; set; }
         // 编号

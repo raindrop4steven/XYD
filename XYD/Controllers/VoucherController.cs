@@ -169,6 +169,13 @@ namespace XYD.Controllers
                             // 发票凭证
                             if (subCode.Type == DEP_Constants.VOUCHER_TYPE_INVOICE)
                             {
+                                // 发票凭证，重新定义简介
+                                var invoiceInfo = db.InvoiceInfo.Where(n => n.invoiceDataCode == record.InvoiceDataCode && n.invoiceNumber == record.InvoiceNumber).FirstOrDefault();
+                                if (invoiceInfo == null)
+                                {
+                                    throw new Exception("发票不存在");
+                                }
+                                brief = string.Format("{0} {1} {2} {3}", invoiceInfo.billingTime, invoiceInfo.invoiceNumber, invoiceInfo.salesName, VoucherName);
                                 // 科目已确定，一条借
                                 voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalTaxFreeNum, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
                                 Results.Add(voucher);
@@ -210,6 +217,13 @@ namespace XYD.Controllers
                                 {
                                     VendorNo = record.VendorNo;
                                 }
+                                // 发票凭证，重新定义简介
+                                var invoiceInfo = db.InvoiceInfo.Where(n => n.invoiceDataCode == record.InvoiceDataCode && n.invoiceNumber == record.InvoiceNumber).FirstOrDefault();
+                                if (invoiceInfo == null)
+                                {
+                                    throw new Exception("发票不存在");
+                                }
+                                brief = string.Format("{0} {1} {2} {3}", invoiceInfo.billingTime, invoiceInfo.invoiceNumber, invoiceInfo.salesName, voucherName);
                                 // 累计总额，最后一个借需要税前-累计，因为有四舍五入
                                 float currentSum = 0.0f;
                                 // 按照人员，多个借，多个税金，一个贷
@@ -219,7 +233,7 @@ namespace XYD.Controllers
                                     var amount = 0.0f;
                                     // 申请人从快递表里取
                                     ApplyUser = orgMgr.GetEmployee(express.SenderId);
-                                    brief = string.Format("{0} {1} 付 {2} {3}", CreateTime, Sn, subCode.Name, ApplyUser.EmplName);
+                                    //brief = string.Format("{0} {1} 付 {2} {3}", CreateTime, Sn, subCode.Name, ApplyUser.EmplName);
                                     if (j == expressList.Count - 1)
                                     {
                                         // 最后一条
