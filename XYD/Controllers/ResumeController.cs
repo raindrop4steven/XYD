@@ -98,13 +98,19 @@ namespace XYD.Controllers
             {
                 // 参数获取
                 var employee = (User.Identity as AppkizIdentity).Employee;
-
                 // 参数校验
                 if (string.IsNullOrEmpty(employee.EmplNO))
                 {
                     return ResponseUtil.Error("用户工号为空，请先补充相关信息再查询");
                 }
-
+                var cGzGradeNum = string.Empty;
+                if (OrgUtil.CheckRole(employee.EmplID, DEP_Constants.Role_Name_WuXi))
+                {
+                    cGzGradeNum = "001";
+                } else
+                {
+                    cGzGradeNum = "002";
+                }
                 // 构造查询 
                 // sql 
                 var sql = string.Format(@"SELECT
@@ -112,13 +118,13 @@ namespace XYD.Controllers
                                             FROM
 	                                            WA_GZData 
                                             WHERE
-	                                            cGZGradeNum = '001' 
+	                                            cGZGradeNum = '{5}' 
 	                                            AND cPsn_Num = '{0}'
 	                                            AND iYear >= {1}
                                                 AND iYear <= {2}
 	                                            AND iMonth >= {3}
 	                                            AND iMonth <= {4}
-	                                            ORDER BY iYear, iMonth", employee.EmplNO, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month);
+	                                            ORDER BY iYear, iMonth", employee.EmplNO, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month, cGzGradeNum);
                 // SQL 连接字符串
                 var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
                 var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetSalary);
