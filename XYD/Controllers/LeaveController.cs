@@ -19,7 +19,6 @@ namespace XYD.Controllers
         OrgMgr orgMgr = new OrgMgr();
 
         #region 添加请假记录
-        [Authorize]
         public ActionResult Add(XYD_Leave_Record model, string mid)
         {
             try
