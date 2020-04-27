@@ -189,7 +189,7 @@ namespace XYD.Controllers
                             else
                             {
                                 // 科目已确定，一条借
-                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalAmount, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalAmount, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, VendorNo, string.Empty, string.Empty);
                                 Results.Add(voucher);
                                 // 一条贷
                                 voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
@@ -286,6 +286,11 @@ namespace XYD.Controllers
                                     }
                                 }
                                 // 多条借
+                                string VendorNo = string.Empty;
+                                if (subCode.Debit.VendorNo)
+                                {
+                                    VendorNo = record.VendorNo;
+                                }
                                 foreach (var item in voucherDict)
                                 {
                                     subCode = subVoucherCodeDict[item.Key];
@@ -296,11 +301,11 @@ namespace XYD.Controllers
                                         DeptNo = dept.DeptDescr;
                                     }
                                     brief = string.Format("{0} {1} 付 {2} {3}", CreateTime, Sn, subCode.Name, ApplyUser.EmplName);
-                                    voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, item.Key, item.Value, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                                    voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, item.Key, item.Value, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, VendorNo, string.Empty, string.Empty);
                                     Results.Add(voucher);
                                 }
                                 // 一条贷
-                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, string.Empty, string.Empty, string.Empty, VendorNo, string.Empty, string.Empty);
                                 Results.Add(voucher);
                             }
                         }
