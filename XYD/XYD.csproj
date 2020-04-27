@@ -308,6 +308,9 @@
     <Compile Include="Migrations\202004260334543_add attence.cs" />
     <Compile Include="Migrations\202004260334543_add attence.Designer.cs">
       <DependentUpon>202004260334543_add attence.cs</DependentUpon>
+    <Compile Include="Migrations\202004270138258_add invoiceDataCode and invoiceNumber.cs" />
+    <Compile Include="Migrations\202004270138258_add invoiceDataCode and invoiceNumber.Designer.cs">
+      <DependentUpon>202004270138258_add invoiceDataCode and invoiceNumber.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -856,6 +859,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004260334543_add attence.resx">
       <DependentUpon>202004260334543_add attence.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004270138258_add invoiceDataCode and invoiceNumber.resx">
+      <DependentUpon>202004270138258_add invoiceDataCode and invoiceNumber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
