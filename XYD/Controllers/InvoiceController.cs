@@ -246,6 +246,10 @@ namespace XYD.Controllers
                         var invoiceInfo = db.InvoiceInfo.Where(n => n.invoiceDataCode == key.invoiceDataCode && n.invoiceNumber == key.invoiceNumber).FirstOrDefault();
                         if (invoiceInfo != null)
                         {
+                            if (invoiceInfo.authenticationTime != null)
+                            {
+                                return ResponseUtil.Error("不能重复认证");
+                            }
                             // 发票
                             invoiceInfo.authenticationTime = invoiceAuth.authenticationTime;
                             invoiceInfo.updatedBy = employee.EmplID;
