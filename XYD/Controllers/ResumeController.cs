@@ -534,9 +534,9 @@ namespace XYD.Controllers
                         }
                         else
                         {
-                            userCompanyInfo.ContractDate = userCompanyInfo.ContractDate.Value.AddYears(1);
+                            userCompanyInfo.ContractDate = userCompanyInfo.ContractDate.Value.AddYears(year);
                         }
-                        userCompanyInfo.ContinueCount += year;
+                        userCompanyInfo.ContinueCount += 1;
                         db.SaveChanges();
                         return ResponseUtil.OK("合同续签成功");
                     }
