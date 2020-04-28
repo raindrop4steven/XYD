@@ -15,7 +15,7 @@ namespace XYD.Controllers
     {
         #region 日历详情
         [Authorize]
-        public ActionResult MonthData(DateTime StartDate, DateTime EndDate)
+        public ActionResult MonthData(DateTime currentMonth)
         {
             try
             {
@@ -35,7 +35,10 @@ namespace XYD.Controllers
                     {CALENDAR_TYPE.BizTrp, 0 }
                 };
                 // 获得指定年份放假和调休计划
-                int currentYear = StartDate.Year;
+                var StartDate = new DateTime(currentMonth.Year, currentMonth.Month, 1);
+                var EndDate = CommonUtils.EndOfDay(StartDate.AddMonths(1).AddDays(-1));
+
+                int currentYear = currentMonth.Year;
                 var calendar = CalendarUtil.GetPlanByYear(currentYear);
                 var holidayDict = CalendarUtil.GetHolidays(calendar);
                 var adjustDict = CalendarUtil.GetAdjusts(calendar);
