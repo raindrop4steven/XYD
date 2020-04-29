@@ -101,8 +101,12 @@ namespace XYD.Models
         public string EmplID { get; set; }
         // 入职日期
         public DateTime? EmployeeDate { get; set; }
-        // 试用日期
-        public DateTime? TrialDate { get; set; }
+        // 实习开始日期
+        public DateTime? InternStartDate { get; set; }
+        // 实习结束日期
+        public DateTime? InternEndDate { get; set; }
+        // 试用期限
+        public int Trial { get; set; }
         // 试用期工资
         public float? TrialSalary { get; set; }
         // 劳动合同期限
@@ -119,6 +123,8 @@ namespace XYD.Models
         public DateTime? SocialInsuranceStartDate { get; set; }
         // 缴纳月数
         public int SocialInsuranceTotalMonth { get; set; }
+        // 开户银行
+        public string BankName { get; set; }
         // 工资卡号
         public string BankNo { get; set; }
         // 续签次数
@@ -412,6 +418,10 @@ namespace XYD.Models
         public int ID { get; set; }
         // MessageID
         public string MessageID { get; set; }
+        // 发票代码
+        public string InvoiceDataCode { get; set; }
+        // 发票号
+        public string InvoiceNumber { get; set; }
         // 制单日期
         public DateTime CreateTime { get; set; }
         // 编号
@@ -639,6 +649,45 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 考勤信息
+    public class XYD_Attence
+    {
+        // ID
+        [Key]
+        public int ID { get; set; }
+        // 用友工号
+        public string EmplNo { get; set; }
+        // 员工姓名
+        public string EmplName { get; set; }
+        // 上班时间
+        public DateTime? StartTime { get; set; }
+        // 下班时间
+        public DateTime? EndTime { get; set; }
+        // 设备ID
+        public string DeviceID { get; set; }
+    }
+    #endregion
+
+    #region 出差记录
+    public class XYD_BizTrip
+    {
+        [Key]
+        public int ID { get; set; }
+        // 流程ID
+        public string MessageID { get; set; }
+        // 用户ID
+        public string EmplID { get; set; }
+        // 出差开始日期
+        public DateTime StartDate { get; set; }
+        // 出差结束日期
+        public DateTime EndDate { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+        // 更新时间
+        public DateTime UpdateTime { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -668,6 +717,8 @@ namespace XYD.Models
         public DbSet<XYD_UserCompanyInfo> UserCompanyInfo { get; set; }
         public DbSet<XYD_CarRecord> CarRecord { get; set; }
         public DbSet<XYD_Express> Express { get; set; }
+        public DbSet<XYD_Attence> Attence { get; set; }
+        public DbSet<XYD_BizTrip> BizTrip { get; set; }
     }
     #endregion
 }

@@ -246,6 +246,10 @@ namespace XYD.Controllers
                         var invoiceInfo = db.InvoiceInfo.Where(n => n.invoiceDataCode == key.invoiceDataCode && n.invoiceNumber == key.invoiceNumber).FirstOrDefault();
                         if (invoiceInfo != null)
                         {
+                            if (invoiceInfo.authenticationTime != null)
+                            {
+                                return ResponseUtil.Error("不能重复认证");
+                            }
                             // 发票
                             invoiceInfo.authenticationTime = invoiceAuth.authenticationTime;
                             invoiceInfo.updatedBy = employee.EmplID;
@@ -259,6 +263,8 @@ namespace XYD.Controllers
                             vouchers.Add(new XYD_Voucher
                             {
                                 MessageID = DEP_Constants.INVOICE_WORKFLOW_ID,
+                                InvoiceDataCode = invoiceInfo.invoiceDataCode,
+                                InvoiceNumber = invoiceInfo.invoiceNumber,
                                 CreateTime = invoiceAuth.authenticationTime,
                                 VoucherCode = invoiceInfo.voucherType,
                                 VoucherName = optionDict[invoiceInfo.voucherType],

@@ -187,6 +187,11 @@ namespace XYD.Controllers
                 var nid = collection["nid"];
                 var operateString = collection["operate"];
                 var opinion = collection["opinion"];
+                // 判断是否是再次发起，提醒到网页端处理
+                if (nid == DEP_Constants.Start_Node_Key)
+                {
+                    return ResponseUtil.Error("被驳回的审批，请到网页端修改后再提交");
+                }
                 if (operateString == "0")
                 {
                     operate = "同意";

@@ -196,7 +196,8 @@ namespace XYD.Common
             Late = 4, // 迟到
             LeaveEarly = 5, // 早退
             Absent = 6, // 旷工
-            Leave = 7 // 请假
+            Leave = 7, // 请假
+            BizTrp = 8 // 出差
         }
     }
 }

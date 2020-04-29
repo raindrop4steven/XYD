@@ -98,13 +98,19 @@ namespace XYD.Controllers
             {
                 // 参数获取
                 var employee = (User.Identity as AppkizIdentity).Employee;
-
                 // 参数校验
                 if (string.IsNullOrEmpty(employee.EmplNO))
                 {
                     return ResponseUtil.Error("用户工号为空，请先补充相关信息再查询");
                 }
-
+                var cGzGradeNum = string.Empty;
+                if (OrgUtil.CheckRole(employee.EmplID, DEP_Constants.Role_Name_WuXi))
+                {
+                    cGzGradeNum = "001";
+                } else
+                {
+                    cGzGradeNum = "002";
+                }
                 // 构造查询 
                 // sql 
                 var sql = string.Format(@"SELECT
@@ -112,13 +118,13 @@ namespace XYD.Controllers
                                             FROM
 	                                            WA_GZData 
                                             WHERE
-	                                            cGZGradeNum = '001' 
+	                                            cGZGradeNum = '{5}' 
 	                                            AND cPsn_Num = '{0}'
 	                                            AND iYear >= {1}
                                                 AND iYear <= {2}
 	                                            AND iMonth >= {3}
 	                                            AND iMonth <= {4}
-	                                            ORDER BY iYear, iMonth", employee.EmplNO, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month);
+	                                            ORDER BY iYear, iMonth", employee.EmplNO, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month, cGzGradeNum);
                 // SQL 连接字符串
                 var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
                 var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetSalary);
@@ -497,8 +503,16 @@ namespace XYD.Controllers
         #endregion
 
         #region 续签
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="EmplID"></param>
+        /// <param name="year">
+        /// 1,2,3,5,10,
+        /// </param>
+        /// <returns></returns>
         [Authorize]
-        public ActionResult ContinueContract(string EmplID)
+        public ActionResult ContinueContract(string EmplID, int year)
         {
             try
             {
@@ -513,7 +527,15 @@ namespace XYD.Controllers
                         return ResponseUtil.Error("请先补全劳动合同日期");
                     } else
                     {
-                        userCompanyInfo.ContractDate = userCompanyInfo.ContractDate.Value.AddYears(1);
+                        if (year == 0)
+                        {
+                            // 无期限
+                            userCompanyInfo.ContractDate = null;
+                        }
+                        else
+                        {
+                            userCompanyInfo.ContractDate = userCompanyInfo.ContractDate.Value.AddYears(year);
+                        }
                         userCompanyInfo.ContinueCount += 1;
                         db.SaveChanges();
                         return ResponseUtil.OK("合同续签成功");
