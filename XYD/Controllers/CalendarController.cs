@@ -92,7 +92,7 @@ namespace XYD.Controllers
                                 {
                                     // 判断是否有出差
                                     var bizTrip = bizTripRecord.Where(n => n.StartDate >= d.Date || n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
-                                    if (bizTrip == null)
+                                    if (bizTrip != null)
                                     {
                                         entity.Name = "出差";
                                         entity.Type = CALENDAR_TYPE.BizTrp;
