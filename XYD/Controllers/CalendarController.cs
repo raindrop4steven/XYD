@@ -87,11 +87,16 @@ namespace XYD.Controllers
                             if (attence == null)
                             {
                                 // 判断是否请假
-                                var leave = leaveRecord.Where(n => n.StartDate >= d.Date || n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
-                                if (leave == null)
+                                var leave = leaveRecord.Where(n => n.StartDate >= d.Date && n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
+                                if (leave != null)
+                                {
+                                    entity.Name = "请假";
+                                    entity.Type = CALENDAR_TYPE.Leave;
+                                }
+                                else
                                 {
                                     // 判断是否有出差
-                                    var bizTrip = bizTripRecord.Where(n => n.StartDate >= d.Date || n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
+                                    var bizTrip = bizTripRecord.Where(n => n.StartDate >= d.Date && n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
                                     if (bizTrip != null)
                                     {
                                         entity.Name = "出差";
@@ -103,11 +108,6 @@ namespace XYD.Controllers
                                         entity.Name = "旷工";
                                         entity.Type = CALENDAR_TYPE.Absent;
                                     }
-                                }
-                                else
-                                {
-                                    entity.Name = "请假";
-                                    entity.Type = CALENDAR_TYPE.Leave;
                                 }
                             }
                             else
