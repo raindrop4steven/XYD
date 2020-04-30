@@ -104,12 +104,12 @@ namespace XYD.Controllers
                     return ResponseUtil.Error("用户工号为空，请先补充相关信息再查询");
                 }
                 var cGzGradeNum = string.Empty;
-                if (OrgUtil.CheckRole(employee.EmplID, DEP_Constants.Role_Name_WuXi))
-                {
-                    cGzGradeNum = "001";
-                } else
+                if (OrgUtil.CheckRole(employee.EmplID, DEP_Constants.Role_Name_ShangHai))
                 {
                     cGzGradeNum = "002";
+                } else
+                {
+                    cGzGradeNum = "001";
                 }
                 // 构造查询 
                 // sql 
