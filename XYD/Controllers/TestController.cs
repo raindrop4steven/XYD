@@ -146,5 +146,17 @@ namespace XYD.Controllers
         {
             
         }
+
+        #region 查找单元格
+        public ActionResult TestWorksheet(string mid)
+        {
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+            Worksheet worksheet = doc.Worksheet;
+            int maxRow, maxCol;
+            List<Workcell> workCells =  worksheet.FindWorkcells(out maxRow, out maxCol);
+            var resultList = workCells.OrderBy(n => n.WorkcellRow).ThenBy(n => n.WorkcellCol).GroupBy(n => n.WorkcellRow);
+            return ResponseUtil.OK(resultList);
+        }
+        #endregion
     }
 }
