@@ -154,8 +154,57 @@ namespace XYD.Controllers
             Worksheet worksheet = doc.Worksheet;
             int maxRow, maxCol;
             List<Workcell> workCells =  worksheet.FindWorkcells(out maxRow, out maxCol);
-            var resultList = workCells.OrderBy(n => n.WorkcellRow).ThenBy(n => n.WorkcellCol).GroupBy(n => n.WorkcellRow);
-            return ResponseUtil.OK(resultList);
+            IEnumerable<IGrouping<int, Workcell>> groupCells = workCells.OrderBy(n => n.WorkcellRow).ThenBy(n => n.WorkcellCol).GroupBy(n => n.WorkcellRow);
+            List<XYD_Base_Cell> cells = new List<XYD_Base_Cell>();
+            var results = new List<object>();
+            foreach(var cellGroup in groupCells)
+            {
+                // 是否是列表标题行
+                bool isTitleLine = false;
+                // 当前行列数
+                int columns = cellGroup.Count();
+                // 值单元格列数
+                int valueColumns = cellGroup.Where(n => n.WorkcellValue == "").Count();
+                // 过滤无效的行
+                if (columns < 2) 
+                {
+                    continue;
+                }
+                // 判断是单行还是表格
+                if (valueColumns == 0)
+                {
+                    isTitleLine = true;
+                }
+                if (isTitleLine) // 列表标题行
+                {
+                    
+                }
+                else 
+                {
+                    var cell = new XYD_Single_Cell();
+                    // 遍历每行表格
+                    foreach(Workcell item in cellGroup) 
+                    {
+                        if (cell.Value == null) {
+                            cell.Value = new XYD_Cell_Value();
+                        }
+                        if (string.IsNullOrEmpty(item.WorkcellValue)) // 值
+                        {
+                            cell.Value.Row =int.Parse(item.ID[1].ToString());
+                            cell.Value.Col = (int)item.ID[0]-64;
+                            cells.Add(cell);
+                        }
+                        else // 标题
+                        {
+                            cell = new XYD_Single_Cell(); 
+                            cell.Value = new XYD_Cell_Value();
+                            cell.Type = 0;
+                            cell.Value.Title = item.WorkcellValue;
+                        }
+                    }
+                }
+            }
+            return ResponseUtil.OK(cells);
         }
         #endregion
     }
