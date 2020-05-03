@@ -216,5 +216,18 @@ namespace XYD.Common
              AUDIT_DATA = 4,
              OTHER = 99
          }
+
+        /**
+         * Cell类型
+         * 0-输入框；1-下拉框；2-日期；3-时间选择;10-文件
+         */
+        public enum Enum_CellType
+        {
+            TEXT = 0,
+            SELECT = 1,
+            DATE = 2,
+            TIME = 3,
+            FILE = 10
+        }
     }
 }

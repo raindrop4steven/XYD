@@ -165,6 +165,11 @@ namespace XYD.Controllers
         #endregion
 
         #region 鉴别表单每行类型
+        /// <summary>
+        /// 根据NodeField进行判断，是否是可输入的框
+        /// </summary>
+        /// <param name="groupCells"></param>
+        /// <returns></returns>
         public List<KeyValuePair<WORKSHEET_LINE_TYPE, IEnumerable<Workcell>>> IdentifySheet(IEnumerable<IGrouping<int, Workcell>> groupCells)
         {
             var worksheetDict = new List<KeyValuePair<WORKSHEET_LINE_TYPE, IEnumerable<Workcell>>>();
@@ -246,15 +251,8 @@ namespace XYD.Controllers
                         if (string.IsNullOrEmpty(workCellValue)) // 标题
                         {
                             var cellField = new XYD_Single_Cell();
-                            cellField.Value = new XYD_Cell_Value();
+                            cellField.Value = CreateCellValue(cell, title);
                             cellField.Type = 0;
-                            cellField.Value.Row = cell.WorkcellRow;
-                            cellField.Value.Col = cell.WorkcellCol;
-                            cellField.Value.Type = 0; // TODO: 需判断
-                            cellField.Value.Required = true; // TODO
-                            cellField.Value.Title = title;
-                            cellField.Value.NeedRefresh = false; // TODO
-                            cellField.Value.Options = null; // TODO
                             fields.Fields.Add(cellField);
                         }
                         else
@@ -277,15 +275,7 @@ namespace XYD.Controllers
                     {
                         Workcell cell = item.Value.ElementAt(i);
                         var headerTitle = tableHeaders.ElementAt(i);
-                        var cellValue = new XYD_Cell_Value();
-                        cellValue.Type = 0; // TODO
-                        cellValue.Row = cell.WorkcellRow;
-                        cellValue.Col = cell.WorkcellCol;
-                        cellValue.Type = 0; // TODO: 需判断
-                        cellValue.Required = true; // TODO
-                        cellValue.Title = headerTitle;
-                        cellValue.NeedRefresh = false; // TODO
-                        cellValue.Options = null; // TODO
+                        var cellValue = CreateCellValue(cell, headerTitle);
                         tableDatas.Add(cellValue);
                     }
                     arrayCell.Array.Add(tableDatas);
@@ -302,6 +292,75 @@ namespace XYD.Controllers
                 }
             }
             return fields;
+        }
+        #endregion
+
+        #region 判断Cell类型
+        public Enum_CellType GetCellType(Workcell workcell)
+        {
+            var type = Enum_CellType.TEXT;
+            switch(workcell.WorkcellDataSource)
+            {
+                case Enum_WorkcellDataSource.Text:
+                    type = Enum_CellType.TEXT;
+                    break;
+                case Enum_WorkcellDataSource.Dropdown:
+                case Enum_WorkcellDataSource.DataDropdown:
+                    type = Enum_CellType.SELECT;
+                    break;
+                case Enum_WorkcellDataSource.SelectDate:
+                    if (workcell.WorkcellEnum == "yyyy-mm-dd")
+                    {
+                        type = Enum_CellType.DATE;
+                    }
+                    else
+                    {
+                        type = Enum_CellType.TIME;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return type;
+        }
+        #endregion
+
+        #region 获取Options选项
+        public dynamic GetCellOptions(Workcell workcell)
+        {
+            dynamic options = null;
+            if (workcell.WorkcellDataSource == Enum_WorkcellDataSource.Dropdown)
+            {
+                options = workcell.WorkcellEnum.Split('\n').Select(n => new XYD_Cell_Options()
+                {
+                    Value = n
+                }).ToList();
+            }
+            else if (workcell.WorkcellDataSource == Enum_WorkcellDataSource.DataDropdown)
+            {
+                options = "#customfunction(XYD, XYD.XYD.Common.TransformUtil, )";
+            }
+            else
+            {
+                options = null;
+            }
+            return options;
+        }
+        #endregion
+
+        #region 构造Cell_Value
+        public XYD_Cell_Value CreateCellValue(Workcell workcell, string title)
+        {
+            var cellValue = new XYD_Cell_Value();
+            cellValue.Type = (int)GetCellType(workcell);
+            cellValue.Row = workcell.WorkcellRow;
+            cellValue.Col = workcell.WorkcellCol;
+            cellValue.CanEdit = false; // TODO:根据NodeField进行判断
+            cellValue.Required = false; // TODO
+            cellValue.Title = title;
+            cellValue.NeedRefresh = false;
+            cellValue.Options = GetCellOptions(workcell);
+            return cellValue;
         }
         #endregion
     }
