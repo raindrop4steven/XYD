@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.Mvc;
 using XYD.Common;
 using XYD.Entity;
+using static XYD.Common.DEP_Constants;
 
 namespace XYD.Controllers
 {
@@ -147,64 +148,160 @@ namespace XYD.Controllers
             
         }
 
-        #region 查找单元格
+        #region 解析工作流表单
         public ActionResult TestWorksheet(string mid)
         {
             Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
             Worksheet worksheet = doc.Worksheet;
             int maxRow, maxCol;
             List<Workcell> workCells =  worksheet.FindWorkcells(out maxRow, out maxCol);
-            IEnumerable<IGrouping<int, Workcell>> groupCells = workCells.OrderBy(n => n.WorkcellRow).ThenBy(n => n.WorkcellCol).GroupBy(n => n.WorkcellRow);
-            List<XYD_Base_Cell> cells = new List<XYD_Base_Cell>();
-            var results = new List<object>();
-            foreach(var cellGroup in groupCells)
+            var groupCells = workCells.OrderBy(n => n.WorkcellRow).ThenBy(n => n.WorkcellCol).GroupBy(n => n.WorkcellRow);
+            // 判断每行类型
+            var worksheetDict = IdentifySheet(groupCells);
+            // 生成表单
+            var fields = GenerateFields(worksheetDict);
+            return ResponseUtil.OK(fields);
+        }
+        #endregion
+
+        #region 鉴别表单每行类型
+        public List<KeyValuePair<WORKSHEET_LINE_TYPE, IEnumerable<Workcell>>> IdentifySheet(IEnumerable<IGrouping<int, Workcell>> groupCells)
+        {
+            var worksheetDict = new List<KeyValuePair<WORKSHEET_LINE_TYPE, IEnumerable<Workcell>>>();
+            var haveTableHeader = false;
+            foreach (var cellGroup in groupCells)
             {
-                // 是否是列表标题行
-                bool isTitleLine = false;
-                // 当前行列数
-                int columns = cellGroup.Count();
-                // 值单元格列数
+                WORKSHEET_LINE_TYPE type;
+                int lineColumns = cellGroup.Count();
                 int valueColumns = cellGroup.Where(n => n.WorkcellValue == "").Count();
                 // 过滤无效的行
-                if (columns < 2) 
+                if (lineColumns < 2)
                 {
                     continue;
                 }
                 // 判断是单行还是表格
                 if (valueColumns == 0)
                 {
-                    isTitleLine = true;
-                }
-                if (isTitleLine) // 列表标题行
-                {
-                    
-                }
-                else 
-                {
-                    var cell = new XYD_Single_Cell();
-                    // 遍历每行表格
-                    foreach(Workcell item in cellGroup) 
+                    if (cellGroup.Any(n => n.WorkcellValue == "审批节点"))
                     {
-                        if (cell.Value == null) {
-                            cell.Value = new XYD_Cell_Value();
-                        }
-                        if (string.IsNullOrEmpty(item.WorkcellValue)) // 值
+                        // 审核节点，去掉
+                        break;
+                    }
+                    else
+                    {
+                        type = WORKSHEET_LINE_TYPE.TABLE_HEADER;
+                        haveTableHeader = true;
+                    }
+                }
+                else if (valueColumns == lineColumns)
+                {
+                    if (haveTableHeader)
+                    {
+                        type = WORKSHEET_LINE_TYPE.TABLE_DATA;
+                    }
+                    else
+                    {
+                        // 无效的空行
+                        continue;
+                    }
+                }
+                else
+                {
+                    type = WORKSHEET_LINE_TYPE.NORMAL;
+                }
+                worksheetDict.Add(new KeyValuePair<WORKSHEET_LINE_TYPE, IEnumerable<Workcell>>(type, cellGroup));
+            }
+            return worksheetDict;
+        }
+        #endregion
+
+        #region 生成表单
+        public XYD_Fields GenerateFields(List<KeyValuePair<WORKSHEET_LINE_TYPE, IEnumerable<Workcell>>> worksheetDict)
+        {
+            XYD_Fields fields = new XYD_Fields();
+            fields.Fields = new List<XYD_Base_Cell>();
+            // 数据标题
+            var tableHeaders = new List<string>();
+            // 数据行
+            var arrayCell = new XYD_Array_Cell();
+            arrayCell.Type = 3;
+            arrayCell.Array = new List<List<XYD_Cell_Value>>();
+            foreach (var item in worksheetDict)
+            {
+                // 单行
+                if (WORKSHEET_LINE_TYPE.NORMAL == item.Key)
+                {
+                    // 如果table有值，则加进去，并清空
+                    if (tableHeaders.Count > 0)
+                    {
+                        fields.Fields.Add(arrayCell);
+                        tableHeaders.Clear(); // FIXME:目前这一只支持一个TABLE，如果清空后不影响之前的，可以支持多个
+                    }
+                    // 标题
+                    var title = string.Empty;
+                    // 拆分出标题和值
+                    foreach(Workcell cell in item.Value)
+                    {
+                        var workCellValue = cell.WorkcellValue;
+                        if (string.IsNullOrEmpty(workCellValue)) // 标题
                         {
-                            cell.Value.Row =int.Parse(item.ID[1].ToString());
-                            cell.Value.Col = (int)item.ID[0]-64;
-                            cells.Add(cell);
+                            var cellField = new XYD_Single_Cell();
+                            cellField.Value = new XYD_Cell_Value();
+                            cellField.Type = 0;
+                            cellField.Value.Row = cell.WorkcellRow;
+                            cellField.Value.Col = cell.WorkcellCol;
+                            cellField.Value.Type = 0; // TODO: 需判断
+                            cellField.Value.Required = true; // TODO
+                            cellField.Value.Title = title;
+                            cellField.Value.NeedRefresh = false; // TODO
+                            cellField.Value.Options = null; // TODO
+                            fields.Fields.Add(cellField);
                         }
-                        else // 标题
+                        else
                         {
-                            cell = new XYD_Single_Cell(); 
-                            cell.Value = new XYD_Cell_Value();
-                            cell.Type = 0;
-                            cell.Value.Title = item.WorkcellValue;
+                            title = workCellValue;
                         }
                     }
                 }
+                else if (WORKSHEET_LINE_TYPE.TABLE_HEADER == item.Key)
+                {
+                    foreach(Workcell cell in item.Value)
+                    {
+                        tableHeaders.Add(cell.WorkcellValue);
+                    }
+                }
+                else if (WORKSHEET_LINE_TYPE.TABLE_DATA == item.Key)
+                {
+                    var tableDatas = new List<XYD_Cell_Value>();
+                    for(int i = 0; i < item.Value.Count(); i++)
+                    {
+                        Workcell cell = item.Value.ElementAt(i);
+                        var headerTitle = tableHeaders.ElementAt(i);
+                        var cellValue = new XYD_Cell_Value();
+                        cellValue.Type = 0; // TODO
+                        cellValue.Row = cell.WorkcellRow;
+                        cellValue.Col = cell.WorkcellCol;
+                        cellValue.Type = 0; // TODO: 需判断
+                        cellValue.Required = true; // TODO
+                        cellValue.Title = headerTitle;
+                        cellValue.NeedRefresh = false; // TODO
+                        cellValue.Options = null; // TODO
+                        tableDatas.Add(cellValue);
+                    }
+                    arrayCell.Array.Add(tableDatas);
+                    // 如果是整个表单最后一个元素，则直接加到生成的列表中去
+                    if (worksheetDict.IndexOf(item) == worksheetDict.Count()-1)
+                    {
+                        fields.Fields.Add(arrayCell);
+                        tableHeaders.Clear();
+                    }
+                }
+                else
+                {
+                    throw new Exception("不支持的行类型");
+                }
             }
-            return ResponseUtil.OK(cells);
+            return fields;
         }
         #endregion
     }

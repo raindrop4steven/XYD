@@ -187,6 +187,9 @@ namespace XYD.Common
         // 发票凭证
         public static int VOUCHER_TYPE_INVOICE = 2;
 
+        /**
+         * 考勤类型
+         */
         public enum CALENDAR_TYPE
         {
             Holiday = 0, // 节日
@@ -199,5 +202,19 @@ namespace XYD.Common
             Leave = 7, // 请假
             BizTrp = 8 // 出差
         }
+
+        /**
+         * 表单行类型定义:
+         * 0-普通单行;1-数据标题行;2-数据列表行;3-审核标题行;4-审核行;99-其他
+         */
+         public enum WORKSHEET_LINE_TYPE
+         {
+             NORMAL = 0,
+             TABLE_HEADER = 1,
+             TABLE_DATA = 2,
+             AUDIT_HEADER = 3,
+             AUDIT_DATA = 4,
+             OTHER = 99
+         }
     }
 }
