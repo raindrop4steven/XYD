@@ -318,6 +318,9 @@ namespace XYD.Controllers
                         type = Enum_CellType.TIME;
                     }
                     break;
+                case Enum_WorkcellDataSource.Attachment:
+                    type = Enum_CellType.FILE;
+                    break;
                 default:
                     break;
             }
