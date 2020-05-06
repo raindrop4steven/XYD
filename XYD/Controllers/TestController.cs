@@ -23,6 +23,7 @@ namespace XYD.Controllers
         SheetMgr sheetMgr = new SheetMgr();
         OrgMgr orgMgr = new OrgMgr();
 
+        #region 测试请求Header
         [Authorize]
         public ActionResult TestHeader()
         {
@@ -36,7 +37,9 @@ namespace XYD.Controllers
                 return ResponseUtil.Error(e.Message);
             }
         }
+        #endregion
 
+        #region 测试事件
         public ActionResult TestEvent()
         {
             //var employee = (User.Identity as AppkizIdentity).Employee;
@@ -74,66 +77,9 @@ namespace XYD.Controllers
             Assembly.GetEntryAssembly();
             return Type.GetType(myclass).GetMethod(mymethod).Invoke((object)null, parameters);
         }
+        #endregion
 
-        public ActionResult TestCityLevel(string city)
-        {
-            var level = WorkflowUtil.GetCityLevel(city);
-            return ResponseUtil.OK(level);
-        }
-
-        public ActionResult TestUserRole(string emplID)
-        {
-            var role = WorkflowUtil.GetRoleById(emplID);
-            return ResponseUtil.OK(role);
-        }
-
-        public ActionResult TestVoucher(string mid, string name)
-        {
-            XYD_SubVoucherCode SubCode = null;
-            Message message = mgr.GetMessage(mid);
-            var workflowId = message.FromTemplate;
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("Voucher.json"));
-
-            using (StreamReader sr = new StreamReader(filePathName))
-            {
-                var config = JsonConvert.DeserializeObject<XYD_VoucherCodes>(sr.ReadToEnd());
-                foreach(var VoucherCode in config.VoucherCodes)
-                {
-                    if (VoucherCode.WorkflowId == workflowId)
-                    {
-                        if (VoucherCode.Codes.Count == 1)
-                        {
-                            SubCode = VoucherCode.Codes.FirstOrDefault();
-                            break;
-                        }
-                        else
-                        {
-                            foreach(var Code in VoucherCode.Codes)
-                            {
-                                if (Code.Subs.Contains(name))
-                                {
-                                    SubCode = Code;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                return ResponseUtil.OK(SubCode);
-            }
-        }
-
-        public ActionResult TestWeek(DateTime date)
-        {
-            var firstDay = CommonUtils.FirstDayOfWeek(date);
-            var lastDay = CommonUtils.LastDayOfWeek(date);
-            return ResponseUtil.OK(new
-            {
-                firstDay = firstDay,
-                lastDay = lastDay
-            });
-        }
-
+        #region 测试邮件
         public async Task<ActionResult> SendEmail(string Tos)
         {
             await Task.Run(() => { new MailHelper().SendAsync("Send Async Email Test", "This is Send Async Email Test", Tos, null); });
@@ -147,8 +93,9 @@ namespace XYD.Controllers
         {
             
         }
+        #endregion
 
-        #region 解析工作流表单
+        #region 测试解析工作流表单
         public ActionResult TestWorksheet(string mid)
         {
             Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
@@ -364,6 +311,24 @@ namespace XYD.Controllers
             cellValue.NeedRefresh = false;
             cellValue.Options = GetCellOptions(workcell);
             return cellValue;
+        }
+        #endregion
+
+        #region 测试节点表单
+        [Authorize]
+        public ActionResult GetFields(string NodeId, string MessageID)
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+
+                XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, NodeId, MessageID);
+                return ResponseUtil.OK(fields);
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
         }
         #endregion
     }
