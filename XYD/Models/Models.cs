@@ -131,6 +131,12 @@ namespace XYD.Models
         public int ContinueCount { get; set; }
         // 实际工龄（月）
         public int RealWorkMonth { get; set; }
+        // 年假天数
+        public int RestDays { get; set; }
+        // 是否自动计算年假
+        public bool ManualCaculate { get; set; }
+        // 已使用年假天数
+        public int UsedRestDays { get; set; }
     }
     #endregion
 

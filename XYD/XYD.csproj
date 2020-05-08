@@ -326,6 +326,18 @@
     <Compile Include="Migrations\202004270641136_add biztrip updatetime.Designer.cs">
       <DependentUpon>202004270641136_add biztrip updatetime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005080715000_add rest days.cs" />
+    <Compile Include="Migrations\202005080715000_add rest days.Designer.cs">
+      <DependentUpon>202005080715000_add rest days.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005080720251_delete used days.cs" />
+    <Compile Include="Migrations\202005080720251_delete used days.Designer.cs">
+      <DependentUpon>202005080720251_delete used days.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005080722372_add rest days2.cs" />
+    <Compile Include="Migrations\202005080722372_add rest days2.Designer.cs">
+      <DependentUpon>202005080722372_add rest days2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -887,6 +899,15 @@
     <EmbeddedResource Include="Migrations\202004270641136_add biztrip updatetime.resx">
       <DependentUpon>202004270641136_add biztrip updatetime.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080715000_add rest days.resx">
+      <DependentUpon>202005080715000_add rest days.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080720251_delete used days.resx">
+      <DependentUpon>202005080720251_delete used days.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005080722372_add rest days2.resx">
+      <DependentUpon>202005080722372_add rest days2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -914,7 +935,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" />
+      <UserProperties content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
