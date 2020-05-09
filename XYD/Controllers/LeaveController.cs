@@ -54,7 +54,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 更新申请状态
-        public ActionResult UpdateLeaveStatus(string mid, string node, bool isLastNode = false)
+        public ActionResult UpdateLeaveStatus(string mid, string node, bool isAuditNode=false)
         {
             try
             {
@@ -85,9 +85,15 @@ namespace XYD.Controllers
                         if (operate == DEP_Constants.Audit_Operate_Type_Disagree)
                         {
                             leave.Status = DEP_Constants.Leave_Status_NO;
-                        } else if (operate == DEP_Constants.Audit_Operate_Type_Agree && isLastNode)
+                        }
+                        else if (operate == DEP_Constants.Audit_Operate_Type_Agree)
                         {
                             leave.Status = DEP_Constants.Leave_Status_YES;
+                            if (leave.Category == DEP_Constants.Leave_Year_Type && !isAuditNode) // 结束节点
+                            {
+                                var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
+                                userCompanyInfo.UsedRestDays += Convert.ToInt32((leave.EndDate - leave.StartDate).TotalDays);
+                            }
                         }
                     }
                     db.SaveChanges();
@@ -117,7 +123,7 @@ namespace XYD.Controllers
                 var endYearDate = DateTime.Parse(string.Format("{0}/01/01 00:00:00", date.Year + 1));
                 // 查询已修年假
                 var db = new DefaultConnection();
-                var records = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID && n.StartDate >= startYearDate && n.EndDate < endYearDate).OrderBy(n => n.CreateTime).ToList();
+                var records = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID && n.StartDate >= startYearDate && n.EndDate < endYearDate && n.Category == "年假").OrderBy(n => n.CreateTime).ToList();
                 var results = new List<object>();
                 foreach (var record in records)
                 {
@@ -139,18 +145,50 @@ namespace XYD.Controllers
                     results.Add(result);
                 }
                 // 查询剩余年假
-                var systemConfig = db.SystemConfig.Where(n => n.Area == areaKey).FirstOrDefault();
-                var remainRestDays = systemConfig.RestDays - totalRestDays;
-
+                var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
+                var userRestDays = CaculateYearRestDays(userCompanyInfo);
                 return ResponseUtil.OK(new {
-                    remainDays = Convert.ToInt32(remainRestDays),
-                    totalRestDays = Convert.ToInt32(totalRestDays),
+                    remainDays = userRestDays - userCompanyInfo.UsedRestDays,
+                    totalRestDays = userCompanyInfo.UsedRestDays,
                     records = results
                 });
             }
             catch(Exception e)
             {
                 return ResponseUtil.OK(e.Message);
+            }
+        }
+        #endregion
+
+        #region 计算年假
+        /// <summary>
+        /// * 根据实际工龄计算年假
+        /// * 实际工龄不满十年，年假5天
+        /// * 满十年不满二十年，年假10天
+        /// * 满20年，年假15天
+        /// </summary>
+        /// <param name="SocialMonth"></param>
+        /// <returns></returns>
+        public int CaculateYearRestDays(XYD_UserCompanyInfo userCompanyInfo)
+        {
+            if (userCompanyInfo.ManualCaculate)
+            {
+                return userCompanyInfo.RestDays;
+            }
+            else
+            {
+                if (userCompanyInfo.SocialInsuranceTotalMonth < 10 * 12)
+                {
+                    return 5;
+                }
+                else if (userCompanyInfo.SocialInsuranceTotalMonth < 20 * 12)
+                {
+                    return 10;
+                }
+                else
+                {
+                    return 15;
+                }
             }
         }
         #endregion

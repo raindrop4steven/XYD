@@ -83,7 +83,7 @@ namespace XYD.Common
         public static string Leave_Status_YES = "YES";
         public static string Leave_Status_NO = "NO";
         public static string Leave_Status_Auditing = "Auditing";
-
+        public static string Leave_Year_Type = "年假";
         /**
          * 模块代码
          */
