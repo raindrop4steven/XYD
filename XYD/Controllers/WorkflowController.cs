@@ -835,5 +835,18 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 判断是否是司机
+        [Authorize]
+        public ActionResult CheckDriver()
+        {
+            var employee = (User.Identity as AppkizIdentity).Employee;
+            var isDriver = OrgUtil.CheckRole(employee.EmplID, "司机");
+            return ResponseUtil.OK(new
+            {
+                isDriver = isDriver
+            });
+        }
+        #endregion
     }
 }
