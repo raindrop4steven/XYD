@@ -169,6 +169,8 @@ namespace XYD.Common
         public static string CAR_MILES_UNFINISH = "UNFINISH";
         // 已填写
         public static string CAR_MILES_FINISH = "FINISH";
+        // 已取消
+        public static string CAR_MILES_CANCEL = "CANCEL";
 
         /**
          * 发票对应workflowID

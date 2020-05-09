@@ -54,6 +54,13 @@ namespace XYD.Controllers
                         model.UpdateTime = DateTime.Now;
                         model.Status = DEP_Constants.CAR_MILES_UNFINISH;
                         db.CarRecord.Add(model);
+                        // 发送极光推送消息
+                        Dictionary<string, object> dict = new Dictionary<string, object>();
+
+                        dict["type"] = DEP_Constants.JPush_Workflow_Type;
+                        dict["title"] = string.Format("您有新的流程提醒通知 \"{0}\"", message.MessageTitle);
+                        dict["content"] = new Dictionary<string, object>();
+                        WorkflowUtil.SendJPushNotification(new List<string>() { driver.EmplID }, dict);
                     }
                     else
                     {
@@ -87,6 +94,11 @@ namespace XYD.Controllers
                 {
                     Code = DEP_Constants.CAR_MILES_FINISH,
                     Name = "已填写"
+                },
+                new
+                {
+                    Code = DEP_Constants.CAR_MILES_CANCEL,
+                    Name = "已取消"
                 }
             });
         }
@@ -126,6 +138,10 @@ namespace XYD.Controllers
                         if (record.Status == DEP_Constants.CAR_MILES_UNFINISH)
                         {
                             statusName = "待填写";
+                        }
+                        else if (record.Status == DEP_Constants.CAR_MILES_CANCEL)
+                        {
+                            statusName = "已取消";
                         }
                         else
                         {
@@ -216,6 +232,32 @@ namespace XYD.Controllers
                             per_page = Size
                         }
                     });
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 取消行程
+        [Authorize]
+        public ActionResult CancelCarRecord(int id)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var entity = db.CarRecord.Where(n => n.ID == id).FirstOrDefault();
+                    if (entity == null)
+                    {
+                        return ResponseUtil.Error("记录不存在");
+                    }
+                    
+                    entity.Status = DEP_Constants.CAR_MILES_CANCEL;
+                    db.SaveChanges();
+                    return ResponseUtil.OK("记录成功");
                 }
             }
             catch (Exception e)
