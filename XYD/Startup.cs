@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
 using Hangfire;
+using XYD.Common;
 
 [assembly: OwinStartup(typeof(XYD.Startup))]
 
@@ -18,6 +19,7 @@ namespace XYD
                 .UseSqlServerStorage("DeptOAHangfire");
             app.UseHangfireDashboard();
             app.UseHangfireServer();
+            ScheduleUtil.ScheduleGlobalUpdate();
         }
     }
 }
