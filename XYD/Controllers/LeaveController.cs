@@ -54,7 +54,6 @@ namespace XYD.Controllers
         #endregion
 
         #region 更新申请状态
-        [Authorize]
         public ActionResult UpdateLeaveStatus(string mid, string node, bool isLastNode = false)
         {
             try
