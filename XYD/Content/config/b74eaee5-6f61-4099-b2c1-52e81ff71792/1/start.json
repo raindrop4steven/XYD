@@ -103,10 +103,14 @@
                 "Col": 3,
                 "Options": [
                     {
+                        "Value": "",
+                        "InterValue": ""
+                    },
+                    {
                         "Value": "汽车",
                         "InterValue": ""
                     },
-					{
+                    {
                         "Value": "公司车",
                         "InterValue": ""
                     },
@@ -123,7 +127,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -139,6 +143,10 @@
                 "Col": 7,
                 "Options": [
                     {
+                        "Value": "",
+                        "InterValue": ""
+                    },
+                    {
                         "Value": "自己订",
                         "InterValue": ""
                     },
@@ -146,12 +154,12 @@
                         "Value": "公司订",
                         "InterValue": ""
                     },
-					{
+                    {
                         "Value": "已预约",
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -167,6 +175,10 @@
                 "Col": 3,
                 "Options": [
                     {
+                        "Value": "",
+                        "InterValue": ""
+                    },
+                    {
                         "Value": "宾馆",
                         "InterValue": ""
                     },
@@ -175,7 +187,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -191,6 +203,10 @@
                 "Col": 7,
                 "Options": [
                     {
+                        "Value": "",
+                        "InterValue": ""
+                    },
+                    {
                         "Value": "自己订",
                         "InterValue": ""
                     },
@@ -198,12 +214,12 @@
                         "Value": "公司订",
                         "InterValue": ""
                     },
-					{
+                    {
                         "Value": "已预约",
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
