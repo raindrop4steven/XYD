@@ -146,7 +146,7 @@
                 "CanEdit": true,
                 "Row": 9,
                 "Col": 7,
-                "Options": [
+                "Options": [ {"Value": "","InterValue": ""},
                     {
                         "Value": "是",
                         "InterValue": ""
@@ -156,7 +156,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -170,7 +170,7 @@
                 "CanEdit": true,
                 "Row": 10,
                 "Col": 3,
-                "Options": [
+                "Options": [ {"Value": "","InterValue": ""},
                     {
                         "Value": "是",
                         "InterValue": ""
@@ -180,7 +180,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -194,7 +194,7 @@
                 "CanEdit": true,
                 "Row": 10,
                 "Col": 7,
-                "Options": [
+                "Options": [ {"Value": "","InterValue": ""},
                     {
                         "Value": "是",
                         "InterValue": ""
@@ -204,7 +204,7 @@
                         "InterValue": ""
                     }
                 ],
-                "Required": true
+                "Required": false
             }
         },
         {

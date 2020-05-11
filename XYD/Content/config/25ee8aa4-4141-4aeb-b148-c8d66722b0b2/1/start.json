@@ -74,7 +74,7 @@
                         "CanEdit": true,
                         "Row": 7,
                         "Col": 1,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "文具用品",
                                 "InterValue": ""
@@ -197,7 +197,7 @@
                         "CanEdit": true,
                         "Row": 8,
                         "Col": 1,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "文具用品",
                                 "InterValue": ""
@@ -320,7 +320,7 @@
                         "CanEdit": true,
                         "Row": 9,
                         "Col": 1,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "文具用品",
                                 "InterValue": ""
@@ -443,7 +443,7 @@
                         "CanEdit": true,
                         "Row": 10,
                         "Col": 1,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "文具用品",
                                 "InterValue": ""
@@ -566,7 +566,7 @@
                         "CanEdit": true,
                         "Row": 11,
                         "Col": 1,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "文具用品",
                                 "InterValue": ""
@@ -689,7 +689,7 @@
                         "CanEdit": true,
                         "Row": 12,
                         "Col": 1,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "文具用品",
                                 "InterValue": ""
@@ -812,7 +812,7 @@
                         "CanEdit": true,
                         "Row": 13,
                         "Col": 1,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "文具用品",
                                 "InterValue": ""

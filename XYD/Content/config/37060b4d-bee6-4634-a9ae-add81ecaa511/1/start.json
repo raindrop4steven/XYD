@@ -213,7 +213,7 @@
                         "CanEdit": true,
                         "Row": 11,
                         "Col": 7,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "汽车",
                                 "InterValue": ""
@@ -258,7 +258,7 @@
                         "CanEdit": true,
                         "Row": 11,
                         "Col": 10,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "宾馆",
                                 "InterValue": ""
@@ -329,7 +329,7 @@
                         "CanEdit": true,
                         "Row": 12,
                         "Col": 7,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "汽车",
                                 "InterValue": ""
@@ -374,7 +374,7 @@
                         "CanEdit": true,
                         "Row": 12,
                         "Col": 10,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "宾馆",
                                 "InterValue": ""
@@ -445,7 +445,7 @@
                         "CanEdit": true,
                         "Row": 13,
                         "Col": 7,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "汽车",
                                 "InterValue": ""
@@ -490,7 +490,7 @@
                         "CanEdit": true,
                         "Row": 13,
                         "Col": 10,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "宾馆",
                                 "InterValue": ""
@@ -561,7 +561,7 @@
                         "CanEdit": true,
                         "Row": 14,
                         "Col": 7,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "汽车",
                                 "InterValue": ""
@@ -606,7 +606,7 @@
                         "CanEdit": true,
                         "Row": 14,
                         "Col": 10,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "宾馆",
                                 "InterValue": ""
@@ -677,7 +677,7 @@
                         "CanEdit": true,
                         "Row": 15,
                         "Col": 7,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "汽车",
                                 "InterValue": ""
@@ -722,7 +722,7 @@
                         "CanEdit": true,
                         "Row": 15,
                         "Col": 10,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "宾馆",
                                 "InterValue": ""
@@ -793,7 +793,7 @@
                         "CanEdit": true,
                         "Row": 16,
                         "Col": 7,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "汽车",
                                 "InterValue": ""
@@ -838,7 +838,7 @@
                         "CanEdit": true,
                         "Row": 16,
                         "Col": 10,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "宾馆",
                                 "InterValue": ""
@@ -909,7 +909,7 @@
                         "CanEdit": true,
                         "Row": 17,
                         "Col": 7,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "汽车",
                                 "InterValue": ""
@@ -954,7 +954,7 @@
                         "CanEdit": true,
                         "Row": 17,
                         "Col": 10,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "宾馆",
                                 "InterValue": ""

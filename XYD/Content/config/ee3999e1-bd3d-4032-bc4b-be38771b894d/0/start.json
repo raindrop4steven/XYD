@@ -58,7 +58,7 @@
                         "CanEdit": true,
                         "Row": 6,
                         "Col": 3,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "客用日常饮品",
                                 "InterValue": ""
@@ -124,7 +124,7 @@
                         "CanEdit": true,
                         "Row": 7,
                         "Col": 3,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "客用日常饮品",
                                 "InterValue": ""
@@ -190,7 +190,7 @@
                         "CanEdit": true,
                         "Row": 8,
                         "Col": 3,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "客用日常饮品",
                                 "InterValue": ""
@@ -256,7 +256,7 @@
                         "CanEdit": true,
                         "Row": 9,
                         "Col": 3,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "客用日常饮品",
                                 "InterValue": ""
@@ -322,7 +322,7 @@
                         "CanEdit": true,
                         "Row": 10,
                         "Col": 3,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "客用日常饮品",
                                 "InterValue": ""

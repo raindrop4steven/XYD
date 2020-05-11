@@ -118,7 +118,7 @@
                         "CanEdit": true,
                         "Row": 8,
                         "Col": 1,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "汽油费",
                                 "InterValue": ""
@@ -193,7 +193,7 @@
                         "CanEdit": true,
                         "Row": 9,
                         "Col": 1,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "汽油费",
                                 "InterValue": ""
@@ -268,7 +268,7 @@
                         "CanEdit": true,
                         "Row": 10,
                         "Col": 1,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "汽油费",
                                 "InterValue": ""
@@ -343,7 +343,7 @@
                         "CanEdit": true,
                         "Row": 11,
                         "Col": 1,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "汽油费",
                                 "InterValue": ""
@@ -418,7 +418,7 @@
                         "CanEdit": true,
                         "Row": 12,
                         "Col": 1,
-                        "Options": [
+                        "Options": [ {"Value": "","InterValue": ""},
                             {
                                 "Value": "汽油费",
                                 "InterValue": ""
