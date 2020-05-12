@@ -10,9 +10,23 @@
     <title></title>
     <link rel="stylesheet" href="~/Content/static/layui/css/layui.css" />
     <script src="~/Content/static/layui/layui.js"></script>
+    <style>
+
+        .demoTable {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <div>
+        <div class="demoTable">
+            搜索物品：
+            <div class="layui-inline">
+                <input class="layui-input" name="id" id="searchName" autocomplete="off">
+            </div>
+            <button class="layui-btn" data-type="reload">搜索</button>
+        </div>
         <table lay-even class="layui-hide" id="goods" lay-filter="goods"></table>
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-xs" lay-event="choose">选择</a>
@@ -22,13 +36,14 @@
         var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
         layui.use(['layer', 'table'], function () {
             var table = layui.table;
-
+            var $ = layui.$;
             table.render({
                 elem: '#goods',
                 even: true,
                 size: 'sm',
                 url: '/Apps/XYD/Asset/AvailableAssets?WorkflowId=@ViewBag.mid&isWeb=true',
                 request: {
+                    Name: $("#searchName"),
                     pageName: 'Page',
                     limitName: 'Size'
                 },
@@ -60,6 +75,27 @@
                     parent.SaveCellValue(parent.$("#@ViewBag.unitId"), data.Unit);
                     parent.layer.close(index);
                 }
+            });
+
+            var $ = layui.$, active = {
+                reload: function () {
+                    var searchName = $('#searchName');
+
+                    //执行重载
+                    table.reload('goods', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            Name: searchName.val()
+                        }
+                    }, 'data');
+                }
+            };
+
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
             });
 
         });

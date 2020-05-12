@@ -657,7 +657,7 @@ namespace XYD.Controllers
 
         #region 可申领物品列表
         [Authorize]
-        public ActionResult AvailableAssets(string WorkflowId, int Page, int Size, bool? isWeb)
+        public ActionResult AvailableAssets(string WorkflowId, int Page, int Size, string Name, bool? isWeb)
         {
             try
             {
@@ -676,7 +676,12 @@ namespace XYD.Controllers
 
                 using (var db = new DefaultConnection())
                 {
-                    var assets = db.Asset.Where(n => n.Count > 0 && n.Area == area)
+                    var query = db.Asset.Where(n => n.Count > 0 && n.Area == area);
+                    if (!string.IsNullOrEmpty(Name))
+                    {
+                        query = query.Where(n => n.Name.Contains(Name));
+                    }
+                    var assets = query
                         .GroupBy(n => new { n.Name, n.ModelName, n.Unit})
                         .Select(n => new
                         {
