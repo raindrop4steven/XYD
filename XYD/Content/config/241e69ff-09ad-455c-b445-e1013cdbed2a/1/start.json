@@ -173,6 +173,10 @@
                     {
                         "Value": "短租",
                         "InterValue": ""
+                    },
+                    {
+                        "Value": "宿舍",
+                        "InterValue": ""
                     }
                 ],
                 "Required": false

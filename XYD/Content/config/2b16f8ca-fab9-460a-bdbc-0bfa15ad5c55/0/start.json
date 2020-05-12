@@ -118,7 +118,11 @@
                         "CanEdit": true,
                         "Row": 8,
                         "Col": 1,
-                        "Options": [ {"Value": "","InterValue": ""},
+                        "Options": [
+                            {
+                                "Value": "",
+                                "InterValue": ""
+                            },
                             {
                                 "Value": "汽油费",
                                 "InterValue": ""
@@ -128,11 +132,19 @@
                                 "InterValue": ""
                             },
                             {
-                                "Value": "修理费",
+                                "Value": "停车费",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "停车费",
+                                "Value": "维修费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "洗车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "补贴",
                                 "InterValue": ""
                             },
                             {
@@ -189,7 +201,11 @@
                         "CanEdit": true,
                         "Row": 9,
                         "Col": 1,
-                        "Options": [ {"Value": "","InterValue": ""},
+                        "Options": [
+                            {
+                                "Value": "",
+                                "InterValue": ""
+                            },
                             {
                                 "Value": "汽油费",
                                 "InterValue": ""
@@ -199,11 +215,19 @@
                                 "InterValue": ""
                             },
                             {
-                                "Value": "修理费",
+                                "Value": "停车费",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "停车费",
+                                "Value": "维修费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "洗车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "补贴",
                                 "InterValue": ""
                             },
                             {
@@ -260,7 +284,11 @@
                         "CanEdit": true,
                         "Row": 10,
                         "Col": 1,
-                        "Options": [ {"Value": "","InterValue": ""},
+                        "Options": [
+                            {
+                                "Value": "",
+                                "InterValue": ""
+                            },
                             {
                                 "Value": "汽油费",
                                 "InterValue": ""
@@ -270,11 +298,19 @@
                                 "InterValue": ""
                             },
                             {
-                                "Value": "修理费",
+                                "Value": "停车费",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "停车费",
+                                "Value": "维修费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "洗车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "补贴",
                                 "InterValue": ""
                             },
                             {
@@ -331,7 +367,11 @@
                         "CanEdit": true,
                         "Row": 11,
                         "Col": 1,
-                        "Options": [ {"Value": "","InterValue": ""},
+                        "Options": [
+                            {
+                                "Value": "",
+                                "InterValue": ""
+                            },
                             {
                                 "Value": "汽油费",
                                 "InterValue": ""
@@ -341,11 +381,19 @@
                                 "InterValue": ""
                             },
                             {
-                                "Value": "修理费",
+                                "Value": "停车费",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "停车费",
+                                "Value": "维修费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "洗车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "补贴",
                                 "InterValue": ""
                             },
                             {
@@ -402,7 +450,11 @@
                         "CanEdit": true,
                         "Row": 12,
                         "Col": 1,
-                        "Options": [ {"Value": "","InterValue": ""},
+                        "Options": [
+                            {
+                                "Value": "",
+                                "InterValue": ""
+                            },
                             {
                                 "Value": "汽油费",
                                 "InterValue": ""
@@ -412,11 +464,19 @@
                                 "InterValue": ""
                             },
                             {
-                                "Value": "修理费",
+                                "Value": "停车费",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "停车费",
+                                "Value": "维修费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "洗车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "补贴",
                                 "InterValue": ""
                             },
                             {
