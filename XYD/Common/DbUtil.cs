@@ -233,11 +233,13 @@ namespace XYD.Common
             var ResultList = new List<object>();
             while (reader.Read())
             {
-                decimal salary = reader.GetDecimal(0);
-                int year = reader.GetInt32(1);
-                int month = reader.GetByte(2);
+                decimal shouldPay = reader.GetDecimal(0);
+                decimal salary = reader.GetDecimal(1);
+                int year = reader.GetInt32(2);
+                int month = reader.GetByte(3);
                 ResultList.Add(new XYD_Salary
                 {
+                    ShouldPay = shouldPay,
                     Salary = salary,
                     Year = year,
                     Month = month

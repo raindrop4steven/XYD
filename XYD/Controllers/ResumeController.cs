@@ -90,7 +90,7 @@ namespace XYD.Controllers
         }
         #endregion
 
-        #region 查询工资
+        #region APP查询工资
         [Authorize]
         public ActionResult QuerySalary(DateTime BeginDate, DateTime EndDate)
         {
@@ -114,7 +114,7 @@ namespace XYD.Controllers
                 // 构造查询 
                 // sql 
                 var sql = string.Format(@"SELECT
-	                                            F_3 as salary, iYear, iMonth
+	                                            F_1 as shouldPay, F_3 as salary, iYear, iMonth
                                             FROM
 	                                            WA_GZData 
                                             WHERE
@@ -124,22 +124,86 @@ namespace XYD.Controllers
                                                 AND iYear <= {2}
 	                                            AND iMonth >= {3}
 	                                            AND iMonth <= {4}
-	                                            ORDER BY iYear, iMonth", employee.EmplNO, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month, cGzGradeNum);
+	                                            ORDER BY iYear DESC, iMonth DESC", employee.EmplNO, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month, cGzGradeNum);
                 // SQL 连接字符串
                 var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
                 var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetSalary);
-                var salaryList = new List<decimal>();
-                // 计算工资
-                foreach(XYD_Salary salary in result)
-                {
-                    salaryList.Add(salary.Salary);
-                }
                 return ResponseUtil.OK(new
                 {
-                    result = result,
-                    max = salaryList.Count == 0 ? 0 : salaryList.Max(),
-                    min = salaryList.Count == 0 ? 0 : salaryList.Min(),
-                    avg = salaryList.Count == 0 ? 0 : salaryList.Average()
+                    result = result
+                });
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region APP工资详情
+        [Authorize]
+        public ActionResult SalaryDetail(int Year, int Month)
+        {
+            try
+            {
+                // 检查用户是否具有领导权限
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var selectClause = @" cPsn_Num, cPsn_Name, b.cDepName, F_9, F_10, F_12, F_11, F_26, F_1, F_13, F_14, F_15, F_16, F_17,
+	                                        F_18,
+	                                        F_19,
+	                                        F_20,
+	                                        F_21,
+	                                        F_22,
+	                                        F_23,
+	                                        F_1102,
+	                                        F_1103,
+	                                        F_1104,
+	                                        F_1105,
+	                                        F_1106,
+	                                        F_1108,
+	                                        F_1112,
+	                                        F_1116,
+	                                        F_1115,
+	                                        F_1114,
+	                                        F_1113,
+	                                        F_1001,
+	                                        F_1002,
+	                                        F_6,
+	                                        F_1003,
+	                                        F_25,
+	                                        F_24,
+	                                        F_1004,
+	                                        F_2,
+	                                        F_3,
+                                            b.cDepCode,
+                                            iYear,
+                                            iMonth
+                                        FROM
+	                                        WA_GZData a
+	                                        LEFT JOIN Department b ON b.cDepCode = a.cDept_Num ";
+                // 参数校验
+                if (string.IsNullOrEmpty(employee.EmplNO))
+                {
+                    return ResponseUtil.Error("用户工号为空，请先补充相关信息再查询");
+                }
+                var cGZGradeNum = OrgUtil.CheckRole(employee.EmplID, "上海") ? "002" : "001";
+                // sql 
+                var sql = string.Format(@"SELECT
+	                                           {0}
+                                            WHERE
+	                                            cPsn_Num = '{1}'
+	                                            AND iYear = {2}
+	                                            AND iMonth = {3}
+                                                AND cGZGradeNum = '{4}'
+                                                ORDER BY iYear, iMonth", selectClause, employee.EmplNO, Year, Month, cGZGradeNum);
+                // SQL 连接字符串
+                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
+                // 记录总页数
+                var list = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetDetailSalary);
+
+                return ResponseUtil.OK(new
+                {
+                    detail = list
                 });
             }
             catch (Exception e)
