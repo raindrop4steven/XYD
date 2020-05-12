@@ -59,6 +59,7 @@ namespace XYD.Common
         /*
          * 学历列表
          */
+        public static string Education_Level_High = "高中";
         public static string Education_Level_Zhuan = "专科";
         public static string Education_Level_Ben = "本科";
         public static string Education_Level_Shuo = "硕士";
