@@ -665,6 +665,8 @@ namespace XYD.Models
         public string EmplNo { get; set; }
         // 员工姓名
         public string EmplName { get; set; }
+        // 打卡日期
+        public string Day { get; set; }
         // 上班时间
         public DateTime? StartTime { get; set; }
         // 下班时间

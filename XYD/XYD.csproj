@@ -253,6 +253,7 @@
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\MettingBookController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ResumeController.cs" />
     <Compile Include="Controllers\SerialNoController.cs" />
     <Compile Include="Controllers\SummaryController.cs" />
@@ -338,6 +339,10 @@
     <Compile Include="Migrations\202005080722372_add rest days2.cs" />
     <Compile Include="Migrations\202005080722372_add rest days2.Designer.cs">
       <DependentUpon>202005080722372_add rest days2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005140540184_add day to attence.cs" />
+    <Compile Include="Migrations\202005140540184_add day to attence.Designer.cs">
+      <DependentUpon>202005140540184_add day to attence.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -831,6 +836,7 @@
     <Folder Include="Views\Leave\" />
     <Folder Include="Views\MettingBook\" />
     <Folder Include="Views\Notification\" />
+    <Folder Include="Views\Report\" />
     <Folder Include="Views\Resume\" />
     <Folder Include="Views\SerialNo\" />
     <Folder Include="Views\Summary\" />
@@ -908,6 +914,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005080722372_add rest days2.resx">
       <DependentUpon>202005080722372_add rest days2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005140540184_add day to attence.resx">
+      <DependentUpon>202005140540184_add day to attence.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
