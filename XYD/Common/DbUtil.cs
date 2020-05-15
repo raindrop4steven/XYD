@@ -304,6 +304,11 @@ namespace XYD.Common
             }
             return ResultList;
         }
+
+        internal static object ExecuteSqlCommand(string sql, DateTime date, DateTime dateTime, object backupMoneyReport)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region 查询工资明细
@@ -355,6 +360,26 @@ namespace XYD.Common
                     F_2 = reader.IsDBNull(38) ? 0m : reader.GetDecimal(38),
                     F_3 = reader.IsDBNull(39) ? 0m : reader.GetDecimal(39),
                     cDepCode = reader.GetString(40)
+                });
+            }
+            return ResultList;
+        }
+        #endregion
+
+        #region 获取备用金统计
+        public static List<object> BackupMoneyReport(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                var EmplName = reader.GetString(0);
+                var DeptName = reader.GetString(1);
+                var Amount = reader.GetDecimal(2);
+                ResultList.Add(new XYD_BackupMoneyReport
+                {
+                    EmplName = EmplName,
+                    DeptName = DeptName,
+                    Amount = Amount
                 });
             }
             return ResultList;

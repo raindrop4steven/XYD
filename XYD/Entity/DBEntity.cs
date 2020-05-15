@@ -64,4 +64,13 @@ namespace XYD.Entity
         public List<string> unsavedReaders { get; set; }
     }
     #endregion
+
+    #region 备用金
+    public class XYD_BackupMoneyReport
+    {
+        public string EmplName;
+        public string DeptName;
+        public decimal Amount;
+    }
+    #endregion
 }

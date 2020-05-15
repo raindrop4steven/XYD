@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XYD.Common;
+using XYD.Entity;
 
 namespace XYD.Controllers
 {
@@ -176,7 +177,42 @@ namespace XYD.Controllers
         #endregion
 
         #region 备用金统计
-
+        public ActionResult BackupMoney(DateTime BeginDate, DateTime EndDate)
+        {
+            try
+            {
+                var sql = string.Format(@"SELECT DISTINCT
+	                            EmplName,
+	                            DeptName,
+	                            SUM ( Amount ) AS Amount 
+                            FROM
+	                            XYD_BackupMoney 
+                            WHERE
+                                CreateTime >= '{0}'
+                            AND
+                                CreateTime < '{1}'
+                            GROUP BY
+	                            EmplName,
+	                            DeptName 
+                            ORDER BY
+	                            Amount DESC", BeginDate.Date, EndDate.AddMonths(1));
+                var list = DbUtil.ExecuteSqlCommand(sql, DbUtil.BackupMoneyReport);
+                decimal total = 0;
+                foreach(XYD_BackupMoneyReport item in list)
+                {
+                    total += item.Amount;
+                }
+                return ResponseUtil.OK(new
+                {
+                    results = list,
+                    total = total
+                });
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
         #endregion
     }
 }
