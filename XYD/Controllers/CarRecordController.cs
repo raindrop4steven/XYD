@@ -170,6 +170,66 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region App列表
+        [Authorize]
+        public ActionResult AppList(int Page, int Size)
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var isAdmin = false;
+                if (PermUtil.CheckPermission(employee.EmplID, "CarRecord", "admin"))
+                {
+                    isAdmin = true;
+                }
+                using (var db = new DefaultConnection())
+                {
+                    var list = db.CarRecord.Where(n => true);
+                    if (!isAdmin)
+                    {
+                        list = list.Where(n => n.DriverID == employee.EmplID);
+                    }
+                    list = list.Where(n => n.Status != DEP_Constants.CAR_MILES_CANCEL);
+                    // 记录总数
+                    var totalCount = list.Count();
+                    // 记录总页数
+                    var totalPage = (int)Math.Ceiling((float)totalCount / Size);
+                    var results = list.OrderByDescending(n => n.CreateTime).Skip(Page * Size).Take(Size).ToList();
+                    foreach (var record in results)
+                    {
+                        var statusName = string.Empty;
+                        if (record.Status == DEP_Constants.CAR_MILES_UNFINISH)
+                        {
+                            statusName = "待填写";
+                        }
+                        else
+                        {
+                            statusName = "已填写";
+                        }
+                        record.Status = statusName;
+                    }
+                    return ResponseUtil.OK(new
+                    {
+                        records = results,
+                        meta = new
+                        {
+                            current_page = Page,
+                            total_page = totalPage,
+                            current_count = Page * Size + results.Count(),
+                            total_count = totalCount,
+                            per_page = Size
+                        }
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+
         #region 填写起始公里数
         [Authorize]
         public ActionResult CompleteMiles(XYD_CarRecord record)
@@ -243,7 +303,7 @@ namespace XYD.Controllers
 
         #region 取消行程
         [Authorize]
-        public ActionResult CancelCarRecord(int id)
+        public ActionResult Cancel(int id)
         {
             try
             {
@@ -257,7 +317,7 @@ namespace XYD.Controllers
                     
                     entity.Status = DEP_Constants.CAR_MILES_CANCEL;
                     db.SaveChanges();
-                    return ResponseUtil.OK("记录成功");
+                    return ResponseUtil.OK("取消成功");
                 }
             }
             catch (Exception e)
