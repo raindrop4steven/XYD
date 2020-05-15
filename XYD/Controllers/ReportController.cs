@@ -16,7 +16,29 @@ namespace XYD.Controllers
         OrgMgr orgMgr = new OrgMgr();
 
         #region 考勤统计
-
+        [Authorize]
+        public ActionResult Calendar(DateTime BeginDate, DateTime EndDate)
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                List<Employee> employees = OrgUtil.GetChildrenDeptRecursive(employee.DeptID);
+                var results = new List<XYD_Calendar_Report>();
+                foreach(var user in employees)
+                {
+                    var calendarResult = CalendarUtil.CaculateUserCalendar(user, BeginDate, EndDate);
+                    results.Add(new XYD_Calendar_Report() { 
+                        EmplName = user.EmplName,
+                        summary = calendarResult.summary
+                    });
+                }
+                return ResponseUtil.OK(results);
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
         #endregion
 
         #region 工资统计

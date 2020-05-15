@@ -11,6 +11,9 @@ namespace XYD.Common
 {
     public class OrgUtil
     {
+
+        static OrgMgr orgMgr = new OrgMgr();
+
         #region 判断当前用户是否拥有角色
         public static bool CheckRole(string emplID, string roleName)
         {
@@ -84,6 +87,19 @@ namespace XYD.Common
                 persons.Add(person);
             }
             return persons;
+        }
+        #endregion
+
+        #region 获取当前部门及子部门所有用户
+        public static List<Employee> GetChildrenDeptRecursive(string deptId)
+        {
+            var users = orgMgr.FindUser(deptId, string.Empty, true, "EmplID", 0, 0);
+            var employees = new List<Employee>();
+            foreach(var user in users)
+            {
+                employees.Add(orgMgr.GetEmployee(user.EmplID));
+            }
+            return employees;
         }
         #endregion
     }

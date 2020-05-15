@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using XYD.Models;
+using static XYD.Common.DEP_Constants;
 
 namespace XYD.Entity
 {
@@ -71,6 +72,20 @@ namespace XYD.Entity
         public string EmplName;
         public string DeptName;
         public decimal Amount;
+    }
+    #endregion
+
+    #region 考勤数据
+    public class XYD_Calendar_Result
+    {
+        public List<XYD_CalendarEntity> dates;
+        public Dictionary<CALENDAR_TYPE, int> summary;
+    }
+
+    public class XYD_Calendar_Report
+    {
+        public String EmplName;
+        public Dictionary<CALENDAR_TYPE, int> summary;
     }
     #endregion
 }

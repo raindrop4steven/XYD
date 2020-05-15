@@ -249,6 +249,20 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 获取部门列表
+        public static List<object> GetDeptIds(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                var deptId = reader.GetString(0);
+             
+                ResultList.Add(deptId);
+            }
+            return ResultList;
+        }
+        #endregion
+
         #region 查询工资明细
         public static List<object> GetDetailSalary(SqlDataReader reader)
         {
