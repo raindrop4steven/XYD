@@ -306,6 +306,61 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 查询工资明细
+        public static List<object> GetReportSalary(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                ResultList.Add(new
+                {
+                    cPsn_Num = reader.GetString(0),
+                    cPsn_Name = reader.GetString(1),
+                    cDeptName = reader.GetString(2),
+                    F_9 = reader.IsDBNull(3) ? 0m : reader.GetDecimal(3),
+                    F_10 = reader.IsDBNull(4) ? 0m : reader.GetDecimal(4),
+                    F_12 = reader.IsDBNull(5) ? 0m : reader.GetDecimal(5),
+                    F_11 = reader.IsDBNull(6) ? 0m : reader.GetDecimal(6),
+                    F_26 = reader.IsDBNull(7) ? 0m : reader.GetDecimal(7),
+                    F_1 = reader.IsDBNull(8) ? 0m : reader.GetDecimal(8),
+                    F_13 = reader.IsDBNull(9) ? 0m : reader.GetDecimal(9),
+                    F_14 = reader.IsDBNull(10) ? 0m : reader.GetDecimal(10),
+                    F_15 = reader.IsDBNull(11) ? 0m : reader.GetDecimal(11),
+                    F_16 = reader.IsDBNull(12) ? 0m : reader.GetDecimal(12),
+                    F_17 = reader.IsDBNull(13) ? 0m : reader.GetDecimal(13),
+                    F_18 = reader.IsDBNull(14) ? 0m : reader.GetDecimal(14),
+                    F_19 = reader.IsDBNull(15) ? 0m : reader.GetDecimal(15),
+                    F_20 = reader.IsDBNull(16) ? 0m : reader.GetDecimal(16),
+                    F_21 = reader.IsDBNull(17) ? 0m : reader.GetDecimal(17),
+                    F_22 = reader.IsDBNull(18) ? 0m : reader.GetDecimal(18),
+                    F_23 = reader.IsDBNull(19) ? 0m : reader.GetDecimal(19),
+                    F_1102 = reader.IsDBNull(20) ? 0m : reader.GetDecimal(20),
+                    F_1103 = reader.IsDBNull(21) ? 0m : reader.GetDecimal(21),
+                    F_1104 = reader.IsDBNull(22) ? 0m : reader.GetDecimal(22),
+                    F_1105 = reader.IsDBNull(23) ? 0m : reader.GetDecimal(23),
+                    F_1106 = reader.IsDBNull(24) ? 0m : reader.GetDecimal(24),
+                    F_1108 = reader.IsDBNull(25) ? 0m : reader.GetDecimal(25),
+                    F_1112 = reader.IsDBNull(26) ? 0m : reader.GetDecimal(26),
+                    F_1116 = reader.IsDBNull(27) ? 0m : reader.GetDecimal(27),
+                    F_1115 = reader.IsDBNull(28) ? 0m : reader.GetDecimal(28),
+                    F_1114 = reader.IsDBNull(29) ? 0m : reader.GetDecimal(29),
+                    F_1113 = reader.IsDBNull(30) ? 0m : reader.GetDecimal(30),
+                    F_1001 = reader.IsDBNull(31) ? 0m : reader.GetDecimal(31),
+                    F_1002 = reader.IsDBNull(32) ? 0m : reader.GetDecimal(32),
+                    F_6 = reader.IsDBNull(33) ? 0m : reader.GetDecimal(33),
+                    F_1003 = reader.IsDBNull(34) ? 0m : reader.GetDecimal(34),
+                    F_25 = reader.IsDBNull(35) ? 0m : reader.GetDecimal(35),
+                    F_24 = reader.IsDBNull(36) ? 0m : reader.GetDecimal(36),
+                    F_1004 = reader.IsDBNull(37) ? 0m : reader.GetDecimal(37),
+                    F_2 = reader.IsDBNull(38) ? 0m : reader.GetDecimal(38),
+                    F_3 = reader.IsDBNull(39) ? 0m : reader.GetDecimal(39),
+                    cDepCode = reader.GetString(40)
+                });
+            }
+            return ResultList;
+        }
+        #endregion
+
         #region 查询未同步供应商
         public static List<object> GetUnSyncVendor(SqlDataReader reader)
         {
