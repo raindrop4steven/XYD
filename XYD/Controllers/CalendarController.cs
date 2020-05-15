@@ -80,7 +80,9 @@ namespace XYD.Controllers
                         {
                             entity.Name = "上班";
                             entity.Type = CALENDAR_TYPE.Work;
-                        } else
+                        }
+                        // 今天之前的数据
+                        else
                         {
                             // 上班日期里再根据请假，考勤判断是：请假，迟到，早退，正常上班
                             var attence = attenceRecords.Where(n => n.StartTime >= d.Date && n.EndTime <= CommonUtils.EndOfDay(d)).FirstOrDefault();
@@ -120,10 +122,18 @@ namespace XYD.Controllers
                                     entity.Name = "迟到";
                                     entity.Type = CALENDAR_TYPE.Late;
                                 }
-                                else if (attence.EndTime < shouldEndTime)
+                                else if (attence.StartTime.Value.AddHours(9) > attence.EndTime)
                                 {
-                                    entity.Name = "早退";
-                                    entity.Type = CALENDAR_TYPE.LeaveEarly;
+                                    // 当天19：00前不判断早退
+                                    if (d == today && attence.EndTime < shouldEndTime)
+                                    {
+                                        entity.Name = "上班";
+                                        entity.Type = CALENDAR_TYPE.Work;
+                                    } else
+                                    {
+                                        entity.Name = "早退";
+                                        entity.Type = CALENDAR_TYPE.LeaveEarly;
+                                    }
                                 }
                                 else
                                 {
