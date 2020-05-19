@@ -13,13 +13,17 @@ namespace XYD.Controllers
     {
         #region 供应商列表
         [Authorize]
-        public ActionResult List(int Page = 0, int Size = 10)
+        public ActionResult List(string Name, int Page = 0, int Size = 10)
         {
             try
             {
                 using (var db = new DefaultConnection())
                 {
                     var list = db.Vendor.Where(n => true);
+                    if (!string.IsNullOrEmpty(Name))
+                    {
+                        list = list.Where(n => n.Name.Contains(Name));
+                    }
                     var totalCount = list.Count();
                     // 记录总页数
                     var totalPage = (int)Math.Ceiling((float)totalCount / Size);
