@@ -1,0 +1,14 @@
+﻿{
+    "cells": [
+        {
+            "Row": 6,
+            "Col": 3,
+            "Event": "#custom(XYD.Common.CellEvents, CQ_02_CategoryUpdate, #C-6-3)"
+        },
+        {
+            "Row": 6,
+            "Col": 7,
+            "Event": "#custom(XYD.Common.CellEvents, CQ_01_SelectTypeUpdate, #C-6-7)"
+        }
+    ]
+}

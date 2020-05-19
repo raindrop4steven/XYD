@@ -44,7 +44,6 @@ namespace XYD.Common
         }
         #endregion
 
-        // 众妙之门 START ：）
         #region 解析自定义方法参数
         public static XYD_Custom_Func ParseCustomFunc(string originStr)
         {
@@ -93,7 +92,6 @@ namespace XYD.Common
             return cellValue;
         }
         #endregion
-        // 众妙之门 END ：）
 
         #region 复制对象属性
         public static void CopyProperties<T>(object src, object dest)

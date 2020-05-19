@@ -796,6 +796,11 @@
     <Content Include="Content\static\layui\font\iconfont.woff" />
     <Content Include="Content\static\layui\font\iconfont.woff2" />
     <Content Include="Content\config\holidays\2020.json" />
+    <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152\1\app-transformer.json" />
+    <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152\1\audit.json" />
+    <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152\1\main.json" />
+    <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152\1\start.json" />
+    <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152\1\event.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -185,5 +185,112 @@ namespace XYD.Common
             }
         }
         #endregion
+
+        #region 出勤申请
+        /// <summary>
+        /// 日期控件类型切换
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="eventArgument"></param>
+        /// <param name="dateType"></param>
+        /// <returns></returns>
+        public static object CQ_01_SelectTypeUpdate(string user, XYD_Event_Argument eventArgument, string dateType)
+        {
+            var mid = eventArgument.MessageId;
+            Worksheet worksheet = WorkflowUtil.GetWorksheet(mid);
+            WorkflowUtil.UpdateCell(worksheet, 6, 7, eventArgument.CurrentCellValue.Value, string.Empty);
+            XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, mid);
+
+            if (dateType == "选到小时")
+            {
+                // 开始时间
+                var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 7, 3);
+                startTimeCellValue.Type = 3;
+                // 结束时间
+                var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 7, 7);
+                endTimeCellValue.Type = 3;
+                // 更新Cell
+                WorkflowUtil.UpdateFieldsCellValue(fields.Fields, startTimeCellValue);
+                WorkflowUtil.UpdateFieldsCellValue(fields.Fields, endTimeCellValue);
+            }
+            else
+            {
+                // 开始时间
+                var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 7, 3);
+                startTimeCellValue.Type = 2;
+                // 结束时间
+                var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 7, 7);
+                endTimeCellValue.Type = 2;
+                // 更新Cell
+                WorkflowUtil.UpdateFieldsCellValue(fields.Fields, startTimeCellValue);
+                WorkflowUtil.UpdateFieldsCellValue(fields.Fields, endTimeCellValue);
+            }
+
+            return EventResult.OK(fields);
+        }
+        
+        /// <summary>
+        /// 出勤类别切换
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="eventArgument"></param>
+        /// <param name="dateType"></param>
+        /// <returns></returns>
+        public static object CQ_02_CategoryUpdate(string user, XYD_Event_Argument eventArgument, string category)
+        {
+            var mid = eventArgument.MessageId;
+            Worksheet worksheet = WorkflowUtil.GetWorksheet(mid);
+            WorkflowUtil.UpdateCell(worksheet, 6, 3, eventArgument.CurrentCellValue.Value, string.Empty);
+            XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, mid);
+
+            if (category == "年假" || category == "婚假" || category == "产假" || category == "丧假")
+            {
+                // 选到日期
+                // 控件类别
+                var dateTimeTypeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 6, 7);
+                dateTimeTypeCellValue.CanEdit = false;
+                dateTimeTypeCellValue.Value = "选到日期";
+                // 开始时间
+                var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 7, 3);
+                startTimeCellValue.Type = 2;
+                // 结束时间
+                var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 7, 7);
+                endTimeCellValue.Type = 2;
+                // 更新Cell
+                WorkflowUtil.UpdateFieldsCellValue(fields.Fields, dateTimeTypeCellValue);
+                WorkflowUtil.UpdateFieldsCellValue(fields.Fields, startTimeCellValue);
+                WorkflowUtil.UpdateFieldsCellValue(fields.Fields, endTimeCellValue);
+            }
+            else if (category == "哺乳假")
+            {
+                // 选到小时
+                // 控件类别
+                var dateTimeTypeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 6, 7);
+                dateTimeTypeCellValue.CanEdit = false;
+                dateTimeTypeCellValue.Value = "选到小时";
+                // 开始时间
+                var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 7, 3);
+                startTimeCellValue.Type = 3;
+                // 结束时间
+                var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 7, 7);
+                endTimeCellValue.Type = 3;
+                // 更新Cell
+                WorkflowUtil.UpdateFieldsCellValue(fields.Fields, dateTimeTypeCellValue);
+                WorkflowUtil.UpdateFieldsCellValue(fields.Fields, startTimeCellValue);
+                WorkflowUtil.UpdateFieldsCellValue(fields.Fields, endTimeCellValue);
+            }
+            else
+            {
+                // 均可
+                // 控件类别
+                var dateTimeTypeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 6, 7);
+                dateTimeTypeCellValue.CanEdit = true;
+                dateTimeTypeCellValue.Value = "";
+                WorkflowUtil.UpdateFieldsCellValue(fields.Fields, dateTimeTypeCellValue);
+            }
+
+            return EventResult.OK(fields);
+        }
+        #endregion
     }
 }

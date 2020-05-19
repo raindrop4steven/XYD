@@ -1025,3 +1025,19 @@ function CheckLineRequired(startRow, endRow, startCol, endCol, checkCols) {
     }
     return null;
 }
+
+/**
+ * 设置出勤申请日期控件类型
+ */
+function setDateTimeType() {
+    var chuqinType = $('#C-6-3').text();
+    if (chuqinType == '年假' || chuqinType == '婚假' || chuqinType == '产假' || chuqinType == '丧假') {
+        SaveCellValue($('#C-6-7'), '选到日期', '');
+        SetReadonlyCells(['#C-6-7']);
+    } else if (chuqinType == '哺乳假') {
+        SaveCellValue($('#C-6-7'), '选到小时', '');
+        SetReadonlyCells(['#C-6-7']);
+    } else {
+        SetWriteCells(['#C-6-7']);
+    }
+}

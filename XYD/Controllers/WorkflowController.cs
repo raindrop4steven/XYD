@@ -317,7 +317,7 @@ namespace XYD.Controllers
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
-
+                var isReadOnly = false;
                 List<Node> source = mgr.ListNodeToBeHandle(employee.EmplID, "");
                 foreach (Node node in source)
                 {
@@ -326,6 +326,7 @@ namespace XYD.Controllers
                         // 判断是否是转发传阅节点
                         if (node.NodeKey.StartsWith(DEP_Constants.Transfer_Node_Key_Header) || node.NodeType == 5)
                         {
+                            isReadOnly = true;
                             // node状态
                             node.NodeStatus = 3;
                             mgr.UpdateNode(node);
@@ -375,6 +376,7 @@ namespace XYD.Controllers
 
                     return ResponseUtil.OK(new
                     {
+                        readOnly = isReadOnly,
                         detail = result,
                         control = action,
                         action = control,
