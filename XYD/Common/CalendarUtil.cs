@@ -162,6 +162,9 @@ namespace XYD.Common
                             // 判断考勤状态
                             var shouldStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.StartWorkTime)));
                             var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));
+                            var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
+                            var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
+                            // TODO: 加入午休时间逻辑
                             if (attence.StartTime > shouldStartTime)
                             {
                                 entity.Name = "迟到";

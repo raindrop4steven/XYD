@@ -37,6 +37,8 @@ namespace XYD.Controllers
                     Area = config.Area,
                     StartWorkTime = config.StartWorkTime,
                     EndWorkTime = config.EndWorkTime,
+                    RestStartTime = config.RestStartTime,
+                    RestEndTime = config.RestEndTime,
                     RestDays = config.RestDays,
                     Allowance = config.Allowance,
                     Banners = atts
@@ -64,8 +66,10 @@ namespace XYD.Controllers
                         {
                             config.StartWorkTime = model.StartWorkTime;
                             config.EndWorkTime = model.EndWorkTime;
-                            config.RestDays = model.RestDays;
-                            config.Allowance = model.Allowance;
+                            //config.RestDays = model.RestDays;
+                            //config.Allowance = model.Allowance;
+                            config.RestStartTime = model.RestStartTime;
+                            config.RestEndTime = model.RestEndTime;
                         }
                         config.Banners = model.Banners;
                     }

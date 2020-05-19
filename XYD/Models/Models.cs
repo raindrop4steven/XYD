@@ -314,10 +314,14 @@ namespace XYD.Models
         public int ID { get; set; }
         // 区域：无锡、上海
         public string Area { get; set; }
-        // 考勤开始时间 
+        // 考勤最晚开始时间
         public string StartWorkTime { get; set; }
-        // 考勤结束时间
+        // 考勤最晚结束时间
         public string EndWorkTime { get; set; }
+        // 午休开始时间
+        public string RestStartTime { get; set; }
+        // 午休结束时间
+        public string RestEndTime { get; set; }
         // 年假天数
         public int RestDays { get; set; }
         // 出差补贴标准
