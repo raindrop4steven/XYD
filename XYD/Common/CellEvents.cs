@@ -205,10 +205,10 @@ namespace XYD.Common
             {
                 // 开始时间
                 var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 7, 3);
-                startTimeCellValue.Type = 3;
+                startTimeCellValue.Type = 4;
                 // 结束时间
                 var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 7, 7);
-                endTimeCellValue.Type = 3;
+                endTimeCellValue.Type = 4;
                 // 更新Cell
                 WorkflowUtil.UpdateFieldsCellValue(fields.Fields, startTimeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(fields.Fields, endTimeCellValue);
@@ -270,10 +270,10 @@ namespace XYD.Common
                 dateTimeTypeCellValue.Value = "选到小时";
                 // 开始时间
                 var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 7, 3);
-                startTimeCellValue.Type = 3;
+                startTimeCellValue.Type = 4;
                 // 结束时间
                 var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(fields.Fields, 7, 7);
-                endTimeCellValue.Type = 3;
+                endTimeCellValue.Type = 4;
                 // 更新Cell
                 WorkflowUtil.UpdateFieldsCellValue(fields.Fields, dateTimeTypeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(fields.Fields, startTimeCellValue);
