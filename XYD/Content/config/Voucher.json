@@ -95,6 +95,24 @@
                 },
                 {
                     "Type": 1,
+                    "Code": "66020408",
+                    "Name": "补贴",
+                    "Subs": [
+                        "补贴"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020105",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 1,
                     "Code": "66020410",
                     "Name": "其他",
                     "Subs": [
@@ -194,6 +212,24 @@
                     "Name": "洗车",
                     "Subs": [
                         "洗车"
+                    ],
+                    "Debit": {
+                        "EmplNo": true,
+                        "DeptNo": false,
+                        "CustomerNo": false,
+                        "VendorNo": false
+                    },
+                    "Credit": {
+                        "Code": "10020105",
+                        "Name": "现金银行科目"
+                    }
+                },
+                {
+                    "Type": 1,
+                    "Code": "66020408",
+                    "Name": "补贴",
+                    "Subs": [
+                        "补贴"
                     ],
                     "Debit": {
                         "EmplNo": true,
