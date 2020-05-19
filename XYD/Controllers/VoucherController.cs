@@ -209,10 +209,6 @@ namespace XYD.Controllers
                                 string voucherName = record.VoucherName;
                                 XYD_SubVoucherCode subCode = null;
                                 subCode = WorkflowUtil.GetSubVoucherCode(record.MessageID, voucherName);
-                                if (subCode.Debit.DeptNo)
-                                {
-                                    DeptNo = record.DeptNo;
-                                }
                                 if (subCode.Debit.VendorNo)
                                 {
                                     VendorNo = record.VendorNo;
@@ -233,6 +229,12 @@ namespace XYD.Controllers
                                     var amount = 0.0f;
                                     // 申请人从快递表里取
                                     ApplyUser = orgMgr.GetEmployee(express.SenderId);
+                                    if (subCode.Debit.DeptNo)
+                                    {
+                                        //DeptNo = record.DeptNo;
+                                        var dept = orgMgr.GetDepartment(ApplyUser.DeptID);
+                                        DeptNo = dept.DeptDescr;
+                                    }
                                     //brief = string.Format("{0} {1} 付 {2} {3}", CreateTime, Sn, subCode.Name, ApplyUser.EmplName);
                                     if (j == expressList.Count - 1)
                                     {
