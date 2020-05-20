@@ -179,9 +179,12 @@ namespace XYD.Controllers
                                 // 科目已确定，一条借
                                 voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalTaxFreeNum, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, VendorNo, string.Empty, string.Empty);
                                 Results.Add(voucher);
-                                // 加一条税金科目
-                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Tax.Code, record.TotalTaxNum, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
-                                Results.Add(voucher);
+                                if (float.Parse(record.TotalTaxNum) > 0)
+                                {
+                                    // 加一条税金科目
+                                    voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Tax.Code, record.TotalTaxNum, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
+                                    Results.Add(voucher);
+                                }
                                 // 一条贷
                                 voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, DeptNo, string.Empty, string.Empty, VendorNo, string.Empty, string.Empty);
                                 Results.Add(voucher);
@@ -250,9 +253,12 @@ namespace XYD.Controllers
                                     voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, amount.ToString(), 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, VendorNo, string.Empty, string.Empty);
                                     Results.Add(voucher);
                                 }
-                                // 一条税金科目
-                                voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Tax.Code, record.TotalTaxNum, 0, string.Empty, 0, DeptNo, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-                                Results.Add(voucher);
+                                if (float.Parse(record.TotalTaxNum) > 0)
+                                {
+                                    // 一条税金科目
+                                    voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Tax.Code, record.TotalTaxNum, 0, string.Empty, 0, DeptNo, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+                                    Results.Add(voucher);
+                                }
                                 // 一条贷
                                 voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Credit.Code, 0, record.TotalAmount, string.Empty, 0, DeptNo, string.Empty, string.Empty, VendorNo, string.Empty, string.Empty);
                                 Results.Add(voucher);
