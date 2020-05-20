@@ -209,24 +209,44 @@ namespace XYD.Common
                 // 开始时间
                 var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 3);
                 startTimeCellValue.Type = 4;
+                startTimeCellValue.Value = "";
                 // 结束时间
                 var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 7);
                 endTimeCellValue.Type = 4;
+                endTimeCellValue.Value = "";
+                // 更新表单中选到小时
+                WorkflowUtil.UpdateCell(worksheet, 7, 9, "小时数", "");
+                var deltaHourCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 11);
+                deltaHourCellValue.Title = "小时数";
+                deltaHourCellValue.Value = "";
                 // 更新Cell
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, startTimeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, endTimeCellValue);
+                WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, deltaHourCellValue);
+                // 更新计算公式
+                fields.Operations.FirstOrDefault().Type = "hour";
             }
             else
             {
                 // 开始时间
                 var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 3);
                 startTimeCellValue.Type = 2;
+                startTimeCellValue.Value = "";
                 // 结束时间
                 var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 7);
                 endTimeCellValue.Type = 2;
+                endTimeCellValue.Value = "";
+                // 更新表单中选到小时
+                WorkflowUtil.UpdateCell(worksheet, 7, 9, "天数", "");
+                var deltaHourCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 11);
+                deltaHourCellValue.Title = "天数";
+                deltaHourCellValue.Value = "";
                 // 更新Cell
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, startTimeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, endTimeCellValue);
+                WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, deltaHourCellValue);
+                // 更新计算公式
+                fields.Operations.FirstOrDefault().Type = "date";
             }
             fields.Fields = eventArgument.Fields;
             return EventResult.OK(fields);
@@ -259,13 +279,21 @@ namespace XYD.Common
                 // 开始时间
                 var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 3);
                 startTimeCellValue.Type = 2;
+                startTimeCellValue.Value = "";
                 // 结束时间
                 var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 7);
                 endTimeCellValue.Type = 2;
+                endTimeCellValue.Value = "";
+                // 更新表单中选到小时
+                WorkflowUtil.UpdateCell(worksheet, 7, 9, "天数", "");
+                var deltaHourCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 11);
+                deltaHourCellValue.Title = "天数";
+                deltaHourCellValue.Value = "";
                 // 更新Cell
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, dateTimeTypeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, startTimeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, endTimeCellValue);
+                WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, deltaHourCellValue);
             }
             else if (category == "哺乳假")
             {
@@ -277,13 +305,21 @@ namespace XYD.Common
                 // 开始时间
                 var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 3);
                 startTimeCellValue.Type = 4;
+                startTimeCellValue.Value = "";
                 // 结束时间
                 var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 7);
                 endTimeCellValue.Type = 4;
+                endTimeCellValue.Value = "";
+                // 更新表单中选到小时
+                WorkflowUtil.UpdateCell(worksheet, 7, 9, "小时数", "");
+                var deltaHourCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 11);
+                deltaHourCellValue.Title = "小时数";
+                deltaHourCellValue.Value = "";
                 // 更新Cell
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, dateTimeTypeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, startTimeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, endTimeCellValue);
+                WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, deltaHourCellValue);
             }
             else
             {
