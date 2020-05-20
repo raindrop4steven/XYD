@@ -191,6 +191,12 @@ namespace XYD.Controllers
                             }
                             else
                             {
+                                // 判断是否是付款申请
+                                if (WorkflowUtil.IsPayWorkflow(record.MessageID))
+                                {
+                                    var vendor = VendorUtil.GetVendor(VendorNo);
+                                    brief = string.Format("{0} {1}", CreateTime, vendor == null ? "" : vendor.Name);
+                                }
                                 // 科目已确定，一条借
                                 voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalAmount, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, VendorNo, string.Empty, string.Empty);
                                 Results.Add(voucher);

@@ -1600,5 +1600,17 @@ namespace XYD.Common
             }
         }
         #endregion
+
+        #region 判断是否是付款申请
+        public static bool IsPayWorkflow(string mid)
+        {
+            var message = mgr.GetMessage(mid);
+            if (message.FromTemplate == "84f434ac-4626-4748-b294-fe94b16b953c" || message.FromTemplate == "06d9b887-ca03-4042-8202-2aafaeaa3634")
+            {
+                return true;
+            }
+            return false;
+        }
+        #endregion
     }
 }
