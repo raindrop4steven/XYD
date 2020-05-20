@@ -153,7 +153,17 @@ namespace XYD.Controllers
                             {
                                 if (subCode.Type == DEP_Constants.VOUCHER_TYPE_INVOICE)
                                 {
-                                    DeptNo = record.DeptNo;
+                                    if (record.VoucherName == "汽油费")
+                                    {
+                                        // 做到无锡综合管理部行政专员上
+                                        ApplyUser = orgMgr.GetEmployee(DEP_Constants.WuXi_XingZheng_User);
+                                        var dept = orgMgr.GetDepartment(ApplyUser.DeptID);
+                                        DeptNo = dept.DeptDescr;
+                                    }
+                                    else
+                                    {
+                                        DeptNo = record.DeptNo;
+                                    }
                                 }
                                 else
                                 {

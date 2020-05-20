@@ -190,6 +190,11 @@ namespace XYD.Common
         // 发票凭证
         public static int VOUCHER_TYPE_INVOICE = 2;
 
+        /**
+         * 无锡行政管理人员
+         */
+        public static string WuXi_XingZheng_User = "100009";
+
         public enum CALENDAR_TYPE
         {
             Holiday = 0, // 节日
