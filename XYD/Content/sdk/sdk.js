@@ -798,6 +798,16 @@ function CaculateHours(beginID, endID, destID) {
     }
 }
 
+// 根据条件计算小时/天数
+function CaculateTimeDelta(selectTypeID, beginID, endID, destID) {
+    var selectType = $(selectTypeID).text();
+    if (selectType == '选到日期') {
+        CaculateDays(beginID, endID, destID);
+    } else {
+        CaculateHours(beginID, endID, destID);
+    }
+}
+
 //数字转大写
 function MoneyToCapital(n) {
     if (n == 0) {
@@ -1026,18 +1036,48 @@ function CheckLineRequired(startRow, endRow, startCol, endCol, checkCols) {
     return null;
 }
 
+//////////////////////// 出勤申请特有 ////////////////////////////////////////
 /**
  * 设置出勤申请日期控件类型
  */
 function setDateTimeType() {
     var chuqinType = $('#C-6-3').text();
     if (chuqinType == '年假' || chuqinType == '婚假' || chuqinType == '产假' || chuqinType == '丧假') {
+        $('#C-6-7').text('选到日期');
         SaveCellValue($('#C-6-7'), '选到日期', '');
         SetReadonlyCells(['#C-6-7']);
+        dateSelectTypeUpdate('选到日期');
     } else if (chuqinType == '哺乳假') {
+        $('#C-6-7').text('选到小时');
         SaveCellValue($('#C-6-7'), '选到小时', '');
         SetReadonlyCells(['#C-6-7']);
+        dateSelectTypeUpdate('选到小时');
     } else {
         SetWriteCells(['#C-6-7']);
+        dateSelectTypeUpdate();
     }
 }
+
+/**
+ * 日期控件小时/天切换事件
+ */
+function dateSelectTypeUpdate(selectType) {
+    if (selectType == null || selectType == undefined || selectType.length == 0) {
+        selectType = $('#C-6-7').text();
+    }
+    if (selectType == '选到小时') {
+        $('#C-7-9').text('小时数');
+        SaveCellValue($('#C-7-9'), '小时数', '');
+    } else {
+        $('#C-7-9').text('天数');
+        SaveCellValue($('#C-7-9'), '天数', '');
+    }
+    // 开始日期，结束日期清空
+    $('#C-7-3').text('');
+    $('#C-7-7').text('');
+    $('#C-7-11').text('');
+    SaveCellValue($('#C-7-3'), '', '');
+    SaveCellValue($('#C-7-7'), '', '');
+    SaveCellValue($('#C-7-11'), '', '');
+}
+//////////////////////// 出勤申请特有 ////////////////////////////////////////
