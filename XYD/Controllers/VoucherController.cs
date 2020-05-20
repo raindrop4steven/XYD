@@ -239,7 +239,7 @@ namespace XYD.Controllers
                                     if (j == expressList.Count - 1)
                                     {
                                         // 最后一条
-                                        amount = float.Parse(record.TotalTaxFreeNum) - currentSum;
+                                        amount = float.Parse(record.TotalAmount) - currentSum;
                                     }
                                     else
                                     {
