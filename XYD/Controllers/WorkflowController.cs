@@ -850,5 +850,28 @@ namespace XYD.Controllers
             });
         }
         #endregion
+
+        #region 判断两个日期是否是同一天
+        public ActionResult CheckSameDay(string selectType, string BeginDate, string EndDate)
+        {
+            try
+            {
+                if (selectType == DEP_Constants.DATE_SELECT_TYPE_HOUR)
+                {
+                    var startDate = DateTime.Parse(BeginDate);
+                    var endDate = DateTime.Parse(EndDate);
+                    if (startDate.Date.ToString("yyyy-MM-dd") != endDate.Date.ToString("yyyy-MM-dd"))
+                    {
+                        return ResponseUtil.Error("开始日期和结束日期必须为同一天");
+                    }
+                }
+                return ResponseUtil.OK("校验成功");
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }

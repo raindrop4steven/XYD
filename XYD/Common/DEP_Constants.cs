@@ -191,6 +191,11 @@ namespace XYD.Common
         public static int VOUCHER_TYPE_INVOICE = 2;
 
         /**
+         * 出勤申请时间选择类型
+         */
+        public static string DATE_SELECT_TYPE_HOUR = "小时";
+
+        /**
          * 无锡行政管理人员
          */
         public static string WuXi_XingZheng_User = "100009";
