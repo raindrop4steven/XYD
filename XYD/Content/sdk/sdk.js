@@ -801,7 +801,7 @@ function CaculateHours(beginID, endID, destID) {
 // 根据条件计算小时/天数
 function CaculateTimeDelta(selectTypeID, beginID, endID, destID) {
     var selectType = $(selectTypeID).text();
-    if (selectType == '选到日期') {
+    if (selectType == '天') {
         CaculateDays(beginID, endID, destID);
     } else {
         CaculateHours(beginID, endID, destID);
@@ -1043,15 +1043,15 @@ function CheckLineRequired(startRow, endRow, startCol, endCol, checkCols) {
 function setDateTimeType() {
     var chuqinType = $('#C-6-3').text();
     if (chuqinType == '年假' || chuqinType == '婚假' || chuqinType == '产假' || chuqinType == '丧假') {
-        $('#C-6-7').text('选到日期');
-        SaveCellValue($('#C-6-7'), '选到日期', '');
+        $('#C-6-7').text('天');
+        SaveCellValue($('#C-6-7'), '天', '');
         SetReadonlyCells(['#C-6-7']);
-        dateSelectTypeUpdate('选到日期');
+        dateSelectTypeUpdate('天');
     } else if (chuqinType == '哺乳假') {
-        $('#C-6-7').text('选到小时');
-        SaveCellValue($('#C-6-7'), '选到小时', '');
+        $('#C-6-7').text('小时');
+        SaveCellValue($('#C-6-7'), '小时', '');
         SetReadonlyCells(['#C-6-7']);
-        dateSelectTypeUpdate('选到小时');
+        dateSelectTypeUpdate('小时');
     } else {
         SetWriteCells(['#C-6-7']);
         dateSelectTypeUpdate();
@@ -1065,11 +1065,11 @@ function dateSelectTypeUpdate(selectType) {
     if (selectType == null || selectType == undefined || selectType.length == 0) {
         selectType = $('#C-6-7').text();
     }
-    if (selectType == '选到小时') {
+    if (selectType == '小时') {
         $('#C-7-9').text('小时数');
         SaveCellValue($('#C-7-9'), '小时数', '');
     } else {
-        $('#C-7-9').text('天数');
+        $('#C-7-9').text('天');
         SaveCellValue($('#C-7-9'), '天数', '');
     }
     // 开始日期，结束日期清空

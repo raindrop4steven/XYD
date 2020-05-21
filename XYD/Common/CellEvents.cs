@@ -204,7 +204,7 @@ namespace XYD.Common
 
             XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, mid);
 
-            if (dateType == "选到小时")
+            if (dateType == "小时")
             {
                 // 开始时间
                 var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 3);
@@ -275,7 +275,7 @@ namespace XYD.Common
                 // 控件类别
                 var dateTimeTypeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 6, 7);
                 dateTimeTypeCellValue.CanEdit = false;
-                dateTimeTypeCellValue.Value = "选到日期";
+                dateTimeTypeCellValue.Value = "天";
                 // 开始时间
                 var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 3);
                 startTimeCellValue.Type = 2;
@@ -301,7 +301,7 @@ namespace XYD.Common
                 // 控件类别
                 var dateTimeTypeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 6, 7);
                 dateTimeTypeCellValue.CanEdit = false;
-                dateTimeTypeCellValue.Value = "选到小时";
+                dateTimeTypeCellValue.Value = "小时";
                 // 开始时间
                 var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 3);
                 startTimeCellValue.Type = 4;
