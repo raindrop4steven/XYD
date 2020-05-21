@@ -164,30 +164,36 @@ namespace XYD.Common
                             var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));
                             var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
                             var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
-                            // TODO: 加入午休时间逻辑
+                            // 加入午休时间逻辑
                             if (attence.StartTime > shouldStartTime)
                             {
                                 entity.Name = "迟到";
                                 entity.Type = CALENDAR_TYPE.Late;
                             }
-                            else if (attence.StartTime.Value.AddHours(9) > attence.EndTime)
+                            else
                             {
-                                // 当天19：00前不判断早退
-                                if (d == today && attence.EndTime < shouldEndTime)
+                                // 如果是今天，则不判断早退
+                                if (d == today || attence.EndTime == null)
                                 {
                                     entity.Name = "上班";
                                     entity.Type = CALENDAR_TYPE.Work;
                                 }
                                 else
                                 {
-                                    entity.Name = "早退";
-                                    entity.Type = CALENDAR_TYPE.LeaveEarly;
+                                    var morningHour = (restStartTime - attence.StartTime.Value).TotalHours;
+                                    var afterHour = (attence.EndTime.Value - restEndTime).TotalHours;
+                                    var workHour = morningHour + afterHour;
+                                    if (workHour < 8)
+                                    {
+                                        entity.Name = "早退";
+                                        entity.Type = CALENDAR_TYPE.LeaveEarly;
+                                    }
+                                    else
+                                    {
+                                        entity.Name = "上班";
+                                        entity.Type = CALENDAR_TYPE.Work;
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                entity.Name = "上班";
-                                entity.Type = CALENDAR_TYPE.Work;
                             }
                         }
                     }
