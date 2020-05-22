@@ -837,7 +837,7 @@ namespace XYD.Common
                 }
                 if (arrayCell.Array.Count < goodsArray.Count)
                 {
-                    throw new Exception("选择物品超过表格最大行数");
+                    throw new Exception("申领物品不能选择超过5种");
                 }
                 // 填充到对应的里面
                 var updateCells = new List<Workcell>();
