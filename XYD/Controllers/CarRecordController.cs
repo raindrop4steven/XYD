@@ -189,25 +189,12 @@ namespace XYD.Controllers
                     {
                         list = list.Where(n => n.DriverID == employee.EmplID);
                     }
-                    list = list.Where(n => n.Status != DEP_Constants.CAR_MILES_CANCEL);
+                    list = list.Where(n => n.Status == DEP_Constants.CAR_MILES_UNFINISH);
                     // 记录总数
                     var totalCount = list.Count();
                     // 记录总页数
                     var totalPage = (int)Math.Ceiling((float)totalCount / Size);
                     var results = list.OrderByDescending(n => n.CreateTime).Skip(Page * Size).Take(Size).ToList();
-                    foreach (var record in results)
-                    {
-                        var statusName = string.Empty;
-                        if (record.Status == DEP_Constants.CAR_MILES_UNFINISH)
-                        {
-                            statusName = "待填写";
-                        }
-                        else
-                        {
-                            statusName = "已填写";
-                        }
-                        record.Status = statusName;
-                    }
                     return ResponseUtil.OK(new
                     {
                         records = results,
