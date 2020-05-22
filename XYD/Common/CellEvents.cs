@@ -294,6 +294,8 @@ namespace XYD.Common
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, startTimeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, endTimeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, deltaHourCellValue);
+                // 更新计算公式
+                fields.Operations.FirstOrDefault().Type = "date";
             }
             else if (category == "哺乳假")
             {
@@ -320,6 +322,8 @@ namespace XYD.Common
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, startTimeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, endTimeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, deltaHourCellValue);
+                // 更新计算公式
+                fields.Operations.FirstOrDefault().Type = "hour";
             }
             else
             {

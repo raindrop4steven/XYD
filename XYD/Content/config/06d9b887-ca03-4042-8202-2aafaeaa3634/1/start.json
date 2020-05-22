@@ -164,7 +164,7 @@
                 "Col": 3,
                 "Options": null,
                 "NeedRefresh": false,
-                "Required": true
+                "Required": false
             }
         }
     ]
