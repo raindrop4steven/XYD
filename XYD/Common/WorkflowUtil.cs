@@ -883,7 +883,7 @@ namespace XYD.Common
                 {
                     singleCell = (XYD_Single_Cell)cell;
                     var workcell = worksheet.GetWorkcell(singleCell.Value.Row, singleCell.Value.Col);
-                    if (workcell != null)
+                    if (workcell != null && singleCell.Value.Type != 10)
                     {
                         workcell.WorkcellValue = singleCell.Value.Value;
                         workcell.WorkcellInternalValue = singleCell.Value.InterValue;
@@ -898,9 +898,12 @@ namespace XYD.Common
                         foreach (XYD_Cell_Value innerCell in rowCells)
                         {
                             var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
-                            workcell.WorkcellValue = innerCell.Value;
-                            workcell.WorkcellInternalValue = innerCell.InterValue;
-                            workCellList.Add(workcell);
+                            if (workcell != null && innerCell.Type != 10)
+                            {
+                                workcell.WorkcellValue = innerCell.Value;
+                                workcell.WorkcellInternalValue = innerCell.InterValue;
+                                workCellList.Add(workcell);
+                            }
                         }
                     }
                 }
