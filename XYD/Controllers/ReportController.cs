@@ -21,7 +21,13 @@ namespace XYD.Controllers
         {
             try
             {
+                // 检查用户是否具有领导权限
                 var employee = (User.Identity as AppkizIdentity).Employee;
+                var isLeader = PermUtil.CheckPermission(employee.EmplID, DEP_Constants.Module_Information_Code, DEP_Constants.Perm_Info_Leader);
+                if (!isLeader)
+                {
+                    return ResponseUtil.Error("您没有权限查看数据");
+                }
                 List<Employee> employees = OrgUtil.GetChildrenDeptRecursive(employee.DeptID);
                 var results = new List<XYD_Calendar_Report>();
                 foreach(var user in employees)
@@ -203,6 +209,12 @@ namespace XYD.Controllers
         {
             try
             {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var isLeader = PermUtil.CheckPermission(employee.EmplID, DEP_Constants.Module_Information_Code, DEP_Constants.Perm_Info_Leader);
+                if (!isLeader)
+                {
+                    return ResponseUtil.Error("您没有权限查看数据");
+                }
                 var sql = string.Format(@"SELECT DISTINCT
 	                            EmplName,
 	                            DeptName,
