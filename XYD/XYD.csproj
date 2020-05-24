@@ -221,6 +221,7 @@
     <Compile Include="Common\XYDCellJsonConverter.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\WorkflowAttController.cs" />
     <Compile Include="Controllers\WorkflowController.cs" />
     <Compile Include="Entity\DBEntity.cs" />

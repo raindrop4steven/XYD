@@ -11,13 +11,13 @@ namespace XYD.Common
         {
             if (!filterContext.ExceptionHandled)
             {
-                string controllerName = (string)filterContext.RouteData.Values["controller"];
-                string actionName = (string)filterContext.RouteData.Values["action"];
-                string msgTemplate = "在执行 controller[{0}] 的 action[{1}] 时产生异常";
-                Exception ex = filterContext.Exception;
+                var ex = filterContext.Exception;
+                var controllerName = (string)filterContext.RouteData.Values["controller"];
+                var actionName = (string)filterContext.RouteData.Values["action"];
+                var errorMessage = ex.Message + "\r\n" + ex.InnerException?.Message;
+                var logMessage = $"在执行 controller[{controllerName}] 的 action[{actionName}] 时产生异常:{errorMessage}";
 
-                //doing some log
-                LogService.WriteLog("XYD", ex.Message + "\r\n" + ex.StackTrace, actionName, LogService.LogLevel.Error);
+                LogService.WriteLog("XYD", logMessage, "Action", LogService.LogLevel.Error);
             }
 
             if (filterContext.Result is JsonResult)
@@ -28,6 +28,8 @@ namespace XYD.Common
             else
             {
                 //否则调用原始设置
+                filterContext.Result = ResponseUtil.Error(filterContext.Exception.Message);
+                filterContext.ExceptionHandled = true;
                 base.OnException(filterContext);
             }
         }

@@ -26,13 +26,8 @@ namespace XYD.Controllers
         {
             try
             {
-                var employee = (User.Identity as AppkizIdentity).Employee;
-                List<XYD_Template_Entity> myTempaltes = GetMyTemplates(User.Identity.Name);
-                return this.Json((object)new
-                {
-                    Succeed = true,
-                    Data = myTempaltes
-                }, (JsonRequestBehavior)0);
+                List<XYD_Template_Entity> myTemplates = GetMyTemplates(User.Identity.Name);
+                return ResponseUtil.OK(myTemplates);
             }
             catch (Exception e)
             {
@@ -58,8 +53,7 @@ namespace XYD.Controllers
                     }
                 }
             }
-
-
+            
             return resultTemplates.OrderBy(o => o.Order).ToList();
         }
         #endregion
