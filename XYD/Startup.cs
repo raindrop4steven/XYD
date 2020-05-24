@@ -1,9 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
-using Hangfire;
-using XYD.Common;
 
 [assembly: OwinStartup(typeof(XYD.Startup))]
 
@@ -15,11 +11,6 @@ namespace XYD
         {
             // Storage is the only thing required for basic configuration.
             // Just discover what configuration options do you have.
-            GlobalConfiguration.Configuration
-                .UseSqlServerStorage("DeptOAHangfire");
-            app.UseHangfireDashboard();
-            app.UseHangfireServer();
-            ScheduleUtil.ScheduleGlobalUpdate();
         }
     }
 }

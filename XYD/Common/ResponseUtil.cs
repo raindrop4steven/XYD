@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace XYD.Common
+﻿namespace XYD.Common
 {
     /// <summary>
     /// 响应帮助工具类

@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using XYD.Entity;
-using XYD.Models;
 
 namespace XYD.Common
 {
@@ -226,196 +223,6 @@ namespace XYD.Common
                 throw exception;
             }
         }
-
-        #region 查询工资
-        public static List<object> GetSalary(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-            while (reader.Read())
-            {
-                decimal shouldPay = reader.GetDecimal(0);
-                decimal salary = reader.GetDecimal(1);
-                int year = reader.GetInt32(2);
-                int month = reader.GetByte(3);
-                ResultList.Add(new XYD_Salary
-                {
-                    ShouldPay = shouldPay,
-                    Salary = salary,
-                    Year = year,
-                    Month = month
-                });
-            }
-            return ResultList;
-        }
-        #endregion
-
-        #region 获取部门列表
-        public static List<object> GetDeptIds(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-            while (reader.Read())
-            {
-                var deptId = reader.GetString(0);
-             
-                ResultList.Add(deptId);
-            }
-            return ResultList;
-        }
-        #endregion
-
-        #region 查询工资明细
-        public static List<object> GetDetailSalary(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-            while (reader.Read())
-            {
-                ResultList.Add(new
-                {
-                    cPsn_Num = reader.GetString(0),
-                    cPsn_Name = reader.GetString(1),
-                    cDeptName = reader.GetString(2),
-                    F_9 = reader.IsDBNull(3) ? 0m : reader.GetDecimal(3),
-                    F_10 = reader.IsDBNull(4) ? 0m : reader.GetDecimal(4),
-                    F_12 = reader.IsDBNull(5) ? 0m : reader.GetDecimal(5),
-                    F_11 = reader.IsDBNull(6) ? 0m : reader.GetDecimal(6),
-                    F_26 = reader.IsDBNull(7) ? 0m : reader.GetDecimal(7),
-                    F_1 = reader.IsDBNull(8) ? 0m : reader.GetDecimal(8),
-                    F_13 = reader.IsDBNull(9) ? 0m : reader.GetDecimal(9),
-                    F_14 = reader.IsDBNull(10) ? 0m : reader.GetDecimal(10),
-                    F_15 = reader.IsDBNull(11) ? 0m : reader.GetDecimal(11),
-                    F_16 = reader.IsDBNull(12) ? 0m : reader.GetDecimal(12),
-                    F_17 = reader.IsDBNull(13) ? 0m : reader.GetDecimal(13),
-                    F_18 = reader.IsDBNull(14) ? 0m : reader.GetDecimal(14),
-                    F_19 = reader.IsDBNull(15) ? 0m : reader.GetDecimal(15),
-                    F_20 = reader.IsDBNull(16) ? 0m : reader.GetDecimal(16),
-                    F_21 = reader.IsDBNull(17) ? 0m : reader.GetDecimal(17),
-                    F_22 = reader.IsDBNull(18) ? 0m : reader.GetDecimal(18),
-                    F_23 = reader.IsDBNull(19) ? 0m : reader.GetDecimal(19),
-                    F_1102 = reader.IsDBNull(20) ? 0m : reader.GetDecimal(20),
-                    F_1103 = reader.IsDBNull(21) ? 0m : reader.GetDecimal(21),
-                    F_1104 = reader.IsDBNull(22) ? 0m : reader.GetDecimal(22),
-                    F_1105 = reader.IsDBNull(23) ? 0m : reader.GetDecimal(23),
-                    F_1106 = reader.IsDBNull(24) ? 0m : reader.GetDecimal(24),
-                    F_1108 = reader.IsDBNull(25) ? 0m : reader.GetDecimal(25),
-                    F_1112 = reader.IsDBNull(26) ? 0m : reader.GetDecimal(26),
-                    F_1116 = reader.IsDBNull(27) ? 0m : reader.GetDecimal(27),
-                    F_1115 = reader.IsDBNull(28) ? 0m : reader.GetDecimal(28),
-                    F_1114 = reader.IsDBNull(29) ? 0m : reader.GetDecimal(29),
-                    F_1113 = reader.IsDBNull(30) ? 0m : reader.GetDecimal(30),
-                    F_1001 = reader.IsDBNull(31) ? 0m : reader.GetDecimal(31),
-                    F_1002 = reader.IsDBNull(32) ? 0m : reader.GetDecimal(32),
-                    F_6 = reader.IsDBNull(33) ? 0m : reader.GetDecimal(33),
-                    F_1003 = reader.IsDBNull(34) ? 0m : reader.GetDecimal(34),
-                    F_25 = reader.IsDBNull(35) ? 0m : reader.GetDecimal(35),
-                    F_24 = reader.IsDBNull(36) ? 0m : reader.GetDecimal(36),
-                    F_1004 = reader.IsDBNull(37) ? 0m : reader.GetDecimal(37),
-                    F_2 = reader.IsDBNull(38) ? 0m : reader.GetDecimal(38),
-                    F_3 = reader.IsDBNull(39) ? 0m : reader.GetDecimal(39),
-                    cDepCode = reader.GetString(40),
-                    iYear = reader.GetInt32(41),
-                    iMonth = reader.GetByte(42)
-                });
-            }
-            return ResultList;
-        }
-
-        internal static object ExecuteSqlCommand(string sql, DateTime date, DateTime dateTime, object backupMoneyReport)
-        {
-            throw new NotImplementedException();
-        }
-        #endregion
-
-        #region 查询工资明细
-        public static List<object> GetReportSalary(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-            while (reader.Read())
-            {
-                ResultList.Add(new
-                {
-                    cPsn_Num = reader.GetString(0),
-                    cPsn_Name = reader.GetString(1),
-                    cDeptName = reader.GetString(2),
-                    F_9 = reader.IsDBNull(3) ? 0m : reader.GetDecimal(3),
-                    F_10 = reader.IsDBNull(4) ? 0m : reader.GetDecimal(4),
-                    F_12 = reader.IsDBNull(5) ? 0m : reader.GetDecimal(5),
-                    F_11 = reader.IsDBNull(6) ? 0m : reader.GetDecimal(6),
-                    F_26 = reader.IsDBNull(7) ? 0m : reader.GetDecimal(7),
-                    F_1 = reader.IsDBNull(8) ? 0m : reader.GetDecimal(8),
-                    F_13 = reader.IsDBNull(9) ? 0m : reader.GetDecimal(9),
-                    F_14 = reader.IsDBNull(10) ? 0m : reader.GetDecimal(10),
-                    F_15 = reader.IsDBNull(11) ? 0m : reader.GetDecimal(11),
-                    F_16 = reader.IsDBNull(12) ? 0m : reader.GetDecimal(12),
-                    F_17 = reader.IsDBNull(13) ? 0m : reader.GetDecimal(13),
-                    F_18 = reader.IsDBNull(14) ? 0m : reader.GetDecimal(14),
-                    F_19 = reader.IsDBNull(15) ? 0m : reader.GetDecimal(15),
-                    F_20 = reader.IsDBNull(16) ? 0m : reader.GetDecimal(16),
-                    F_21 = reader.IsDBNull(17) ? 0m : reader.GetDecimal(17),
-                    F_22 = reader.IsDBNull(18) ? 0m : reader.GetDecimal(18),
-                    F_23 = reader.IsDBNull(19) ? 0m : reader.GetDecimal(19),
-                    F_1102 = reader.IsDBNull(20) ? 0m : reader.GetDecimal(20),
-                    F_1103 = reader.IsDBNull(21) ? 0m : reader.GetDecimal(21),
-                    F_1104 = reader.IsDBNull(22) ? 0m : reader.GetDecimal(22),
-                    F_1105 = reader.IsDBNull(23) ? 0m : reader.GetDecimal(23),
-                    F_1106 = reader.IsDBNull(24) ? 0m : reader.GetDecimal(24),
-                    F_1108 = reader.IsDBNull(25) ? 0m : reader.GetDecimal(25),
-                    F_1112 = reader.IsDBNull(26) ? 0m : reader.GetDecimal(26),
-                    F_1116 = reader.IsDBNull(27) ? 0m : reader.GetDecimal(27),
-                    F_1115 = reader.IsDBNull(28) ? 0m : reader.GetDecimal(28),
-                    F_1114 = reader.IsDBNull(29) ? 0m : reader.GetDecimal(29),
-                    F_1113 = reader.IsDBNull(30) ? 0m : reader.GetDecimal(30),
-                    F_1001 = reader.IsDBNull(31) ? 0m : reader.GetDecimal(31),
-                    F_1002 = reader.IsDBNull(32) ? 0m : reader.GetDecimal(32),
-                    F_6 = reader.IsDBNull(33) ? 0m : reader.GetDecimal(33),
-                    F_1003 = reader.IsDBNull(34) ? 0m : reader.GetDecimal(34),
-                    F_25 = reader.IsDBNull(35) ? 0m : reader.GetDecimal(35),
-                    F_24 = reader.IsDBNull(36) ? 0m : reader.GetDecimal(36),
-                    F_1004 = reader.IsDBNull(37) ? 0m : reader.GetDecimal(37),
-                    F_2 = reader.IsDBNull(38) ? 0m : reader.GetDecimal(38),
-                    F_3 = reader.IsDBNull(39) ? 0m : reader.GetDecimal(39),
-                    cDepCode = reader.GetString(40)
-                });
-            }
-            return ResultList;
-        }
-        #endregion
-
-        #region 获取备用金统计
-        public static List<object> BackupMoneyReport(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-            while (reader.Read())
-            {
-                var EmplName = reader.GetString(0);
-                var DeptName = reader.GetString(1);
-                var Amount = reader.GetDecimal(2);
-                ResultList.Add(new XYD_BackupMoneyReport
-                {
-                    EmplName = EmplName,
-                    DeptName = DeptName,
-                    Amount = Amount
-                });
-            }
-            return ResultList;
-        }
-        #endregion
-
-        #region 查询未同步供应商
-        public static List<object> GetUnSyncVendor(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-            while (reader.Read())
-            {
-                var Code = reader.GetString(0);
-                var Name = reader.GetString(1);
-                ResultList.Add(new XYD_Vendor
-                {
-                    Code = Code,
-                    Name = Name
-                });
-            }
-            return ResultList;
-        }
         #endregion
 
         #region 实例委托方法
@@ -450,8 +257,34 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 工作流列表
         /// <summary>
-        /// 待办
+        /// 查找流程数量
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static List<object> CountMessage(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                string WorkflowId = reader.GetString(0);
+                int MessageCount = reader.GetInt32(1);
+                string MessageTitle = reader.GetString(2);
+                string FolderName = reader.GetString(3);
+                ResultList.Add(new XYD_DB_Message_Count
+                {
+                    WorkflowId = WorkflowId,
+                    MessageCount = MessageCount,
+                    MessageTitle = MessageTitle,
+                    FolderName = FolderName
+                });
+            }
+            return ResultList;
+        }
+        
+        /// <summary>
+        /// 待办列表
         /// </summary>
         /// <param name="reader"></param>
         /// <returns></returns>
@@ -474,66 +307,6 @@ namespace XYD.Common
                 result.MessageIssuedBy = reader.GetString(10);
 
                 ResultList.Add(result);
-            }
-
-            return ResultList;
-        }
-
-        #region 查询员工
-        internal static List<object> searchEmployee(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-            while (reader.Read())
-            {
-                ResultList.Add(new {
-                    EmplID = reader.GetString(0),
-                    EmplNO = reader.GetString(1),
-                    EmplName = reader.GetString(2),
-                    DeptName = reader.GetString(3),
-                    PositionName = reader.GetString(4),
-                    ContractDate = reader.IsDBNull(5) ? string.Empty : reader.GetDateTime(5).ToString("yyyy-MM-dd")
-                });
-            }
-
-            return ResultList;
-        }
-        #endregion
-
-        /// <summary>
-        /// 待办
-        /// </summary>
-        /// <param name="reader"></param>
-        /// <returns></returns>
-        public static List<object> GetAlarmPendingResult(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-            while (reader.Read())
-            {
-                long number = reader.GetInt64(0);
-                string DocumentTilte = reader.GetString(1);
-                string ClosedOrHairTime = reader.GetString(2);
-                string MessageId = reader.GetString(3);
-                string WorkflowId = reader.GetString(4);
-                string InitiateEmplId = reader.GetString(5);
-                string InitiateEmplName = reader.GetString(6);
-                string MessageTitle = reader.GetString(7);
-                string MyTask = reader.GetString(8);
-                string ReceiveTime = reader.GetString(9);
-                int days = reader.GetInt32(10);
-
-                ResultList.Add(new
-                {
-                    DocumentTitle = DocumentTilte,
-                    ClosedOrHairTime = ClosedOrHairTime,
-                    MessageId = MessageId,
-                    WorkflowId = WorkflowId,
-                    InitiateEmplId = InitiateEmplId,
-                    InitiateEmplName = InitiateEmplName,
-                    MessageTitle = MessageTitle,
-                    MyTask = MyTask,
-                    ReceiveTime = ReceiveTime,
-                    days = days
-                });
             }
 
             return ResultList;
@@ -754,72 +527,9 @@ namespace XYD.Common
 
             return ResultList;
         }
-        /// <summary>
-        /// 根据用户获得顶级部门
-        /// </summary>
-        /// <param name="reader"></param>
-        /// <returns></returns>
-        public static List<object> GetWorkflowByUser(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-            while (reader.Read())
-            {
-                string deptId = reader.GetString(0);
-
-                ResultList.Add(deptId);
-            }
-
-            return ResultList;
-        }
         #endregion
 
-        #region 已收藏列表
-        public static List<object> WKF_FavoriteList(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-
-            while (reader.Read())
-            {
-                var MessageId = reader.GetString(1);
-                var ClosedOrHairTime = reader.GetDateTime(2);
-                var DocumentTitle = reader.GetString(3);
-                var InitiateEmplId = reader.GetString(4);
-                var InitiateEmplName = reader.GetString(5);
-                var MessageTitle = reader.GetString(6);
-                var MyTask = reader.GetString(7);
-                var ReceiveTime = reader.GetString(8);
-                var WorkFlowId = reader.GetString(9);
-                ResultList.Add(new
-                {
-                    MessageId = MessageId,
-                    ClosedOrHairTime = ClosedOrHairTime,
-                    DocumentTitle = DocumentTitle,
-                    InitiateEmplId = InitiateEmplId,
-                    InitiateEmplName = InitiateEmplName,
-                    MessageTitle = MessageTitle,
-                    MyTask = MyTask,
-                    ReceiveTime = ReceiveTime,
-                    WorkFlowId = WorkFlowId
-                });
-            }
-            return ResultList;
-        }
-        #endregion
-
-        #region 获取通知人员列表
-        public static List<object> GetNotifyReceivers(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-
-            while (reader.Read())
-            {
-                var HandledBy = reader.GetString(0);
-                
-                ResultList.Add(HandledBy);
-            }
-            return ResultList;
-        }
-
+        #region 工作流处理记录
         public static List<object> GetHistory(SqlDataReader reader)
         {
             var ResultList = new List<object>();
@@ -839,25 +549,6 @@ namespace XYD.Common
         }
         #endregion
 
-        #region 根据用户排序获得用户列表
-        public static List<object> WKF_GlobalSortNo(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-            var dict = new Dictionary<string, string>();
-
-            while (reader.Read())
-            {
-                string EmplID = reader.GetString(0);
-                string EmplName = reader.GetString(1);
-                dict.Add(EmplID, EmplName);
-            }
-
-            ResultList.Add(dict);
-
-            return ResultList;
-        }
-        #endregion
-
         #region 获得数据库选项
         public static List<object> GetOptions(SqlDataReader reader)
         {
@@ -870,52 +561,6 @@ namespace XYD.Common
                 {
                     Value = Value,
                     InterValue = InterValue
-                });
-            }
-            return ResultList;
-        }
-        #endregion
-
-
-        /// <summary>
-        /// 查找流程数量
-        /// </summary>
-        /// <param name="reader"></param>
-        /// <returns></returns>
-        public static List<object> CountMessage(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-            while (reader.Read())
-            {
-                string WorkflowId = reader.GetString(0);
-                int MessageCount = reader.GetInt32(1);
-                string MessageTitle = reader.GetString(2);
-                string FolderName = reader.GetString(3);
-                ResultList.Add(new XYD_DB_Message_Count
-                {
-                    WorkflowId = WorkflowId,
-                    MessageCount = MessageCount,
-                    MessageTitle = MessageTitle,
-                    FolderName = FolderName
-                });
-            }
-            return ResultList;
-        }
-
-        #region 获得用友数据
-        public static List<object> GetU8Person(SqlDataReader reader)
-        {
-            var ResultList = new List<object>();
-            while (reader.Read())
-            {
-                string cPersonCode = reader.GetString(0);
-                string cPersonName = reader.GetString(1);
-                string cDepCode = reader.GetString(2);
-                ResultList.Add(new XYD_U8_Person
-                {
-                    cPersonCode = cPersonCode,
-                    cPersonName = cPersonName,
-                    cDepCode = cDepCode
                 });
             }
             return ResultList;

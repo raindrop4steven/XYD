@@ -2,32 +2,22 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using XYD.Entity;
 using XYD.Common;
-using XYD.Models;
 using XYD.Services;
 using Appkiz.Apps.Workflow.Library;
-using Appkiz.Library.Security;
-using System.Text;
 using Appkiz.Library.Security.Authentication;
-using Appkiz.Library.Common;
 using JUST;
 using Newtonsoft.Json.Linq;
-using Appkiz.Apps.Workflow.Web.Controllers;
-using XYD.Common;
 using System.Reflection;
-using Appkiz.Apps.Workflow.Web.Models;
 
 namespace XYD.Controllers
 {
     public class WorkflowController : Appkiz.Apps.Workflow.Web.Controllers.Controller
     {
         WorkflowMgr mgr = new WorkflowMgr();
-        SheetMgr sheetMgr = new SheetMgr();
-        OrgMgr orgMgr = new OrgMgr();
 
         #region 根据用户获得发起工作流模版
         [Authorize]
@@ -81,14 +71,12 @@ namespace XYD.Controllers
         {
             try
             {
-                var employee = (User.Identity as AppkizIdentity).Employee;
-
                 Message message = mgr.GetMessage(mid);
                 if (message == null)
-                    return (ActionResult)RedirectToAction("Error", (object)new
-                    {
-                        err = RunningErrorCodes.INVALID_ID
-                    });
+                {
+                    return ResponseUtil.Error("模板ID无效");
+                }
+                
                 if (message.IsTemplate == 1)
                 {
                     if (message.MessageStatus == -1)
@@ -442,260 +430,6 @@ namespace XYD.Controllers
         }
         #endregion
 
-        #region 生成编号
-        public ActionResult FillSerialNo(string mid)
-        {
-            WorkflowUtil.FillSerialNumber(mid);
-            return ResponseUtil.OK("OK");
-        }
-        #endregion
-
-        #region 更新编号
-        public ActionResult UpdateSerialNo(string mid)
-        {
-            var message = mgr.GetMessage(mid);
-            using (var db = new DefaultConnection())
-            {
-                var entity = db.SerialNo.Where(n => n.Name == message.FromTemplate).FirstOrDefault();
-                if (entity == null)
-                {
-                    return ResponseUtil.Error("未找到对应编号配置");
-                }
-                else
-                {
-                    entity.Number += 1;
-                    db.SaveChanges();
-                    return ResponseUtil.OK("更新编号成功");
-                }
-            }
-        }
-        #endregion
-
-        #region 映射事务编号数据
-        public ActionResult MappingSerialNo(string mid, string user)
-        {
-            var employee = orgMgr.GetEmployee(user);
-            var message = mgr.GetMessage(mid);
-            string serialNumber = WorkflowUtil.ExtractSerialNumber(mid);
-            using (var db = new DefaultConnection())
-            {
-                var record = db.SerialRecord.Where(n => n.MessageID == mid).FirstOrDefault();
-                if (record == null)
-                {
-                    record = new XYD_Serial_Record();
-                    record.ID = Guid.NewGuid().ToString();
-                    record.EmplID = employee.EmplID;
-                    record.MessageID = mid;
-                    record.WorkflowID = message.FromTemplate;
-                    record.Sn = serialNumber;
-                    record.Used = false;
-                    record.CreateTime = DateTime.Now;
-                    record.UpdateTime = DateTime.Now;
-                    db.SerialRecord.Add(record);
-                    db.SaveChanges();
-                    // 更新编号配置
-                    var entity = db.SerialNo.Where(n => n.Name == message.FromTemplate).FirstOrDefault();
-                    if (entity == null)
-                    {
-                        return ResponseUtil.Error("未找到对应编号配置");
-                    }
-                    else
-                    {
-                        entity.Number += 1;
-                        db.SaveChanges();
-                        return ResponseUtil.OK("更新编号成功");
-                    }
-                }
-                else
-                {
-                    record.Sn = serialNumber;
-                    db.SaveChanges();
-                }
-                return ResponseUtil.OK("记录事务编号成功");
-            }
-        }
-        #endregion
-
-        #region 根据流程ID获取对应的来源sn
-        public ActionResult GetSourceSerial(string mid)
-        {
-            try
-            {
-                var employee = (User.Identity as AppkizIdentity).Employee;
-                XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
-                using (var db = new DefaultConnection())
-                {
-                    bool isBaoxiaoRole = OrgUtil.CheckBaoxiaoUser(employee.EmplID);
-                    var query = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false);
-                    if (!isBaoxiaoRole)
-                    {
-                        query = query.Where(n => n.EmplID == employee.EmplID);
-                    }
-                    var records = query.OrderByDescending(n => n.CreateTime).ToList().Where(m => mgr.GetMessage(m.MessageID).MessageStatus == 2);
-                    if (isBaoxiaoRole)
-                    {
-                        foreach(var record in records)
-                        {
-                            var user = orgMgr.GetEmployee(record.EmplID).EmplName;
-                            var Sn = string.Format("{0} {1}", user, record.Sn);
-                            record.Sn = Sn;
-                        }
-                    }
-                    return ResponseUtil.OK(new
-                    {
-                        records = records
-                    });
-                }
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
-        }
-        #endregion
-
-        #region 使用编号
-        public ActionResult UseSerialNumber(string sn, string mid, string user)
-        {
-            try
-            {
-                var employee = orgMgr.GetEmployee(user);
-                if (OrgUtil.CheckCEO(employee.EmplID))
-                {
-                    return ResponseUtil.OK("总经理没有编号");
-                }
-                XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
-                // 设置编号已使用
-                using (var db = new DefaultConnection())
-                {
-                    if (sn.Contains(" "))
-                    {
-                        var snArray = sn.Split(' ').ToList();
-                        employee = orgMgr.FindEmployee("EmplName=@EmplName", new System.Collections.Hashtable()
-                          {
-                            {
-                              "@EmplName",
-                              snArray[0]
-                            }
-                          }, string.Empty, 0, 1).FirstOrDefault();
-                        sn = snArray[1];
-                    }
-                    var record = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == employee.EmplID && n.Sn == sn).FirstOrDefault();
-                    if (record == null)
-                    {
-                        return ResponseUtil.Error("配置为空");
-                    }
-                    else
-                    {
-                        record.Used = true;
-                        db.SaveChanges();
-                        return ResponseUtil.OK("使用编号成功");
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
-        }
-        #endregion
-
-        #region 选择编号，映射对应数据到报销单中
-        public ActionResult MappingSourceToDest(string sn, string mid, int row = 0, int col = 0)
-        {
-            try
-            {
-                var employee = (User.Identity as AppkizIdentity).Employee;
-                XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
-                // 设置编号已使用
-                using (var db = new DefaultConnection())
-                {
-                    if (sn.Contains(" "))
-                    {
-                        var snArray = sn.Split(' ');
-                        employee = orgMgr.FindEmployee("EmplName=@EmplName", new System.Collections.Hashtable()
-                          {
-                            {
-                              "@EmplName",
-                              snArray[0]
-                            }
-                          }, string.Empty, 0, 1).FirstOrDefault();
-                        sn = snArray[1];
-                    }
-                    var record = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == employee.EmplID && n.Sn == sn).FirstOrDefault();
-                    if (record == null)
-                    {
-                        return ResponseUtil.Error("没有找到对应申请记录");
-                    }
-                    WorkflowUtil.MappingBetweenFlows(record.MessageID, mid, serial.MappingOut);
-                    // 填充表单编号
-                    if (row > 0 && col > 0)
-                    {
-                        Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
-                        Worksheet worksheet = doc.Worksheet;
-                        worksheet.SetCellValue(row, col, sn, string.Empty);
-                        worksheet.Save();
-                    }
-                    XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, DEP_Constants.Start_Node_Key, mid);
-                    return ResponseUtil.OK(fields);
-                }
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
-        }
-        #endregion
-
-        #region 映射选择的物品列表到物品申请单中
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mid"></param>
-        /// <param name="goods">资产名称1,型号1,单位1;资产名称2,型号2,单位2</param>
-        /// <returns></returns>
-        [Authorize]
-        public ActionResult MappingGoods(string mid, string goods)
-        {
-            try
-            {
-                WorkflowUtil.FillApplyGoods(mid, goods);
-                return ResponseUtil.OK("产品映射成功");
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
-        }
-        #endregion
-
-        #region 判断住宿费用是否超过标准
-        public ActionResult CheckHotelLimit(string city, int day, float realHotel)
-        {
-            try
-            {
-                var employee = (User.Identity as AppkizIdentity).Employee;
-                if (OrgUtil.CheckCEO(employee.EmplID))
-                {
-                    return ResponseUtil.OK("总经理不需要检测标准");
-                }
-                int standard = WorkflowUtil.GetHotelStandard(employee.EmplID, city, day * 24);
-                if (realHotel > standard)
-                {
-                    return ResponseUtil.Error("住宿费用超过补贴标准");
-                }
-                else
-                {
-                    return ResponseUtil.OK("住宿费用检测通过");
-                }
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
-        }
-        #endregion
-
         #region Cell内容更新事件
         [Authorize]
         public ActionResult CellUpdateEvent()
@@ -710,7 +444,7 @@ namespace XYD.Controllers
                 var eventArguments = JsonConvert.DeserializeObject<XYD_Event_Argument>(json, new XYDCellJsonConverter());
 
                 var eventConfig = WorkflowUtil.GetCellEvent(eventArguments.MessageId, eventArguments.CurrentCellValue.Row, eventArguments.CurrentCellValue.Col);
-                var customFunc = CommonUtils.ParseCustomFunc(eventConfig.Event);
+                var customFunc = ReflectionUtil.ParseCustomFunc(eventConfig.Event);
                 // 事件方法前2个参数固定为【当前用户ID】和EventArgument
                 var resultArguments = new List<object>();
                 resultArguments.Add(employee.EmplID);
@@ -728,32 +462,12 @@ namespace XYD.Controllers
                         resultArguments.Add(arg);
                     }
                 }
-                var result = CommonUtils.caller(customFunc.ClassName, customFunc.MethodName, resultArguments);
+                var result = ReflectionUtil.caller(customFunc.ClassName, customFunc.MethodName, resultArguments);
                 return ResponseUtil.OK(result);
             }
             catch (TargetInvocationException e)
             {
                 return ResponseUtil.Error(e.InnerException.Message);
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
-        }
-        #endregion
-
-        #region 判断报销是否能直接填写
-        [Authorize]
-        public ActionResult CheckDirectRefund()
-        {
-            try
-            {
-                var employee = (User.Identity as AppkizIdentity).Employee;
-                var isCEO = OrgUtil.CheckCEO(employee.EmplID);
-                return ResponseUtil.OK(new
-                {
-                    isCEO = isCEO
-                });
             }
             catch (Exception e)
             {
@@ -784,90 +498,6 @@ namespace XYD.Controllers
                 });
             }
             catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
-        }
-        #endregion
-
-        #region 判断是否是无补贴人员
-        public ActionResult CheckNoAllowance()
-        {
-            try
-            {
-                var employee = (User.Identity as AppkizIdentity).Employee;
-                var noAllowanceUser = OrgUtil.CheckRole(employee.EmplID, "无补贴人员");
-                return ResponseUtil.OK(new
-                {
-                    shouldRemove = noAllowanceUser
-                });
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
-        }
-        #endregion
-
-        #region 移除表单中公式
-        public ActionResult RemoveFormula(string mid, string user, string role, string formula)
-        {
-            try
-            {
-                var shouldRemove = OrgUtil.CheckRole(user, role);
-                if (shouldRemove)
-                {
-                    var message = mgr.GetMessage(mid);
-                    Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
-                    Worksheet worksheet = doc.Worksheet;
-                    var oldDocument = worksheet.Document.Replace(formula, "");
-                    worksheet.Document = oldDocument;
-                    sheetMgr.UpdateWorksheet(worksheet);
-                    return ResponseUtil.OK("移除公式成功");
-                }
-                else
-                {
-                    return ResponseUtil.OK("无需移除公式");
-                }
-
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
-        }
-        #endregion
-
-        #region 判断是否是司机
-        [Authorize]
-        public ActionResult CheckDriver()
-        {
-            var employee = (User.Identity as AppkizIdentity).Employee;
-            var isDriver = OrgUtil.CheckRole(employee.EmplID, "司机");
-            return ResponseUtil.OK(new
-            {
-                isDriver = isDriver
-            });
-        }
-        #endregion
-
-        #region 判断两个日期是否是同一天
-        public ActionResult CheckSameDay(string selectType, string BeginDate, string EndDate)
-        {
-            try
-            {
-                if (selectType == DEP_Constants.DATE_SELECT_TYPE_HOUR)
-                {
-                    var startDate = DateTime.Parse(BeginDate);
-                    var endDate = DateTime.Parse(EndDate);
-                    if (startDate.Date.ToString("yyyy-MM-dd") != endDate.Date.ToString("yyyy-MM-dd"))
-                    {
-                        return ResponseUtil.Error("开始日期和结束日期必须为同一天");
-                    }
-                }
-                return ResponseUtil.OK("校验成功");
-            }
-            catch(Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }

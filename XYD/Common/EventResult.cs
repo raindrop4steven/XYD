@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using XYD.Entity;
-
-namespace XYD.Common
+﻿namespace XYD.Common
 {
     public class EventResult
     {

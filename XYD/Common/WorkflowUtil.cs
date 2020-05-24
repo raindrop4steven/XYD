@@ -1,5 +1,4 @@
 ﻿using Appkiz.Apps.Workflow.Library;
-using Appkiz.Library.Common;
 using Appkiz.Library.Notification;
 using Appkiz.Library.Security;
 using XYD.Entity;
@@ -9,10 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Xml;
 using XYD.Models;
-using System.Text.RegularExpressions;
 
 namespace XYD.Common
 {
@@ -353,7 +350,7 @@ namespace XYD.Common
                     singleCell.Value.Atts = attachments;
                 }
                 
-                singleCell.Value = CommonUtils.ParseCellValue(emplId, NodeId, MessageID, singleCell.Value);
+                singleCell.Value = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, singleCell.Value);
                 if (!canEdit)
                 {
                     singleCell.Value.CanEdit = canEdit;
@@ -394,7 +391,7 @@ namespace XYD.Common
                             innerCell.Atts = attachments;
                         }
                         
-                        innerCell = CommonUtils.ParseCellValue(emplId, NodeId, MessageID, innerCell);
+                        innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
                         if (!canEdit)
                         {
                             innerCell.CanEdit = canEdit;
@@ -497,105 +494,6 @@ namespace XYD.Common
         }
         #endregion
 
-        #region 检查用户是否在角色中
-        /// <summary>
-        /// 检查用户是否在对应角色组中
-        /// </summary>
-        /// <param name="EmplID"></param>
-        /// <param name="GroupName"></param>
-        /// <returns></returns>
-        public static bool CheckInGroup(string EmplID, string GroupName)
-        {
-            List<Role> RoleList = orgMgr.FindRoleForEmplID(EmplID);
-
-            var role = RoleList.Where(n => n.RoleName == GroupName).FirstOrDefault();
-
-            return (role != null);
-        }
-        #endregion
-
-        #region 启动子流程
-        public static Node StartSubflow(Node baseNode, SubflowConfig subflowConfig, Employee employee, string handlerEmplId)
-        {
-            // 发起用户的ID
-            var currentEmplId = employee.EmplID;
-
-            Message theMessage = mgr.StartWorkflow(subflowConfig.SubflowId, currentEmplId, (HttpContext)null);
-            theMessage.DataSourceID = baseNode.Message.ToString() + ":" + baseNode.NodeKey;
-            theMessage.MessageStatus = 1;
-            theMessage.MessageIssuedDept = employee.DeptID;
-            mgr.UpdateMessage(theMessage);
-            SheetMgr sheetMgr = new SheetMgr();
-            foreach (SubflowMapping subflowMapping in subflowConfig.MappingOut)
-            {
-                string[] strArray1 = subflowMapping.From.Split('.');
-                string[] strArray2 = subflowMapping.To.Split('.');
-                Doc docByName1 = mgr.GetDocByName(baseNode.MessageID, strArray1[0]);
-                Worksheet worksheet1 = sheetMgr.GetWorksheet(docByName1.DocHelperID);
-                Doc docByName2 = mgr.GetDocByName(theMessage.MessageID, strArray2[0]);
-                Worksheet worksheet2 = sheetMgr.GetWorksheet(docByName2.DocHelperID);
-                Workcell workcell = worksheet1.GetWorkcell(strArray1[1]);
-                worksheet2.SetCellValue(strArray2[1], workcell.WorkcellValue, workcell.WorkcellInternalValue);
-                worksheet2.Save();
-            }
-            string initNodeKey = theMessage.InitNodeKey;
-            if (!(subflowConfig.StartAtNode != theMessage.InitNodeKey))
-            {
-                initNodeKey = subflowConfig.StartAtNode;
-            }
-            Node node = mgr.GetNode(theMessage.MessageID, initNodeKey);
-            BECommand beCommand = new BECommand("update WKF_MessageHandle set UserID=@p1 where MessageID=@p2 and NodeKey=@p3 and UserID=@p4");
-            beCommand.SetParameters("@p1", (object)handlerEmplId);
-            beCommand.SetParameters("@p2", (object)theMessage.MessageID);
-            beCommand.SetParameters("@p3", (object)initNodeKey);
-            beCommand.SetParameters("@p4", (object)currentEmplId);
-            beCommand.ExecuteNonQuery();
-            beCommand.Close();
-            mgr.AddWorkflowHistory(new WorkflowHistory()
-            {
-                MessageID = theMessage.MessageID,
-                NodeKey = "",
-                NodeName = "[启动]",
-                HandledBy = currentEmplId,
-                HandledTime = DateTime.Now,
-                DelegateTo = "",
-                ProcType = 0,
-                Note = string.Format("由“{0}”的节点“{1}”启动子流程", (object)baseNode.Message.MessageTitle, (object)baseNode.NodeName)
-            });
-            return node;
-        }
-        #endregion
-
-        #region 获得公文预警日期
-        public static DateTime? GetMessageAlarmDate(Worksheet worksheet, AlarmValue config)
-        {
-            /*
-             * 变量定义
-             */
-            // 预警日期
-            DateTime alarmDate;
-
-            // 获取预警日期
-            var cellAlarmDate = GetCellValue(worksheet, config.row, config.col, 0);
-            if (string.IsNullOrEmpty(Convert.ToString(cellAlarmDate)))
-            {
-                return null;
-            }
-            else
-            {
-                // 解析日期格式
-                if (!DateTime.TryParse(Convert.ToString(cellAlarmDate), out alarmDate))
-                {
-                    throw new Exception(string.Format("日期{0}格式不正确", cellAlarmDate));
-                }
-                else
-                {
-                    return alarmDate;
-                }
-            }
-        }
-        #endregion
-
         #region 极光推送
         /// <summary>
         /// 极光推送
@@ -652,48 +550,6 @@ namespace XYD.Common
                 IsApnsProduction = true // 设置 iOS 推送生产环境。不设置默认为开发环境。
             };
             PushClient.SendPushAsync(PayLoad.ToString());
-        }
-        #endregion
-
-        #region 推送流程预警通知
-        public static void SendMessageAlarmNotification(string mid)
-        {
-            /*
-             * 变量定义
-             */
-            // 推送数据
-            Dictionary<string, object> dict = new Dictionary<string, object>();
-
-            /*
-             * 根据消息ID获得对应的标题
-             */
-            Message message = mgr.GetMessage(mid);
-            string filter1 = "MessageID=@mid and HandleStatus !=0";
-            Dictionary<string, object> paramList1 = new Dictionary<string, object>();
-            paramList1.Add("@mid", (object)mid);
-
-            List<string> targets = mgr.FindMessageHandle(filter1, paramList1, string.Empty).Select(n => n.UserID).ToList();
-
-            // 系统内通知
-            //foreach (var emplID in targets)
-            //{
-            //    var data = JsonConvert.SerializeObject(new
-            //    {
-            //        MessageID = mid,
-            //        NewWin = true,
-            //        Url = "/Apps/Workflow/Running/Open?mid=" + mid
-            //    });
-            //    notifyMgr.SendNotification("DEP", emplID.ToString(), string.Format("您有新的流程预警提醒 \"{0}\"", message.MessageTitle), data);
-            //}
-
-            // 极光通知
-            dict["type"] = DEP_Constants.JPush_Workflow_Type;
-            dict["title"] = string.Format("您有新的流程预警提醒 \"{0}\"", message.MessageTitle);
-            dict["content"] = new Dictionary<string, object>()
-                {
-                    {"mid",  mid}
-                };
-            SendJPushNotification(targets, dict);
         }
         #endregion
 
@@ -805,63 +661,6 @@ namespace XYD.Common
                     FillCellValue(emplId, NodeId, MessageID, worksheet, cell, false);
                 }
                 return fields;
-            }
-        }
-        #endregion
-
-        #region 填充物品采购表单
-        public static void FillApplyGoods(string MessageID, string goods)
-        {
-            List<string> goodsArray = goods.Split(';').ToList();
-            Message message = mgr.GetMessage(MessageID);
-            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
-            Worksheet worksheet = doc.Worksheet;
-            XYD_Array_Cell arrayCell = null;
-
-            var defaultVersion = GetDefaultConfigVersion(message.FromTemplate);
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], message.FromTemplate, defaultVersion, "start.json");
-            using (StreamReader sr = new StreamReader(filePathName))
-            {
-                var fields = JsonConvert.DeserializeObject<XYD_Fields>(sr.ReadToEnd(), new XYDCellJsonConverter());
-
-                foreach (XYD_Base_Cell cell in fields.Fields)
-                {
-                    if (cell.Type == 3)
-                    {
-                        arrayCell = (XYD_Array_Cell)cell;
-                    }
-                }
-                if (arrayCell == null)
-                {
-                    throw new Exception("未找到物品表格");
-                }
-                if (arrayCell.Array.Count < goodsArray.Count)
-                {
-                    throw new Exception("申领物品不能选择超过5种");
-                }
-                // 填充到对应的里面
-                var updateCells = new List<Workcell>();
-                for (int i = 0; i < goodsArray.Count; i++)
-                {
-                    var rowArray = goodsArray.ElementAt(i).Split(',');
-                    List<XYD_Cell_Value> rowCells = arrayCell.Array.ElementAt(i);
-                    // 物品名称
-                    XYD_Cell_Value goodsCell = rowCells.ElementAt(0);
-                    var cell = worksheet.GetWorkcell(goodsCell.Row, goodsCell.Col);
-                    cell.WorkcellValue = rowArray.ElementAt(0);
-                    updateCells.Add(cell);
-                    // 型号
-                    XYD_Cell_Value modelCell = rowCells.ElementAt(1);
-                    var cell2 = worksheet.GetWorkcell(modelCell.Row, modelCell.Col);
-                    cell2.WorkcellValue = rowArray.ElementAt(1);
-                    updateCells.Add(cell2);
-                    // 单位
-                    XYD_Cell_Value unitCell = rowCells.ElementAt(3);
-                    var cell3 = worksheet.GetWorkcell(unitCell.Row, unitCell.Col);
-                    cell3.WorkcellValue = rowArray.ElementAt(2);
-                    updateCells.Add(cell3);
-                }
-                worksheet.UpdateWorkcells(updateCells);
             }
         }
         #endregion
@@ -982,145 +781,6 @@ namespace XYD.Common
         }
         #endregion
 
-        #region 获得申请编号
-        public static string GenerateSerialNumber(string name)
-        {
-            var year = Convert.ToString(DateTime.Now.Year);
-            using (var db = new DefaultConnection())
-            {
-                var entity = db.SerialNo.Where(n => n.Name == name).FirstOrDefault();
-                if (entity != null)
-                {
-                    if (!year.Contains(Convert.ToString(entity.Year)))
-                    {
-                        entity.Year += 1;
-                        entity.Number = 1;
-                        db.SaveChanges();
-                    }
-                    var num = string.Empty;
-                    if (entity.Number < 10)
-                    {
-                        num = string.Format("000{0}", entity.Number);
-                    }
-                    else if (entity.Number < 100)
-                    {
-                        num = string.Format("00{0}", entity.Number);
-                    }
-                    else if (entity.Number < 1000)
-                    {
-                        num = string.Format("0{0}", entity.Number);
-                    }
-                    var serialNo = string.Format("{0}-{1}", DateTime.Now.ToString("yyyyMMdd"), num);
-                    return serialNo;
-                }
-                else
-                {
-                    throw new Exception("没有找到对应编号配置");
-                }
-            }
-        }
-        #endregion
-
-        #region 填充事务编号
-        public static void FillSerialNumber(string mid)
-        {
-            XYD_Serial config = null;
-            var message = mgr.GetMessage(mid);
-            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
-            Worksheet worksheet = doc.Worksheet;
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], "serialNumber.json");
-
-            using (StreamReader sr = new StreamReader(filePathName))
-            {
-                var serials = JsonConvert.DeserializeObject<XYD_Serials>(sr.ReadToEnd(), new XYDCellJsonConverter());
-
-                foreach (XYD_Serial serialConfig in serials.Serials)
-                {
-                    if (serialConfig.FromId == message.FromTemplate)
-                    {
-                        config = serialConfig;
-                    }
-                }
-            }
-            if (config == null)
-            {
-                throw new Exception("未找到对应事务位置");
-            }
-            else
-            {
-                Workcell cell = worksheet.GetWorkcell(config.SnPos.Row, config.SnPos.Col);
-                string serialNo = WorkflowUtil.GenerateSerialNumber(message.FromTemplate);
-                cell.WorkcellValue = serialNo;
-                worksheet.UpdateWorkcells(new List<Workcell> { cell });
-            }
-        }
-        #endregion
-
-        #region 抽取流程中的编号
-        public static string ExtractSerialNumber(string mid)
-        {
-            XYD_Serial config = null;
-            var message = mgr.GetMessage(mid);
-            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
-            Worksheet worksheet = doc.Worksheet;
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], "serialNumber.json");
-
-            using (StreamReader sr = new StreamReader(filePathName))
-            {
-                var serials = JsonConvert.DeserializeObject<XYD_Serials>(sr.ReadToEnd(), new XYDCellJsonConverter());
-
-                foreach (XYD_Serial serialConfig in serials.Serials)
-                {
-                    if (serialConfig.FromId == message.FromTemplate)
-                    {
-                        config = serialConfig;
-                    }
-                }
-            }
-            if (config == null)
-            {
-                throw new Exception("未找到对应事务位置");
-            }
-            else
-            {
-                Workcell cell = worksheet.GetWorkcell(config.SnPos.Row, config.SnPos.Col);
-                return cell.WorkcellValue;
-            }
-        }
-        #endregion
-
-        #region 根据目标流程ID获取源头ID
-        public static XYD_Serial GetSourceSerial(string mid)
-        {
-            XYD_Serial config = null;
-            var message = mgr.GetMessage(mid);
-            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
-            Worksheet worksheet = doc.Worksheet;
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], "serialNumber.json");
-
-            using (StreamReader sr = new StreamReader(filePathName))
-            {
-                var serials = JsonConvert.DeserializeObject<XYD_Serials>(sr.ReadToEnd(), new XYDCellJsonConverter());
-
-                foreach (XYD_Serial serialConfig in serials.Serials)
-                {
-                    if (serialConfig.ToId == message.FromTemplate)
-                    {
-                        config = serialConfig;
-                    }
-                }
-            }
-            if (config == null)
-            {
-                throw new Exception("未找到对应事务位置");
-            }
-            else
-            {
-                return config;
-            }
-        }
-        #endregion
-
         #region 根据Mapping规则映射两表中数据
         public static void MappingBetweenFlows(string sourceMessageId, string destMessageId, List<SubflowMapping> MappingOut)
         {
@@ -1212,150 +872,6 @@ namespace XYD.Common
             {
                 throw e;
             }
-        }
-        #endregion
-
-        #region 根据用户职位、城市、时常获得住宿标准
-        public static int GetHotelStandard(string emplId, string city, int hour)
-        {
-            // 未满24小时，没有住宿补贴
-            if (hour < 24)
-            {
-                return 0;
-            }
-            // 获取城市等级
-            var cityLevel = GetCityLevel(city);
-            // 获取用户角色
-            var userRole = GetRoleById(emplId);
-
-            // 一线城市
-            if (cityLevel == DEP_Constants.First_Tier_City)
-            {
-                // 副总经理
-                if (userRole == DEP_Constants.ViceCEO)
-                {
-                    return 600;
-                }
-                else if (userRole == DEP_Constants.DeptManager)
-                {
-                    return 500;
-                }
-                else
-                {
-                    return 300;
-                }
-            }
-            // 二线城市
-            else if (cityLevel == DEP_Constants.Second_Tier_City)
-            {
-                // 副总经理
-                if (userRole == DEP_Constants.ViceCEO)
-                {
-                    return 500;
-                }
-                else if (userRole == DEP_Constants.DeptManager)
-                {
-                    return 400;
-                }
-                else
-                {
-                    return 300;
-                }
-            }
-            // 三线城市
-            else if (cityLevel == DEP_Constants.Third_Tier_City)
-            {
-                // 副总经理
-                if (userRole == DEP_Constants.ViceCEO)
-                {
-                    return 350;
-                }
-                else if (userRole == DEP_Constants.DeptManager)
-                {
-                    return 300;
-                }
-                else
-                {
-                    return 250;
-                }
-            }
-            // 国外，50美金/日
-            else
-            {
-                return 350;
-            }
-        }
-        #endregion
-
-        #region 获取城市级别
-        /// <summary>
-        /// 获取城市级别
-        /// </summary>
-        /// <param name="city"></param>
-        /// <returns>
-        /// 1:一线城市（含直辖市）
-        /// 2：省会城市
-        /// 3：省辖市、县级市及以下
-        /// 4：国外
-        /// </returns>
-        public static int GetCityLevel(string city)
-        {
-            // 一线城市
-            var firstCity = System.Configuration.ConfigurationManager.AppSettings["FirstCity"];
-            // 二线城市
-            var secondCity = System.Configuration.ConfigurationManager.AppSettings["SecondCity"];
-            var firstCityArray = firstCity.Split(',').Select(n => n.Trim()).ToList();
-            var secondCityArray = secondCity.Split(',').Select(n => n.Trim()).ToList();
-            // 检查是否是一线城市
-            if (firstCityArray.Any(city.Contains))
-            {
-                return DEP_Constants.First_Tier_City;
-            }
-            // 检查是否是二线城市
-            if (secondCityArray.Any(city.Contains))
-            {
-                return DEP_Constants.Second_Tier_City;
-            }
-            // 检查是否是国外
-            if (Regex.IsMatch(city, "^[a-zA-Z0-9\\s]*$"))
-            {
-                return DEP_Constants.Aboard_City;
-            }
-            // 默认三线
-            return DEP_Constants.Third_Tier_City;
-        }
-        #endregion
-
-        #region 获取用户职位级别
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="emplId"></param>
-        /// <returns>
-        /// 副总经理、部门经理、员工
-        /// </returns>
-        public static int GetRoleById(string emplId)
-        {
-            // 副总经理
-            var viceCEO = System.Configuration.ConfigurationManager.AppSettings["ViceCEO"];
-            // 部门经理
-            var deptManager = System.Configuration.ConfigurationManager.AppSettings["DeptManager"];
-            // 员工
-            var staff = System.Configuration.ConfigurationManager.AppSettings["Staff"];
-
-            if (OrgUtil.CheckRole(emplId, viceCEO))
-            {
-                return DEP_Constants.ViceCEO;
-            }
-            else if (OrgUtil.CheckRole(emplId, deptManager))
-            {
-                return DEP_Constants.DeptManager;
-            }
-            else
-            {
-                return DEP_Constants.Staff;
-            }
-
         }
         #endregion
 
@@ -1510,53 +1026,6 @@ namespace XYD.Common
         }
         #endregion
 
-        #region 根据流程和类别，获得科目
-        public static XYD_SubVoucherCode GetSubVoucherCode(string mid, string name)
-        {
-            XYD_SubVoucherCode SubCode = null;
-            var workflowId = string.Empty;
-            if (mid == DEP_Constants.INVOICE_WORKFLOW_ID)
-            {
-                workflowId = DEP_Constants.INVOICE_WORKFLOW_ID;
-            }
-            else
-            {
-                Message message = mgr.GetMessage(mid);
-                workflowId = message.FromTemplate;
-            }
-
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("Voucher.json"));
-
-            using (StreamReader sr = new StreamReader(filePathName))
-            {
-                var config = JsonConvert.DeserializeObject<XYD_VoucherCodes>(sr.ReadToEnd());
-                foreach (var VoucherCode in config.VoucherCodes)
-                {
-                    if (VoucherCode.WorkflowId == workflowId)
-                    {
-                        if (VoucherCode.Codes.Count == 1)
-                        {
-                            SubCode = VoucherCode.Codes.FirstOrDefault();
-                            break;
-                        }
-                        else
-                        {
-                            foreach (var Code in VoucherCode.Codes)
-                            {
-                                if (Code.Subs.Contains(name))
-                                {
-                                    SubCode = Code;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                return SubCode;
-            }
-        }
-        #endregion
-
         #region 根据流程ID获取配置版本
         public static string GetConfigVersion(string mid)
         {
@@ -1589,30 +1058,6 @@ namespace XYD.Common
                 }
                 throw new Exception("流程对应版本不存在");
             }
-        }
-        #endregion
-
-        #region 获得科目类型列表
-        public static XYD_VoucherOptions GetVoucherOptions()
-        {
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", "voucherOptions"));
-            using (StreamReader sr = new StreamReader(filePathName))
-            {
-                var Credits = JsonConvert.DeserializeObject<XYD_VoucherOptions>(sr.ReadToEnd());
-                return Credits;
-            }
-        }
-        #endregion
-
-        #region 判断是否是付款申请
-        public static bool IsPayWorkflow(string mid)
-        {
-            var message = mgr.GetMessage(mid);
-            if (message.FromTemplate == "84f434ac-4626-4748-b294-fe94b16b953c" || message.FromTemplate == "06d9b887-ca03-4042-8202-2aafaeaa3634")
-            {
-                return true;
-            }
-            return false;
         }
         #endregion
     }

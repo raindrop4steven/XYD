@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace XYD.Controllers
 {
@@ -11,27 +7,6 @@ namespace XYD.Controllers
         public ActionResult Index()
         {
             return Redirect("/Apps/XYD/index.html#/index");
-        }
-
-        public ActionResult DetailPage(string mid)
-        {
-            return PartialView("gw_html");
-        }
-
-        public ActionResult ShowGoods(string nameId, string modelId, string unitId, string mid)
-        {
-            ViewBag.nameId = nameId;
-            ViewBag.modelId = modelId;
-            ViewBag.unitId = unitId;
-            ViewBag.mid = mid;
-            return View("ShowGoods");
-        }
-
-        public ActionResult ShowVendors(string cellId, string mid)
-        {
-            ViewBag.cellId = cellId;
-            ViewBag.mid = mid;
-            return View("ShowVendors");
         }
     }
 }

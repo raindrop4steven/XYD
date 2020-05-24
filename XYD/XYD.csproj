@@ -57,12 +57,6 @@
     <Reference Include="Appkiz.Library">
       <HintPath>..\Appkiz.Library.dll</HintPath>
     </Reference>
-    <Reference Include="ClosedXML, Version=0.94.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ClosedXML.0.94.2\lib\net46\ClosedXML.dll</HintPath>
-    </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
-      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -79,14 +73,6 @@
     </Reference>
     <Reference Include="FluentDateTime, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6ccbc613702e6c71, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentDateTime.1.16.0\lib\net452\FluentDateTime.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Hangfire.Core, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hangfire.Core.1.7.0-beta1\lib\net45\Hangfire.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Hangfire.SqlServer, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Hangfire.SqlServer.1.7.0-beta1\lib\net45\Hangfire.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Jiguang.JPush, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -123,7 +109,6 @@
     </Reference>
     <Reference Include="System.Threading" />
     <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -221,135 +206,29 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Common\CalendarUtil.cs" />
     <Compile Include="Common\CellEvents.cs" />
     <Compile Include="Common\CommonUtils.cs" />
     <Compile Include="Common\DbUtil.cs" />
     <Compile Include="Common\DEP_Constants.cs" />
-    <Compile Include="Common\DiskUtil.cs" />
     <Compile Include="Common\EventResult.cs" />
     <Compile Include="Common\ExceptionHelper.cs" />
-    <Compile Include="Common\InvoiceHelper.cs" />
     <Compile Include="Common\JsonNetResult.cs" />
-    <Compile Include="Common\MailHelper.cs" />
     <Compile Include="Common\OrgUtil.cs" />
-    <Compile Include="Common\PermUtil.cs" />
+    <Compile Include="Common\ReflectionUtil.cs" />
     <Compile Include="Common\ResponseUtil.cs" />
-    <Compile Include="Common\ScheduleUtil.cs" />
     <Compile Include="Common\TransformUtil.cs" />
-    <Compile Include="Common\VendorUtil.cs" />
     <Compile Include="Common\WorkflowUtil.cs" />
     <Compile Include="Common\XYDCellJsonConverter.cs" />
-    <Compile Include="Controllers\AssetController.cs" />
-    <Compile Include="Controllers\AwardController.cs" />
-    <Compile Include="Controllers\BackupMoneyController.cs" />
-    <Compile Include="Controllers\BiztripController.cs" />
-    <Compile Include="Controllers\CalendarController.cs" />
-    <Compile Include="Controllers\CarRecordController.cs" />
-    <Compile Include="Controllers\CommonController.cs" />
-    <Compile Include="Controllers\ContactController.cs" />
-    <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InvoiceController.cs" />
-    <Compile Include="Controllers\LeaveController.cs" />
-    <Compile Include="Controllers\MettingBookController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
-    <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Controllers\ResumeController.cs" />
-    <Compile Include="Controllers\SerialNoController.cs" />
-    <Compile Include="Controllers\SummaryController.cs" />
-    <Compile Include="Controllers\SystemController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="Controllers\VendorController.cs" />
-    <Compile Include="Controllers\VoucherController.cs" />
-    <Compile Include="Controllers\WorkExperienceController.cs" />
     <Compile Include="Controllers\WorkflowAttController.cs" />
     <Compile Include="Controllers\WorkflowController.cs" />
-    <Compile Include="Entity\BaseQueryInfo.cs" />
     <Compile Include="Entity\DBEntity.cs" />
     <Compile Include="Entity\DEP_MappingField.cs" />
-    <Compile Include="Entity\QueryInfo.cs" />
     <Compile Include="Entity\WorkflowQuery.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004010553078_add express table.cs" />
-    <Compile Include="Migrations\202004010553078_add express table.Designer.cs">
-      <DependentUpon>202004010553078_add express table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004010746386_add express table2.cs" />
-    <Compile Include="Migrations\202004010746386_add express table2.Designer.cs">
-      <DependentUpon>202004010746386_add express table2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004010818155_add express ids in invoice.cs" />
-    <Compile Include="Migrations\202004010818155_add express ids in invoice.Designer.cs">
-      <DependentUpon>202004010818155_add express ids in invoice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004070537402_add voucher deptNo.cs" />
-    <Compile Include="Migrations\202004070537402_add voucher deptNo.Designer.cs">
-      <DependentUpon>202004070537402_add voucher deptNo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004070538583_add invoice deptNo.cs" />
-    <Compile Include="Migrations\202004070538583_add invoice deptNo.Designer.cs">
-      <DependentUpon>202004070538583_add invoice deptNo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004070707554_add voucher taxSum and taxFreeSum.cs" />
-    <Compile Include="Migrations\202004070707554_add voucher taxSum and taxFreeSum.Designer.cs">
-      <DependentUpon>202004070707554_add voucher taxSum and taxFreeSum.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004070735157_add att to userinfo.cs" />
-    <Compile Include="Migrations\202004070735157_add att to userinfo.Designer.cs">
-      <DependentUpon>202004070735157_add att to userinfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004070748270_add real month to usercompanyinfo.cs" />
-    <Compile Include="Migrations\202004070748270_add real month to usercompanyinfo.Designer.cs">
-      <DependentUpon>202004070748270_add real month to usercompanyinfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004260218288_update user company info.cs" />
-    <Compile Include="Migrations\202004260218288_update user company info.Designer.cs">
-      <DependentUpon>202004260218288_update user company info.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004260334543_add attence.cs" />
-    <Compile Include="Migrations\202004260334543_add attence.Designer.cs">
-      <DependentUpon>202004260334543_add attence.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004270138258_add invoiceDataCode and invoiceNumber.cs" />
-    <Compile Include="Migrations\202004270138258_add invoiceDataCode and invoiceNumber.Designer.cs">
-      <DependentUpon>202004270138258_add invoiceDataCode and invoiceNumber.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004270603261_add attendance.cs" />
-    <Compile Include="Migrations\202004270603261_add attendance.Designer.cs">
-      <DependentUpon>202004270603261_add attendance.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004270635058_add biztrip.cs" />
-    <Compile Include="Migrations\202004270635058_add biztrip.Designer.cs">
-      <DependentUpon>202004270635058_add biztrip.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004270641136_add biztrip updatetime.cs" />
-    <Compile Include="Migrations\202004270641136_add biztrip updatetime.Designer.cs">
-      <DependentUpon>202004270641136_add biztrip updatetime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005080715000_add rest days.cs" />
-    <Compile Include="Migrations\202005080715000_add rest days.Designer.cs">
-      <DependentUpon>202005080715000_add rest days.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005080720251_delete used days.cs" />
-    <Compile Include="Migrations\202005080720251_delete used days.Designer.cs">
-      <DependentUpon>202005080720251_delete used days.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005080722372_add rest days2.cs" />
-    <Compile Include="Migrations\202005080722372_add rest days2.Designer.cs">
-      <DependentUpon>202005080722372_add rest days2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005140540184_add day to attence.cs" />
-    <Compile Include="Migrations\202005140540184_add day to attence.Designer.cs">
-      <DependentUpon>202005140540184_add day to attence.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005190138043_add rest start time and end time.cs" />
-    <Compile Include="Migrations\202005190138043_add rest start time and end time.Designer.cs">
-      <DependentUpon>202005190138043_add rest start time and end time.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\WorkflowPageController.cs" />
@@ -369,21 +248,13 @@
     <Content Include="App\search.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\css\bootstrap.css" />
-    <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\css\deptMonitor.css" />
-    <Content Include="Content\css\deptStatistics.css" />
     <Content Include="Content\css\home.css" />
-    <Content Include="Content\css\leaderNotify.css" />
     <Content Include="Content\css\search.css" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Content\images\appicon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\sdk\sdk.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\static\css\gw__css.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\static\js\jquery-3.3.1.min.js">
@@ -493,18 +364,6 @@
     <Content Include="Content\static\layui\lay\modules\tree.js" />
     <Content Include="Content\static\layui\lay\modules\upload.js" />
     <Content Include="Content\static\layui\lay\modules\util.js" />
-    <Content Include="Content\workflowScript\业务接待费报销.js" />
-    <Content Include="Content\workflowScript\业务接待申请.js" />
-    <Content Include="Content\workflowScript\付款申请.js" />
-    <Content Include="Content\workflowScript\物品领用申请.js" />
-    <Content Include="Content\workflowScript\请假申请.js" />
-    <Content Include="Content\workflowScript\出差申请.js" />
-    <Content Include="Content\workflowScript\差旅费用报销单.js" />
-    <Content Include="Content\workflowScript\物品采购申请.js" />
-    <Content Include="Content\workflowScript\物品采购费用报销.js" />
-    <Content Include="Content\workflowScript\其他现金支付报销.js" />
-    <Content Include="Content\workflowScript\车辆费用报销.js" />
-    <Content Include="Content\workflowScript\代付费用报销.js" />
     <Content Include="Content\workflowScript\通用.js" />
     <Content Include="Content\workflows\付款申请.png" />
     <Content Include="Content\workflows\代付费用报销.png" />
@@ -561,10 +420,6 @@
     <Content Include="Content\config\templates.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\config\serialNumber.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\config\Voucher.json" />
     <Content Include="Content\config\06d9b887-ca03-4042-8202-2aafaeaa3634\0\app-transformer.json" />
     <Content Include="Content\config\06d9b887-ca03-4042-8202-2aafaeaa3634\0\audit.json" />
     <Content Include="Content\config\06d9b887-ca03-4042-8202-2aafaeaa3634\0\main.json" />
@@ -774,7 +629,6 @@
     <Content Include="Content\config\f1b0b4d7-6625-433f-83f5-258915d2f89d\0\audit.json" />
     <Content Include="Content\config\f1b0b4d7-6625-433f-83f5-258915d2f89d\0\main.json" />
     <Content Include="Content\config\f1b0b4d7-6625-433f-83f5-258915d2f89d\0\start.json" />
-    <Content Include="Content\config\voucherOptions.json" />
     <Content Include="Content\config\15fa22ad-6e10-469d-bdb8-4a52dbc29ed4\0\event.json" />
     <Content Include="Content\config\f1b0b4d7-6625-433f-83f5-258915d2f89d\0\event.json" />
     <Content Include="Content\config\39d10b90-0572-44dc-9128-68beacbc3bf3\1\event.json" />
@@ -796,7 +650,6 @@
     <Content Include="Content\static\layui\font\iconfont.ttf" />
     <Content Include="Content\static\layui\font\iconfont.woff" />
     <Content Include="Content\static\layui\font\iconfont.woff2" />
-    <Content Include="Content\config\holidays\2020.json" />
     <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152\1\app-transformer.json" />
     <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152\1\audit.json" />
     <Content Include="Content\config\e68007bf-fce8-40ca-9f0c-95c7fdc23152\1\main.json" />
@@ -808,9 +661,6 @@
     <Content Include="Content\config\18b1736d-9360-4129-b7b3-384cb5b510cb\1\main.json" />
     <Content Include="Content\config\18b1736d-9360-4129-b7b3-384cb5b510cb\1\start.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
-    <Content Include="Views\Home\gw_html.cshtml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -830,112 +680,21 @@
     <Content Include="Views\Shared\_Layout.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Home\ShowGoods.cshtml" />
-    <Content Include="Views\Home\ShowVendors.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Views\Asset\" />
-    <Folder Include="Views\Award\" />
-    <Folder Include="Views\BackupMoney\" />
-    <Folder Include="Views\Banner\" />
-    <Folder Include="Views\Biztrip\" />
-    <Folder Include="Views\Calendar\" />
-    <Folder Include="Views\CarRecord\" />
-    <Folder Include="Views\Common\" />
-    <Folder Include="Views\Contact\" />
-    <Folder Include="Views\Content\" />
-    <Folder Include="Views\Education\" />
-    <Folder Include="Views\Favorite\" />
-    <Folder Include="Views\Invoice\" />
-    <Folder Include="Views\Leave\" />
-    <Folder Include="Views\MettingBook\" />
-    <Folder Include="Views\Notification\" />
-    <Folder Include="Views\Report\" />
-    <Folder Include="Views\Resume\" />
-    <Folder Include="Views\SerialNo\" />
-    <Folder Include="Views\Summary\" />
-    <Folder Include="Views\System\" />
-    <Folder Include="Views\Test\" />
-    <Folder Include="Views\UserCompany\" />
-    <Folder Include="Views\Vendor\" />
-    <Folder Include="Views\Voucher\" />
-    <Folder Include="Views\WorkExperience\" />
-    <Folder Include="Views\WorkflowAtt\" />
-    <Folder Include="Views\WorkflowPage\" />
+    <Folder Include="Content\static\css" />
+    <Folder Include="Views\Home" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="appkiz.config">
       <SubType>Designer</SubType>
     </Content>
     <None Include="packages.config" />
-    <Content Include="Views\Workflow\GetDeptPeople.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Plugins\loading-master\README.md" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004010553078_add express table.resx">
-      <DependentUpon>202004010553078_add express table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004010746386_add express table2.resx">
-      <DependentUpon>202004010746386_add express table2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004010818155_add express ids in invoice.resx">
-      <DependentUpon>202004010818155_add express ids in invoice.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004070537402_add voucher deptNo.resx">
-      <DependentUpon>202004070537402_add voucher deptNo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004070538583_add invoice deptNo.resx">
-      <DependentUpon>202004070538583_add invoice deptNo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004070707554_add voucher taxSum and taxFreeSum.resx">
-      <DependentUpon>202004070707554_add voucher taxSum and taxFreeSum.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004070735157_add att to userinfo.resx">
-      <DependentUpon>202004070735157_add att to userinfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004070748270_add real month to usercompanyinfo.resx">
-      <DependentUpon>202004070748270_add real month to usercompanyinfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004260218288_update user company info.resx">
-      <DependentUpon>202004260218288_update user company info.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004260334543_add attence.resx">
-      <DependentUpon>202004260334543_add attence.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004270138258_add invoiceDataCode and invoiceNumber.resx">
-      <DependentUpon>202004270138258_add invoiceDataCode and invoiceNumber.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004270603261_add attendance.resx">
-      <DependentUpon>202004270603261_add attendance.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004270635058_add biztrip.resx">
-      <DependentUpon>202004270635058_add biztrip.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004270641136_add biztrip updatetime.resx">
-      <DependentUpon>202004270641136_add biztrip updatetime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005080715000_add rest days.resx">
-      <DependentUpon>202005080715000_add rest days.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005080720251_delete used days.resx">
-      <DependentUpon>202005080720251_delete used days.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005080722372_add rest days2.resx">
-      <DependentUpon>202005080722372_add rest days2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005140540184_add day to attence.resx">
-      <DependentUpon>202005140540184_add day to attence.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005190138043_add rest start time and end time.resx">
-      <DependentUpon>202005190138043_add rest start time and end time.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -965,6 +724,11 @@
       </FlavorProperties>
       <UserProperties content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" />
     </VisualStudio>
+    <MonoDevelop>
+      <Properties>
+        <XspParameters Port="8080" Address="127.0.0.1" SslMode="None" SslProtocol="Default" KeyType="None" CertFile="" KeyFile="" PasswordOptions="None" Password="" Verbose="True" />
+      </Properties>
+    </MonoDevelop>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -1,11 +1,5 @@
 ﻿using Appkiz.Library.Security;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using XYD.Models;
-using XYD.Common;
-using XYD.Entity;
 
 namespace XYD.Common
 {
@@ -13,6 +7,10 @@ namespace XYD.Common
     {
 
         static OrgMgr orgMgr = new OrgMgr();
+        // 常量定义
+        private static string UserType = "user";
+        private static string RoleType = "role";
+        private static string DeptType = "dept";
 
         #region 判断当前用户是否拥有角色
         public static bool CheckRole(string emplID, string roleName)
@@ -30,66 +28,6 @@ namespace XYD.Common
         }
         #endregion
 
-        #region 检查是否是CEO
-        public static bool CheckCEO(string emplId)
-        {
-            return OrgUtil.CheckRole(emplId, "总经理");
-        }
-        #endregion
-
-        #region 检查是否是无锡
-        public static string GetWorkArea(string emplId)
-        {
-            if (CheckRole(emplId, DEP_Constants.Role_Name_WuXi))
-            {
-                return DEP_Constants.System_Config_Area_WX;
-            }
-            else
-            {
-                return DEP_Constants.System_Config_Area_SH;
-            }
-        }
-        #endregion
-
-        #region 检查是否是报销专员
-        public static bool CheckBaoxiaoUser(string emplId)
-        {
-            var baoxiaoRole = System.Configuration.ConfigurationManager.AppSettings["BaoXiaoUser"];
-            return CheckRole(emplId, baoxiaoRole);
-        }
-        #endregion
-
-        #region 获得U8用户表数据
-        public static Dictionary<string, string> GetU8Person()
-        {
-            var u8PersonDict = new Dictionary<string, string>();
-            var sql = @"SELECT cPersonCode, cPersonName, cDepCode from Person";
-            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
-            var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetU8Person);
-            foreach(XYD_U8_Person person in result)
-            {
-                u8PersonDict.Add(person.cPersonCode, person.cDepCode);
-            }
-            return u8PersonDict;
-        }
-        #endregion
-
-        #region 获得U8用户
-        public static List<XYD_U8_Person> GetU8Users()
-        {
-            var u8PersonDict = new Dictionary<string, string>();
-            var sql = @"SELECT cPersonCode, cPersonName, cDepCode from Person";
-            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
-            var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetU8Person);
-            List<XYD_U8_Person> persons = new List<XYD_U8_Person>();
-            foreach(XYD_U8_Person person in result)
-            {
-                persons.Add(person);
-            }
-            return persons;
-        }
-        #endregion
-
         #region 获取当前部门及子部门所有用户
         public static List<Employee> GetChildrenDeptRecursive(string deptId)
         {
@@ -100,6 +38,43 @@ namespace XYD.Common
                 employees.Add(orgMgr.GetEmployee(user.EmplID));
             }
             return employees;
+        }
+        #endregion
+
+        #region 判断用户是否具有模块权限
+        public static bool CheckPermission(string EmplID, string ModuleCode, string PermissionCode)
+        {
+            // 权限对应于3种类型：用户ID，用户角色，用户部门
+            // 参数校验
+            if (string.IsNullOrEmpty(PermissionCode) || string.IsNullOrEmpty(EmplID))
+            {
+                return false;
+            }
+
+            // 获取当前用户
+            User CurrentUser = orgMgr.GetUserByEmplID(EmplID);
+            if (CurrentUser == null)
+            {
+                return false;
+            }
+            // 获得用户部门
+            string DeptId = CurrentUser.Employee.DeptID;
+            // 获取用户的角色
+            List<Role> CurrentRoles = orgMgr.FindRoleForEmplID(EmplID);
+
+            // 检测用户是否有权限
+            bool UserHasPermission = orgMgr.VerifyPermission(ModuleCode, EmplID, UserType, PermissionCode);
+            // 检测部门是否有权限
+            bool DeptHasPermission = orgMgr.VerifyPermission(ModuleCode, DeptId, DeptType, PermissionCode);
+            // 检测角色是否有权限
+            bool RoleHasPermission = false;
+            foreach (var role in CurrentRoles)
+            {
+                RoleHasPermission = orgMgr.VerifyPermission(ModuleCode, role.RoleID, RoleType, PermissionCode);
+                if (RoleHasPermission == true)
+                    break;
+            }
+            return UserHasPermission || DeptHasPermission || RoleHasPermission;
         }
         #endregion
     }
