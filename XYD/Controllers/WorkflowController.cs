@@ -24,15 +24,8 @@ namespace XYD.Controllers
         [HttpPost]
         public ActionResult GetTemplates()
         {
-            try
-            {
-                List<XYD_Template_Entity> myTemplates = GetMyTemplates(User.Identity.Name);
-                return ResponseUtil.OK(myTemplates);
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
+            List<XYD_Template_Entity> myTemplates = GetMyTemplates(User.Identity.Name);
+            return ResponseUtil.OK(myTemplates);
         }
 
         // 获得我的工作流
@@ -63,55 +56,44 @@ namespace XYD.Controllers
         [HttpGet]
         public ActionResult Open(string mid, string nid, string fieldValues)
         {
-            try
+            Message message = mgr.GetMessage(mid);
+            if (message == null)
             {
-                Message message = mgr.GetMessage(mid);
-                if (message == null)
-                {
-                    return ResponseUtil.Error("模板ID无效");
-                }
-                
-                if (message.IsTemplate == 1)
-                {
-                    if (message.MessageStatus == -1)
-                    {
-                        return ResponseUtil.Error("模版无效");
-                    }
-                    if (message.GetNodeList().Count == 0)
-                    {
-                        return ResponseUtil.Error("模版无节点");
-                    }
-                    if (string.IsNullOrEmpty(message.InitNodeKey))
-                    {
-                        return ResponseUtil.Error("初始节点为空");
-                    }
-                    Message theMessage = mgr.StartWorkflow(message.MessageID, User.Identity.Name, HttpContext.ApplicationInstance.Context);
-                    theMessage.MessageType = "temp";
-                    mgr.UpdateMessage(theMessage);
-                    if (theMessage == null)
-                    {
-                        return ResponseUtil.Error("创建失败");
-                    }
-                    else
-                    {
-                        return ResponseUtil.OK(new
-                        {
-                            MessageId = theMessage.MessageID,
-                            WorkflowId = theMessage.FromTemplate,
-                            WorksheetId = mgr.GetDocHelperIdByMessageId(theMessage.MessageID),
-                            MessageTitle = theMessage.MessageTitle,
-                            NodeId = theMessage.InitNodeKey
-                        });
-                    }
-                }
-                else
-                {
-                    return ResponseUtil.Error("参数不是工作流模版");
-                }
+                throw new Exception("模板ID无效");
             }
-            catch (Exception e)
+            if (message.IsTemplate == 1)
             {
-                return ResponseUtil.Error(e.Message);
+                if (message.MessageStatus == -1)
+                {
+                    throw new Exception("模版无效");
+                }
+                if (message.GetNodeList().Count == 0)
+                {
+                    throw new Exception("模版无节点");
+                }
+                if (string.IsNullOrEmpty(message.InitNodeKey))
+                {
+                    throw new Exception("初始节点为空");
+                }
+                Message theMessage = mgr.StartWorkflow(message.MessageID, User.Identity.Name, HttpContext.ApplicationInstance.Context);
+                theMessage.MessageType = "temp";
+                mgr.UpdateMessage(theMessage);
+                if (theMessage == null)
+                {
+                    throw new Exception("创建失败");
+                }
+                return ResponseUtil.OK(new
+                {
+                    MessageId = theMessage.MessageID,
+                    WorkflowId = theMessage.FromTemplate,
+                    WorksheetId = mgr.GetDocHelperIdByMessageId(theMessage.MessageID),
+                    MessageTitle = theMessage.MessageTitle,
+                    NodeId = theMessage.InitNodeKey
+                });
+            }
+            else
+            {
+                throw new Exception("参数不是工作流模版");
             }
         }
         #endregion
@@ -120,17 +102,10 @@ namespace XYD.Controllers
         [Authorize]
         public ActionResult GetStartFields(string NodeId, string MessageID)
         {
-            try
-            {
-                var employee = (User.Identity as AppkizIdentity).Employee;
+            var employee = (User.Identity as AppkizIdentity).Employee;
 
-                XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, NodeId, MessageID);
-                return ResponseUtil.OK(fields);
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
+            XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, NodeId, MessageID);
+            return ResponseUtil.OK(fields);
         }
         #endregion
 
@@ -139,20 +114,11 @@ namespace XYD.Controllers
         [HttpPost]
         public ActionResult ConfirmStartWorkflow(string MessageID)
         {
-            try
-            {
-                var employee = (User.Identity as AppkizIdentity).Employee;
-
-                Stream stream = Request.InputStream;
-                stream.Seek(0, SeekOrigin.Begin);
-                string json = new StreamReader(stream).ReadToEnd();
-                WorkflowUtil.ConfirmStartWorkflow(MessageID, json);
-                return ResponseUtil.OK("流程发起成功");
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
+            Stream stream = Request.InputStream;
+            stream.Seek(0, SeekOrigin.Begin);
+            string json = new StreamReader(stream).ReadToEnd();
+            WorkflowUtil.ConfirmStartWorkflow(MessageID, json);
+            return ResponseUtil.OK("流程发起成功");
         }
         #endregion
 
@@ -161,76 +127,62 @@ namespace XYD.Controllers
         [HttpPost]
         public ActionResult Audit(FormCollection collection)
         {
-            try
+            var operate = string.Empty;
+            var employee = (User.Identity as AppkizIdentity).Employee;
+            var mid = collection["mid"];
+            var nid = collection["nid"];
+            var operateString = collection["operate"];
+            var opinion = collection["opinion"];
+            // 判断是否是再次发起，提醒到网页端处理
+            if (nid == DEP_Constants.Start_Node_Key)
             {
-                var operate = string.Empty;
-                var employee = (User.Identity as AppkizIdentity).Employee;
-                var mid = collection["mid"];
-                var nid = collection["nid"];
-                var operateString = collection["operate"];
-                var opinion = collection["opinion"];
-                // 判断是否是再次发起，提醒到网页端处理
-                if (nid == DEP_Constants.Start_Node_Key)
-                {
-                    return ResponseUtil.Error("被驳回的审批，请到网页端修改后再提交");
-                }
-                if (operateString == "0")
-                {
-                    operate = "同意";
-                }
-                else
-                {
-                    operate = "驳回";
-                }
-                WorkflowUtil.AuditMessage(mid, nid, operate, opinion);
-                return ResponseUtil.OK("审批OK");
+                throw new Exception("被驳回的审批，请到网页端修改后再提交");
             }
-            catch (Exception e)
+            if (operateString == "0")
             {
-                return ResponseUtil.Error(e.Message);
+                operate = "同意";
             }
+            else
+            {
+                operate = "驳回";
+            }
+            WorkflowUtil.AuditMessage(mid, nid, operate, opinion);
+            return ResponseUtil.OK("审批OK");
         }
         #endregion
 
         #region 添加流程处理记录
         public ActionResult AddAuditRecord(string mid, string node, string user)
         {
-            try
-            {
-                // 变量定义
-                var operate = string.Empty;
-                var opinion = string.Empty;
+            // 变量定义
+            var operate = string.Empty;
+            var opinion = string.Empty;
 
-                var message = mgr.GetMessage(mid);
-                Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
-                Worksheet worksheet = doc.Worksheet;
-                Node currentNode = mgr.GetNode(mid, node);
-                if (currentNode.NodeType == DEP_Constants.NODE_TYPE_START)
-                {
-                    operate = DEP_Constants.Audit_Operate_Type_Start;
-                }
-                else if (currentNode.NodeType == DEP_Constants.NODE_TYPE_END)
-                {
-                    operate = DEP_Constants.Audit_Operate_Type_End;
-                }
-                else
-                {
-                    XYD_Audit_Node auditNode = WorkflowUtil.GetAuditNode(mid, node);
-                    if (auditNode == null)
-                    {
-                        return ResponseUtil.Error("没找到对应处理节点");
-                    }
-                    operate = worksheet.GetWorkcell(auditNode.Operate.Row, auditNode.Operate.Col).WorkcellValue;
-                    opinion = worksheet.GetWorkcell(auditNode.Opinion.Row, auditNode.Opinion.Col).WorkcellValue;
-                }
-
-                WorkflowUtil.AddWorkflowHistory(user, currentNode.NodeName, mid, operate, opinion);
-                return ResponseUtil.OK("添加处理记录成功");
-            }
-            catch (Exception e)
+            var message = mgr.GetMessage(mid);
+            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+            Worksheet worksheet = doc.Worksheet;
+            Node currentNode = mgr.GetNode(mid, node);
+            if (currentNode.NodeType == DEP_Constants.NODE_TYPE_START)
             {
-                return ResponseUtil.Error(e.Message);
+                operate = DEP_Constants.Audit_Operate_Type_Start;
             }
+            else if (currentNode.NodeType == DEP_Constants.NODE_TYPE_END)
+            {
+                operate = DEP_Constants.Audit_Operate_Type_End;
+            }
+            else
+            {
+                XYD_Audit_Node auditNode = WorkflowUtil.GetAuditNode(mid, node);
+                if (auditNode == null)
+                {
+                    throw new Exception("没找到对应处理节点");
+                }
+                operate = worksheet.GetWorkcell(auditNode.Operate.Row, auditNode.Operate.Col).WorkcellValue;
+                opinion = worksheet.GetWorkcell(auditNode.Opinion.Row, auditNode.Opinion.Col).WorkcellValue;
+            }
+
+            WorkflowUtil.AddWorkflowHistory(user, currentNode.NodeName, mid, operate, opinion);
+            return ResponseUtil.OK("添加处理记录成功");
         }
         #endregion
 
@@ -251,29 +203,22 @@ namespace XYD.Controllers
             // 节点ID
             var NodeID = Request.Params["node"];
 
-            try
+            /*
+             * 配置读取
+             */
+            string tableName = WorkflowUtil.GetTableName(MessageID);
+            DEP_Mapping mappings = WorkflowUtil.GetNodeMappings(MessageID, NodeID);
+
+            // 判断是否存在对应配置
+            if (mappings == null)
             {
-                /*
-                 * 配置读取
-                 */
-                string tableName = WorkflowUtil.GetTableName(MessageID);
-                DEP_Mapping mappings = WorkflowUtil.GetNodeMappings(MessageID, NodeID);
-
-                // 判断是否存在对应配置
-                if (mappings == null)
-                {
-                    return ResponseUtil.Error(string.Format("流程{0}节点{1}没有对应配置", MessageID, NodeID));
-                }
-                else
-                {
-                    bool runResult = wkfService.AddOrUpdateRecord(MessageID, tableName, mappings);
-
-                    return ResponseUtil.OK(runResult);
-                }
+                throw new Exception(string.Format("流程{0}节点{1}没有对应配置", MessageID, NodeID));
             }
-            catch (Exception e)
+            else
             {
-                return ResponseUtil.Error(e.Message);
+                bool runResult = wkfService.AddOrUpdateRecord(MessageID, tableName, mappings);
+
+                return ResponseUtil.OK(runResult);
             }
         }
         #endregion
@@ -296,9 +241,7 @@ namespace XYD.Controllers
             // 消息ID
             var MessageID = collection["mid"];
 
-            try
-            {
-                var employee = (User.Identity as AppkizIdentity).Employee;
+            var employee = (User.Identity as AppkizIdentity).Employee;
                 var isReadOnly = false;
                 List<Node> source = mgr.ListNodeToBeHandle(employee.EmplID, "");
                 foreach (Node node in source)
@@ -345,7 +288,7 @@ namespace XYD.Controllers
                 // 判断是否存在对应配置
                 if (details == null)
                 {
-                    return ResponseUtil.Error(string.Format("流程{0}没有对应详情配置", MessageID));
+                    throw new Exception(string.Format("流程{0}没有对应详情配置", MessageID));
                 }
                 else
                 {
@@ -365,11 +308,6 @@ namespace XYD.Controllers
                         inputTypes = inputTypes
                     });
                 }
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
         }
         #endregion
 
@@ -392,35 +330,28 @@ namespace XYD.Controllers
             // 消息ID
             var MessageID = collection["mid"];
 
-            try
+            List<Node> source = mgr.ListNodeToBeHandle(employee.EmplID, "");
+            foreach (Node node in source)
             {
-                List<Node> source = mgr.ListNodeToBeHandle(employee.EmplID, "");
-                foreach (Node node in source)
+                if (node.MessageID == MessageID)
                 {
-                    if (node.MessageID == MessageID)
-                    {
-                        NodeID = node.NodeKey;
-                        break;
-                    }
-                    else
-                    {
-                        continue;
-                    }
+                    NodeID = node.NodeKey;
+                    break;
                 }
-                XYD_Fields fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, NodeID, MessageID);
-                var handle = wkfService.GetMessageHandle(MessageID);
-                var history = wkfService.GetWorkflowHistory(MessageID);
-                return ResponseUtil.OK(new
+                else
                 {
-                    fields = fields,
-                    handle = handle,
-                    history = history
-                });
+                    continue;
+                }
             }
-            catch (Exception e)
+            XYD_Fields fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, NodeID, MessageID);
+            var handle = wkfService.GetMessageHandle(MessageID);
+            var history = wkfService.GetWorkflowHistory(MessageID);
+            return ResponseUtil.OK(new
             {
-                return ResponseUtil.Error(e.Message);
-            }
+                fields = fields,
+                handle = handle,
+                history = history
+            });
         }
         #endregion
 
@@ -461,7 +392,7 @@ namespace XYD.Controllers
             }
             catch (TargetInvocationException e)
             {
-                return ResponseUtil.Error(e.InnerException.Message);
+                return ResponseUtil.Error(e.InnerException?.Message);
             }
             catch (Exception e)
             {
@@ -473,9 +404,7 @@ namespace XYD.Controllers
         #region 网页端流程处理记录
         public ActionResult ShowHistory(string mid)
         {
-            try
-            {
-                var sql = string.Format(@"SELECT
+            var sql = string.Format(@"SELECT
 	                                            a.NodeName,
 	                                            b.EmplName,
 	                                            a.Operation,
@@ -485,16 +414,11 @@ namespace XYD.Controllers
 	                                            XYD_Audit_Record a
 	                                            INNER JOIN ORG_Employee b ON a.EmplID = b.EmplID
                                             WHERE a.MessageID = '{0}'", mid);
-                var results = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetHistory);
-                return ResponseUtil.OK(new
-                {
-                    history = results
-                });
-            }
-            catch (Exception e)
+            var results = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetHistory);
+            return ResponseUtil.OK(new
             {
-                return ResponseUtil.Error(e.Message);
-            }
+                history = results
+            });
         }
         #endregion
     }

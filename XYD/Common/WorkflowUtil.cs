@@ -112,27 +112,20 @@ namespace XYD.Common
         #region 获得详情配置
         public static List<DEP_Detail> GetNodeDetail(string mid)
         {
-            try
-            {
-                /*
+            /*
              * 根据模板ID获得对应的配置
              */
-                Message message = mgr.GetMessage(mid);
-                var templateID = message.FromTemplate;
+            Message message = mgr.GetMessage(mid);
+            var templateID = message.FromTemplate;
 
-                var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Main);
-                //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
+            var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Main);
+            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
 
-                using (StreamReader sr = new StreamReader(filePathName))
-                {
-                    var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
-
-                    return config.values.details;
-                }
-            }
-            catch (Exception e)
+            using (StreamReader sr = new StreamReader(filePathName))
             {
-                throw e;
+                var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
+
+                return config.values.details;
             }
         }
         #endregion
@@ -140,57 +133,50 @@ namespace XYD.Common
         #region 获得节点动作
         public static Dictionary<string, object> GetNodeAction(string mid, string nid)
         {
-            try
-            {
-                /*
+            /*
                  * 根据模板ID获得对应的配置
                  */
-                Dictionary<string, object> dict = new Dictionary<string, object>();
+            Dictionary<string, object> dict = new Dictionary<string, object>();
 
-                DEP_Action resultAction = null;
+            DEP_Action resultAction = null;
 
-                Message message = mgr.GetMessage(mid);
-                var templateID = message.FromTemplate;
+            Message message = mgr.GetMessage(mid);
+            var templateID = message.FromTemplate;
 
-                var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Main);
-                //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
+            var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Main);
+            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
 
-                using (StreamReader sr = new StreamReader(filePathName))
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
+
+                foreach (var action in config.values.actions)
                 {
-                    var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
-
-                    foreach (var action in config.values.actions)
+                    if (action.key == nid)
                     {
-                        if (action.key == nid)
-                        {
-                            resultAction = action;
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-
-                    // 判断动作配置是否为空
-                    if (resultAction == null)
-                    {
-                        return null;
+                        resultAction = action;
+                        break;
                     }
                     else
                     {
-                        foreach (var actionField in resultAction.value)
-                        {
-                            dict.Add(actionField.key, actionField.value);
-                        }
-
-                        return dict;
+                        continue;
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                throw e;
+
+                // 判断动作配置是否为空
+                if (resultAction == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    foreach (var actionField in resultAction.value)
+                    {
+                        dict.Add(actionField.key, actionField.value);
+                    }
+
+                    return dict;
+                }
             }
         }
         #endregion
@@ -198,44 +184,37 @@ namespace XYD.Common
         #region 获得节点权限
         public static object GetNodeControl(string mid, string nid)
         {
-            try
+            /*
+             * 根据模板ID获得对应的配置
+             */
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            DEP_Control resultControl = null;
+
+            Message message = mgr.GetMessage(mid);
+            var templateID = message.FromTemplate;
+
+            var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Main);
+            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
+
+            using (StreamReader sr = new StreamReader(filePathName))
             {
-                /*
-                 * 根据模板ID获得对应的配置
-                 */
-                Dictionary<string, object> dict = new Dictionary<string, object>();
+                var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
 
-                DEP_Control resultControl = null;
-
-                Message message = mgr.GetMessage(mid);
-                var templateID = message.FromTemplate;
-
-                var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Main);
-                //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
-
-                using (StreamReader sr = new StreamReader(filePathName))
+                foreach (var control in config.values.controls)
                 {
-                    var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
-
-                    foreach (var control in config.values.controls)
+                    if (control.key == nid)
                     {
-                        if (control.key == nid)
-                        {
-                            resultControl = control;
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
+                        resultControl = control;
+                        break;
                     }
-
-                    return resultControl == null ? null : resultControl.value;
+                    else
+                    {
+                        continue;
+                    }
                 }
-            }
-            catch (Exception e)
-            {
-                throw e;
+
+                return resultControl == null ? null : resultControl.value;
             }
         }
         #endregion
@@ -243,44 +222,37 @@ namespace XYD.Common
         #region 获得流程节点对应的输入控件类型
         public static object GetNodeInputTypes(string mid, string nid)
         {
-            try
+            /*
+             * 根据模板ID获得对应的配置
+             */
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            DEP_InputType resultInputType = null;
+
+            Message message = mgr.GetMessage(mid);
+            var templateID = message.FromTemplate;
+
+            var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Main);
+            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
+
+            using (StreamReader sr = new StreamReader(filePathName))
             {
-                /*
-                 * 根据模板ID获得对应的配置
-                 */
-                Dictionary<string, object> dict = new Dictionary<string, object>();
+                var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
 
-                DEP_InputType resultInputType = null;
-
-                Message message = mgr.GetMessage(mid);
-                var templateID = message.FromTemplate;
-
-                var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Main);
-                //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
-
-                using (StreamReader sr = new StreamReader(filePathName))
+                foreach (var inputType in config.values.inputTypes)
                 {
-                    var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
-
-                    foreach (var inputType in config.values.inputTypes)
+                    if (inputType.key == nid)
                     {
-                        if (inputType.key == nid)
-                        {
-                            resultInputType = inputType;
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
+                        resultInputType = inputType;
+                        break;
                     }
-
-                    return resultInputType == null ? null : resultInputType.value;
+                    else
+                    {
+                        continue;
+                    }
                 }
-            }
-            catch (Exception e)
-            {
-                throw e;
+
+                return resultInputType == null ? null : resultInputType.value;
             }
         }
 
@@ -289,29 +261,22 @@ namespace XYD.Common
         #region 获得流程转换配置
         public static string GetAppTransformer(string mid)
         {
-            try
+            /*
+             * 根据模板ID获得对应的配置
+             */
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            Message message = mgr.GetMessage(mid);
+            var templateID = message.FromTemplate;
+
+            var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_App);
+            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-app-transformer.json", templateID));
+
+            using (StreamReader sr = new StreamReader(filePathName))
             {
-                /*
-                 * 根据模板ID获得对应的配置
-                 */
-                Dictionary<string, object> dict = new Dictionary<string, object>();
+                var transformer = sr.ReadToEnd();
 
-                Message message = mgr.GetMessage(mid);
-                var templateID = message.FromTemplate;
-
-                var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_App);
-                //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-app-transformer.json", templateID));
-
-                using (StreamReader sr = new StreamReader(filePathName))
-                {
-                    var transformer = sr.ReadToEnd();
-
-                    return transformer;
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
+                return transformer;
             }
         }
         #endregion
@@ -833,44 +798,37 @@ namespace XYD.Common
         #region 获得节点事件
         public static XYD_Event GetCellEvent(string mid, int row, int col)
         {
-            try
+            /*
+             * 根据模板ID获得对应的配置
+             */
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            XYD_Event resultEvent = null;
+
+            Message message = mgr.GetMessage(mid);
+            var templateID = message.FromTemplate;
+            var defaultVersion = GetDefaultConfigVersion(templateID);
+            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], templateID, defaultVersion, "event.json");
+            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-event.json", templateID));
+
+            using (StreamReader sr = new StreamReader(filePathName))
             {
-                /*
-                 * 根据模板ID获得对应的配置
-                 */
-                Dictionary<string, object> dict = new Dictionary<string, object>();
+                var config = JsonConvert.DeserializeObject<XYD_EventCells>(sr.ReadToEnd());
 
-                XYD_Event resultEvent = null;
-
-                Message message = mgr.GetMessage(mid);
-                var templateID = message.FromTemplate;
-                var defaultVersion = GetDefaultConfigVersion(templateID);
-                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], templateID, defaultVersion, "event.json");
-                //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-event.json", templateID));
-
-                using (StreamReader sr = new StreamReader(filePathName))
+                foreach (var eventCell in config.cells)
                 {
-                    var config = JsonConvert.DeserializeObject<XYD_EventCells>(sr.ReadToEnd());
-
-                    foreach (var eventCell in config.cells)
+                    if (eventCell.Row == row && eventCell.Col == col)
                     {
-                        if (eventCell.Row == row && eventCell.Col == col)
-                        {
-                            resultEvent = eventCell;
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
+                        resultEvent = eventCell;
+                        break;
                     }
-
-                    return resultEvent;
+                    else
+                    {
+                        continue;
+                    }
                 }
-            }
-            catch (Exception e)
-            {
-                throw e;
+
+                return resultEvent;
             }
         }
         #endregion

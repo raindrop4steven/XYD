@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using XYD.Entity;
@@ -141,87 +140,66 @@ namespace XYD.Common
         /// <returns></returns>
         public static void ExecuteProcedure(string procName, Dictionary<string, object> paramDict)
         {
-            try
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var sqlConnection = new SqlConnection(connectionString);
+
+            var command = new SqlCommand();
+            command.CommandText = procName;
+            command.CommandType = CommandType.StoredProcedure;
+            command.Connection = sqlConnection;
+
+            // 参数赋值
+            foreach(KeyValuePair<string, object> item in paramDict)
             {
-                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                var sqlConnection = new SqlConnection(connectionString);
-
-                var command = new SqlCommand();
-                command.CommandText = procName;
-                command.CommandType = CommandType.StoredProcedure;
-                command.Connection = sqlConnection;
-
-                // 参数赋值
-                foreach(KeyValuePair<string, object> item in paramDict)
-                {
-                    command.Parameters.AddWithValue(item.Key, item.Value);
-                }
-
-                sqlConnection.Open();
-
-                command.ExecuteNonQuery();
-
-                sqlConnection.Close();
+                command.Parameters.AddWithValue(item.Key, item.Value);
             }
-            catch(Exception e)
-            {
-                throw new Exception(string.Format("存储过程出错：{0}, 详细信息:{1}", procName, e.Message));
-            }
+
+            sqlConnection.Open();
+
+            command.ExecuteNonQuery();
+
+            sqlConnection.Close();
         }
 
         public static int ExecuteScalar(string sqlText)
         {
-            try
-            {
-                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                var sqlConnection = new SqlConnection(connectionString);
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var sqlConnection = new SqlConnection(connectionString);
 
-                SqlCommand cmd = new SqlCommand();
+            SqlCommand cmd = new SqlCommand();
 
-                // 基本的查询
-                cmd.CommandText = sqlText;
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = sqlConnection;
+            // 基本的查询
+            cmd.CommandText = sqlText;
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = sqlConnection;
 
-                sqlConnection.Open();
+            sqlConnection.Open();
 
-                int count = (int)(cmd.ExecuteScalar());
+            int count = (int)(cmd.ExecuteScalar());
 
 
-                sqlConnection.Close();
-                return count;
-            }
-            catch(Exception exception)
-            {
-                throw exception;
-            }
+            sqlConnection.Close();
+            return count;
         }
 
         public static int ExecuteScalar(string connectionString, string sqlText)
         {
-            try
-            {
-                var sqlConnection = new SqlConnection(connectionString);
+            var sqlConnection = new SqlConnection(connectionString);
 
-                SqlCommand cmd = new SqlCommand();
+            SqlCommand cmd = new SqlCommand();
 
-                // 基本的查询
-                cmd.CommandText = sqlText;
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = sqlConnection;
+            // 基本的查询
+            cmd.CommandText = sqlText;
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = sqlConnection;
 
-                sqlConnection.Open();
+            sqlConnection.Open();
 
-                int count = (int)(cmd.ExecuteScalar());
+            int count = (int)(cmd.ExecuteScalar());
 
 
-                sqlConnection.Close();
-                return count;
-            }
-            catch (Exception exception)
-            {
-                throw exception;
-            }
+            sqlConnection.Close();
+            return count;
         }
         #endregion
 

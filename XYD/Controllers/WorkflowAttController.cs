@@ -19,9 +19,7 @@ namespace XYD.Controllers
         [Authorize]
         public ActionResult Upload(FormCollection collection)
         {
-            try
-            {
-                /*
+            /*
                  * 参数获取
                  */
                 // 行,列
@@ -119,63 +117,51 @@ namespace XYD.Controllers
                 }
                 var fields = WorkflowUtil.GetStartFields(employee.EmplID, nid, mid);
                 return ResponseUtil.OK(EventResult.OK(fields));
-            }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
         }
         #endregion
 
         #region 删除附件
         public ActionResult DelCellAtt(FormCollection collection)
         {
-            try
-            {
-                /*
+            /*
                  * 参数获取
                  */
-                // 行,列
-                var mid = collection["mid"];
-                var nid = collection["nid"];
-                var sid = collection["sid"];
-                var attId = collection["attId"];
-                var row = int.Parse(collection["row"]);
-                var col = int.Parse(collection["col"]);
-                var inputFields = collection["fields"];
-                WorkflowUtil.ConfirmStartWorkflow(mid, inputFields);
-                // 当前用户
-                var employee = (User.Identity as AppkizIdentity).Employee;
+            // 行,列
+            var mid = collection["mid"];
+            var nid = collection["nid"];
+            var sid = collection["sid"];
+            var attId = collection["attId"];
+            var row = int.Parse(collection["row"]);
+            var col = int.Parse(collection["col"]);
+            var inputFields = collection["fields"];
+            WorkflowUtil.ConfirmStartWorkflow(mid, inputFields);
+            // 当前用户
+            var employee = (User.Identity as AppkizIdentity).Employee;
 
-                Worksheet worksheet = this.smgr.GetWorksheet(sid);
-                Workcell workcell = worksheet.GetWorkcell(row, col);
-                string str = "<ul>";
-                string NewInternalValue = "";
-                string workcellInternalValue = workcell.WorkcellInternalValue;
-                char[] chArray = new char[1] { ';' };
-                foreach (string AttID in workcellInternalValue.Split(chArray))
+            Worksheet worksheet = this.smgr.GetWorksheet(sid);
+            Workcell workcell = worksheet.GetWorkcell(row, col);
+            string str = "<ul>";
+            string NewInternalValue = "";
+            string workcellInternalValue = workcell.WorkcellInternalValue;
+            char[] chArray = new char[1] { ';' };
+            foreach (string AttID in workcellInternalValue.Split(chArray))
+            {
+                if (!(AttID == attId))
                 {
-                    if (!(AttID == attId))
+                    Attachment attachment = this.wmgr.GetAttachment(AttID);
+                    if (attachment != null)
                     {
-                        Attachment attachment = this.wmgr.GetAttachment(AttID);
-                        if (attachment != null)
-                        {
-                            NewInternalValue = NewInternalValue + (NewInternalValue.Length > 0 ? ";" : "") + AttID;
-                            str = str + "<li>" + attachment.AttFileName.ToFileIcon(this.HttpContext.ApplicationInstance.Context) + attachment.AttFileName + "</li>";
-                        }
+                        NewInternalValue = NewInternalValue + (NewInternalValue.Length > 0 ? ";" : "") + AttID;
+                        str = str + "<li>" + attachment.AttFileName.ToFileIcon(this.HttpContext.ApplicationInstance.Context) + attachment.AttFileName + "</li>";
                     }
                 }
-                string NewValue = str + "</ul>";
-                worksheet.SetCellValue(workcell.WorkcellRow, workcell.WorkcellCol, NewValue, NewInternalValue);
-                worksheet.Save();
-                this.wmgr.DelAttachment(attId);
-                var fields = WorkflowUtil.GetStartFields(employee.EmplID, nid, mid);
-                return ResponseUtil.OK(EventResult.OK(fields));
             }
-            catch (Exception e)
-            {
-                return ResponseUtil.Error(e.Message);
-            }
+            string NewValue = str + "</ul>";
+            worksheet.SetCellValue(workcell.WorkcellRow, workcell.WorkcellCol, NewValue, NewInternalValue);
+            worksheet.Save();
+            this.wmgr.DelAttachment(attId);
+            var fields = WorkflowUtil.GetStartFields(employee.EmplID, nid, mid);
+            return ResponseUtil.OK(EventResult.OK(fields));
         }
         #endregion
     }
