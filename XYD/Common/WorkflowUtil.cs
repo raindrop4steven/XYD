@@ -282,27 +282,28 @@ namespace XYD.Common
         #endregion
 
         #region 填充cell的值
-        public static void FillCellValue(string emplId, string NodeId, string MessageID, Worksheet worksheet, XYD_Base_Cell cell, bool canEdit)
+        public static XYD_Base_Cell FillCellValue(string emplId, string NodeId, string MessageID, Worksheet worksheet, XYD_Base_Cell cell)
         {
             Dictionary<string, int> nodeFeildDict = GetNodeFieldDict(MessageID, NodeId);
-            XYD_Single_Cell singleCell = null;
-            XYD_Array_Cell arrayCell = null;
             if (cell.Type == 0)
             {
-                singleCell = (XYD_Single_Cell)cell;
-                ParseInnerCell(emplId, NodeId, MessageID, worksheet, singleCell.Value, nodeFeildDict);
+                var singleCell = (XYD_Single_Cell) cell;
+                singleCell.Value = ParseInnerCell(emplId, NodeId, MessageID, worksheet, singleCell.Value, nodeFeildDict);
+                return singleCell;
             }
             else if (cell.Type == 3)
             {
-                arrayCell = (XYD_Array_Cell)cell;
+                var arrayCell = (XYD_Array_Cell)cell;
                 foreach (List<XYD_Cell_Value> rowCells in arrayCell.Array)
                 {
                     for (int i= 0; i < rowCells.Count; i++)
                     {
-                        XYD_Cell_Value innerCell = rowCells[i];
-                        ParseInnerCell(emplId, NodeId, MessageID, worksheet, innerCell, nodeFeildDict);
+                        var innerCell = rowCells[i];
+                        rowCells[i] = ParseInnerCell(emplId, NodeId, MessageID, worksheet, innerCell, nodeFeildDict);
                     }
                 }
+
+                return arrayCell;
             }
             else
             {
@@ -312,7 +313,7 @@ namespace XYD.Common
         #endregion
 
         #region 解析内部Cell
-        public static void ParseInnerCell(string emplId, string NodeId, string MessageID, Worksheet worksheet, 
+        public static XYD_Cell_Value ParseInnerCell(string emplId, string NodeId, string MessageID, Worksheet worksheet, 
             XYD_Cell_Value innerCell, Dictionary<string, int> NodeFieldDict)
         {
             var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
@@ -340,19 +341,41 @@ namespace XYD.Common
                 }
                 innerCell.Atts = attachments;
             }
-                        
-            innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
-            var workcellId = ConvertToWorkcellId(innerCell.Row, innerCell.Col);
-            var canEdit = false;
-            var required = false;
-            if (NodeFieldDict.ContainsKey(workcellId))
+            // 解析CanEdit和Required在前，最后解析#customFunc
+            // TODO:
+            // //以下类型不允许单元格有“进入”的动作
+            // case 4:
+            // case 13:
+            // case 101:
+            // case 102:
+            // case 103:
+            // case 104:
+            // case 105:
+            // case 106:
+            // case 107:
+            // case 108:
+            // case 109:
+            // case 110:
+            // case 111:
+            // case 112:
+            // case 117:
+            if (innerCell.CanEdit != null && innerCell.CanEdit is bool)
             {
-                int control = NodeFieldDict[workcellId];
-                canEdit = true;
-                required = control == 2; // 1:可空；2：必填
+                var canEdit = false;
+                var required = false;
+                var workcellId = ConvertToWorkcellId(innerCell.Row, innerCell.Col);
+                if (NodeFieldDict.ContainsKey(workcellId))
+                {
+                    int control = NodeFieldDict[workcellId];
+                    canEdit = true;
+                    required = control == 2; // 1:可空；2：必填
+                }
+                innerCell.CanEdit = canEdit;
+                innerCell.Required = required;
             }
-            innerCell.CanEdit = canEdit;
-            innerCell.Required = required;
+            
+            innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
+            return innerCell;
         }
         #endregion
 
@@ -611,10 +634,10 @@ namespace XYD.Common
             {
                 var fields = JsonConvert.DeserializeObject<XYD_Fields>(sr.ReadToEnd(), new XYDCellJsonConverter());
 
-                foreach (XYD_Base_Cell cell in fields.Fields)
+                for (int i = 0; i < fields.Fields.Count; i++)
                 {
-                    // 查找对应的值
-                    FillCellValue(emplId, NodeId, MessageID, worksheet, cell, true);
+                    XYD_Base_Cell cell = fields.Fields[i];
+                    fields.Fields[i] = FillCellValue(emplId, NodeId, MessageID, worksheet, cell);
                 }
                 return fields;
             }
@@ -635,10 +658,10 @@ namespace XYD.Common
             {
                 var fields = JsonConvert.DeserializeObject<XYD_Fields>(sr.ReadToEnd(), new XYDCellJsonConverter());
 
-                foreach (XYD_Base_Cell cell in fields.Fields)
+                for (int i = 0; i < fields.Fields.Count; i++)
                 {
-                    // 查找对应的值
-                    FillCellValue(emplId, NodeId, MessageID, worksheet, cell, false);
+                    XYD_Base_Cell cell = fields.Fields[i];
+                    fields.Fields[i] = FillCellValue(emplId, NodeId, MessageID, worksheet, cell);
                 }
                 return fields;
             }
