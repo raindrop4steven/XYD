@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Appkiz.Apps.Workflow.Library;
 using Appkiz.Library.Security;
 using Appkiz.Library.Security.Authentication;
 using Newtonsoft.Json;
@@ -12,6 +15,9 @@ namespace XYD.Controllers
 {
     public class TestController : Controller
     {
+        OrgMgr orgMgr = new OrgMgr();
+        WorkflowMgr wmgr = new WorkflowMgr();
+        
         [Authorize]
         public ActionResult caculate(FormCollection collection)
         {
@@ -36,6 +42,14 @@ namespace XYD.Controllers
                 employee = employee,
                 eventArgument = eventArguments
             });
+        }
+
+        [Authorize]
+        public ActionResult pageInfo(string mid, string nid)
+        {
+            var employee = (User.Identity as AppkizIdentity).Employee;
+            XYD_Fields fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, nid, mid);
+            return ResponseUtil.OK(fields);
         }
     }
 }

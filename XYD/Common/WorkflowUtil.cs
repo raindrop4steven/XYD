@@ -284,43 +284,13 @@ namespace XYD.Common
         #region 填充cell的值
         public static void FillCellValue(string emplId, string NodeId, string MessageID, Worksheet worksheet, XYD_Base_Cell cell, bool canEdit)
         {
+            Dictionary<string, int> nodeFeildDict = GetNodeFieldDict(MessageID, NodeId);
             XYD_Single_Cell singleCell = null;
             XYD_Array_Cell arrayCell = null;
             if (cell.Type == 0)
             {
                 singleCell = (XYD_Single_Cell)cell;
-                var workcell = worksheet.GetWorkcell(singleCell.Value.Row, singleCell.Value.Col);
-                if (singleCell.Value.Type != 10) // 除附件之外
-                {
-                    singleCell.Value.Value = workcell.WorkcellValue;
-                    singleCell.Value.InterValue = workcell.WorkcellInternalValue;
-                } else
-                {
-                    // 10，附件
-                    var attachments = new List<object>();
-                    var internalAttachs = workcell.WorkcellInternalValue.Split(';').ToList();
-                    foreach (var attachId in internalAttachs)
-                    {
-                        if (string.IsNullOrEmpty(attachId))
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            var attachment = mgr.GetAttachment(attachId);
-                            attachment.AttFileSize = attachment.AttFileSize / 1000;
-                            attachments.Add(attachment);
-                        }
-                    }
-                    singleCell.Value.Atts = attachments;
-                }
-                
-                singleCell.Value = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, singleCell.Value);
-                if (!canEdit)
-                {
-                    singleCell.Value.CanEdit = canEdit;
-                    singleCell.Value.Required = false;
-                }
+                ParseInnerCell(emplId, NodeId, MessageID, worksheet, singleCell.Value, nodeFeildDict);
             }
             else if (cell.Type == 3)
             {
@@ -330,38 +300,7 @@ namespace XYD.Common
                     for (int i= 0; i < rowCells.Count; i++)
                     {
                         XYD_Cell_Value innerCell = rowCells[i];
-                        var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
-                        if (innerCell.Type != 10)
-                        {
-                            innerCell.Value = workcell.WorkcellValue;
-                            innerCell.InterValue = workcell.WorkcellInternalValue;
-                        }
-                        else
-                        {
-                            // 10，附件
-                            var attachments = new List<object>();
-                            var internalAttachs = workcell.WorkcellInternalValue.Split(';').ToList();
-                            foreach (var attachId in internalAttachs)
-                            {
-                                if (string.IsNullOrEmpty(attachId))
-                                {
-                                    continue;
-                                }
-                                else
-                                {
-                                    var attachment = mgr.GetAttachment(attachId);
-                                    attachments.Add(attachment);
-                                }
-                            }
-                            innerCell.Atts = attachments;
-                        }
-                        
-                        innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
-                        if (!canEdit)
-                        {
-                            innerCell.CanEdit = canEdit;
-                            innerCell.Required = false;
-                        }
+                        ParseInnerCell(emplId, NodeId, MessageID, worksheet, innerCell, nodeFeildDict);
                     }
                 }
             }
@@ -369,6 +308,82 @@ namespace XYD.Common
             {
                 throw new Exception("不支持的类型");
             }
+        }
+        #endregion
+
+        #region 解析内部Cell
+        public static void ParseInnerCell(string emplId, string NodeId, string MessageID, Worksheet worksheet, 
+            XYD_Cell_Value innerCell, Dictionary<string, int> NodeFieldDict)
+        {
+            var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
+            if (innerCell.Type != 10)
+            {
+                innerCell.Value = workcell.WorkcellValue;
+                innerCell.InterValue = workcell.WorkcellInternalValue;
+            }
+            else
+            {
+                // 10，附件
+                var attachments = new List<object>();
+                var internalAttachs = workcell.WorkcellInternalValue.Split(';').ToList();
+                foreach (var attachId in internalAttachs)
+                {
+                    if (string.IsNullOrEmpty(attachId))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        var attachment = mgr.GetAttachment(attachId);
+                        attachments.Add(attachment);
+                    }
+                }
+                innerCell.Atts = attachments;
+            }
+                        
+            innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
+            var workcellId = ConvertToWorkcellId(innerCell.Row, innerCell.Col);
+            var canEdit = false;
+            var required = false;
+            if (NodeFieldDict.ContainsKey(workcellId))
+            {
+                int control = NodeFieldDict[workcellId];
+                canEdit = true;
+                required = control == 2; // 1:可空；2：必填
+            }
+            innerCell.CanEdit = canEdit;
+            innerCell.Required = required;
+        }
+        #endregion
+
+        #region 行列转成WorkCellID
+        public static string ConvertToWorkcellId(int row, int col)
+        {
+            return ((char) (col + 65 - 1)).ToString() + row.ToString();
+        }
+        #endregion
+
+        #region 获取NodeField
+
+        public static Dictionary<string, int> GetNodeFieldDict(string mid, string nid)
+        {
+            var doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+            List<NodeField> nodeFields = mgr.FindNodeField("MessageID=@MessageID AND NodeKey=@NodeKey AND DocId=@DocId", new Dictionary<string, object>()
+            {
+                {
+                    "@MessageID",
+                    mid
+                },
+                {
+                    "@NodeKey",
+                    nid
+                },
+                {
+                    "@DocId",
+                    doc.DocID
+                }
+            }, "");
+            return nodeFields.ToDictionary(n => n.FieldKey, n => n.Control);
         }
         #endregion
 
