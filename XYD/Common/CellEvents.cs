@@ -52,7 +52,7 @@ namespace XYD.Common
             }
             WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, cellValue);
             // 填充编号
-            XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, eventArgument.MessageId);
+            XYD_Fields fields = WorkflowUtil.GetWorkflowFields(user, eventArgument.NodeId, eventArgument.MessageId);
             return EventResult.OK(new XYD_Fields() { Fields = eventArgument.Fields, Operations = fields.Operations});
         }
         #endregion
@@ -73,7 +73,7 @@ namespace XYD.Common
             selecTypeValueCell.Value = eventArgument.CurrentCellValue.Value;
             WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, selecTypeValueCell);
 
-            XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, mid);
+            XYD_Fields fields = WorkflowUtil.GetWorkflowFields(user, eventArgument.NodeId, mid);
 
             if (dateType == "小时")
             {
@@ -138,7 +138,7 @@ namespace XYD.Common
             var categoryValueCell = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 6, 3);
             categoryValueCell.Value = eventArgument.CurrentCellValue.Value;
             WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, categoryValueCell);
-            XYD_Fields fields = WorkflowUtil.GetStartFields(user, eventArgument.NodeId, mid);
+            XYD_Fields fields = WorkflowUtil.GetWorkflowFields(user, eventArgument.NodeId, mid);
 
             if (category == "年假" || category == "婚假" || category == "产假" || category == "丧假")
             {

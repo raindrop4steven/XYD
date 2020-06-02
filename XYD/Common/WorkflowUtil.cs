@@ -34,7 +34,7 @@ namespace XYD.Common
         /// <returns></returns>
         public static string GetConfigPath(string templateID, string mid, string type)
         {
-            string version = GetConfigVersion(mid);
+            string version = GetConfigVersion(templateID, mid);
             string folderPath = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], templateID, version);
             string configName = string.Empty;
             if (type == DEP_Constants.Config_Type_Main)
@@ -80,8 +80,7 @@ namespace XYD.Common
             Message message = mgr.GetMessage(mid);
             var templateID = message.FromTemplate;
             var defaultVersion = GetDefaultConfigVersion(templateID);
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], templateID, defaultVersion, "main.json");
-
+            var filePathName = GetConfigPath(templateID, mid, DEP_Constants.Config_Type_Main);
             using (StreamReader sr = new StreamReader(filePathName))
             {
                 var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
@@ -119,7 +118,6 @@ namespace XYD.Common
             var templateID = message.FromTemplate;
 
             var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Main);
-            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
 
             using (StreamReader sr = new StreamReader(filePathName))
             {
@@ -144,7 +142,6 @@ namespace XYD.Common
             var templateID = message.FromTemplate;
 
             var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Main);
-            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
 
             using (StreamReader sr = new StreamReader(filePathName))
             {
@@ -195,7 +192,6 @@ namespace XYD.Common
             var templateID = message.FromTemplate;
 
             var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Main);
-            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
 
             using (StreamReader sr = new StreamReader(filePathName))
             {
@@ -233,7 +229,6 @@ namespace XYD.Common
             var templateID = message.FromTemplate;
 
             var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_Main);
-            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}.json", templateID));
 
             using (StreamReader sr = new StreamReader(filePathName))
             {
@@ -270,7 +265,6 @@ namespace XYD.Common
             var templateID = message.FromTemplate;
 
             var filePathName = GetConfigPath(templateID, message.MessageID, DEP_Constants.Config_Type_App);
-            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-app-transformer.json", templateID));
 
             using (StreamReader sr = new StreamReader(filePathName))
             {
@@ -633,30 +627,6 @@ namespace XYD.Common
         }
         #endregion
 
-        #region 获得发起流程的表单配置
-        public static XYD_Fields GetStartFields(string emplId, string NodeId, string MessageID)
-        {
-            Message message = mgr.GetMessage(MessageID);
-            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
-            Worksheet worksheet = doc.Worksheet;
-            var templateId = message.FromTemplate;
-            var defaultVersion = GetDefaultConfigVersion(templateId);
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], templateId, defaultVersion, "start.json");
-
-            using (StreamReader sr = new StreamReader(filePathName))
-            {
-                var fields = JsonConvert.DeserializeObject<XYD_Fields>(sr.ReadToEnd(), new XYDCellJsonConverter());
-
-                for (int i = 0; i < fields.Fields.Count; i++)
-                {
-                    XYD_Base_Cell cell = fields.Fields[i];
-                    fields.Fields[i] = FillCellValue(emplId, NodeId, MessageID, worksheet, cell);
-                }
-                return fields;
-            }
-        }
-        #endregion
-
         #region 获得表单详情
         public static XYD_Fields GetWorkflowFields(string emplId, string NodeId, string MessageID)
         {
@@ -665,7 +635,6 @@ namespace XYD.Common
             Worksheet worksheet = doc.Worksheet;
             var templateId = message.FromTemplate;
             var filePathName = GetConfigPath(templateId, message.MessageID, DEP_Constants.Config_Type_Start);
-            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-start.json", message.FromTemplate));
 
             using (StreamReader sr = new StreamReader(filePathName))
             {
@@ -740,7 +709,6 @@ namespace XYD.Common
             Worksheet worksheet = doc.Worksheet;
             var templateId = message.FromTemplate;
             var filePathName = GetConfigPath(templateId, message.MessageID, DEP_Constants.Config_Type_Audit);
-            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-audit.json", message.FromTemplate));
             using (StreamReader sr = new StreamReader(filePathName))
             {
                 var nodes = JsonConvert.DeserializeObject<XYD_Audit>(sr.ReadToEnd(), new XYDCellJsonConverter());
@@ -781,7 +749,6 @@ namespace XYD.Common
             var message = mgr.GetMessage(mid);
             var templateId = message.FromTemplate;
             var filePathName = GetConfigPath(templateId, message.MessageID, DEP_Constants.Config_Type_Audit);
-            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-audit.json", message.FromTemplate));
             using (StreamReader sr = new StreamReader(filePathName))
             {
                 var nodes = JsonConvert.DeserializeObject<XYD_Audit>(sr.ReadToEnd(), new XYDCellJsonConverter());
@@ -858,10 +825,7 @@ namespace XYD.Common
 
             Message message = mgr.GetMessage(mid);
             var templateID = message.FromTemplate;
-            var defaultVersion = GetDefaultConfigVersion(templateID);
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], templateID, defaultVersion, "event.json");
-            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-event.json", templateID));
-
+            var filePathName = GetConfigPath(templateID, mid, DEP_Constants.Config_Type_Event);
             using (StreamReader sr = new StreamReader(filePathName))
             {
                 var config = JsonConvert.DeserializeObject<XYD_EventCells>(sr.ReadToEnd());
@@ -1036,13 +1000,13 @@ namespace XYD.Common
         #endregion
 
         #region 根据流程ID获取配置版本
-        public static string GetConfigVersion(string mid)
+        public static string GetConfigVersion(string templetId, string mid)
         {
             var checkSql = string.Format(@"SELECT Version FROM XYD_ReceiveFile WHERE MessageId = '{0}'", mid);
             var checkResultList = DbUtil.ExecuteSqlCommand(checkSql, DbUtil.GetReceiveFile).ToList();
             if (checkResultList.Count == 0)
             {
-                throw new Exception("流程不存在");
+                return GetDefaultConfigVersion(templetId);
             }
             else
             {

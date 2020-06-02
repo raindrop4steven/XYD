@@ -47,6 +47,8 @@ namespace XYD.Controllers
         [Authorize]
         public ActionResult pageInfo(string mid, string nid)
         {
+            // 由于XYD_ReceiveFile没有保存，故找不到改配置路径
+            // GetStartFields 和 GetWorkflowFields可以合并
             var employee = (User.Identity as AppkizIdentity).Employee;
             XYD_Fields fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, nid, mid);
             return ResponseUtil.OK(fields);

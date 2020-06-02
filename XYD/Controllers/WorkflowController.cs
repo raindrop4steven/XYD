@@ -104,7 +104,7 @@ namespace XYD.Controllers
         {
             var employee = (User.Identity as AppkizIdentity).Employee;
 
-            XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, NodeId, MessageID);
+            XYD_Fields fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, NodeId, MessageID);
             return ResponseUtil.OK(fields);
         }
         #endregion
