@@ -342,23 +342,6 @@ namespace XYD.Common
                 innerCell.Atts = attachments;
             }
             // 解析CanEdit和Required在前，最后解析#customFunc
-            // TODO:
-            // //以下类型不允许单元格有“进入”的动作
-            // case 4:
-            // case 13:
-            // case 101:
-            // case 102:
-            // case 103:
-            // case 104:
-            // case 105:
-            // case 106:
-            // case 107:
-            // case 108:
-            // case 109:
-            // case 110:
-            // case 111:
-            // case 112:
-            // case 117:
             if (innerCell.CanEdit != null && innerCell.CanEdit is bool)
             {
                 var canEdit = false;
@@ -367,7 +350,7 @@ namespace XYD.Common
                 if (NodeFieldDict.ContainsKey(workcellId))
                 {
                     int control = NodeFieldDict[workcellId];
-                    canEdit = true;
+                    canEdit = !isReadonlyCell(workcell.WorkcellDataSource);
                     required = control == 2; // 1:可空；2：必填
                 }
                 innerCell.CanEdit = canEdit;
@@ -377,6 +360,33 @@ namespace XYD.Common
             innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
             return innerCell;
         }
+        #endregion
+
+        #region 判断Cell是否可以编辑
+        public static bool isReadonlyCell(Enum_WorkcellDataSource source)
+        {   
+            // //以下类型不允许单元格有“进入”的动作
+            var readonlySource = new List<Enum_WorkcellDataSource>()
+            {
+                Enum_WorkcellDataSource.AutoNum,
+                Enum_WorkcellDataSource.DataGrid,
+                Enum_WorkcellDataSource.CurrentUser,
+                Enum_WorkcellDataSource.CurrentPeopleName,
+                Enum_WorkcellDataSource.CurrentPeopleDepartment,
+                Enum_WorkcellDataSource.CurrentDate,
+                Enum_WorkcellDataSource.CurrentTime,
+                Enum_WorkcellDataSource.CurrentDateTime,
+                Enum_WorkcellDataSource.CurrentPeopleOrg,
+                Enum_WorkcellDataSource.CurrentPeopleDeptAndPos,
+                Enum_WorkcellDataSource.CurrentPeoplePosition,
+                Enum_WorkcellDataSource.CurrentPeopleManageOrg,
+                Enum_WorkcellDataSource.CurrentPeopleDepartmentID,
+                Enum_WorkcellDataSource.CurrentPeopleDepartmentShortName,
+                Enum_WorkcellDataSource.CurrentPeopleEmail
+            };
+            return readonlySource.Contains(source);
+        }
+
         #endregion
 
         #region 行列转成WorkCellID
