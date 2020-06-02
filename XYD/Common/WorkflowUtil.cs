@@ -347,6 +347,9 @@ namespace XYD.Common
                 var canEdit = false;
                 var required = false;
                 var workcellId = ConvertToWorkcellId(innerCell.Row, innerCell.Col);
+                // Cell是否能编辑包含2个条件：
+                // 1. Cell是否在改节点NodeField中
+                // 2. Cell的控件类型是否是可编辑的
                 if (NodeFieldDict.ContainsKey(workcellId))
                 {
                     int control = NodeFieldDict[workcellId];
