@@ -338,10 +338,6 @@ namespace XYD.Controllers
                     NodeID = node.NodeKey;
                     break;
                 }
-                else
-                {
-                    continue;
-                }
             }
             XYD_Fields fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, NodeID, MessageID);
             var handle = wkfService.GetMessageHandle(MessageID);

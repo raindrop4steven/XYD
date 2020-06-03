@@ -124,8 +124,8 @@ namespace XYD.Controllers
         public ActionResult DelCellAtt(FormCollection collection)
         {
             /*
-                 * 参数获取
-                 */
+             * 参数获取
+             */
             // 行,列
             var mid = collection["mid"];
             var nid = collection["nid"];

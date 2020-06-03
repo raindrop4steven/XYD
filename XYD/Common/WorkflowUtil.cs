@@ -666,11 +666,9 @@ namespace XYD.Common
                 if (cell.Type == 0)
                 {
                     singleCell = (XYD_Single_Cell)cell;
-                    var workcell = worksheet.GetWorkcell(singleCell.Value.Row, singleCell.Value.Col);
-                    if (workcell != null && singleCell.Value.Type != 10)
+                    var workcell = AssignWorkCell(worksheet, singleCell.Value);
+                    if (workcell != null)
                     {
-                        workcell.WorkcellValue = singleCell.Value.Value;
-                        workcell.WorkcellInternalValue = singleCell.Value.InterValue;
                         workCellList.Add(workcell);
                     }
                 }
@@ -681,11 +679,9 @@ namespace XYD.Common
                     {
                         foreach (XYD_Cell_Value innerCell in rowCells)
                         {
-                            var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
-                            if (workcell != null && innerCell.Type != 10)
+                            var workcell = AssignWorkCell(worksheet, innerCell);
+                            if (workcell != null)
                             {
-                                workcell.WorkcellValue = innerCell.Value;
-                                workcell.WorkcellInternalValue = innerCell.InterValue;
                                 workCellList.Add(workcell);
                             }
                         }
@@ -697,6 +693,22 @@ namespace XYD.Common
                 }
             }
             worksheet.UpdateWorkcells(workCellList);
+        }
+        #endregion
+
+        #region 表单数据赋值Worksheet
+
+        public static Workcell AssignWorkCell(Worksheet worksheet, XYD_Cell_Value innerCell)
+        {
+            var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
+            if (workcell != null && innerCell.Type != 10 && innerCell.CanEdit == true)
+            {
+                workcell.WorkcellValue = innerCell.Value;
+                workcell.WorkcellInternalValue = innerCell.InterValue;
+                return workcell;
+            }
+
+            return null;
         }
         #endregion
 
