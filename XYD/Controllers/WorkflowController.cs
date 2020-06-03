@@ -873,5 +873,47 @@ namespace XYD.Controllers
             }
         }
         #endregion
+        
+        #region 检查列表明细必填项
+        public ActionResult CheckLineRequired(string mid, int startRow, int endRow, string checkCols)
+        {
+            try
+            {
+                var cols = checkCols.Split(',').Select(int.Parse).ToList();
+                Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+                Worksheet worksheet = doc.Worksheet;
+                for (int i = startRow; i <= endRow; i++)
+                {
+                    var lineCells = new List<Workcell>();
+                    foreach (var col in cols)
+                    {
+                        var workCell = worksheet.GetWorkcell(i, col);
+                        lineCells.Add(workCell);
+                    }
+
+                    if (!(CellAllEmpty(lineCells) || CellAllFull(lineCells)))
+                    {
+                        return ResponseUtil.Error("请检查明细必填项");
+                    }
+                }
+
+                return ResponseUtil.OK("检查通过");
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+
+        public bool CellAllEmpty(List<Workcell> cells)
+        {
+            return cells.Count(n => string.IsNullOrEmpty(n.WorkcellValue)) == cells.Count;
+        }
+
+        public bool CellAllFull(List<Workcell> cells)
+        {
+            return cells.Count(n => string.IsNullOrEmpty(n.WorkcellValue)) == 0;
+        }
+        #endregion
     }
 }
