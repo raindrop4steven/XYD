@@ -137,8 +137,16 @@ namespace XYD.Common
                             var leave = leaveRecord.Where(n => n.StartDate >= d.Date && n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
                             if (leave != null)
                             {
-                                entity.Name = "请假";
-                                entity.Type = CALENDAR_TYPE.Leave;
+                                if (leave.Category != null && leave.Category.Contains("假"))
+                                {
+                                    entity.Name = "请假";
+                                    entity.Type = CALENDAR_TYPE.Leave;
+                                }
+                                else
+                                {
+                                    entity.Name = "上班";
+                                    entity.Type = CALENDAR_TYPE.Work;
+                                }
                             }
                             else
                             {
