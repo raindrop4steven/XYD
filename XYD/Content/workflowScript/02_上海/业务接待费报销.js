@@ -3,12 +3,20 @@
     AddCustomCss();
 
     // 功能定制跟进
-    loadCss("/Apps/XYD/Content/static/layui/css/layui.css");
-    loadScripts(["/Apps/XYD/Content/sdk/sdk.js", "/Apps/XYD/Content/static/layui/layui.js"], function () {
+    loadScripts(["/Apps/XYD/Content/sdk/sdk.js"], function () {
         main();
     });
 };
 function onSheetCheck() {
+    var validLine = CheckLineRequired(7, 13, 1, 7, [1, 3, 5]);
+    if (validLine == null) {
+        var nid = getQueryString("nid");
+        if (nid === 'NODE0001') {
+            return CheckRequiredCells(['#C-4-3']);
+        }
+    } else {
+        return validLine;
+    }
 };
 function onAnyCellUpdate(row, col) {
     OpinionChanged(row, col);
@@ -17,8 +25,8 @@ function onAnyCellUpdate(row, col) {
 // 每个表单的定制入口
 function main() {
     /*
-     * 参数获取
-     */
+ * 参数获取
+ */
     // 获取节点ID
     var nid = getQueryString("nid");
     //当没有节点Id 所以处于只读状态 初始化按钮
@@ -26,34 +34,35 @@ function main() {
     // 保存草稿
     onSaveDraft();
     if (nid === 'NODE0001') {
-        AddClearButtons(6, 10, 11);
-        
-        AddSelectGoodEvent();
+        GetSerialSn(MessageID);
+        SetReadonlyCells(['#C-14-3', '#C-15-3']);
+        AddClearButtons(7, 13, 7);
     }
 }
 
-// 给商品选择添加事件
-function AddSelectGoodEvent() {
-    $("#C-6-3").click(function () { ShowGoods("C-6-3", "C-6-5", "C-6-9"); })
-    $("#C-7-3").click(function () { ShowGoods("C-7-3", "C-7-5", "C-7-9"); })
-    $("#C-8-3").click(function () { ShowGoods("C-8-3", "C-8-5", "C-8-9"); })
-    $("#C-9-3").click(function () { ShowGoods("C-9-3", "C-9-5", "C-9-9"); })
-    $("#C-10-3").click(function () { ShowGoods("C-10-3", "C-10-5", "C-10-9"); })
-    $("#C-11-3").click(function () { ShowGoods("C-11-3", "C-11-5", "C-11-9"); })
-}
-// 展示商品页面
-function ShowGoods(nameId, modelId, unitId) {
-    var MessageID = getQueryString("mid");
-    layui.use(['layer'], function () {
-        var layer = layui.layer;
-        layer.ready(function () {
-            layer.open({
-                type: 2,
-                title: '库存物品清单',
-                content: [window.location.origin + "/Apps/XYD/Home/ShowGoods?nameId=" + nameId + "&modelId=" + modelId + "&unitId=" + unitId + "&mid=" + MessageID, 'no'],
-                area: ['820px', '456px']
+function GetSerialSn(mid) {
+    $.ajax({
+        type: "GET",
+        url: "/Apps/XYD/Workflow/GetSourceSerial?mid=" + mid,
+        success: function (data) {
+            serials = [];
+            data.Data.records.forEach(function (item) {
+                serials.push(item.Sn);
             });
-        });
+            ShowUnitList("unit", "166px", "198px", "291px", "54px", "514px", serials, '#C-4-9', '#C-4-3', MappingSourceData);
+        }
+    })
+}
+
+function MappingSourceData() {
+    var sn = $("#C-4-3").text();
+    var mid = getQueryString("mid");
+    $.ajax({
+        type: 'GET',
+        url: '/Apps/XYD/Workflow/MappingSourceToDest?mid=' + mid + '&sn=' + sn,
+        success: function (data) {
+            location.reload();
+        }
     });
 }
 
@@ -78,15 +87,6 @@ function loadScripts(array, callback) {
             callback && callback();
         }
     })();
-}
-
-function loadCss(url) {
-    var link = document.createElement("link");
-    link.href = url;
-    link.type = "text/css";
-    link.rel = "stylesheet";
-    link.media = "screen,print";
-    document.getElementsByTagName("head")[0].appendChild(link);
 }
 
 // 通用样式修改

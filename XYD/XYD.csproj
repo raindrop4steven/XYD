@@ -493,19 +493,23 @@
     <Content Include="Content\static\layui\lay\modules\tree.js" />
     <Content Include="Content\static\layui\lay\modules\upload.js" />
     <Content Include="Content\static\layui\lay\modules\util.js" />
-    <Content Include="Content\workflowScript\业务接待费报销.js" />
-    <Content Include="Content\workflowScript\业务接待申请.js" />
-    <Content Include="Content\workflowScript\付款申请.js" />
-    <Content Include="Content\workflowScript\物品领用申请.js" />
-    <Content Include="Content\workflowScript\请假申请.js" />
-    <Content Include="Content\workflowScript\出差申请.js" />
-    <Content Include="Content\workflowScript\差旅费用报销单.js" />
-    <Content Include="Content\workflowScript\物品采购申请.js" />
-    <Content Include="Content\workflowScript\物品采购费用报销.js" />
-    <Content Include="Content\workflowScript\其他现金支付报销.js" />
-    <Content Include="Content\workflowScript\车辆费用报销.js" />
-    <Content Include="Content\workflowScript\代付费用报销.js" />
-    <Content Include="Content\workflowScript\通用.js" />
+    <Content Include="Content\workflowScript\00_通用\业务接待申请.js" />
+    <Content Include="Content\workflowScript\02_上海\业务接待费报销.js" />
+    <Content Include="Content\workflowScript\00_通用\付款申请.js" />
+    <Content Include="Content\workflowScript\00_通用\代付费用报销.js" />
+    <Content Include="Content\workflowScript\00_通用\公章借出申请.js" />
+    <Content Include="Content\workflowScript\00_通用\其他现金支付报销.js" />
+    <Content Include="Content\workflowScript\00_通用\出勤申请.js" />
+    <Content Include="Content\workflowScript\00_通用\出差申请.js" />
+    <Content Include="Content\workflowScript\02_上海\出差费用报销.js" />
+    <Content Include="Content\workflowScript\00_通用\物品采购申请.js" />
+    <Content Include="Content\workflowScript\02_上海\物品采购费用报销.js" />
+    <Content Include="Content\workflowScript\00_通用\物品领用申请.js" />
+    <Content Include="Content\workflowScript\00_通用\车辆费用报销.js" />
+    <Content Include="Content\workflowScript\01_无锡\业务接待费报销.js" />
+    <Content Include="Content\workflowScript\01_无锡\出差费用报销.js" />
+    <Content Include="Content\workflowScript\01_无锡\物品采购费用报销.js" />
+    <Content Include="Content\workflowScript\00_通用\通用.js" />
     <Content Include="Content\workflows\付款申请.png" />
     <Content Include="Content\workflows\代付费用报销.png" />
     <Content Include="Content\workflows\会议室.png" />
@@ -963,7 +967,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" />
+      <UserProperties content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

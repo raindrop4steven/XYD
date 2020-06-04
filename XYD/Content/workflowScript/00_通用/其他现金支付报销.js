@@ -8,6 +8,7 @@
     });
 };
 function onSheetCheck() {
+    return CheckLineRequired(6, 12, 1, 7, [1, 3, 5]);
 };
 function onAnyCellUpdate(row, col) {
     OpinionChanged(row, col);
@@ -16,8 +17,8 @@ function onAnyCellUpdate(row, col) {
 // 每个表单的定制入口
 function main() {
     /*
-     * 参数获取
-     */
+ * 参数获取
+ */
     // 获取节点ID
     var nid = getQueryString("nid");
     //当没有节点Id 所以处于只读状态 初始化按钮
@@ -25,7 +26,8 @@ function main() {
     // 保存草稿
     onSaveDraft();
     if (nid === 'NODE0001') {
-        SetReadonlyCells(['#C-4-3', '#C-14-3', '#C-6-7', '#C-7-7', '#C-8-7', '#C-9-7', '#C-10-7', '#C-11-7', '#C-12-7']);
+        SetReadonlyCells(['#C-13-3', '#C-14-3']);
+        AddClearButtons(6, 12, 7);
     }
 }
 

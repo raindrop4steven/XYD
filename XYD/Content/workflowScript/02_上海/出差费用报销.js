@@ -8,6 +8,15 @@
     });
 };
 function onSheetCheck() {
+    var validLine = CheckLineRequired(11, 17, 1, 13, [1]);
+    if (validLine == null) {
+        var nid = getQueryString("nid");
+        if (nid === 'NODE0001') {
+            return CheckRequiredCells(['#C-5-3']);
+        }
+    } else {
+        return validLine;
+    }
 };
 function onAnyCellUpdate(row, col) {
     OpinionChanged(row, col);
@@ -24,10 +33,40 @@ function main() {
     var MessageID = getQueryString("mid");
     // 保存草稿
     onSaveDraft();
-
     if (nid === 'NODE0001') {
-        SetReadonlyCells(['#C-14-3', '#C-15-3']);
+        GetSerialSn(MessageID);
+        SetReadonlyCells(['#C-7-13', '#C-8-3', '#C-9-3', '#C-18-3', '#C-18-9', '#C-18-12', '#C-19-3', '#C-18-14']);
+        AddClearButtons(11, 17, 13);
     }
+}
+
+function GetSerialSn(mid) {
+    $.ajax({
+        type: "GET",
+        url: "/Apps/XYD/Workflow/GetSourceSerial?mid=" + mid,
+        success: function (data) {
+            serials = [];
+            data.Data.records.forEach(function (item) {
+                serials.push(item.Sn);
+            });
+            // shanghai
+            ShowUnitList("unit", "133px", "184px", "254px", "46px", "701px", serials, '#C-5-13', '#C-5-3', MappingSourceData);
+            // wuxi
+            // ShowUnitList("unit", "133px", "184px", "248px", "46px", "712px", serials, '#C-5-13', '#C-5-3', MappingSourceData);
+        }
+    })
+}
+
+function MappingSourceData() {
+    var sn = $("#C-5-3").text();
+    var mid = getQueryString("mid");
+    $.ajax({
+        type: 'GET',
+        url: '/Apps/XYD/Workflow/MappingSourceToDest?mid=' + mid + '&sn=' + sn,
+        success: function (data) {
+            location.reload();
+        }
+    });
 }
 
 /******************************************************************
@@ -56,7 +95,7 @@ function loadScripts(array, callback) {
 // 通用样式修改
 function AddCustomCss() {
     // 表单居中
-    $("#tbSheet").css('margin-left', '-25px');
+    // $("#tbSheet").css('margin-left', '-25px');
     $("#page").css('display', 'flex');
     $("#page").css('width', '100%');
     $("#page").css('height', '100%');

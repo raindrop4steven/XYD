@@ -25,7 +25,8 @@ function main() {
     // 保存草稿
     onSaveDraft();
     if (nid === 'NODE0001') {
-        SetReadonlyCells(['#C-13-3', '#C-14-3']);
+        SetReadonlyCells(['#C-4-3']);
+        AddClearButtons(14, 20, 11);
     }
 }
 

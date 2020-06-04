@@ -8,6 +8,7 @@
     });
 };
 function onSheetCheck() {
+    return CheckLineRequired(7, 13, 1, 9, [1]);
 };
 function onAnyCellUpdate(row, col) {
     OpinionChanged(row, col);
@@ -24,8 +25,10 @@ function main() {
     var MessageID = getQueryString("mid");
     // 保存草稿
     onSaveDraft();
+
     if (nid === 'NODE0001') {
-        SetReadonlyCells(['#C-6-11']);
+        SetReadonlyCells(['#C-14-3', '#C-15-3']);
+        AddClearButtons(7, 13, 9);
     }
 }
 

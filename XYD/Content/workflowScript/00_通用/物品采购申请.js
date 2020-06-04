@@ -1,9 +1,4 @@
-﻿/*
- * 变量定义
- */
-var isCEO = false;
-
-function onSheetLoad() {
+﻿function onSheetLoad() {
     // 样式先载入
     AddCustomCss();
 
@@ -13,9 +8,6 @@ function onSheetLoad() {
     });
 };
 function onSheetCheck() {
-    if (!isCEO) {
-        return CheckRequiredCells(['#C-4-3']);
-    }
 };
 function onAnyCellUpdate(row, col) {
     OpinionChanged(row, col);
@@ -24,8 +16,8 @@ function onAnyCellUpdate(row, col) {
 // 每个表单的定制入口
 function main() {
     /*
- * 参数获取
- */
+     * 参数获取
+     */
     // 获取节点ID
     var nid = getQueryString("nid");
     //当没有节点Id 所以处于只读状态 初始化按钮
@@ -33,51 +25,9 @@ function main() {
     // 保存草稿
     onSaveDraft();
     if (nid === 'NODE0001') {
-        RenderPage(MessageID);
+        SetReadonlyCells(['#C-4-3', '#C-14-3', '#C-6-7', '#C-7-7', '#C-8-7', '#C-9-7', '#C-10-7', '#C-11-7', '#C-12-7']);
+        AddClearButtons(6, 12, 13);
     }
-}
-
-
-function RenderPage(MessageID) {
-    $.ajax({
-        type: "GET",
-        url: "/Apps/XYD/Workflow/CheckDirectRefund",
-        success: function (data) {
-            isCEO = data.Data.isCEO;
-            if (isCEO) {
-                SetWriteCells(['#C-4-3', '#C-14-3', '#C-15-3']);
-            } else {
-                GetSerialSn(MessageID);
-            }
-            SetReadonlyCells(['#C-4-3', '#C-14-3', '#C-15-3']);
-        }
-    })
-}
-
-function GetSerialSn(mid) {
-    $.ajax({
-        type: "GET",
-        url: "/Apps/XYD/Workflow/GetSourceSerial?mid=" + mid,
-        success: function (data) {
-            serials = [];
-            data.Data.records.forEach(function (item) {
-                serials.push(item.Sn);
-            });
-            ShowUnitList("unit", "166px", "198px", "291px", "54px", "514px", serials, '#C-4-9', '#C-4-3', MappingSourceData);
-        }
-    })
-}
-
-function MappingSourceData() {
-    var sn = $("#C-4-3").text();
-    var mid = getQueryString("mid");
-    $.ajax({
-        type: 'GET',
-        url: '/Apps/XYD/Workflow/MappingSourceToDest?mid=' + mid + '&sn=' + sn,
-        success: function (data) {
-            location.reload();
-        }
-    });
 }
 
 /******************************************************************

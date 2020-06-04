@@ -13,11 +13,16 @@ function onSheetLoad() {
     });
 };
 function onSheetCheck() {
-    var nid = getQueryString("nid");
-    if (nid === 'NODE0001') {
-        if (!isCEO) {
-            return CheckRequiredCells(['#C-5-3']);
+    var validLine = CheckLineRequired(11, 17, 1, 13, [1]);
+    if (validLine == null) {
+        var nid = getQueryString("nid");
+        if (nid === 'NODE0001') {
+            if (!isCEO) {
+                return CheckRequiredCells(['#C-5-3']);
+            }
         }
+    } else {
+        return validLine;
     }
 };
 function onAnyCellUpdate(row, col) {
@@ -37,6 +42,7 @@ function main() {
     onSaveDraft();
     if (nid === 'NODE0001') {
         RenderPage(MessageID);
+        AddClearButtons(11, 17, 13);
     }
 }
 
@@ -81,7 +87,6 @@ function MappingSourceData() {
         url: '/Apps/XYD/Workflow/MappingSourceToDest?mid=' + mid + '&sn=' + sn,
         success: function (data) {
             location.reload();
-            CaculateAllowance('#C-7-13', '#C-18-14');
         }
     });
 }

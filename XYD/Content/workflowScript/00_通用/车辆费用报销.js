@@ -8,6 +8,7 @@
     });
 };
 function onSheetCheck() {
+    return CheckLineRequired(8, 12, 1, 7, [1, 5]);
 };
 function onAnyCellUpdate(row, col) {
     OpinionChanged(row, col);
@@ -25,7 +26,8 @@ function main() {
     // 保存草稿
     onSaveDraft();
     if (nid === 'NODE0001') {
-        SetReadonlyCells(['#C-4-3']);
+        SetReadonlyCells(['#C-13-3', '#C-14-3']);
+        AddClearButtons(8, 12, 7);
     }
 }
 

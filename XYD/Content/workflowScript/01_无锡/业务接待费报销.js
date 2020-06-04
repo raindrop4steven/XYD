@@ -13,9 +13,18 @@ function onSheetLoad() {
     });
 };
 function onSheetCheck() {
-    if (!isCEO) {
-        return CheckRequiredCells(['#C-4-3']);
+    var validLine = CheckLineRequired(7, 13, 1, 7, [1, 3, 5]);
+    if (validLine == null) {
+        var nid = getQueryString("nid");
+        if (nid === 'NODE0001') {
+            if (!isCEO) {
+                return CheckRequiredCells(['#C-4-3']);
+            }
+        }
+    } else {
+        return validLine;
     }
+
 };
 function onAnyCellUpdate(row, col) {
     OpinionChanged(row, col);
@@ -34,8 +43,10 @@ function main() {
     onSaveDraft();
     if (nid === 'NODE0001') {
         RenderPage(MessageID);
+        AddClearButtons(7, 13, 7);
     }
 }
+
 
 function RenderPage(MessageID) {
     $.ajax({
@@ -62,7 +73,7 @@ function GetSerialSn(mid) {
             data.Data.records.forEach(function (item) {
                 serials.push(item.Sn);
             });
-            ShowUnitList("unit", "174px", "198px", "309px", "54px", "514px", serials, '#C-4-9', '#C-4-3', MappingSourceData);
+            ShowUnitList("unit", "166px", "198px", "291px", "54px", "514px", serials, '#C-4-9', '#C-4-3', MappingSourceData);
         }
     })
 }
