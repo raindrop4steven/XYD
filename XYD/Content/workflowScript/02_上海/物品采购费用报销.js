@@ -8,14 +8,14 @@
     });
 };
 function onSheetCheck() {
-    var validLine = CheckLineRequired(7, 13, 1, 7, [1, 5]);
-    if (validLine == null) {
-        var nid = getQueryString("nid");
-        if (nid === 'NODE0001') {
+    var nid = getQueryString("nid");
+    if (nid === 'NODE0001') {
+        var validLine = CheckLineRequired(7, 13, 1, 7, [1, 5]);
+        if (validLine == null) {
             return CheckRequiredCells(['#C-4-3']);
+        } else {
+            return validLine;
         }
-    } else {
-        return validLine;
     }
 };
 function onAnyCellUpdate(row, col) {

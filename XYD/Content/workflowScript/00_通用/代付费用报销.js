@@ -8,7 +8,10 @@
     });
 };
 function onSheetCheck() {
-    return CheckLineRequired(7, 13, 1, 9, [1]);
+    var nid = getQueryString("nid");
+    if (nid === 'NODE0001') {
+        return CheckLineRequired(7, 13, 1, 9, [1]);
+    }
 };
 function onAnyCellUpdate(row, col) {
     OpinionChanged(row, col);

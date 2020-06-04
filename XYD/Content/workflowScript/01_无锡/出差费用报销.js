@@ -13,16 +13,16 @@ function onSheetLoad() {
     });
 };
 function onSheetCheck() {
-    var validLine = CheckLineRequired(11, 17, 1, 13, [1]);
-    if (validLine == null) {
-        var nid = getQueryString("nid");
-        if (nid === 'NODE0001') {
+    var nid = getQueryString("nid");
+    if (nid === 'NODE0001') {
+        var validLine = CheckLineRequired(11, 17, 1, 13, [1]);
+        if (validLine == null) {
             if (!isCEO) {
                 return CheckRequiredCells(['#C-5-3']);
             }
+        } else {
+            return validLine;
         }
-    } else {
-        return validLine;
     }
 };
 function onAnyCellUpdate(row, col) {
