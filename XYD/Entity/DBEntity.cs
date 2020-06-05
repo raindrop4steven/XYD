@@ -89,4 +89,28 @@ namespace XYD.Entity
         public Dictionary<CALENDAR_TYPE, int> summary;
     }
     #endregion
+
+    #region 出勤记录
+    public class XYD_Leave_Result
+    {
+        // ID
+        public int ID { get; set; }
+        // 请假人
+        public string EmplID { get; set; }
+        // 姓名
+        public string EmplName { get; set; }
+        // 事假类别
+        public string Category { get; set; }
+        // 开始时间
+        public DateTime StartDate { get; set; }
+        // 结束时间
+        public DateTime EndDate { get; set; }
+        // 事由
+        public string Reason { get; set; }
+        // 是否批准
+        public string Status { get; set; }
+        // 创建时间
+        public DateTime CreateTime { get; set; }
+    }
+    #endregion
 }

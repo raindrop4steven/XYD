@@ -155,7 +155,7 @@ namespace XYD.Common
                 command.Connection = sqlConnection;
 
                 // 参数赋值
-                foreach(KeyValuePair<string, object> item in paramDict)
+                foreach (KeyValuePair<string, object> item in paramDict)
                 {
                     command.Parameters.AddWithValue(item.Key, item.Value);
                 }
@@ -166,7 +166,7 @@ namespace XYD.Common
 
                 sqlConnection.Close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(string.Format("存储过程出错：{0}, 详细信息:{1}", procName, e.Message));
             }
@@ -194,7 +194,7 @@ namespace XYD.Common
                 sqlConnection.Close();
                 return count;
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 throw exception;
             }
@@ -256,7 +256,7 @@ namespace XYD.Common
             while (reader.Read())
             {
                 var deptId = reader.GetString(0);
-             
+
                 ResultList.Add(deptId);
             }
             return ResultList;
@@ -424,7 +424,7 @@ namespace XYD.Common
         /// </summary>
         /// <param name="reader"></param>
         /// <returns></returns>
-        public static List<object>SearchInformation(SqlDataReader reader)
+        public static List<object> SearchInformation(SqlDataReader reader)
         {
             var ResultList = new List<object>();
             while (reader.Read())
@@ -485,7 +485,8 @@ namespace XYD.Common
             var ResultList = new List<object>();
             while (reader.Read())
             {
-                ResultList.Add(new {
+                ResultList.Add(new
+                {
                     EmplID = reader.GetString(0),
                     EmplNO = reader.GetString(1),
                     EmplName = reader.GetString(2),
@@ -630,7 +631,7 @@ namespace XYD.Common
                     MessageTitle = MessageTitle,
                     CreateTime = CreateTime,
                     ReceiveTime = ReceiveTime,
-                    MessageStatusName= MessageStatusName
+                    MessageStatusName = MessageStatusName
                 });
             }
 
@@ -814,7 +815,7 @@ namespace XYD.Common
             while (reader.Read())
             {
                 var HandledBy = reader.GetString(0);
-                
+
                 ResultList.Add(HandledBy);
             }
             return ResultList;
@@ -921,5 +922,38 @@ namespace XYD.Common
             return ResultList;
         }
         #endregion
+
+        #region 获取考勤结果
+        public static List<object> GetLeaveReport(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                var ID = reader.GetInt32(0);
+                var EmplID = reader.GetString(1);
+                var EmplName = reader.GetString(2);
+                var StartDate = reader.GetDateTime(3);
+                var EndDate = reader.GetDateTime(4);
+                var CreateTime = reader.GetDateTime(5);
+                var Category = reader.GetString(6);
+                var Status = reader.GetString(7);
+                var Reason = reader.GetString(8);
+                ResultList.Add(new XYD_Leave_Result
+                {
+                    ID = ID,
+                    EmplID = EmplID,
+                    EmplName = EmplName,
+                    StartDate = StartDate,
+                    EndDate = EndDate,
+                    CreateTime = CreateTime,
+                    Category = Category,
+                    Status = Status,
+                    Reason = Reason
+                });
+            }
+            return ResultList;
+        }
+        #endregion
+
     }
 }

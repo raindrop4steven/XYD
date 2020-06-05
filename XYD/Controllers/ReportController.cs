@@ -264,5 +264,52 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 出勤统计
+        [Authorize]
+        public ActionResult Leave(string BeginDate, string EndDate)
+        {
+            try
+            {
+                // 检查用户是否具有领导权限
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var isLeader = PermUtil.CheckPermission(employee.EmplID, DEP_Constants.Module_Information_Code, DEP_Constants.Perm_Info_Leader);
+                if (!isLeader)
+                {
+                    return ResponseUtil.Error("您没有权限查看数据");
+                }
+                var sql = @"SELECT
+	                            a.ID,
+	                            a.EmplID,
+	                            ISNULL(b.EmplName, '') as EmplName,
+	                            a.StartDate,
+	                            a.EndDate,
+	                            a.CreateTime,
+	                            a.Category,
+	                            a.Status,
+	                            ISNULL(a.Reason, '') as Reason
+                            FROM
+	                            XYD_Leave_Record a
+	                            LEFT JOIN ORG_Employee b ON a.EmplID = b.EmplID 
+                            WHERE
+	                            a.Status = 'YES' ";
+                if (!string.IsNullOrEmpty(BeginDate))
+                {
+                    sql += string.Format(@" and a.CreateTime >= '{0} 00:00:00'", BeginDate);
+                }
+                if (!string.IsNullOrEmpty(EndDate))
+                {
+                    sql += string.Format(@" and a.CreateTime <= '{0} 23:59:59'", EndDate);
+                }
+                sql += " ORDER BY a.CreateTime DESC";
+                var result = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetLeaveReport);
+                return ResponseUtil.OK(result);
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }
