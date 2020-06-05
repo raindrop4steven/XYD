@@ -85,6 +85,7 @@ namespace XYD.Entity
 
     public class XYD_Calendar_Report
     {
+        public string EmplID;
         public String EmplName;
         public Dictionary<CALENDAR_TYPE, int> summary;
     }

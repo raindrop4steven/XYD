@@ -33,7 +33,8 @@ namespace XYD.Controllers
                 foreach(var user in employees)
                 {
                     var calendarResult = CalendarUtil.CaculateUserCalendar(user, BeginDate, EndDate);
-                    results.Add(new XYD_Calendar_Report() { 
+                    results.Add(new XYD_Calendar_Report() {
+                        EmplID = user.EmplID,
                         EmplName = user.EmplName,
                         summary = calendarResult.summary
                     });
