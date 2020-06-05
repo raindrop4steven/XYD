@@ -79,6 +79,7 @@ namespace XYD.Entity
     public class XYD_Calendar_Result
     {
         public List<XYD_CalendarEntity> dates;
+        public List<XYD_CalendarDetail> details;
         public Dictionary<CALENDAR_TYPE, int> summary;
     }
 

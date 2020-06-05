@@ -1,4 +1,5 @@
 ﻿using Appkiz.Apps.Workflow.Library;
+using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -560,5 +561,14 @@ namespace XYD.Entity
         public string Date { get; set; }
         public CALENDAR_TYPE Type { get; set; }
     }
+    public class XYD_CalendarDetail
+    {
+        public string Name { get; set; }
+        public string Date { get; set; }
+        public CALENDAR_TYPE Type { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
+    }
+
     #endregion
 }
