@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using XYD.Common;
 using XYD.Entity;
+using XYD.Models;
 
 namespace XYD.Controllers
 {
@@ -266,9 +267,9 @@ namespace XYD.Controllers
         }
         #endregion
 
-        #region 出勤统计
+        #region 假期统计
         [Authorize]
-        public ActionResult Leave(string BeginDate, string EndDate)
+        public ActionResult Leave(string Year, string Area)
         {
             try
             {
@@ -279,32 +280,87 @@ namespace XYD.Controllers
                 {
                     return ResponseUtil.Error("您没有权限查看数据");
                 }
-                var sql = @"SELECT
-	                            a.ID,
-	                            a.EmplID,
-	                            ISNULL(b.EmplName, '') as EmplName,
-	                            a.StartDate,
-	                            a.EndDate,
-	                            a.CreateTime,
-	                            a.Category,
-	                            a.Status,
-	                            ISNULL(a.Reason, '') as Reason
-                            FROM
-	                            XYD_Leave_Record a
-	                            LEFT JOIN ORG_Employee b ON a.EmplID = b.EmplID 
-                            WHERE
-	                            a.Status = 'YES' ";
-                if (!string.IsNullOrEmpty(BeginDate))
+                var db = new DefaultConnection();
+                // 选择地区非空，则进行地区人员筛选
+                var AreaName = string.Empty;
+                var areaCondition = string.Empty;
+                if (string.IsNullOrEmpty(Area))
                 {
-                    sql += string.Format(@" and a.CreateTime >= '{0} 00:00:00'", BeginDate);
+                    if (Area == "001")
+                    {
+                        AreaName = "无锡";
+                    }
+                    else
+                    {
+                        AreaName = "上海";
+                    }
+                    areaCondition = string.Format(@" INNER JOIN ORG_EmplRole b on a.EmplID = b.EmplID INNER JOIN ORG_Role c on b.RoleID = c.RoleID and c.RoleName = '{0}'", AreaName);
                 }
-                if (!string.IsNullOrEmpty(EndDate))
+                
+                List<Employee> employees = orgMgr.FindEmployeeBySQL(string.Format(@"SELECT
+                                                                                            *
+                                                                                        FROM
+                                                                                            ORG_Employee a
+                                                                                            {0}
+                                                                                        WHERE
+                                                                                            a.EmplNO != ''", areaCondition));
+                var results = new List<object>();
+                var startYearDate = DateTime.Parse(string.Format("{0}-01-01", Year));
+                var endYearDate = DateTime.Parse(string.Format("{0}-12-31 23:59:59", Year));
+                // 根据每个用户，计算剩余年假、剩余加班、剩余事假
+                foreach(var user in employees)
                 {
-                    sql += string.Format(@" and a.CreateTime <= '{0} 23:59:59'", EndDate);
+                    // 计算总年假
+                    var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == user.EmplID).FirstOrDefault();
+                    var restYear = CalendarUtil.CaculateYearRestDays(userCompanyInfo) * 8; // 小时制
+                    // 计算已使用年假
+                    var usedRestYear = db.LeaveRecord.Where(n => n.EmplID == user.EmplID && n.Category == "年假" && n.StartDate >= startYearDate && n.StartDate <= endYearDate).ToList().Select(n => n.EndDate.Subtract(n.StartDate).TotalHours).Sum();
+                    // 计算已加班
+                    var offTimeWork = db.LeaveRecord.Where(n => n.EmplID == user.EmplID && n.Category == "加班" && n.StartDate >= startYearDate && n.StartDate <= endYearDate).ToList().Select(n => n.EndDate.Subtract(n.StartDate).TotalHours).Sum();
+                    // 已申请事假
+                    var leaveRecords = db.LeaveRecord.Where(n => n.EmplID == user.EmplID && n.Category == "事假" && n.StartDate >= startYearDate && n.StartDate <= endYearDate).ToList();
+                    var totalLeaveHours = 0d;
+                    foreach(var leave in leaveRecords)
+                    {
+                        totalLeaveHours += CalendarUtil.GetRealLeaveHours(user.EmplID, leave.StartDate, leave.EndDate);
+                    }
+                    // 计算结果
+                    var leftYearHour = 0.0d;
+                    var leftOffWorkHour = 0.0d;
+                    var leftLeaveHour = 0.0d;
+                    // 计算剩余年假、剩余加班、剩余事假
+                    if (totalLeaveHours <= (restYear - usedRestYear)) // 先打年假
+                    {
+                        leftYearHour = restYear - usedRestYear - totalLeaveHours;
+                        leftOffWorkHour = offTimeWork;
+                        leftLeaveHour = 0.0d;
+                    }
+                    else
+                    {
+                        leftYearHour = 0.0d;
+                        if (totalLeaveHours-(restYear-usedRestYear) <= leftOffWorkHour) // 再打加班
+                        {
+                            leftOffWorkHour -= totalLeaveHours - (restYear - usedRestYear);
+                            leftLeaveHour = 0.0d;
+                        }
+                        else
+                        {
+                            leftLeaveHour = leftOffWorkHour - (totalLeaveHours - (restYear - usedRestYear));
+                            leftOffWorkHour = 0.0d;
+                        }
+                    }
+                    results.Add(new
+                    {
+                        EmplName = user.EmplName,
+                        DeptName = user.DeptName,
+                        EmplNo = user.EmplNO,
+                        Position = user.DepartmentAndPosition,
+                        LeftYearHour = leftYearHour,
+                        LeftWorfHour = leftOffWorkHour,
+                        LeftLeaveHour = leftLeaveHour
+                    });
                 }
-                sql += " ORDER BY a.CreateTime DESC";
-                var result = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetLeaveReport);
-                return ResponseUtil.OK(result);
+                return ResponseUtil.OK(results);
             }
             catch(Exception e)
             {

@@ -384,5 +384,70 @@ namespace XYD.Common
             return calendarResult;
         }
         #endregion
+
+        #region 计算年假
+        /// <summary>
+        /// * 根据实际工龄计算年假
+                /// * 实际工龄不满十年，年假5天
+        /// * 满十年不满二十年，年假10天
+        /// * 满20年，年假15天
+        /// </summary>
+        /// <param name="SocialMonth"></param>
+        /// <returns></returns>
+        public static int CaculateYearRestDays(XYD_UserCompanyInfo userCompanyInfo)
+        {
+            if (userCompanyInfo.ManualCaculate)
+            {
+                return userCompanyInfo.RestDays;
+            }
+            else
+            {
+                if (userCompanyInfo.SocialInsuranceTotalMonth < 10 * 12)
+                {
+                    return 5;
+                }
+                else if (userCompanyInfo.SocialInsuranceTotalMonth < 20 * 12)
+                {
+                    return 10;
+                }
+                else
+                {
+                    return 15;
+                }
+            }
+        }
+        #endregion
+
+        #region 计算实际请假时间
+        public static double GetRealLeaveHours(string EmplID, DateTime startTime, DateTime endTime)
+        {
+            using (var db = new DefaultConnection())
+            {
+                var workArea = OrgUtil.GetWorkArea(EmplID);
+                var sysConfig = db.SystemConfig.Where(n => n.Area == workArea).FirstOrDefault();
+                var days = endTime.Subtract(startTime).TotalDays;
+                var subSum = 0.0;
+
+                if (days == 0)
+                {
+                    var restStartTime = DateTime.Parse(startTime.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
+                    var restEndTime = DateTime.Parse(startTime.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
+                    if (startTime < restStartTime)
+                    {
+                        subSum += restStartTime.Subtract(startTime).TotalHours;
+                    }
+                    if (endTime > restEndTime)
+                    {
+                        subSum += endTime.Subtract(restEndTime).TotalHours;
+                    }
+                }
+                else
+                {
+                    subSum = endTime.Subtract(startTime).TotalDays * 8;
+                }
+                return subSum;
+            }
+        }
+        #endregion
     }
 }
