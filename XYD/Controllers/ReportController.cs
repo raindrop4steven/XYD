@@ -368,5 +368,118 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 假期统计明细
+        [Authorize]
+        public ActionResult LeaveDetail(string EmplID, string Year)
+        {
+            try
+            {
+                var employee = orgMgr.GetEmployee(EmplID);
+                var db = new DefaultConnection();
+                var yearStartDate = DateTime.Parse(string.Format("{0}-01-01", Year));
+                var now = DateTime.Now;
+                var results = new List<object>();
+                // 累计使用的年假、加班
+                var sumYearHour = 0.0d;
+                var sumOffWorkHour = 0.0d;
+                var sumDeltaHour = 0.0d;
+                for (int i = 0; i < now.Month; i++)
+                {
+                    var startMonthDate = yearStartDate.AddMonths(i);
+                    var endMonthDate = startMonthDate.AddMonths(1);
+                    // 计算总年假
+                    var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == EmplID).FirstOrDefault();
+                    var restYear = CalendarUtil.CaculateYearRestDays(userCompanyInfo) * 8; // 小时制
+                    // 年假
+                    var usedRestYear = db.LeaveRecord.Where(n => n.EmplID == EmplID && n.Category == "年假" && n.StartDate >= startMonthDate && n.StartDate <= endMonthDate).ToList().Select(n => n.EndDate.Subtract(n.StartDate).TotalDays*8).Sum();
+                    // 加班
+                    var offTimeWork = db.LeaveRecord.Where(n => n.EmplID == EmplID && n.Category == "加班" && n.StartDate >= startMonthDate && n.StartDate <= endMonthDate).ToList().Select(n => n.EndDate.Subtract(n.StartDate).TotalHours).Sum();
+                    // 事假
+                    var leaveRecords = db.LeaveRecord.Where(n => n.EmplID == EmplID && n.Category == "事假" && n.StartDate >= startMonthDate && n.StartDate <= endMonthDate).ToList();
+                    var totalLeaveHours = getTotalHours(leaveRecords);
+                    // 病假
+                    var sickRecords = db.LeaveRecord.Where(n => n.EmplID == EmplID && n.Category == "病假" && n.StartDate >= startMonthDate && n.StartDate <= endMonthDate).ToList();
+                    var totalSickHours = getTotalHours(sickRecords);
+                    // 婚假
+                    var marryRecords = db.LeaveRecord.Where(n => n.EmplID == EmplID && n.Category == "婚假" && n.StartDate >= startMonthDate && n.StartDate <= endMonthDate).ToList();
+                    var totalMarryHours = getTotalHours(marryRecords);
+                    // 产假
+                    var birthRecords = db.LeaveRecord.Where(n => n.EmplID == EmplID && n.Category == "产假" && n.StartDate >= startMonthDate && n.StartDate <= endMonthDate).ToList();
+                    var totalBirthHours = getTotalHours(birthRecords);
+                    // 哺乳假
+                    var milkRecords = db.LeaveRecord.Where(n => n.EmplID == EmplID && n.Category == "哺乳假" && n.StartDate >= startMonthDate && n.StartDate <= endMonthDate).ToList();
+                    var totalMilkHours = getTotalHours(milkRecords);
+                    // 丧假
+                    var sadRecords = db.LeaveRecord.Where(n => n.EmplID == EmplID && n.Category == "丧假" && n.StartDate >= startMonthDate && n.StartDate <= endMonthDate).ToList();
+                    // TODO: 该月差额小时
+                    var deltaHour = 0.0d;
+                    var totalSadHours = getTotalHours(sadRecords);
+                    sumYearHour += usedRestYear;
+                    sumOffWorkHour += offTimeWork;
+                    sumDeltaHour += deltaHour;
+                    // 计算结果
+                    var leftYearHour = 0.0d;
+                    var leftOffWorkHour = 0.0d;
+                    var leftLeaveHour = 0.0d;
+                    // 计算剩余年假、剩余加班、剩余事假
+                    if (totalLeaveHours <= (restYear - sumYearHour - sumDeltaHour)) // 先打年假
+                    {
+                        leftYearHour = restYear - sumYearHour - totalLeaveHours - sumDeltaHour;
+                        leftOffWorkHour = offTimeWork;
+                        leftLeaveHour = 0.0d;
+                    }
+                    else
+                    {
+                        leftYearHour = 0.0d;
+                        if (totalLeaveHours - (restYear - sumYearHour - sumDeltaHour) <= leftOffWorkHour) // 再打加班
+                        {
+                            leftOffWorkHour -= totalLeaveHours - (restYear - sumYearHour - sumDeltaHour);
+                            leftLeaveHour = 0.0d;
+                        }
+                        else
+                        {
+                            leftLeaveHour = leftOffWorkHour - (totalLeaveHours - (restYear - sumYearHour - sumDeltaHour));
+                            leftOffWorkHour = 0.0d;
+                        }
+                    }
+                    results.Add(new
+                    {
+                        Date = startMonthDate.ToString("yyyyMM"),
+                        EmplNo = employee.EmplNO,
+                        EmplName = employee.EmplName,
+                        OffTimeWork = offTimeWork,
+                        LeaveHours = totalLeaveHours,
+                        SickHours = totalSickHours,
+                        YearHours = usedRestYear,
+                        MarryHours = totalMarryHours,
+                        BirthHours = totalBirthHours,
+                        MilkHours = totalMilkHours,
+                        SadHours = totalSadHours,
+                        LeftYearHour = leftYearHour,
+                        LeftLeaveHour = leftLeaveHour,
+                        DeltaHour = deltaHour
+                    });
+                }
+                return ResponseUtil.OK(results);
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 根据记录计算总时间
+        private double getTotalHours(List<XYD_Leave_Record> records)
+        {
+            var totalHours = 0d;
+            foreach (var leave in records)
+            {
+                totalHours += CalendarUtil.GetRealLeaveHours(leave.EmplID, leave.StartDate, leave.EndDate);
+            }
+            return totalHours;
+        }
+        #endregion
     }
 }
