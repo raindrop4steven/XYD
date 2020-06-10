@@ -86,7 +86,10 @@ namespace XYD.Entity
     public class XYD_Calendar_Report
     {
         public string EmplID;
-        public String EmplName;
+        public string EmplName;
+        public string EmplNo;
+        public string DeptName;
+        public string Position;
         public Dictionary<CALENDAR_TYPE, int> summary;
     }
     #endregion

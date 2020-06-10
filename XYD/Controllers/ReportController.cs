@@ -37,6 +37,9 @@ namespace XYD.Controllers
                     results.Add(new XYD_Calendar_Report() {
                         EmplID = user.EmplID,
                         EmplName = user.EmplName,
+                        DeptName = user.DeptName,
+                        EmplNo = user.EmplNO,
+                        Position = user.DeptAndPosStr,
                         summary = calendarResult.summary
                     });
                 }
@@ -284,7 +287,7 @@ namespace XYD.Controllers
                 // 选择地区非空，则进行地区人员筛选
                 var AreaName = string.Empty;
                 var areaCondition = string.Empty;
-                if (string.IsNullOrEmpty(Area))
+                if (!string.IsNullOrEmpty(Area))
                 {
                     if (Area == "001")
                     {
@@ -296,22 +299,40 @@ namespace XYD.Controllers
                     }
                     areaCondition = string.Format(@" INNER JOIN ORG_EmplRole b on a.EmplID = b.EmplID INNER JOIN ORG_Role c on b.RoleID = c.RoleID and c.RoleName = '{0}'", AreaName);
                 }
-                
+                List<string> employeesWithoutDept = orgMgr.FindEmployeesWithoutDept().Select(n => n.EmplID).ToList();
+                List<string> excludeReportUsers = orgMgr.FindEmployeeBySQL(@"SELECT
+	                                                                            * 
+                                                                            FROM
+	                                                                            ORG_Employee a
+	                                                                            INNER JOIN ORG_EmplRole b ON a.EmplID = b.EmplID
+	                                                                            INNER JOIN ORG_Role c ON b.RoleID = c.RoleID 
+	                                                                            AND c.RoleName = '非统计用户'").Select(n => n.EmplID).ToList();
                 List<Employee> employees = orgMgr.FindEmployeeBySQL(string.Format(@"SELECT
                                                                                             *
                                                                                         FROM
                                                                                             ORG_Employee a
                                                                                             {0}
                                                                                         WHERE
-                                                                                            a.EmplNO != ''", areaCondition));
+                                                                                            a.EmplNO != ''
+                                                                                        AND
+                                                                                            a.EmplID != '100001'
+                                                                                        AND a.EmplEnabled = 1", areaCondition));
                 var results = new List<object>();
                 var startYearDate = DateTime.Parse(string.Format("{0}-01-01", Year));
                 var endYearDate = DateTime.Parse(string.Format("{0}-12-31 23:59:59", Year));
                 // 根据每个用户，计算剩余年假、剩余加班、剩余事假
                 foreach(var user in employees)
                 {
+                    if (employeesWithoutDept.Contains(user.EmplID) || excludeReportUsers.Contains(user.EmplID))
+                    {
+                        continue;
+                    }
                     // 计算总年假
                     var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == user.EmplID).FirstOrDefault();
+                    if (userCompanyInfo == null)
+                    {
+                        return ResponseUtil.Error(string.Format("请补全{0}信息", user.EmplName));
+                    }
                     var restYear = CalendarUtil.CaculateYearRestDays(userCompanyInfo) * 8; // 小时制
                     // 计算已使用年假
                     var usedRestYear = db.LeaveRecord.Where(n => n.EmplID == user.EmplID && n.Category == "年假" && n.StartDate >= startYearDate && n.StartDate <= endYearDate).ToList().Select(n => n.EndDate.Subtract(n.StartDate).TotalHours).Sum();
@@ -354,10 +375,10 @@ namespace XYD.Controllers
                         EmplName = user.EmplName,
                         DeptName = user.DeptName,
                         EmplNo = user.EmplNO,
-                        Position = user.DepartmentAndPosition,
-                        LeftYearHour = leftYearHour,
-                        LeftWorfHour = leftOffWorkHour,
-                        LeftLeaveHour = leftLeaveHour
+                        Position = user.DeptAndPosStr,
+                        LeftYearHour = Math.Round(leftYearHour, 2),
+                        LeftWorfHour = Math.Round(leftOffWorkHour, 2),
+                        LeftLeaveHour = Math.Round(leftLeaveHour, 2)
                     });
                 }
                 return ResponseUtil.OK(results);
@@ -448,17 +469,17 @@ namespace XYD.Controllers
                         Date = startMonthDate.ToString("yyyyMM"),
                         EmplNo = employee.EmplNO,
                         EmplName = employee.EmplName,
-                        OffTimeWork = offTimeWork,
-                        LeaveHours = totalLeaveHours,
-                        SickHours = totalSickHours,
-                        YearHours = usedRestYear,
-                        MarryHours = totalMarryHours,
-                        BirthHours = totalBirthHours,
-                        MilkHours = totalMilkHours,
-                        SadHours = totalSadHours,
-                        LeftYearHour = leftYearHour,
-                        LeftLeaveHour = leftLeaveHour,
-                        DeltaHour = deltaHour
+                        OffTimeWork = Math.Round(offTimeWork),
+                        LeaveHours = Math.Round(totalLeaveHours),
+                        SickHours = Math.Round(totalSickHours),
+                        YearHours = Math.Round(usedRestYear),
+                        MarryHours = Math.Round(totalMarryHours),
+                        BirthHours = Math.Round(totalBirthHours),
+                        MilkHours = Math.Round(totalMilkHours),
+                        SadHours = Math.Round(totalSadHours),
+                        LeftYearHour = Math.Round(leftYearHour),
+                        LeftLeaveHour = Math.Round(leftLeaveHour),
+                        DeltaHour = Math.Round(deltaHour)
                     });
                 }
                 return ResponseUtil.OK(results);
