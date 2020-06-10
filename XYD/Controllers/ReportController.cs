@@ -2,6 +2,7 @@
 using Appkiz.Library.Security.Authentication;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -28,6 +29,11 @@ namespace XYD.Controllers
                 if (!isLeader)
                 {
                     return ResponseUtil.Error("您没有权限查看数据");
+                }
+                if (OrgUtil.CheckRole(employee.EmplID, "查看所有机构报表"))
+                {
+                    var CEOEmplID = ConfigurationManager.AppSettings["CEOEmplID"];
+                    employee = orgMgr.GetEmployee(CEOEmplID);
                 }
                 List<Employee> employees = OrgUtil.GetChildrenDeptRecursive(employee.DeptID);
                 var results = new List<XYD_Calendar_Report>();
