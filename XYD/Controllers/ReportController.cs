@@ -378,6 +378,7 @@ namespace XYD.Controllers
                     }
                     results.Add(new
                     {
+                        EmplID = user.EmplID,
                         EmplName = user.EmplName,
                         DeptName = user.DeptName,
                         EmplNo = user.EmplNO,
