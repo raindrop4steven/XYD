@@ -120,7 +120,7 @@ namespace XYD.Controllers
                 {
                     var newNumber = string.Empty;
                     // 获得最大的番号
-                    var maxCode = db.Vendor.OrderByDescending(n => n.Code).FirstOrDefault();
+                    var maxCode = db.Vendor.Where(n => n.Code.Contains("OAGYS")).OrderByDescending(n => n.Code).FirstOrDefault();
                     if (maxCode == null)
                     {
                         newNumber = 0.ToString("D5");
@@ -135,7 +135,16 @@ namespace XYD.Controllers
                     {
                         return ResponseUtil.Error("不能与现有供应商重复");
                     }
-                    model.Code = string.Format("OAGYS{0}", newNumber);
+                    // 判断用友里是否已有该供应商
+                    var targetVendor = FindTargetVendor(model.Name);
+                    if (targetVendor == null)
+                    {
+                        model.Code = string.Format("OAGYS{0}", newNumber);
+                    }
+                    else
+                    {
+                        model.Code = targetVendor.Code;
+                    }
                     db.Vendor.Add(model);
                     db.SaveChanges();
                     return ResponseUtil.OK("添加成功");
@@ -145,6 +154,28 @@ namespace XYD.Controllers
             {
                 return ResponseUtil.Error(e.Message);
             }
+        }
+
+        // 查找用友数据库，是否已有该供应商
+        private XYD_Vendor FindTargetVendor(string Name)
+        {
+            XYD_Vendor targetVendor = null;
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
+            var allSql = @"SELECT
+	                                    cVenCode AS Code,
+	                                    cVenName AS Name 
+                                    FROM
+	                                    Vendor";
+            var allResult = DbUtil.ExecuteSqlCommand(connectionString, allSql, DbUtil.GetUnSyncVendor);
+            foreach (XYD_Vendor u8Vendor in allResult)
+            {
+                if (u8Vendor.Name == Name)
+                {
+                    targetVendor = u8Vendor;
+                    break;
+                }
+            }
+            return targetVendor;
         }
         #endregion
 
