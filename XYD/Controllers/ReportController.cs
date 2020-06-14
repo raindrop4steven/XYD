@@ -37,6 +37,8 @@ namespace XYD.Controllers
                 }
                 List<Employee> employees = OrgUtil.GetChildrenDeptRecursive(employee.DeptID);
                 var results = new List<XYD_Calendar_Report>();
+                // 计算应上班天数
+                var shouldWorkDays = CalendarUtil.CaculateShouldWorkDays(BeginDate, EndDate);
                 foreach(var user in employees)
                 {
                     var calendarResult = CalendarUtil.CaculateUserCalendar(user, BeginDate, EndDate);
@@ -46,6 +48,7 @@ namespace XYD.Controllers
                         DeptName = user.DeptName,
                         EmplNo = user.EmplNO,
                         Position = user.DeptAndPosStr,
+                        ShouldWorkDays = shouldWorkDays,
                         summary = calendarResult.summary
                     });
                 }

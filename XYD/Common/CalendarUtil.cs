@@ -58,6 +58,34 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 计算总应该上班天数
+        public static int CaculateShouldWorkDays(DateTime beginDate, DateTime endDate)
+        {
+            // 总天数
+            int totoalDays = 0;
+            // 获得指定年份放假和调休计划
+            var StartDate = beginDate.Date;
+            int currentYear = beginDate.Year;
+            var calendar = CalendarUtil.GetPlanByYear(currentYear);
+            var holidayDict = CalendarUtil.GetHolidays(calendar);
+            var adjustDict = CalendarUtil.GetAdjusts(calendar);
+            // 判断每一天状态
+            for (DateTime d = StartDate; d <= endDate; d = d.AddDays(1))
+            {
+                var date = d.ToString("yyyy-MM-dd");
+                var entity = new XYD_CalendarEntity();
+                entity.Date = date;
+                // 首先判断是否是节日
+                if (holidayDict.ContainsKey(date) || adjustDict.ContainsKey(date) || d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    continue;
+                }
+                totoalDays += 1;
+            }
+            return totoalDays;
+        }
+        #endregion
+
         #region 统计用户考勤
         public static XYD_Calendar_Result CaculateUserCalendar(Employee employee, DateTime BeginDate, DateTime EndDate)
         {

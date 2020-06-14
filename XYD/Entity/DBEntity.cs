@@ -90,6 +90,7 @@ namespace XYD.Entity
         public string EmplNo;
         public string DeptName;
         public string Position;
+        public int ShouldWorkDays;
         public Dictionary<CALENDAR_TYPE, int> summary;
     }
     #endregion
