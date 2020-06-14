@@ -365,6 +365,8 @@ namespace XYD.Common
                             var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));
                             var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
                             var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
+                            // 工作小时数
+                            var workHours = CaculateWorkHours(d, attence, sysConfig);
                             // 加入午休时间逻辑
                             if (attence.StartTime > shouldStartTime)
                             {
@@ -381,10 +383,7 @@ namespace XYD.Common
                                 }
                                 else
                                 {
-                                    var morningHour = (restStartTime - attence.StartTime.Value).TotalHours;
-                                    var afterHour = (attence.EndTime.Value - restEndTime).TotalHours;
-                                    var workHour = morningHour + afterHour;
-                                    if (workHour < 8)
+                                    if (workHours < 8)
                                     {
                                         entity.Name = "早退";
                                         entity.Type = CALENDAR_TYPE.LeaveEarly;
@@ -399,6 +398,7 @@ namespace XYD.Common
                             // 记录详情
                             detail.StartTime = attence.StartTime == null ? "" : attence.StartTime.Value.ToString("yyyy-MM-dd HH:mm");
                             detail.EndTime = attence.EndTime == null ? "" : attence.EndTime.Value.ToString("yyyy-MM-dd HH:mm");
+                            detail.WorkHours = workHours;
                         }
                     }
                 }
@@ -410,6 +410,30 @@ namespace XYD.Common
             calendarResult.summary = summary;
             calendarResult.details = details;
             return calendarResult;
+        }
+        #endregion
+
+        #region 计算每日工作小时数
+        public static double CaculateWorkHours(DateTime d, XYD_Attence attence, XYD_System_Config sysConfig)
+        {
+            double workHours = 0;
+            // 判断考勤状态
+            var shouldStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.StartWorkTime)));
+            var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));
+            var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
+            var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
+            if (attence.StartTime != null && attence.StartTime.Value > restStartTime)
+            {
+                var morningHour = (restStartTime - attence.StartTime.Value).TotalHours;
+                workHours += morningHour;
+            }
+            if (attence.EndTime != null && attence.EndTime.Value > restEndTime)
+            {
+                var afterHour = (attence.EndTime.Value - restEndTime).TotalHours;
+                workHours += afterHour;
+            }
+
+            return Math.Round(workHours, 1);
         }
         #endregion
 

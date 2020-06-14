@@ -568,6 +568,7 @@ namespace XYD.Entity
         public CALENDAR_TYPE Type { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
+        public double WorkHours { get; set; }
     }
 
     #endregion
