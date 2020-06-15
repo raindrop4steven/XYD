@@ -389,7 +389,8 @@ namespace XYD.Controllers
                         Position = user.DeptAndPosStr,
                         LeftYearHour = Math.Round(leftYearHour, 2),
                         LeftWorfHour = Math.Round(leftOffWorkHour, 2),
-                        LeftLeaveHour = Math.Round(leftLeaveHour, 2)
+                        LeftLeaveHour = Math.Round(leftLeaveHour, 2),
+                        RestYearHour = restYear
                     });
                 }
                 return ResponseUtil.OK(results);
