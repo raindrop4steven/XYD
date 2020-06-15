@@ -343,12 +343,13 @@ namespace XYD.Controllers
                         return ResponseUtil.Error(string.Format("请补全{0}信息", user.EmplName));
                     }
                     var restYear = CalendarUtil.CaculateYearRestDays(userCompanyInfo) * 8; // 小时制
+                    var leaveAndAdjust = new List<string>() { "事假", "调休" };
                     // 计算已使用年假
                     var usedRestYear = db.LeaveRecord.Where(n => n.EmplID == user.EmplID && n.Category == "年假" && n.StartDate >= startYearDate && n.StartDate <= endYearDate).ToList().Select(n => n.EndDate.Subtract(n.StartDate).TotalHours).Sum();
                     // 计算已加班
                     var offTimeWork = db.LeaveRecord.Where(n => n.EmplID == user.EmplID && n.Category == "加班" && n.StartDate >= startYearDate && n.StartDate <= endYearDate).ToList().Select(n => n.EndDate.Subtract(n.StartDate).TotalHours).Sum();
                     // 已申请事假
-                    var leaveRecords = db.LeaveRecord.Where(n => n.EmplID == user.EmplID && n.Category == "事假" && n.StartDate >= startYearDate && n.StartDate <= endYearDate).ToList();
+                    var leaveRecords = db.LeaveRecord.Where(n => n.EmplID == user.EmplID && leaveAndAdjust.Contains(n.Category) && n.StartDate >= startYearDate && n.StartDate <= endYearDate).ToList();
                     var totalLeaveHours = 0d;
                     foreach(var leave in leaveRecords)
                     {
