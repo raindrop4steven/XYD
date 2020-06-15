@@ -389,11 +389,28 @@ namespace XYD.Common
                             var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
                             // 工作小时数
                             var workHours = CaculateWorkHours(d, attence, sysConfig);
+                            // 如果上午请假，下午正常打卡，则今天的workHour应该是请假时间+打卡上班时间
+                            var leave = leaveRecord.Where(n => n.StartDate >= d.Date && n.EndDate <= CommonUtils.EndOfDay(d) && n.Category.Contains("假")).FirstOrDefault();
+                            double leaveHour = 0;
+                            if (leave != null)
+                            {
+                                leaveHour = leave.EndDate.Subtract(leave.StartDate).TotalHours;
+                                workHours += leaveHour;
+                            }
                             // 加入午休时间逻辑
                             if (attence.StartTime > shouldStartTime)
                             {
-                                entity.Name = "迟到";
-                                entity.Type = CALENDAR_TYPE.Late;
+                                if (leave != null && leave.EndDate < attence.StartTime && workHours >= 8)
+                                {
+                                    // 早上请假，然后打卡上班，总时长超过8小时
+                                    entity.Name = "上班";
+                                    entity.Type = CALENDAR_TYPE.Work;
+                                }
+                                else
+                                {
+                                    entity.Name = "迟到";
+                                    entity.Type = CALENDAR_TYPE.Late;
+                                }
                             }
                             else
                             {
