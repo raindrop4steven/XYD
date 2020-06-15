@@ -130,21 +130,54 @@ namespace XYD.Common
                 var date = d.ToString("yyyy-MM-dd");
                 var entity = new XYD_CalendarEntity();
                 entity.Date = date;
+
+                // 判断考勤状态
+                var shouldStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.StartWorkTime)));
+                var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));
+                var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
+                var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
+                // 工作小时数
+                var attence = attenceRecords.Where(n => n.StartTime >= d.Date && n.EndTime <= CommonUtils.EndOfDay(d)).FirstOrDefault();
+                var workHours = CaculateWorkHours(d, attence, sysConfig);
                 // 首先判断是否是节日
                 if (holidayDict.ContainsKey(date))
                 {
-                    entity.Name = holidayDict[date];
-                    entity.Type = CALENDAR_TYPE.Holiday;
+                    if (attence != null)
+                    {
+                        entity.Name = "上班";
+                        entity.Type = CALENDAR_TYPE.Work;
+                    }
+                    else
+                    {
+                        entity.Name = holidayDict[date];
+                        entity.Type = CALENDAR_TYPE.Holiday;
+                    }
                 }
                 else if (adjustDict.ContainsKey(date))
                 {
-                    entity.Name = adjustDict[date];
-                    entity.Type = CALENDAR_TYPE.Adjust;
+                    if (attence != null)
+                    {
+                        entity.Name = "上班";
+                        entity.Type = CALENDAR_TYPE.Work;
+                    }
+                    else
+                    {
+                        entity.Name = adjustDict[date];
+                        entity.Type = CALENDAR_TYPE.Adjust;
+                    }
                 }
                 else if (d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday)
                 {
-                    entity.Name = "休息";
-                    entity.Type = CALENDAR_TYPE.Rest;
+                    if (attence != null)
+                    {
+                        entity.Name = "上班";
+                        entity.Type = CALENDAR_TYPE.Work;
+                    }
+                    else
+                    {
+                        entity.Name = "休息";
+                        entity.Type = CALENDAR_TYPE.Rest;
+                    }
                 }
                 else
                 {
@@ -158,7 +191,6 @@ namespace XYD.Common
                     else
                     {
                         // 上班日期里再根据请假，考勤判断是：请假，迟到，早退，正常上班
-                        var attence = attenceRecords.Where(n => n.StartTime >= d.Date && n.EndTime <= CommonUtils.EndOfDay(d)).FirstOrDefault();
                         if (attence == null)
                         {
                             // 判断是否请假
@@ -195,13 +227,6 @@ namespace XYD.Common
                         }
                         else
                         {
-                            // 判断考勤状态
-                            var shouldStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.StartWorkTime)));
-                            var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));
-                            var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
-                            var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
-                            // 工作小时数
-                            var workHours = CaculateWorkHours(d, attence, sysConfig);
                             // 如果上午请假，下午正常打卡，则今天的workHour应该是请假时间+打卡上班时间
                             var leave = leaveRecord.Where(n => n.StartDate >= d.Date && n.EndDate <= CommonUtils.EndOfDay(d) && n.Category.Contains("假")).FirstOrDefault();
                             double leaveHour = 0;
@@ -305,21 +330,53 @@ namespace XYD.Common
                 var detail = new XYD_CalendarDetail();
                 entity.Date = date;
                 detail.Date = date;
+                // 判断考勤状态
+                var shouldStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.StartWorkTime)));
+                var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));
+                var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
+                var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
+                // 工作小时数
+                var attence = attenceRecords.Where(n => n.StartTime >= d.Date && n.EndTime <= CommonUtils.EndOfDay(d)).FirstOrDefault();
+                var workHours = CaculateWorkHours(d, attence, sysConfig);
                 // 首先判断是否是节日
                 if (holidayDict.ContainsKey(date))
                 {
-                    entity.Name = holidayDict[date];
-                    entity.Type = CALENDAR_TYPE.Holiday;
+                    if (attence != null)
+                    {
+                        entity.Name = "上班";
+                        entity.Type = CALENDAR_TYPE.Work;
+                    }
+                    else
+                    {
+                        entity.Name = holidayDict[date];
+                        entity.Type = CALENDAR_TYPE.Holiday;
+                    }
                 }
                 else if (adjustDict.ContainsKey(date))
                 {
-                    entity.Name = adjustDict[date];
-                    entity.Type = CALENDAR_TYPE.Adjust;
+                    if (attence != null)
+                    {
+                        entity.Name = "上班";
+                        entity.Type = CALENDAR_TYPE.Work;
+                    }
+                    else
+                    {
+                        entity.Name = adjustDict[date];
+                        entity.Type = CALENDAR_TYPE.Adjust;
+                    }
                 }
                 else if (d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday)
                 {
-                    entity.Name = "休息";
-                    entity.Type = CALENDAR_TYPE.Rest;
+                    if (attence != null)
+                    {
+                        entity.Name = "上班";
+                        entity.Type = CALENDAR_TYPE.Work;
+                    }
+                    else
+                    {
+                        entity.Name = "休息";
+                        entity.Type = CALENDAR_TYPE.Rest;
+                    }
                 }
                 else
                 {
@@ -333,7 +390,7 @@ namespace XYD.Common
                     else
                     {
                         // 上班日期里再根据请假，考勤判断是：请假，迟到，早退，正常上班
-                        var attence = attenceRecords.Where(n => n.StartTime >= d.Date && n.EndTime <= CommonUtils.EndOfDay(d)).FirstOrDefault();
+                        //var attence = attenceRecords.Where(n => n.StartTime >= d.Date && n.EndTime <= CommonUtils.EndOfDay(d)).FirstOrDefault();
                         if (attence == null)
                         {
                             // 判断是否请假
@@ -382,13 +439,6 @@ namespace XYD.Common
                         }
                         else
                         {
-                            // 判断考勤状态
-                            var shouldStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.StartWorkTime)));
-                            var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));
-                            var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
-                            var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
-                            // 工作小时数
-                            var workHours = CaculateWorkHours(d, attence, sysConfig);
                             // 如果上午请假，下午正常打卡，则今天的workHour应该是请假时间+打卡上班时间
                             var leave = leaveRecord.Where(n => n.StartDate >= d.Date && n.EndDate <= CommonUtils.EndOfDay(d) && n.Category.Contains("假")).FirstOrDefault();
                             double leaveHour = 0;
@@ -434,13 +484,17 @@ namespace XYD.Common
                                     }
                                 }
                             }
-                            // 记录详情
-                            detail.StartTime = attence.StartTime == null ? "" : attence.StartTime.Value.ToString("yyyy-MM-dd HH:mm");
-                            detail.EndTime = attence.EndTime == null ? "" : attence.EndTime.Value.ToString("yyyy-MM-dd HH:mm");
-                            detail.WorkHours = workHours;
                         }
                     }
                 }
+
+                // 记录详情
+                if (attence != null)
+                {
+                    detail.StartTime = attence.StartTime == null ? "" : attence.StartTime.Value.ToString("yyyy-MM-dd HH:mm");
+                    detail.EndTime = attence.EndTime == null ? "" : attence.EndTime.Value.ToString("yyyy-MM-dd HH:mm");
+                }
+                detail.WorkHours = workHours;
                 detail.Name = entity.Name;
                 detail.Type = entity.Type;
                 summary[entity.Type] += 1;
@@ -456,6 +510,10 @@ namespace XYD.Common
         public static double CaculateWorkHours(DateTime d, XYD_Attence attence, XYD_System_Config sysConfig)
         {
             double workHours = 0;
+            if (attence == null)
+            {
+                return workHours;
+            }
             // 判断考勤状态
             var shouldStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.StartWorkTime)));
             var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));

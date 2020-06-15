@@ -273,6 +273,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006151142284_create all tables.cs" />
+    <Compile Include="Migrations\202006151142284_create all tables.Designer.cs">
+      <DependentUpon>202006151142284_create all tables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -806,6 +810,11 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202006151142284_create all tables.resx">
+      <DependentUpon>202006151142284_create all tables.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -832,7 +841,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" />
+      <UserProperties content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

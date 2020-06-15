@@ -15,11 +15,11 @@ namespace XYD
         {
             // Storage is the only thing required for basic configuration.
             // Just discover what configuration options do you have.
-            GlobalConfiguration.Configuration
-                .UseSqlServerStorage("DeptOAHangfire");
-            app.UseHangfireDashboard();
-            app.UseHangfireServer();
-            ScheduleUtil.ScheduleGlobalUpdate();
+            //GlobalConfiguration.Configuration
+            //    .UseSqlServerStorage("DeptOAHangfire");
+            //app.UseHangfireDashboard();
+            //app.UseHangfireServer();
+            //ScheduleUtil.ScheduleGlobalUpdate();
         }
     }
 }
