@@ -77,6 +77,59 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 每日考勤查询
+        [Authorize]
+        public ActionResult DailyCalendar(DateTime BeginDate, string Area)
+        {
+            try
+            {
+                var AreaName = string.Empty;
+                var EndDate = BeginDate;
+                // 检查用户是否具有领导权限
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var isLeader = PermUtil.CheckPermission(employee.EmplID, DEP_Constants.Module_Information_Code, DEP_Constants.Perm_Info_Leader);
+                if (!isLeader)
+                {
+                    return ResponseUtil.Error("您没有权限查看数据");
+                }
+                if (OrgUtil.CheckRole(employee.EmplID, "查看所有机构报表"))
+                {
+                    var CEOEmplID = ConfigurationManager.AppSettings["CEOEmplID"];
+                    employee = orgMgr.GetEmployee(CEOEmplID);
+                }
+                if (!string.IsNullOrEmpty(Area))
+                {
+                    if (Area == "001")
+                    {
+                        AreaName = "无锡";
+                    }
+                    else
+                    {
+                        AreaName = "上海";
+                    }
+                }
+                List<Employee> employees = OrgUtil.GetChildrenDeptRecursive(employee.DeptID);
+                var results = new List<XYD_Calendar_Result>();
+                // 计算应上班天数
+                var shouldWorkDays = CalendarUtil.CaculateShouldWorkDays(BeginDate, EndDate);
+                foreach (var user in employees)
+                {
+                    if (!string.IsNullOrEmpty(AreaName) && !OrgUtil.CheckRole(user.EmplID, AreaName))
+                    {
+                        continue;
+                    }
+                    var calendarResult = CalendarUtil.CaculateUserCalendarDetail(user, BeginDate, EndDate);
+                    results.Add(calendarResult);
+                }
+                return ResponseUtil.OK(results);
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
         #region 工资统计
         [HttpPost]
         public ActionResult Salary(DateTime BeginDate, DateTime EndDate)

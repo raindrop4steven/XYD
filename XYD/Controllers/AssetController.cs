@@ -739,13 +739,18 @@ namespace XYD.Controllers
 
         #region 统计资产数目
         [Authorize]
-        public ActionResult Summary(string area, int Page, int Size)
+        public ActionResult Summary(string area, string Name, int Page, int Size)
         {
             try
             {
                 var db = new DefaultConnection();
+                var query = db.Asset.Where(n => n.Area == area);
+                if (!string.IsNullOrEmpty(Name))
+                {
+                    query = query.Where(n => n.Name.Contains(Name));
+                }
                 // 当前资产列表
-                var assets = db.Asset.Where(n => n.Area == area)
+                var assets = query
                         .GroupBy(n => new { n.Name, n.ModelName })
                         .Select(n => new
                         {
@@ -790,13 +795,19 @@ namespace XYD.Controllers
 
         #region 资产统计下载
         [Authorize]
-        public ActionResult Download(string area)
+        public ActionResult Download(string area, string Name)
         {
             try
             {
                 var db = new DefaultConnection();
                 // 当前资产列表
-                var assets = db.Asset.Where(n => n.Area == area)
+                var query = db.Asset.Where(n => n.Area == area);
+                if (!string.IsNullOrEmpty(Name))
+                {
+                    query = query.Where(n => n.Name.Contains(Name));
+                }
+                // 当前资产列表
+                var assets = query
                         .GroupBy(n => new { n.Name, n.ModelName })
                         .Select(n => new
                         {
