@@ -109,7 +109,7 @@ namespace XYD.Controllers
                     }
                 }
                 List<Employee> employees = OrgUtil.GetChildrenDeptRecursive(employee.DeptID);
-                var results = new List<XYD_Calendar_Result>();
+                var results = new List<object>();
                 // 计算应上班天数
                 var shouldWorkDays = CalendarUtil.CaculateShouldWorkDays(BeginDate, EndDate);
                 foreach (var user in employees)
@@ -119,7 +119,14 @@ namespace XYD.Controllers
                         continue;
                     }
                     var calendarResult = CalendarUtil.CaculateUserCalendarDetail(user, BeginDate, EndDate);
-                    results.Add(calendarResult);
+                    results.Add(new {
+                        EmplID = user.EmplID,
+                        EmplName = user.EmplName,
+                        DeptName = user.DeptName,
+                        EmplNo = user.EmplNO,
+                        Position = user.DeptAndPosStr,
+                        calendarResult = calendarResult
+                    });
                 }
                 return ResponseUtil.OK(results);
             }

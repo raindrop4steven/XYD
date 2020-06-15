@@ -461,7 +461,7 @@ namespace XYD.Common
             var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));
             var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
             var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
-            if (attence.StartTime != null && attence.StartTime.Value > restStartTime)
+            if (attence.StartTime != null && attence.StartTime.Value < restStartTime)
             {
                 var morningHour = (restStartTime - attence.StartTime.Value).TotalHours;
                 workHours += morningHour;
@@ -472,7 +472,7 @@ namespace XYD.Common
                 workHours += afterHour;
             }
 
-            return Math.Round(workHours, 1);
+            return Math.Round(workHours, 2);
         }
         #endregion
 
