@@ -569,6 +569,8 @@ namespace XYD.Entity
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public double WorkHours { get; set; }
+        public string LeaveNo { get; set; }
+        public string TripNo { get; set; }
     }
 
     #endregion

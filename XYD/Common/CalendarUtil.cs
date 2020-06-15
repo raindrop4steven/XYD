@@ -335,8 +335,11 @@ namespace XYD.Common
                                     entity.Type = CALENDAR_TYPE.Work;
                                 }
                                 // 记录详情
-                                detail.StartTime = leave.StartDate.ToString("yyyy-MM-dd HH:mm");
-                                detail.EndTime = leave.EndDate.ToString("yyyy-MM-dd HH:mm");
+                                var serialRecord = db.SerialRecord.Where(n => n.MessageID == leave.MessageID).FirstOrDefault();
+                                if (serialRecord != null)
+                                {
+                                    detail.LeaveNo = serialRecord.Sn;
+                                }
                             }
                             else
                             {
@@ -347,8 +350,11 @@ namespace XYD.Common
                                     entity.Name = "出差";
                                     entity.Type = CALENDAR_TYPE.BizTrp;
                                     // 记录详情
-                                    detail.StartTime = bizTrip.StartDate.ToString("yyyy-MM-dd HH:mm");
-                                    detail.EndTime = bizTrip.EndDate.ToString("yyyy-MM-dd HH:mm");
+                                    var serialRecord = db.SerialRecord.Where(n => n.MessageID == bizTrip.MessageID).FirstOrDefault();
+                                    if (serialRecord != null)
+                                    {
+                                        detail.TripNo = serialRecord.Sn;
+                                    }
                                 }
                                 else
                                 {
