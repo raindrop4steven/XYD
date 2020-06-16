@@ -397,22 +397,19 @@ namespace XYD.Common
                             var leave = leaveRecord.Where(n => n.StartDate >= d.Date && n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
                             if (leave != null)
                             {
-                                if (leave.Category != null && leave.Category.Contains("假"))
+                                var leaveHour = Math.Round(leave.EndDate.Subtract(leave.StartDate).TotalHours, 2);
+                                entity.Name = leave.Category;
+                                // 是否是请
+                                if (leave.Category.Contains("补") || leave.Category == "加班")
                                 {
-                                    entity.Name = "请假";
-                                    entity.Type = CALENDAR_TYPE.Leave;
+                                    entity.Type = CALENDAR_TYPE.Work;
                                 }
                                 else
                                 {
-                                    entity.Name = "上班";
-                                    entity.Type = CALENDAR_TYPE.Work;
+                                    entity.Type = CALENDAR_TYPE.Leave;
                                 }
-                                // 记录详情
-                                var serialRecord = db.SerialRecord.Where(n => n.MessageID == leave.MessageID).FirstOrDefault();
-                                if (serialRecord != null)
-                                {
-                                    detail.LeaveNo = serialRecord.Sn;
-                                }
+                                // 增加备注
+                                detail.Memo += string.Format("今日{0}{1}小时;", leave.Category, leaveHour);
                             }
                             else
                             {
@@ -424,10 +421,7 @@ namespace XYD.Common
                                     entity.Type = CALENDAR_TYPE.BizTrp;
                                     // 记录详情
                                     var serialRecord = db.SerialRecord.Where(n => n.MessageID == bizTrip.MessageID).FirstOrDefault();
-                                    if (serialRecord != null)
-                                    {
-                                        detail.TripNo = serialRecord.Sn;
-                                    }
+                                    detail.Memo += string.Format("今日出差，编号:{0};", serialRecord == null ? serialRecord.Sn : string.Empty);
                                 }
                                 else
                                 {
@@ -446,6 +440,7 @@ namespace XYD.Common
                             {
                                 leaveHour = leave.EndDate.Subtract(leave.StartDate).TotalHours;
                                 workHours += leaveHour;
+                                detail.Memo += string.Format("今日{0}{1}小时;", leave.Category, Math.Round(leaveHour, 2));
                             }
                             // 加入午休时间逻辑
                             if (attence.StartTime > shouldStartTime)
