@@ -118,4 +118,51 @@ namespace XYD.Entity
         public DateTime CreateTime { get; set; }
     }
     #endregion
+
+    #region 用户统计信息
+    public class XYD_UserReport
+    {
+        // 用户ID
+        public string EmplID;
+        // 姓名
+        public string EmplName;
+        // 性别	
+        public string EmplSex;
+        // 编号	
+        public string EmplNO;
+        // 部门	
+        public string DeptName;
+        // 职位	
+        public string PositionName;
+        // 学历	
+        public string Education;
+        // 出生年月	
+        public string EmplBirth;
+        // 身份证号码	
+        public string CredNo;
+        // 手机	
+        public string Mobile;
+        // 电子邮件	
+        public string Email;
+        // 招行卡号	
+        public string BankNo;
+        // 入职日期	
+        public string EmployeeDate;
+        // 转正日期	
+        public string FormalDate;
+        // 合同到期日	
+        public string ContractDate;
+        // 累计缴费月数	
+        public int SocialInsuranceTotalMonth;
+        // 户籍地址	
+        public string Residence;
+        // 居住地	
+        public string CurrentAddress;
+        // 紧急联系人	
+        public string EmergencyContact;
+        // 联系人手机
+        public string EmergencyMobile;
+
+    }
+    #endregion
 }

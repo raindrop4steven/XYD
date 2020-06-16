@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 using XYD.Common;
 using XYD.Entity;
 using XYD.Models;
@@ -572,6 +573,106 @@ namespace XYD.Controllers
                 totalHours += CalendarUtil.GetRealLeaveHours(leave.EmplID, leave.StartDate, leave.EndDate);
             }
             return totalHours;
+        }
+        #endregion
+
+        #region 员工信息统计
+        [Authorize]
+        public ActionResult Employee()
+        {
+            try
+            {
+                var db = new DefaultConnection();
+                string[] educationOrder = { "博士", "硕士", "本科", "专科", "高中" };
+                var sql = @"SELECT
+	                            ISNULL( a.EmplID, '' ) AS EmplID,
+	                            ISNULL( a.EmplName, '' ) AS EmplName,
+	                            a.EmplSex AS EmplSex,
+	                            ISNULL( a.EmplNO, '' ) AS EmplNO,
+	                            ISNULL( b.DeptName, '' ) AS DeptName,
+	                            ISNULL( d.PositionName, '' ) AS PositionName,
+	                            a.EmplBirth,
+	                            f.CredNo,
+	                            e.BankNo,
+	                            e.EmployeeDate,
+	                            e.FormalDate,
+	                            e.ContractDate,
+	                            e.SocialInsuranceTotalMonth,
+	                            f.Residence,
+	                            f.CurrentAddress 
+                            FROM
+	                            ORG_Employee a
+	                            LEFT JOIN ORG_Department b ON a.DeptID = b.DeptID
+	                            INNER JOIN ORG_EmplDept c ON c.EmplID = a.EmplID
+	                            INNER JOIN ORG_Position d ON d.PositionID = c.PosID
+	                            LEFT JOIN XYD_UserCompanyInfo e ON a.EmplID = e.EmplID
+	                            LEFT JOIN XYD_UserInfo f ON a.EmplID = f.EmplID 
+                            WHERE
+	                            a.EmplEnabled = 1 
+                            ORDER BY
+	                            GlobalSortNo DESC";
+                var results = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetUserReport);
+                foreach (XYD_UserReport item in results)
+                {
+                    // 获取联系方式
+                    var education = db.Education.Where(n => n.EmplID == item.EmplID).ToList().OrderBy(n => Array.IndexOf(educationOrder, n.Level)).FirstOrDefault();
+                    if (education != null)
+                    {
+                        item.Education = education.Level;
+                    }
+                    // 获取联系方式
+                    var mobileContact = orgMgr.FindEmployeeContactInfo("EmplID=@EmplID and ContactInfoTypeID=@ContactInfoTypeID", new System.Collections.Hashtable()
+                          {
+                            {
+                              "@EmplID",
+                              item.EmplID
+                            },
+                            {
+                                "@ContactInfoTypeID",
+                                "mobile"
+                            }
+                          }, string.Empty, 0, 0).FirstOrDefault();
+                    if (mobileContact != null)
+                    {
+                        item.Mobile = GetContactValue(mobileContact.ContactInfoValue);
+                    }
+                    var emailContact = orgMgr.FindEmployeeContactInfo("EmplID=@EmplID", new System.Collections.Hashtable()
+                          {
+                            {
+                              "@EmplID",
+                              item.EmplID
+                            },
+                            {
+                                "@ContactInfoTypeID",
+                                "email"
+                            }
+                          }, string.Empty, 0, 0).FirstOrDefault();
+                    if (emailContact != null)
+                    {
+                        item.EmplID = GetContactValue(emailContact.ContactInfoValue);
+                    }
+                    // 紧急联系人
+                    var emergency = db.Contact.Where(n => n.EmplID == item.EmplID).FirstOrDefault();
+                    if (emergency != null)
+                    {
+                        item.EmergencyContact = emergency.Name;
+                        item.EmergencyMobile = emergency.Contact;
+                    }
+                }
+                return ResponseUtil.OK(results);
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+
+        private string GetContactValue(string xml)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+            XmlElement root = doc.DocumentElement;
+            return root.FirstChild.FirstChild.Attributes[1].Value;
         }
         #endregion
     }

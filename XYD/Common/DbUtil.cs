@@ -955,5 +955,34 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 获取用户统计
+        public static List<object> GetUserReport(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while(reader.Read())
+            {
+                ResultList.Add(new XYD_UserReport()
+                {
+                    EmplID = reader.GetString(0),
+                    EmplName = reader.GetString(1),
+                    EmplSex = reader.GetString(2),
+                    EmplNO = reader.GetString(3),
+                    DeptName = reader.GetString(4),
+                    PositionName = reader.GetString(5),
+                    EmplBirth = reader.IsDBNull(6) ? string.Empty : reader.GetDateTime(6).ToString("yyyy-MM-dd"),
+                    CredNo = reader.IsDBNull(7) ? string.Empty : reader.GetString(7),
+                    BankNo = reader.IsDBNull(8) ? string.Empty : reader.GetString(8),
+                    EmployeeDate = reader.IsDBNull(9) ? string.Empty : reader.GetDateTime(9).ToString("yyyy-MM-dd"),
+                    FormalDate = reader.IsDBNull(10) ? string.Empty : reader.GetDateTime(10).ToString("yyyy-MM-dd"),
+                    ContractDate = reader.IsDBNull(11) ? string.Empty : reader.GetDateTime(11).ToString("yyyy-MM-dd"),
+                    SocialInsuranceTotalMonth = reader.IsDBNull(12) ? 0 : reader.GetInt32(12),
+                    Residence = reader.IsDBNull(13) ? string.Empty : reader.GetString(13),
+                    CurrentAddress = reader.IsDBNull(14) ? string.Empty : reader.GetString(14)
+                });
+            }
+            return ResultList;
+        }
+        #endregion
+
     }
 }
