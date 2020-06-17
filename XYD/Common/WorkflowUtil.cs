@@ -715,23 +715,19 @@ namespace XYD.Common
         {
             List<Message> TemplateList = new List<Message>();
 
-            List<Folder> folder1 = mgr.FindFolder("", (Dictionary<string, object>)null, "FolderName");
-            for (int index = folder1.Count - 1; index >= 0; --index)
+            //List<Folder> folder1 = mgr.FindFolder("", (Dictionary<string, object>)null, "FolderName");
+            //for (int index = folder1.Count - 1; index >= 0; --index)
+            //{
+            //    if (!orgMgr.VerifyPermission(folder1[index].FolderID, name, "user", "view"))
+            //        folder1.RemoveAt(index);
+            //}
+            //List<object> objectList1 = new List<object>();
+            List<Message> templates = mgr.FindTemplates("", "", true, "MessageTitle");
+            List<object> objectList2 = new List<object>();
+            foreach (Message message in templates)
             {
-                if (!orgMgr.VerifyPermission(folder1[index].FolderID, name, "user", "view"))
-                    folder1.RemoveAt(index);
-            }
-            List<object> objectList1 = new List<object>();
-            foreach (Folder folder2 in folder1)
-            {
-                List<Message> templates = mgr.FindTemplates(folder2.FolderID, "", true, "MessageTitle");
-                List<object> objectList2 = new List<object>();
-                foreach (Message message in templates)
+                if (orgMgr.VerifyPermission(message.MessageID, name, "user", "run"))
                 {
-                    //if (orgMgr.VerifyPermission(message.MessageID, name, "user", "run"))
-                    //{
-                    //    TemplateList.Add(message);
-                    //}
                     TemplateList.Add(message);
                 }
             }
