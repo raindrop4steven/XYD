@@ -197,15 +197,14 @@ namespace XYD.Common
                             var leave = leaveRecord.Where(n => n.StartDate >= d.Date && n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
                             if (leave != null)
                             {
-                                if (leave.Category != null && leave.Category.Contains("假"))
+                                // 是否是请
+                                if (leave.Category.Contains("补") || leave.Category == "加班" || leave.Category == "外勤")
                                 {
-                                    entity.Name = "请假";
-                                    entity.Type = CALENDAR_TYPE.Leave;
+                                    entity.Type = CALENDAR_TYPE.Work;
                                 }
                                 else
                                 {
-                                    entity.Name = "上班";
-                                    entity.Type = CALENDAR_TYPE.Work;
+                                    entity.Type = CALENDAR_TYPE.Leave;
                                 }
                             }
                             else
@@ -400,7 +399,7 @@ namespace XYD.Common
                                 var leaveHour = Math.Round(leave.EndDate.Subtract(leave.StartDate).TotalHours, 2);
                                 entity.Name = leave.Category;
                                 // 是否是请
-                                if (leave.Category.Contains("补") || leave.Category == "加班")
+                                if (leave.Category.Contains("补") || leave.Category == "加班" || leave.Category == "外勤")
                                 {
                                     entity.Type = CALENDAR_TYPE.Work;
                                 }
