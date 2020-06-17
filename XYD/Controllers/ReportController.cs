@@ -133,7 +133,7 @@ namespace XYD.Controllers
             }
             catch (Exception e)
             {
-                return ResponseUtil.Error(e.Message);
+                throw e;
             }
         }
         #endregion
@@ -399,10 +399,6 @@ namespace XYD.Controllers
                     }
                     // 计算总年假
                     var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == user.EmplID).FirstOrDefault();
-                    if (userCompanyInfo == null)
-                    {
-                        return ResponseUtil.Error(string.Format("请补全{0}信息", user.EmplName));
-                    }
                     var restYear = CalendarUtil.CaculateYearRestDays(userCompanyInfo) * 8; // 小时制
                     var leaveAndAdjust = new List<string>() { "事假", "调休" };
                     // 计算已使用年假
@@ -636,7 +632,7 @@ namespace XYD.Controllers
                     {
                         item.Mobile = GetContactValue(mobileContact.ContactInfoValue);
                     }
-                    var emailContact = orgMgr.FindEmployeeContactInfo("EmplID=@EmplID", new System.Collections.Hashtable()
+                    var emailContact = orgMgr.FindEmployeeContactInfo("EmplID=@EmplID and ContactInfoTypeID=@ContactInfoTypeID", new System.Collections.Hashtable()
                           {
                             {
                               "@EmplID",
@@ -649,7 +645,7 @@ namespace XYD.Controllers
                           }, string.Empty, 0, 0).FirstOrDefault();
                     if (emailContact != null)
                     {
-                        item.EmplID = GetContactValue(emailContact.ContactInfoValue);
+                        item.Email = GetContactValue(emailContact.ContactInfoValue);
                     }
                     // 紧急联系人
                     var emergency = db.Contact.Where(n => n.EmplID == item.EmplID).FirstOrDefault();

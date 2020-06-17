@@ -408,7 +408,7 @@ namespace XYD.Common
                                     entity.Type = CALENDAR_TYPE.Leave;
                                 }
                                 // 增加备注
-                                detail.Memo += string.Format("今日{0}{1}小时;", leave.Category, leaveHour);
+                                detail.Memo += string.Format("今日{0}{1}小时", leave.Category, leaveHour);
                             }
                             else
                             {
@@ -420,7 +420,11 @@ namespace XYD.Common
                                     entity.Type = CALENDAR_TYPE.BizTrp;
                                     // 记录详情
                                     var serialRecord = db.SerialRecord.Where(n => n.MessageID == bizTrip.MessageID).FirstOrDefault();
-                                    detail.Memo += string.Format("今日出差，编号:{0};", serialRecord == null ? serialRecord.Sn : string.Empty);
+                                    if (!string.IsNullOrEmpty(detail.Memo))
+                                    {
+                                        detail.Memo += ",";
+                                    }
+                                    detail.Memo += string.Format("今日出差，编号:{0}", serialRecord == null ? serialRecord.Sn : string.Empty);
                                 }
                                 else
                                 {
@@ -439,7 +443,11 @@ namespace XYD.Common
                             {
                                 leaveHour = leave.EndDate.Subtract(leave.StartDate).TotalHours;
                                 workHours += leaveHour;
-                                detail.Memo += string.Format("今日{0}{1}小时;", leave.Category, Math.Round(leaveHour, 2));
+                                if (!string.IsNullOrEmpty(detail.Memo))
+                                {
+                                    detail.Memo += ",";
+                                }
+                                detail.Memo += string.Format("今日{0}{1}小时", leave.Category, Math.Round(leaveHour, 2));
                             }
                             // 加入午休时间逻辑
                             if (attence.StartTime > shouldStartTime)
@@ -539,6 +547,10 @@ namespace XYD.Common
         /// <returns></returns>
         public static int CaculateYearRestDays(XYD_UserCompanyInfo userCompanyInfo)
         {
+            if (userCompanyInfo == null)
+            {
+                return 0;
+            }
             if (userCompanyInfo.ManualCaculate)
             {
                 return userCompanyInfo.RestDays;
