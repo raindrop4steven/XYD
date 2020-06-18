@@ -42,7 +42,7 @@ namespace XYD.Controllers
                 var shouldWorkDays = CalendarUtil.CaculateShouldWorkDays(BeginDate, EndDate);
                 foreach(var user in employees)
                 {
-                    var calendarResult = CalendarUtil.CaculateUserCalendar(user, BeginDate, EndDate);
+                    var calendarResult = CalendarUtil.CaculateUserCalendarDetail(user, BeginDate, EndDate);
                     results.Add(new XYD_Calendar_Report() {
                         EmplID = user.EmplID,
                         EmplName = user.EmplName,

@@ -23,7 +23,7 @@ namespace XYD.Controllers
                 // 获得指定年份放假和调休计划
                 var StartDate = new DateTime(currentMonth.Year, currentMonth.Month, 1);
                 var EndDate = CommonUtils.EndOfDay(StartDate.AddMonths(1).AddDays(-1));
-                var result = CalendarUtil.CaculateUserCalendar(employee, StartDate, EndDate);
+                var result = CalendarUtil.CaculateUserCalendarDetail(employee, StartDate, EndDate);
                 return ResponseUtil.OK(result);
             }
             catch (Exception e)
