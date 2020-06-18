@@ -348,7 +348,7 @@ namespace XYD.Common
         #region 判断出勤是否该算入工作时间
         public static bool IsLeaveAsWork(XYD_Leave_Record leave)
         {
-            if (leave.Category.Contains("补") || leave.Category == "加班" || leave.Category == "外勤")
+            if (leave.Category.Contains("假") || leave.Category.Contains("补") || leave.Category == "加班" || leave.Category == "外勤")
             {
                 return true;
             }
@@ -467,6 +467,41 @@ namespace XYD.Common
                     subSum = endTime.Subtract(startTime).TotalDays * 8;
                 }
                 return subSum;
+            }
+        }
+        #endregion
+
+        #region 更新考勤记录
+        public static void UpdateAttence(Employee employee, XYD_Leave_Record leave)
+        {
+            using (var db = new DefaultConnection())
+            {
+                var startTime = leave.StartDate.Date;
+                var endTime = CommonUtils.EndOfDay(leave.EndDate);
+                var attence = db.Attence.Where(n => n.EmplNo == employee.EmplNO && n.StartTime >= startTime && n.EndTime <= endTime).FirstOrDefault();
+                if (attence == null)
+                {
+                    attence = new XYD_Attence();
+                    attence.EmplNo = employee.EmplNO;
+                    attence.EmplName = employee.EmplName;
+                    attence.StartTime = leave.StartDate;
+                    attence.EndTime = leave.EndDate;
+                    attence.Day = leave.StartDate.ToString("yyyyMMdd");
+                    attence.DeviceID = "新友达";
+                    db.Attence.Add(attence);
+                } else
+                {
+                    // 更新，最早考勤取最早，最晚考勤取最晚
+                    if (attence.StartTime.Value > leave.StartDate)
+                    {
+                        attence.StartTime = leave.StartDate;
+                    }
+                    if (attence.EndTime == null || (attence.EndTime != null && attence.EndTime < leave.EndDate))
+                    {
+                        attence.EndTime = leave.EndDate;
+                    }
+                }
+                db.SaveChanges();
             }
         }
         #endregion

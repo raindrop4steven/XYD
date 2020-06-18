@@ -54,7 +54,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 更新申请状态
-        public ActionResult UpdateLeaveStatus(string mid, string node, string user, bool isAuditNode=false)
+        public ActionResult UpdateLeaveStatus(string mid, string node, bool isAuditNode=false)
         {
             try
             {
@@ -62,6 +62,7 @@ namespace XYD.Controllers
                 var operate = string.Empty;
                 var opinion = string.Empty;
                 var message = mgr.GetMessage(mid);
+                var employee = orgMgr.GetEmployee(message.MessageIssuedBy);
                 Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
                 Worksheet worksheet = doc.Worksheet;
                 XYD_Audit_Node auditNode = WorkflowUtil.GetAuditNode(mid, node);
@@ -88,10 +89,23 @@ namespace XYD.Controllers
                         else if (operate == DEP_Constants.Audit_Operate_Type_Agree)
                         {
                             leave.Status = DEP_Constants.Leave_Status_YES;
-                            if (leave.Category == DEP_Constants.Leave_Year_Type && !isAuditNode) // 结束节点
+                            if (!isAuditNode) // 结束节点
                             {
-                                var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == user).FirstOrDefault();
-                                userCompanyInfo.UsedRestDays += Convert.ToInt32((leave.EndDate - leave.StartDate).TotalDays);
+                                // 处理年假
+                                if (leave.Category == DEP_Constants.Leave_Year_Type)
+                                {
+                                    var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
+                                    if (userCompanyInfo != null)
+                                    {
+                                        userCompanyInfo.UsedRestDays += Convert.ToInt32((leave.EndDate - leave.StartDate).TotalDays);
+                                    }
+                                }
+                                // 处理考勤记录，如果是*假、外勤、补打卡、补外勤
+                                if (CalendarUtil.IsLeaveAsWork(leave))
+                                {
+                                    // 更新或插入考勤记录表
+                                    CalendarUtil.UpdateAttence(employee, leave);
+                                }
                             }
                         }
                     }
