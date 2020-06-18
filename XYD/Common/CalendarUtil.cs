@@ -347,7 +347,7 @@ namespace XYD.Common
         #region 判断出勤是否该算入工作时间
         public static bool IsLeaveAsWork(XYD_Leave_Record leave)
         {
-            if (leave.Category.Contains("假") || leave.Category.Contains("补") || leave.Category == "加班" || leave.Category == "外勤")
+            if (leave.Category.Contains("补") || leave.Category == "外勤")
             {
                 return true;
             }
