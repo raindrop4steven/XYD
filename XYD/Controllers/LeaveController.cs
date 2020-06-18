@@ -104,7 +104,11 @@ namespace XYD.Controllers
                                 if (CalendarUtil.IsLeaveAsWork(leave))
                                 {
                                     // 更新或插入考勤记录表
-                                    CalendarUtil.UpdateAttence(employee, leave);
+                                    // 如果是小时假，才更新
+                                    if (leave.StartDate.Date == leave.EndDate.Date)
+                                    {
+                                        CalendarUtil.UpdateAttence(employee, leave);
+                                    }
                                 }
                             }
                         }
