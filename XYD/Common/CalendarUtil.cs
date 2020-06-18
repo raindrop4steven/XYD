@@ -76,7 +76,7 @@ namespace XYD.Common
                 var entity = new XYD_CalendarEntity();
                 entity.Date = date;
                 // 首先判断是否是节日
-                if (holidayDict.ContainsKey(date) || adjustDict.ContainsKey(date) || d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday)
+                if (holidayDict.ContainsKey(date) || d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday)
                 {
                     continue;
                 }
