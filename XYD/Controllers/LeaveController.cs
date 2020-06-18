@@ -54,14 +54,13 @@ namespace XYD.Controllers
         #endregion
 
         #region 更新申请状态
-        public ActionResult UpdateLeaveStatus(string mid, string node, bool isAuditNode=false)
+        public ActionResult UpdateLeaveStatus(string mid, string node, string user, bool isAuditNode=false)
         {
             try
             {
                 // 变量定义
                 var operate = string.Empty;
                 var opinion = string.Empty;
-                var employee = (User.Identity as AppkizIdentity).Employee;
                 var message = mgr.GetMessage(mid);
                 Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
                 Worksheet worksheet = doc.Worksheet;
@@ -75,7 +74,7 @@ namespace XYD.Controllers
 
                 using (var db = new DefaultConnection())
                 {
-                    var leave = db.LeaveRecord.Where(n => n.MessageID == mid && n.EmplID == employee.EmplID).FirstOrDefault();
+                    var leave = db.LeaveRecord.Where(n => n.MessageID == mid).FirstOrDefault();
                     if (leave == null)
                     {
                         return ResponseUtil.Error("未找到对应请假");
@@ -91,7 +90,7 @@ namespace XYD.Controllers
                             leave.Status = DEP_Constants.Leave_Status_YES;
                             if (leave.Category == DEP_Constants.Leave_Year_Type && !isAuditNode) // 结束节点
                             {
-                                var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
+                                var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == user).FirstOrDefault();
                                 userCompanyInfo.UsedRestDays += Convert.ToInt32((leave.EndDate - leave.StartDate).TotalDays);
                             }
                         }
