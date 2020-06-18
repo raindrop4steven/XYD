@@ -254,7 +254,7 @@ namespace XYD.Common
                         // 判断是否请假
                         if (hasLeave)
                         {
-                            var leaveHour = Math.Round(leave.EndDate.Subtract(leave.StartDate).TotalHours, 2);
+                            var leaveHour = CaculateTimeWithoutRest(leave.StartDate, leave.EndDate, restStartTime, restEndTime);
                             entity.Name = leave.Category;
                             // 是否是请假，补外勤，补打卡，加班，外勤
                             if (IsLeaveAsWork(leave))
@@ -277,7 +277,7 @@ namespace XYD.Common
                                 entity.Type = CALENDAR_TYPE.BizTrp;
                                 // 记录详情
                                 var serialRecord = db.SerialRecord.Where(n => n.MessageID == bizTrip.MessageID).FirstOrDefault();
-                                detail.Memo += string.Format("今日出差，出差编号:{0}", serialRecord == null ? serialRecord.Sn : string.Empty);
+                                detail.Memo += string.Format("今日出差，出差编号:{0}", serialRecord == null ? string.Empty : serialRecord.Sn);
                             }
                             else
                             {
@@ -292,7 +292,7 @@ namespace XYD.Common
                         // 有考勤，又请假，显示请假信息即可
                         if (hasLeave)
                         {
-                            var leaveHour = Math.Round(leave.EndDate.Subtract(leave.StartDate).TotalHours, 2);
+                            var leaveHour = CaculateTimeWithoutRest(leave.StartDate, leave.EndDate, restStartTime, restEndTime);
                             detail.Memo += string.Format("今日{0}{1}小时", leave.Category, leaveHour);
                         }
                         if (hasBizTrip)
@@ -381,24 +381,37 @@ namespace XYD.Common
                 }
             }
             // 计算工作时长
-            if (attence.EndTime <= restStartTime || attence.StartTime >= restEndTime)
+            workHours = CaculateTimeWithoutRest(attence.StartTime.Value, attence.EndTime.Value, restStartTime, restEndTime);
+            return Math.Round(workHours, 2);
+        }
+        #endregion
+
+        #region 计算排除掉午休的时间
+        public static double CaculateTimeWithoutRest(DateTime startTime, DateTime endTime, DateTime restStartTime, DateTime restEndTime)
+        {
+            var workHours = 0.0d;
+            // 计算工作时长
+            if (endTime <= restStartTime || startTime >= restEndTime)
             {
-                workHours = attence.EndTime.Value.Subtract(attence.StartTime.Value).TotalHours;
-            } else if (attence.StartTime < restStartTime && attence.EndTime > restStartTime && attence.EndTime < restEndTime)
+                workHours = endTime.Subtract(startTime).TotalHours;
+            }
+            else if (startTime < restStartTime && endTime > restStartTime && endTime < restEndTime)
             {
-                workHours = restStartTime.Subtract(attence.StartTime.Value).TotalHours;
-            } else if (attence.StartTime > restStartTime && attence.StartTime < restEndTime && attence.EndTime > restEndTime)
+                workHours = restStartTime.Subtract(startTime).TotalHours;
+            }
+            else if (startTime > restStartTime && startTime < restEndTime && endTime > restEndTime)
             {
-                workHours = attence.EndTime.Value.Subtract(restEndTime).TotalHours;
-            } else if (attence.StartTime < restStartTime && attence.EndTime > restEndTime)
+                workHours = endTime.Subtract(restEndTime).TotalHours;
+            }
+            else if (startTime < restStartTime && endTime > restEndTime)
             {
-                workHours = restStartTime.Subtract(attence.StartTime.Value).TotalHours + attence.EndTime.Value.Subtract(restEndTime).TotalHours;
-            } else if (attence.StartTime >= restStartTime && attence.EndTime <= restEndTime)
+                workHours = restStartTime.Subtract(startTime).TotalHours + endTime.Subtract(restEndTime).TotalHours;
+            }
+            else if (startTime >= restStartTime && endTime <= restEndTime)
             {
                 return workHours;
             }
-
-            return Math.Round(workHours, 2);
+            return workHours;
         }
         #endregion
 
@@ -444,30 +457,34 @@ namespace XYD.Common
         {
             using (var db = new DefaultConnection())
             {
+                var isDayDate = IsDayDate(startTime);
                 var workArea = OrgUtil.GetWorkArea(EmplID);
                 var sysConfig = db.SystemConfig.Where(n => n.Area == workArea).FirstOrDefault();
-                var days = endTime.Subtract(startTime).TotalDays;
-                var subSum = 0.0;
+                var leaveHour = 0.0;
 
-                if (days == 0)
+                if (isDayDate)
                 {
-                    var restStartTime = DateTime.Parse(startTime.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
-                    var restEndTime = DateTime.Parse(startTime.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
-                    if (startTime < restStartTime)
-                    {
-                        subSum += restStartTime.Subtract(startTime).TotalHours;
-                    }
-                    if (endTime > restEndTime)
-                    {
-                        subSum += endTime.Subtract(restEndTime).TotalHours;
-                    }
+                    leaveHour = endTime.Subtract(startTime).TotalDays * 8;
                 }
                 else
                 {
-                    subSum = endTime.Subtract(startTime).TotalDays * 8;
+                    var restStartTime = DateTime.Parse(startTime.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
+                    var restEndTime = DateTime.Parse(startTime.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
+                    leaveHour = CaculateTimeWithoutRest(startTime, endTime, restStartTime, restEndTime);
                 }
-                return subSum;
+                return leaveHour;
             }
+        }
+        #endregion
+
+        #region 判断时间是选到小时还是天
+        public static bool IsDayDate(DateTime datetime)
+        {
+            if (datetime.Hour == 0 && datetime.Minute == 0 && datetime.Second == 0)
+            {
+                return true;
+            }
+            return false;
         }
         #endregion
 
