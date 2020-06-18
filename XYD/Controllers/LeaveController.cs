@@ -170,6 +170,10 @@ namespace XYD.Controllers
         /// <returns></returns>
         public int CaculateYearRestDays(XYD_UserCompanyInfo userCompanyInfo)
         {
+            if (userCompanyInfo == null)
+            {
+                return 0;
+            }
             if (userCompanyInfo.ManualCaculate)
             {
                 return userCompanyInfo.RestDays;
