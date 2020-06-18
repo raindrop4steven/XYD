@@ -508,28 +508,46 @@ namespace XYD.Common
         }
         #endregion
 
-        #region 计算每日工作小时数
+        #region 计算每日工作小时数,排除午休时间
         public static double CaculateWorkHours(DateTime d, XYD_Attence attence, XYD_System_Config sysConfig)
         {
             double workHours = 0;
-            if (attence == null)
+            var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
+            var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
+
+            // 今日无考勤或首次打卡没有
+            if (attence == null || attence.StartTime == null)
             {
                 return workHours;
             }
-            // 判断考勤状态
-            var shouldStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.StartWorkTime)));
-            var shouldEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:59", sysConfig.EndWorkTime)));
-            var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
-            var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
-            if (attence.StartTime != null && attence.StartTime.Value < restStartTime)
+            // 没有末次打卡
+            if (attence.EndTime == null)
             {
-                var morningHour = (restStartTime - attence.StartTime.Value).TotalHours;
-                workHours += morningHour;
+                if (d.Date == DateTime.Now.Date) // 如果是今天，则按照工作时间来计算
+                {
+                    attence.EndTime = DateTime.Now;
+                }
+                else
+                {
+                    return workHours;
+                }
             }
-            if (attence.EndTime != null && attence.EndTime.Value > restEndTime)
+            // 计算工作时长
+            if (attence.EndTime <= restStartTime || attence.StartTime >= restEndTime)
             {
-                var afterHour = (attence.EndTime.Value - restEndTime).TotalHours;
-                workHours += afterHour;
+                workHours = attence.EndTime.Value.Subtract(attence.StartTime.Value).TotalHours;
+            } else if (attence.StartTime < restStartTime && attence.EndTime > restStartTime && attence.EndTime < restEndTime)
+            {
+                workHours = restStartTime.Subtract(attence.StartTime.Value).TotalHours;
+            } else if (attence.StartTime > restStartTime && attence.StartTime < restEndTime && attence.EndTime > restEndTime)
+            {
+                workHours = attence.EndTime.Value.Subtract(restEndTime).TotalHours;
+            } else if (attence.StartTime < restStartTime && attence.EndTime > restEndTime)
+            {
+                workHours = restStartTime.Subtract(attence.StartTime.Value).TotalHours + attence.EndTime.Value.Subtract(restEndTime).TotalHours;
+            } else if (attence.StartTime >= restStartTime && attence.EndTime <= restEndTime)
+            {
+                return workHours;
             }
 
             return Math.Round(workHours, 2);
