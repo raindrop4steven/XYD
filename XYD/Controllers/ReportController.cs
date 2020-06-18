@@ -38,10 +38,16 @@ namespace XYD.Controllers
                 }
                 List<Employee> employees = OrgUtil.GetChildrenDeptRecursive(employee.DeptID);
                 var results = new List<XYD_Calendar_Report>();
+
+                List<string> excludeReportUsers = OrgUtil.GetUsersByRole("非考勤统计用户").Select(n => n.EmplID).ToList();
                 // 计算应上班天数
                 var shouldWorkDays = CalendarUtil.CaculateShouldWorkDays(BeginDate, EndDate);
                 foreach(var user in employees)
                 {
+                    if (excludeReportUsers.Contains(user.EmplID))
+                    {
+                        continue;
+                    }
                     var calendarResult = CalendarUtil.CaculateUserCalendarDetail(user, BeginDate, EndDate);
                     results.Add(new XYD_Calendar_Report() {
                         EmplID = user.EmplID,
@@ -111,10 +117,15 @@ namespace XYD.Controllers
                 }
                 List<Employee> employees = OrgUtil.GetChildrenDeptRecursive(employee.DeptID);
                 var results = new List<object>();
+                List<string> excludeReportUsers = OrgUtil.GetUsersByRole("非考勤统计用户").Select(n => n.EmplID).ToList();
                 // 计算应上班天数
                 var shouldWorkDays = CalendarUtil.CaculateShouldWorkDays(BeginDate, EndDate);
                 foreach (var user in employees)
                 {
+                    if (excludeReportUsers.Contains(user.EmplID))
+                    {
+                        continue;
+                    }
                     if (!string.IsNullOrEmpty(AreaName) && !OrgUtil.CheckRole(user.EmplID, AreaName))
                     {
                         continue;
@@ -370,13 +381,7 @@ namespace XYD.Controllers
                     areaCondition = string.Format(@" INNER JOIN ORG_EmplRole b on a.EmplID = b.EmplID INNER JOIN ORG_Role c on b.RoleID = c.RoleID and c.RoleName = '{0}'", AreaName);
                 }
                 List<string> employeesWithoutDept = orgMgr.FindEmployeesWithoutDept().Select(n => n.EmplID).ToList();
-                List<string> excludeReportUsers = orgMgr.FindEmployeeBySQL(@"SELECT
-	                                                                            * 
-                                                                            FROM
-	                                                                            ORG_Employee a
-	                                                                            INNER JOIN ORG_EmplRole b ON a.EmplID = b.EmplID
-	                                                                            INNER JOIN ORG_Role c ON b.RoleID = c.RoleID 
-	                                                                            AND c.RoleName = '非统计用户'").Select(n => n.EmplID).ToList();
+                List<string> excludeReportUsers = OrgUtil.GetUsersByRole("非统计用户").Select(n => n.EmplID).ToList(); 
                 List<Employee> employees = orgMgr.FindEmployeeBySQL(string.Format(@"SELECT
                                                                                             *
                                                                                         FROM

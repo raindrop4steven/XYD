@@ -192,8 +192,6 @@ namespace XYD.Common
         public static void CalendarCaculate(DateTime d, DateTime today, Dictionary<string, string> holidayDict, DefaultConnection db, XYD_System_Config sysConfig, List<XYD_Attence> attenceRecords, List<XYD_Leave_Record> leaveRecord, List<XYD_BizTrip> bizTripRecord, ref XYD_CalendarEntity entity, ref XYD_CalendarDetail detail)
         {
             var date = d.ToString("yyyy-MM-dd");
-            //var entity = new XYD_CalendarEntity();
-            //var detail = new XYD_CalendarDetail();
             entity.Date = date;
             detail.Date = date;
             // 判断考勤状态

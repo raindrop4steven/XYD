@@ -102,5 +102,20 @@ namespace XYD.Common
             return employees;
         }
         #endregion
+
+        #region 获取角色中所有用户
+        public static List<Employee> GetUsersByRole(string RoleName)
+        {
+            var sql = string.Format(@"SELECT
+	                                    * 
+                                    FROM
+	                                    ORG_Employee a
+	                                    INNER JOIN ORG_EmplRole b ON a.EmplID = b.EmplID
+	                                    INNER JOIN ORG_Role c ON b.RoleID = c.RoleID 
+	                                    AND c.RoleName = '{0}'", RoleName);
+            var roleUsers = orgMgr.FindEmployeeBySQL(sql);
+            return roleUsers;
+        }
+        #endregion
     }
 }
