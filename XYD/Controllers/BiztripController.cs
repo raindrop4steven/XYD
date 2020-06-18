@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Appkiz.Apps.Workflow.Library;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,12 +12,15 @@ namespace XYD.Controllers
     public class BiztripController : Controller
     {
         #region 添加出差记录
-        public ActionResult Add(XYD_BizTrip model, string user, string mid)
+        public ActionResult Add(XYD_BizTrip model, string mid)
         {
             try
             {
+                WorkflowMgr mgr = new WorkflowMgr();
                 using (var db = new DefaultConnection())
                 {
+                    var message = mgr.GetMessage(mid);
+                    var user = message.MessageIssuedBy;
                     var leave = db.BizTrip.Where(n => n.EmplID == user && n.MessageID == mid).FirstOrDefault();
                     if (leave == null)
                     {
