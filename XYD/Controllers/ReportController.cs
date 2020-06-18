@@ -404,8 +404,9 @@ namespace XYD.Controllers
                     }
                     // 计算总年假
                     var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == user.EmplID).FirstOrDefault();
-                    var restYear = CalendarUtil.CaculateYearRestDays(userCompanyInfo) * 8; // 小时制
+                    var restYear = CalendarUtil.CaculateYearRestDays(userCompanyInfo) * DEP_Constants.Normal_Work_Hours; // 小时制
                     var leaveAndAdjust = new List<string>() { "事假", "调休" };
+                    var sysConfig = CalendarUtil.GetSysConfigByUser(user.EmplID);
                     // 计算已使用年假
                     var usedRestYear = db.LeaveRecord.Where(n => n.EmplID == user.EmplID && n.Category == "年假" && n.StartDate >= startYearDate && n.StartDate <= endYearDate).ToList().Select(n => n.EndDate.Subtract(n.StartDate).TotalHours).Sum();
                     // 计算已加班
@@ -415,7 +416,7 @@ namespace XYD.Controllers
                     var totalLeaveHours = 0d;
                     foreach(var leave in leaveRecords)
                     {
-                        totalLeaveHours += CalendarUtil.GetRealLeaveHours(user.EmplID, leave.StartDate, leave.EndDate);
+                        totalLeaveHours += CalendarUtil.GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
                     }
                     // 计算结果
                     var leftYearHour = 0.0d;
@@ -571,7 +572,8 @@ namespace XYD.Controllers
             var totalHours = 0d;
             foreach (var leave in records)
             {
-                totalHours += CalendarUtil.GetRealLeaveHours(leave.EmplID, leave.StartDate, leave.EndDate);
+                var sysConfig = CalendarUtil.GetSysConfigByUser(leave.EmplID);
+                totalHours += CalendarUtil.GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
             }
             return totalHours;
         }

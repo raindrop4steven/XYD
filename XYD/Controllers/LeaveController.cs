@@ -101,7 +101,7 @@ namespace XYD.Controllers
                                     }
                                 }
                                 // 处理考勤记录，如果是*假、外勤、补打卡、补外勤
-                                if (CalendarUtil.IsLeaveAsWork(leave))
+                                if (CalendarUtil.NeedUpdateAttence(leave))
                                 {
                                     // 更新或插入考勤记录表
                                     // 如果是小时假，才更新

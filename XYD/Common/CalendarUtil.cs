@@ -86,58 +86,6 @@ namespace XYD.Common
         }
         #endregion
 
-        //#region 统计用户考勤
-        //public static XYD_Calendar_Result CaculateUserCalendar(Employee employee, DateTime BeginDate, DateTime EndDate)
-        //{
-        //    var calendarResult = new XYD_Calendar_Result();
-        //    var db = new DefaultConnection();
-
-        //    List<XYD_CalendarEntity> dates = new List<XYD_CalendarEntity>();
-        //    Dictionary<CALENDAR_TYPE, int> summary = new Dictionary<CALENDAR_TYPE, int>() {
-        //            {CALENDAR_TYPE.Holiday, 0 },
-        //            {CALENDAR_TYPE.Adjust, 0 },
-        //            {CALENDAR_TYPE.Rest, 0 },
-        //            {CALENDAR_TYPE.Work, 0 },
-        //            {CALENDAR_TYPE.Late, 0 },
-        //            {CALENDAR_TYPE.LeaveEarly, 0 },
-        //            {CALENDAR_TYPE.Absent, 0 },
-        //            {CALENDAR_TYPE.Leave, 0 },
-        //            {CALENDAR_TYPE.BizTrp, 0 }
-        //        };
-        //    // 获得指定年份放假和调休计划
-        //    var StartDate = BeginDate.Date;
-
-        //    int currentYear = BeginDate.Year;
-        //    var calendar = GetPlanByYear(currentYear);
-        //    var holidayDict = GetHolidays(calendar);
-        //    var adjustDict = GetAdjusts(calendar);
-        //    // 获得考勤记录
-        //    var lastDayTime = CommonUtils.EndOfDay(EndDate);
-        //    var attenceRecords = db.Attence.Where(n => n.EmplNo == employee.EmplNO && n.StartTime >= StartDate.Date && n.EndTime <= lastDayTime).OrderBy(n => n.StartTime).ToList();
-        //    // 获得请假记录
-        //    var leaveRecord = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID && n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime).OrderBy(n => n.StartDate).ToList();
-        //    // 获得出差记录
-        //    var bizTripRecord = db.BizTrip.Where(n => n.EmplID == employee.EmplID && n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime).OrderBy(n => n.StartDate).ToList();
-        //    // 获得对应城市工作时间配置
-        //    var workArea = OrgUtil.GetWorkArea(employee.EmplID);
-        //    var sysConfig = db.SystemConfig.Where(n => n.Area == workArea).FirstOrDefault();
-        //    // 今天
-        //    var today = DateTime.Now.Date;
-        //    // 判断每一天状态
-        //    for (DateTime d = StartDate; d <= EndDate; d = d.AddDays(1))
-        //    {
-        //        var entity = new XYD_CalendarEntity();
-        //        var detail = new XYD_CalendarDetail();
-        //        CalendarCaculate(d, today, holidayDict, db, sysConfig, attenceRecords, leaveRecord, bizTripRecord, ref entity, ref detail);
-        //        summary[entity.Type] += 1;
-        //        dates.Add(entity);
-        //    }
-        //    calendarResult.summary = summary;
-        //    calendarResult.dates = dates;
-        //    return calendarResult;
-        //}
-        //#endregion
-
         #region 考勤详情
         public static XYD_Calendar_Result CaculateUserCalendarDetail(Employee employee, DateTime BeginDate, DateTime EndDate)
         {
@@ -147,6 +95,7 @@ namespace XYD.Common
             var StartDate = BeginDate.Date;
             var lastDayTime = CommonUtils.EndOfDay(EndDate);
             var today = DateTime.Now.Date;
+            var sameDay = BeginDate.Date == EndDate.Date;
             List<XYD_CalendarDetail> details = new List<XYD_CalendarDetail>();
             Dictionary<CALENDAR_TYPE, int> summary = new Dictionary<CALENDAR_TYPE, int>() {
                     {CALENDAR_TYPE.Holiday, 0 },
@@ -166,17 +115,18 @@ namespace XYD.Common
             var adjustDict = GetAdjusts(calendar);
             // 获得考勤记录
             var attenceRecords = db.Attence.Where(n => n.EmplNo == employee.EmplNO && n.StartTime >= StartDate.Date && n.EndTime <= lastDayTime).OrderBy(n => n.StartTime).ToList();
-            var leaveRecord = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID && n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime).OrderBy(n => n.StartDate).ToList();
-            var bizTripRecord = db.BizTrip.Where(n => n.EmplID == employee.EmplID && n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime).OrderBy(n => n.StartDate).ToList();
+            // 区分按人和按日查询的条件，如果按照人查询，则条件开始时间<出勤开始 && 出勤结束 <条件结束;如果按照日查询，则出勤时间区间应包括条件时间
+            var leaveRecord = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID && ((n.StartDate <= StartDate.Date && n.EndDate >= EndDate.Date) || (n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime))).ToList();
+            var bizTripRecord = db.BizTrip.Where(n => n.EmplID == employee.EmplID && ((n.StartDate <= StartDate.Date && n.EndDate >= EndDate.Date) || (n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime))).ToList();
+            
             // 获得对应城市工作时间配置
-            var workArea = OrgUtil.GetWorkArea(employee.EmplID);
-            var sysConfig = db.SystemConfig.Where(n => n.Area == workArea).FirstOrDefault();
+            var sysConfig = GetSysConfigByUser(employee.EmplID);
             // 判断每一天状态
             for (DateTime d = StartDate; d <= EndDate; d = d.AddDays(1))
             {
                 var entity = new XYD_CalendarEntity();
                 var detail = new XYD_CalendarDetail();
-                CalendarCaculate(d, today, holidayDict, db, sysConfig, attenceRecords, leaveRecord, bizTripRecord, ref entity, ref detail);
+                CalendarCaculate(d, today, holidayDict, db, sysConfig, attenceRecords, leaveRecord.ToList(), bizTripRecord.ToList(), ref entity, ref detail);
                 summary[entity.Type] += 1;
                 dates.Add(entity);
                 details.Add(detail);
@@ -192,6 +142,7 @@ namespace XYD.Common
         public static void CalendarCaculate(DateTime d, DateTime today, Dictionary<string, string> holidayDict, DefaultConnection db, XYD_System_Config sysConfig, List<XYD_Attence> attenceRecords, List<XYD_Leave_Record> leaveRecord, List<XYD_BizTrip> bizTripRecord, ref XYD_CalendarEntity entity, ref XYD_CalendarDetail detail)
         {
             var date = d.ToString("yyyy-MM-dd");
+            var lastDayTime = CommonUtils.EndOfDay(d);
             entity.Date = date;
             detail.Date = date;
             // 判断考勤状态
@@ -200,17 +151,17 @@ namespace XYD.Common
             var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
             var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
             // 考勤记录
-            var attence = attenceRecords.Where(n => n.StartTime >= d.Date && n.EndTime <= CommonUtils.EndOfDay(d)).FirstOrDefault();
-            // 出勤记录
-            var leave = leaveRecord.Where(n => n.StartDate >= d.Date && n.EndDate <= CommonUtils.EndOfDay(d) && n.Status == Leave_Status_YES).FirstOrDefault();
+            var attence = attenceRecords.Where(n => n.StartTime >= d.Date && n.EndTime <= lastDayTime).FirstOrDefault();
+            // 出勤记录: 一种是出勤时间在一天内，属于小时，为条件1；第二种隔天是天数，为条件2
+            var leave = leaveRecord.Where(n => ((n.StartDate >= d.Date && n.EndDate <= lastDayTime) || (n.StartDate <= d.Date && CommonUtils.EndOfDay(n.EndDate) >= d.Date)) && n.Status == Leave_Status_YES).FirstOrDefault();
             // 出差记录
-            var bizTrip = bizTripRecord.Where(n => n.StartDate >= d.Date && n.EndDate <= CommonUtils.EndOfDay(d)).FirstOrDefault();
+            var bizTrip = bizTripRecord.Where(n => ((n.StartDate >= d.Date && n.EndDate <= lastDayTime) || (n.StartDate <= d.Date && CommonUtils.EndOfDay(n.EndDate) >= d.Date))).FirstOrDefault();
 
             // 定义对应考勤请假出差变量
             var hasAttence = attence != null;
             var hasLeave = leave != null;
             var hasBizTrip = bizTrip != null;
-            // 工作时长
+            // 工作考勤时长
             var workHours = CaculateWorkHours(d, attence, sysConfig);
             /**
              * 判断逻辑：
@@ -224,6 +175,18 @@ namespace XYD.Common
                 {
                     entity.Name = "上班";
                     entity.Type = CALENDAR_TYPE.Work;
+                }
+                if (hasLeave && IsLeaveAsWork(leave))
+                {
+                    var leaveHour = GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
+                    if (workHours == 0)
+                    {
+                        workHours = leaveHour;
+                    }
+                    entity.Type = CALENDAR_TYPE.Work;
+                    entity.Name = leave.Category;
+                    // 增加备注
+                    detail.Memo += string.Format("今日{0}{1}小时", leave.Category, workHours);
                 }
                 else if (holidayDict.ContainsKey(date))
                 {
@@ -252,16 +215,21 @@ namespace XYD.Common
                         // 判断是否请假
                         if (hasLeave)
                         {
-                            var leaveHour = CaculateTimeWithoutRest(leave.StartDate, leave.EndDate, restStartTime, restEndTime);
+                            var leaveHour = GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
                             entity.Name = leave.Category;
-                            // 是否是请假，补外勤，补打卡，加班，外勤
+                            // 是否是补外勤，补打卡，加班，外勤
                             if (IsLeaveAsWork(leave))
                             {
                                 entity.Type = CALENDAR_TYPE.Work;
+                                workHours += leaveHour;
                             }
                             else
                             {
                                 entity.Type = CALENDAR_TYPE.Leave;
+                                if (IsDayDate(leave.StartDate) && IsDayDate(leave.EndDate))
+                                {
+                                    leaveHour = Normal_Work_Hours;
+                                }
                             }
                             // 增加备注
                             detail.Memo += string.Format("今日{0}{1}小时", leave.Category, leaveHour);
@@ -288,16 +256,22 @@ namespace XYD.Common
                     }
                     else
                     {
-                        // 有考勤，又请假，显示请假信息即可
+                        // 有考勤，又请假，说明是小时假
                         if (hasLeave)
                         {
-                            var leaveHour = CaculateTimeWithoutRest(leave.StartDate, leave.EndDate, restStartTime, restEndTime);
+                            var leaveHour =  GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
+                            workHours += leaveHour;
                             detail.Memo += string.Format("今日{0}{1}小时", leave.Category, leaveHour);
                         }
+                        // 判断是否有出差
                         if (hasBizTrip)
                         {
+                            entity.Name = "出差";
+                            entity.Type = CALENDAR_TYPE.BizTrp;
+                            workHours = Normal_Work_Hours;
+                            // 记录详情
                             var serialRecord = db.SerialRecord.Where(n => n.MessageID == bizTrip.MessageID).FirstOrDefault();
-                            detail.Memo += string.Format("今日出差，出差编号:{0}", serialRecord == null ? serialRecord.Sn : string.Empty);
+                            detail.Memo += string.Format("今日出差，出差编号:{0}", serialRecord == null ? string.Empty : serialRecord.Sn);
                         }
                         // 加入午休时间逻辑
                         if (attence.StartTime > shouldStartTime)
@@ -347,7 +321,20 @@ namespace XYD.Common
         #region 判断出勤是否该算入工作时间
         public static bool IsLeaveAsWork(XYD_Leave_Record leave)
         {
-            if (leave.Category.Contains("补") || leave.Category == "外勤")
+            string category = leave.Category;
+            if (category == "加班" || category.Contains("补") || category == "外勤")
+            {
+                return true;
+            }
+            return false;
+        }
+        #endregion
+
+        #region 判断出勤是否需要更新考勤
+        public static bool NeedUpdateAttence(XYD_Leave_Record leave)
+        {
+            string category = leave.Category;
+            if (category.Contains("补") || category == "外勤")
             {
                 return true;
             }
@@ -452,27 +439,22 @@ namespace XYD.Common
         #endregion
 
         #region 计算实际请假时间
-        public static double GetRealLeaveHours(string EmplID, DateTime startTime, DateTime endTime)
+        public static double GetRealLeaveHours(XYD_System_Config sysConfig, DateTime startTime, DateTime endTime)
         {
-            using (var db = new DefaultConnection())
-            {
-                var isDayDate = IsDayDate(startTime);
-                var workArea = OrgUtil.GetWorkArea(EmplID);
-                var sysConfig = db.SystemConfig.Where(n => n.Area == workArea).FirstOrDefault();
-                var leaveHour = 0.0;
+            var isDayDate = IsDayDate(startTime);
+            var leaveHour = 0.0;
 
-                if (isDayDate)
-                {
-                    leaveHour = endTime.Subtract(startTime).TotalDays * Normal_Work_Hours;
-                }
-                else
-                {
-                    var restStartTime = DateTime.Parse(startTime.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
-                    var restEndTime = DateTime.Parse(startTime.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
-                    leaveHour = CaculateTimeWithoutRest(startTime, endTime, restStartTime, restEndTime);
-                }
-                return leaveHour;
+            if (isDayDate)
+            {
+                leaveHour = (endTime.Subtract(startTime).TotalDays + 1) * Normal_Work_Hours;
             }
+            else
+            {
+                var restStartTime = DateTime.Parse(startTime.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
+                var restEndTime = DateTime.Parse(startTime.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
+                leaveHour = CaculateTimeWithoutRest(startTime, endTime, restStartTime, restEndTime);
+            }
+            return leaveHour;
         }
         #endregion
 
@@ -518,6 +500,18 @@ namespace XYD.Common
                     }
                 }
                 db.SaveChanges();
+            }
+        }
+        #endregion
+
+        #region 获取用户所在地区系统配置
+        public static XYD_System_Config GetSysConfigByUser(string EmplID)
+        {
+            using (var db = new DefaultConnection())
+            {
+                var workArea = OrgUtil.GetWorkArea(EmplID);
+                var sysConfig = db.SystemConfig.Where(n => n.Area == workArea).FirstOrDefault();
+                return sysConfig;
             }
         }
         #endregion
