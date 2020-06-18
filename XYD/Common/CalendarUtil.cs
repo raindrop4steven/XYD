@@ -275,6 +275,7 @@ namespace XYD.Common
                             {
                                 entity.Name = "出差";
                                 entity.Type = CALENDAR_TYPE.BizTrp;
+                                workHours = Normal_Work_Hours;
                                 // 记录详情
                                 var serialRecord = db.SerialRecord.Where(n => n.MessageID == bizTrip.MessageID).FirstOrDefault();
                                 detail.Memo += string.Format("今日出差，出差编号:{0}", serialRecord == null ? string.Empty : serialRecord.Sn);
@@ -303,7 +304,7 @@ namespace XYD.Common
                         // 加入午休时间逻辑
                         if (attence.StartTime > shouldStartTime)
                         {
-                            if ((hasLeave || hasBizTrip) && workHours >= 8)
+                            if ((hasLeave || hasBizTrip) && workHours >= Normal_Work_Hours)
                             {
                                 // 早上请假，然后打卡上班，总时长超过8小时
                                 entity.Name = "上班";
@@ -318,7 +319,7 @@ namespace XYD.Common
                         else
                         {
                             // 如果是今天，则不判断早退
-                            if (d == today || workHours >= 8)
+                            if (d == today || workHours >= Normal_Work_Hours)
                             {
                                 entity.Name = "上班";
                                 entity.Type = CALENDAR_TYPE.Work;
@@ -464,7 +465,7 @@ namespace XYD.Common
 
                 if (isDayDate)
                 {
-                    leaveHour = endTime.Subtract(startTime).TotalDays * 8;
+                    leaveHour = endTime.Subtract(startTime).TotalDays * Normal_Work_Hours;
                 }
                 else
                 {

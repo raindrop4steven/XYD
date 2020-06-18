@@ -212,5 +212,10 @@ namespace XYD.Common
             Leave = 7, // 请假
             BizTrp = 8 // 出差
         }
+
+        /*
+         * 每日正常工作小时数
+         */
+        public static double Normal_Work_Hours = 8;
     }
 }
