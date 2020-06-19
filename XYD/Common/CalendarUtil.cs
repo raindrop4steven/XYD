@@ -128,6 +128,11 @@ namespace XYD.Common
                 var detail = new XYD_CalendarDetail();
                 CalendarCaculate(d, today, holidayDict, db, sysConfig, attenceRecords, leaveRecord.ToList(), bizTripRecord.ToList(), ref entity, ref detail);
                 summary[entity.Type] += 1;
+                // 出差在统计上等同上班，但是详情中又得显示出差，所以上班+1
+                if (entity.Type == CALENDAR_TYPE.BizTrp)
+                {
+                    summary[CALENDAR_TYPE.Work] += 1;
+                }
                 dates.Add(entity);
                 details.Add(detail);
             }
@@ -176,7 +181,7 @@ namespace XYD.Common
                     entity.Name = "上班";
                     entity.Type = CALENDAR_TYPE.Work;
                 }
-                if (hasLeave && IsLeaveAsWork(leave))
+                if (hasLeave && !NeedUpdateAttence(leave))
                 {
                     var leaveHour = GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
                     if (workHours == 0)
@@ -218,19 +223,23 @@ namespace XYD.Common
                             var leaveHour = GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
                             entity.Name = leave.Category;
                             // 是否是补外勤，补打卡，加班，外勤
-                            if (IsLeaveAsWork(leave))
+                            if (!NeedUpdateAttence(leave))
                             {
-                                entity.Type = CALENDAR_TYPE.Work;
-                                workHours += leaveHour;
-                            }
-                            else
-                            {
-                                entity.Type = CALENDAR_TYPE.Leave;
-                                if (IsDayDate(leave.StartDate) && IsDayDate(leave.EndDate))
+                                if(IsLeaveAsWork(leave))
                                 {
-                                    leaveHour = Normal_Work_Hours;
+                                    entity.Type = CALENDAR_TYPE.Work;
+                                    workHours += leaveHour;
+                                }
+                                else
+                                {
+                                    entity.Type = CALENDAR_TYPE.Leave;
+                                    if (IsDayDate(leave.StartDate) && IsDayDate(leave.EndDate))
+                                    {
+                                        leaveHour = Normal_Work_Hours;
+                                    }
                                 }
                             }
+                            
                             // 增加备注
                             detail.Memo += string.Format("今日{0}{1}小时", leave.Category, leaveHour);
                         }
@@ -260,7 +269,11 @@ namespace XYD.Common
                         if (hasLeave)
                         {
                             var leaveHour =  GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
-                            workHours += leaveHour;
+                            if(IsLeaveAsWork(leave) && !NeedUpdateAttence(leave))
+                            {
+                                workHours += leaveHour;
+                            }
+                            
                             detail.Memo += string.Format("今日{0}{1}小时", leave.Category, leaveHour);
                         }
                         // 判断是否有出差
@@ -334,6 +347,10 @@ namespace XYD.Common
         public static bool NeedUpdateAttence(XYD_Leave_Record leave)
         {
             string category = leave.Category;
+            if (IsDayDate(leave.StartDate) && IsDayDate(leave.EndDate))
+            {
+                return false;
+            }
             if (category.Contains("补") || category == "外勤")
             {
                 return true;
