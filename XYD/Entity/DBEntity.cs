@@ -165,4 +165,28 @@ namespace XYD.Entity
 
     }
     #endregion
+
+    #region 假期统计
+    public class XYD_Vocation_Report
+    {
+        // 年假
+        public double yearHour;
+        // 加班
+        public double extraHour;
+        // 事假、调休
+        public double leaveHour;
+        // 病假
+        public double sickHour;
+        // 婚假
+        public double marryHour;
+        // 产假
+        public double birthHour;
+        // 哺乳假
+        public double milkHour;
+        // 丧假
+        public double deadHour;
+        // 特殊调整
+        public double adjustHour;
+    }
+    #endregion
 }
