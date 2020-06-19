@@ -271,6 +271,26 @@ namespace XYD.Controllers
                                 }
                                 if (float.Parse(record.TotalTaxNum) > 0)
                                 {
+                                    var addDeptNo = string.Empty;
+                                    var addUserEmplNo = string.Empty;
+                                    Employee tempUser;
+                                    // 根据地区判断到无锡行政还是上海行政
+                                    if (record.DeptNo == DEP_Constants.INVOICE_DEPT_WX_CODE)
+                                    {
+                                        // 做到无锡综合管理部行政专员上
+                                        tempUser = orgMgr.GetEmployee(DEP_Constants.WuXi_XingZheng_User);
+                                    }
+                                    else
+                                    {
+                                        // 做到无锡综合管理部行政专员上
+                                        tempUser = orgMgr.GetEmployee(DEP_Constants.SH_XingZheng_User);
+                                    }
+                                    addUserEmplNo = tempUser.EmplNO;
+                                    var dept = orgMgr.GetDepartment(tempUser.DeptID);
+                                    addDeptNo = dept.DeptDescr;
+                                    // 一条负税金到行政
+                                    voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, "-"+record.TotalTaxNum, 0, string.Empty, 0, addDeptNo, addUserEmplNo, string.Empty, VendorNo, string.Empty, string.Empty);
+                                    Results.Add(voucher);
                                     // 一条税金科目
                                     voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Tax.Code, record.TotalTaxNum, 0, string.Empty, 0, DeptNo, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
                                     Results.Add(voucher);

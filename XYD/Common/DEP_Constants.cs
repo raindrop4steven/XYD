@@ -196,9 +196,10 @@ namespace XYD.Common
         public static string DATE_SELECT_TYPE_HOUR = "小时";
 
         /**
-         * 无锡行政管理人员
+         * 行政管理人员
          */
         public static string WuXi_XingZheng_User = "100009";
+        public static string SH_XingZheng_User = "100032";
 
         public enum CALENDAR_TYPE
         {
