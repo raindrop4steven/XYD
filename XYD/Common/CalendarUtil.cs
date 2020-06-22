@@ -114,7 +114,8 @@ namespace XYD.Common
             var holidayDict = GetHolidays(calendar);
             var adjustDict = GetAdjusts(calendar);
             // 获得考勤记录
-            var attenceRecords = db.Attence.Where(n => n.EmplNo == employee.EmplNO && n.StartTime >= StartDate.Date && (n.EndTime <= lastDayTime || n.EndTime == null)).OrderBy(n => n.StartTime).ToList();
+            //var attenceRecords = db.Attence.Where(n => n.EmplNo == employee.EmplNO && n.StartTime >= StartDate.Date && (n.EndTime <= lastDayTime || n.EndTime == null)).OrderBy(n => n.StartTime).ToList();
+            var attenceRecords = db.Attence.Where(n => n.EmplNo == employee.EmplNO).ToList().Where(n => DateTime.Parse(n.Day) >= StartDate.Date && DateTime.Parse(n.Day) <= lastDayTime).OrderBy(n => n.StartTime).ToList();
             // 区分按人和按日查询的条件，如果按照人查询，则条件开始时间<出勤开始 && 出勤结束 <条件结束;如果按照日查询，则出勤时间区间应包括条件时间
             var leaveRecord = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID && ((n.StartDate <= StartDate.Date && n.EndDate >= EndDate.Date) || (n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime))).ToList();
             var bizTripRecord = db.BizTrip.Where(n => n.EmplID == employee.EmplID && ((n.StartDate <= StartDate.Date && n.EndDate >= EndDate.Date) || (n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime))).ToList();
@@ -159,7 +160,8 @@ namespace XYD.Common
             var restStartTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
             var restEndTime = DateTime.Parse(d.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
             // 考勤记录
-            var attence = attenceRecords.Where(n => n.StartTime >= d.Date && (n.EndTime <= lastDayTime || n.EndTime == null)).FirstOrDefault();
+            //var attence = attenceRecords.Where(n => n.StartTime >= d.Date && (n.EndTime <= lastDayTime || n.EndTime == null)).FirstOrDefault();
+            var attence = attenceRecords.Where(n => DateTime.Parse(n.Day) == d.Date).FirstOrDefault();
             // 出勤记录: 一种是出勤时间在一天内，属于小时，为条件1；第二种隔天是天数，为条件2
             var leave = leaveRecord.Where(n => ((n.StartDate >= d.Date && n.EndDate <= lastDayTime) || (n.StartDate <= d.Date && CommonUtils.EndOfDay(n.EndDate) >= d.Date)) && n.Status == Leave_Status_YES).FirstOrDefault();
             // 出差记录
