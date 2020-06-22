@@ -570,6 +570,7 @@ namespace XYD.Entity
         public string EndTime { get; set; }
         public double WorkHours { get; set; }
         public string Memo { get; set; }
+        public bool isNormal { get; set; }
     }
 
     #endregion

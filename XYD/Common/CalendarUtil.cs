@@ -126,12 +126,15 @@ namespace XYD.Common
             {
                 var entity = new XYD_CalendarEntity();
                 var detail = new XYD_CalendarDetail();
-                var isNormal = false;
-                CalendarCaculate(d, today, holidayDict, db, sysConfig, attenceRecords, leaveRecord.ToList(), bizTripRecord.ToList(), ref entity, ref detail, ref isNormal);
-                summary[entity.Type] += 1;
-                if (isNormal && entity.Type != CALENDAR_TYPE.Work)
+                CalendarCaculate(d, today, holidayDict, db, sysConfig, attenceRecords, leaveRecord.ToList(), bizTripRecord.ToList(), ref entity, ref detail);
+                
+                if (detail.isNormal && entity.Type != CALENDAR_TYPE.Rest && entity.Type != CALENDAR_TYPE.Holiday && entity.Type != CALENDAR_TYPE.Work)
                 {
                     summary[CALENDAR_TYPE.Work] += 1;
+                }
+                else
+                {
+                    summary[entity.Type] += 1;
                 }
                 dates.Add(entity);
                 details.Add(detail);
@@ -144,7 +147,7 @@ namespace XYD.Common
         #endregion
 
         #region 判断用户当日考勤
-        public static void CalendarCaculate(DateTime d, DateTime today, Dictionary<string, string> holidayDict, DefaultConnection db, XYD_System_Config sysConfig, List<XYD_Attence> attenceRecords, List<XYD_Leave_Record> leaveRecord, List<XYD_BizTrip> bizTripRecord, ref XYD_CalendarEntity entity, ref XYD_CalendarDetail detail, ref bool isNormal)
+        public static void CalendarCaculate(DateTime d, DateTime today, Dictionary<string, string> holidayDict, DefaultConnection db, XYD_System_Config sysConfig, List<XYD_Attence> attenceRecords, List<XYD_Leave_Record> leaveRecord, List<XYD_BizTrip> bizTripRecord, ref XYD_CalendarEntity entity, ref XYD_CalendarDetail detail)
         {
             var date = d.ToString("yyyy-MM-dd");
             var lastDayTime = CommonUtils.EndOfDay(d);
@@ -326,10 +329,10 @@ namespace XYD.Common
                 detail.StartTime = attence.StartTime == null ? "" : attence.StartTime.Value.ToString("yyyy-MM-dd HH:mm");
                 detail.EndTime = attence.EndTime == null ? "" : attence.EndTime.Value.ToString("yyyy-MM-dd HH:mm");
             }
-            // 如果工作时间或请假时间满足8小时，则视为正常
-            if (workHours >= 8 || leaveHour >= 8)
+            // 如果休息、节日、加班、工作时间或请假时间满足8小时，则视为正常
+            if (entity.Type == CALENDAR_TYPE.Holiday || entity.Type == CALENDAR_TYPE.Rest || workHours >= 8 || leaveHour >= 8)
             {
-                isNormal = true;
+                detail.isNormal = true;
             }
             detail.WorkHours = workHours;
             detail.Name = entity.Name;
