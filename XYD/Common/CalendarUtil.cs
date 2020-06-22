@@ -182,6 +182,7 @@ namespace XYD.Common
             // 当天是否该休息
             if (holidayDict.ContainsKey(date) || d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday)
             {
+                var isHoliday = holidayDict.ContainsKey(date);
                 if (hasAttence)
                 {
                     entity.Name = "上班";
@@ -194,7 +195,7 @@ namespace XYD.Common
                     {
                         workHours = leaveHour;
                     }
-                    entity.Type = CALENDAR_TYPE.Work;
+                    entity.Type = isHoliday ? CALENDAR_TYPE.Holiday : CALENDAR_TYPE.Rest;
                     entity.Name = leave.Category;
                     // 增加备注
                     detail.Memo += string.Format("今日{0}{1}小时", leave.Category, workHours);
@@ -346,7 +347,7 @@ namespace XYD.Common
         public static bool IsLeaveAsWork(XYD_Leave_Record leave)
         {
             string category = leave.Category;
-            if (category == "加班" || category.Contains("补") || category == "外勤")
+            if (category == "加班" || category.Contains("补") || category == "外勤" || category.Contains("假"))
             {
                 return true;
             }
