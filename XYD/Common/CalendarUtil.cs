@@ -500,21 +500,34 @@ namespace XYD.Common
         }
         #endregion
 
-        #region 更新考勤记录
+        #region 更新考勤记录，小时假才会进来
         public static void UpdateAttence(Employee employee, XYD_Leave_Record leave)
         {
             using (var db = new DefaultConnection())
             {
-                var startTime = leave.StartDate.Date;
-                var endTime = CommonUtils.EndOfDay(leave.EndDate);
-                var attence = db.Attence.Where(n => n.EmplNo == employee.EmplNO && n.StartTime >= startTime && n.EndTime <= endTime).FirstOrDefault();
+                var day = leave.StartDate.ToString("yyyy-MM-dd");
+                var attence = db.Attence.Where(n => n.EmplNo == employee.EmplNO && n.Day == day).FirstOrDefault();
                 if (attence == null)
                 {
                     attence = new XYD_Attence();
                     attence.EmplNo = employee.EmplNO;
                     attence.EmplName = employee.EmplName;
-                    attence.StartTime = leave.StartDate;
-                    attence.EndTime = leave.EndDate;
+                    if (leave.Category == "补打卡")
+                    {
+                        if (leave.StartDate.Hour < 12)
+                        {
+                            attence.StartTime = leave.StartDate;
+                        }
+                        else
+                        {
+                            attence.EndTime = leave.EndDate;
+                        }
+                    }
+                    else
+                    {
+                        attence.StartTime = leave.StartDate;
+                        attence.EndTime = leave.EndDate;
+                    }
                     attence.Day = leave.StartDate.ToString("yyyy-MM-dd");
                     attence.DeviceID = "新友达";
                     db.Attence.Add(attence);

@@ -1061,6 +1061,11 @@ function setDateTimeType() {
         SaveCellValue($('#C-6-7'), '小时', '');
         SetReadonlyCells(['#C-6-7']);
         dateSelectTypeUpdate('小时');
+    } else if (chuqinType == '补打卡') {
+        $('#C-6-7').text('小时');
+        SaveCellValue($('#C-6-7'), '小时', '');
+        SetReadonlyCells(['#C-6-7', '#C-7-7']);
+        dateSelectTypeUpdate('小时');
     } else {
         SetWriteCells(['#C-6-7']);
         dateSelectTypeUpdate();

@@ -33,6 +33,10 @@ namespace XYD.Controllers
                         model.CreateTime = DateTime.Now;
                         model.UpdateTime = DateTime.Now;
                         model.Status = DEP_Constants.Leave_Status_Auditing;
+                        if (model.Category == "补打卡")
+                        {
+                            model.EndDate = model.StartDate;
+                        }
                         db.LeaveRecord.Add(model);
                     }
                     else
@@ -41,7 +45,13 @@ namespace XYD.Controllers
                         leave.StartDate = model.StartDate;
                         leave.EndDate = model.EndDate;
                         leave.Status = DEP_Constants.Leave_Status_Auditing;
+                        // 如果是补打卡，则将开始时间和结束时间设置成相同
+                        if (model.Category == "补打卡")
+                        {
+                            leave.EndDate = leave.StartDate;
+                        }
                     }
+                    
                     db.SaveChanges();
                     return ResponseUtil.OK("添加请假记录成功");
                 }

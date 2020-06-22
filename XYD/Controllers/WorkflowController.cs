@@ -856,7 +856,7 @@ namespace XYD.Controllers
         {
             try
             {
-                if (selectType == DEP_Constants.DATE_SELECT_TYPE_HOUR)
+                if (selectType == DEP_Constants.DATE_SELECT_TYPE_HOUR && !string.IsNullOrEmpty(BeginDate) && !string.IsNullOrEmpty(EndDate))
                 {
                     var startDate = DateTime.Parse(BeginDate);
                     var endDate = DateTime.Parse(EndDate);
