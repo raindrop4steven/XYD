@@ -515,7 +515,7 @@ namespace XYD.Common
                     attence.EmplName = employee.EmplName;
                     attence.StartTime = leave.StartDate;
                     attence.EndTime = leave.EndDate;
-                    attence.Day = leave.StartDate.ToString("yyyyMMdd");
+                    attence.Day = leave.StartDate.ToString("yyyy-MM-dd");
                     attence.DeviceID = "新友达";
                     db.Attence.Add(attence);
                 } else
