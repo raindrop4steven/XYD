@@ -556,6 +556,7 @@ namespace XYD.Controllers
                             ORDER BY
 	                            GlobalSortNo DESC";
                 var results = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetUserReport);
+                var filterResults = new List<XYD_UserReport>();
                 List<string> excludeReportUsers = OrgUtil.GetUsersByRole("非员工统计用户").Select(n => n.EmplID).ToList();
                 foreach (XYD_UserReport item in results)
                 {
@@ -607,8 +608,9 @@ namespace XYD.Controllers
                         item.EmergencyContact = emergency.Name;
                         item.EmergencyMobile = emergency.Contact;
                     }
+                    filterResults.Add(item);
                 }
-                return ResponseUtil.OK(results);
+                return ResponseUtil.OK(filterResults);
             }
             catch(Exception e)
             {
