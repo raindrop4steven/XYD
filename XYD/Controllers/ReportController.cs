@@ -556,8 +556,13 @@ namespace XYD.Controllers
                             ORDER BY
 	                            GlobalSortNo DESC";
                 var results = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetUserReport);
+                List<string> excludeReportUsers = OrgUtil.GetUsersByRole("非员工统计用户").Select(n => n.EmplID).ToList();
                 foreach (XYD_UserReport item in results)
                 {
+                    if (excludeReportUsers.Contains(item.EmplID))
+                    {
+                        continue;
+                    }
                     // 获取联系方式
                     var education = db.Education.Where(n => n.EmplID == item.EmplID).ToList().OrderBy(n => Array.IndexOf(educationOrder, n.Level)).FirstOrDefault();
                     if (education != null)
