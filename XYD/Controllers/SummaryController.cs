@@ -16,24 +16,42 @@ namespace XYD.Controllers
         WorkflowMgr mgr = new WorkflowMgr();
 
         #region 列表
-        public ActionResult List(DateTime BeginDate, DateTime EndDate, int Page, int Size)
+        public ActionResult List(DateTime BeginDate, DateTime EndDate, int Page, int Size, string Area)
         {
             try
             {
                 // 记录列表
+                var AreaName = string.Empty;
+                if (!string.IsNullOrEmpty(Area))
+                {
+                    if (Area == "001")
+                    {
+                        AreaName = "无锡";
+                    }
+                    else
+                    {
+                        AreaName = "上海";
+                    }
+                }
                 BeginDate = CommonUtils.StartOfDay(BeginDate);
                 EndDate = CommonUtils.EndOfDay(EndDate);
                 using (var db = new DefaultConnection())
                 {
-                    var list = db.Voucher.Where(n => n.CreateTime >= BeginDate.Date && n.CreateTime <= EndDate && n.MessageID != DEP_Constants.INVOICE_WORKFLOW_ID).GroupBy(n => n.ApplyUser).ToList()
-                        .Select(n => new 
+                    var list = db.Voucher.Where(n => n.CreateTime >= BeginDate.Date && n.CreateTime <= EndDate && n.MessageID != DEP_Constants.INVOICE_WORKFLOW_ID).GroupBy(n => n.ApplyUser).ToList();
+                    if (!string.IsNullOrEmpty(AreaName))
+                    {
+                        list = list.Where(n => OrgUtil.CheckRole(n.FirstOrDefault().ApplyUser, AreaName)).ToList();
+                    }
+                      
+                    var filterList = list.Select(n => new 
                         {
+                            userId = n.FirstOrDefault().ApplyUser,
                             userName = orgMgr.GetEmployee(n.FirstOrDefault().ApplyUser).EmplName,
                             deptName = orgMgr.GetEmployee(n.FirstOrDefault().ApplyUser).DeptName,
                             amount = n.Sum(x => float.Parse(x.TotalAmount))
-                        }).OrderByDescending(n => n.amount);
-                    var totalCount = list.Count();
-                    var results = list.Skip(Page * Size).Take(Size);
+                        }).OrderByDescending(n => n.amount).ToList();
+                    var totalCount = filterList.Count();
+                    var results = filterList.Skip(Page * Size).Take(Size);
                     var totalPage = (int)Math.Ceiling((float)totalCount / Size);
                     return ResponseUtil.OK(new
                     {

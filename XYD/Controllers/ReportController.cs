@@ -20,11 +20,12 @@ namespace XYD.Controllers
 
         #region 考勤统计
         [Authorize]
-        public ActionResult Calendar(DateTime BeginDate, DateTime EndDate)
+        public ActionResult Calendar(DateTime BeginDate, DateTime EndDate, string Area)
         {
             try
             {
                 // 检查用户是否具有领导权限
+                var AreaName = string.Empty;
                 var employee = (User.Identity as AppkizIdentity).Employee;
                 var isLeader = PermUtil.CheckPermission(employee.EmplID, DEP_Constants.Module_Information_Code, DEP_Constants.Perm_Info_Leader);
                 if (!isLeader)
@@ -36,6 +37,17 @@ namespace XYD.Controllers
                     var CEOEmplID = ConfigurationManager.AppSettings["CEOEmplID"];
                     employee = orgMgr.GetEmployee(CEOEmplID);
                 }
+                if (!string.IsNullOrEmpty(Area))
+                {
+                    if (Area == "001")
+                    {
+                        AreaName = "无锡";
+                    }
+                    else
+                    {
+                        AreaName = "上海";
+                    }
+                }
                 List<Employee> employees = OrgUtil.GetChildrenDeptRecursive(employee.DeptID);
                 var results = new List<XYD_Calendar_Report>();
 
@@ -45,6 +57,10 @@ namespace XYD.Controllers
                 foreach(var user in employees)
                 {
                     if (excludeReportUsers.Contains(user.EmplID))
+                    {
+                        continue;
+                    }
+                    if (!string.IsNullOrEmpty(AreaName) && !OrgUtil.CheckRole(user.EmplID, AreaName))
                     {
                         continue;
                     }
@@ -522,10 +538,11 @@ namespace XYD.Controllers
 
         #region 员工信息统计
         [Authorize]
-        public ActionResult Employee()
+        public ActionResult Employee(string Area)
         {
             try
             {
+                var AreaName = string.Empty;
                 var db = new DefaultConnection();
                 string[] educationOrder = { "博士", "硕士", "本科", "专科", "高中" };
                 var sql = @"SELECT
@@ -558,9 +575,24 @@ namespace XYD.Controllers
                 var results = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetUserReport);
                 var filterResults = new List<XYD_UserReport>();
                 List<string> excludeReportUsers = OrgUtil.GetUsersByRole("非员工统计用户").Select(n => n.EmplID).ToList();
+                if (!string.IsNullOrEmpty(Area))
+                {
+                    if (Area == "001")
+                    {
+                        AreaName = "无锡";
+                    }
+                    else
+                    {
+                        AreaName = "上海";
+                    }
+                }
                 foreach (XYD_UserReport item in results)
                 {
                     if (excludeReportUsers.Contains(item.EmplID))
+                    {
+                        continue;
+                    }
+                    if (!string.IsNullOrEmpty(AreaName) && !OrgUtil.CheckRole(item.EmplID, AreaName))
                     {
                         continue;
                     }
