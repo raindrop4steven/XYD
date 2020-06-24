@@ -293,8 +293,8 @@ namespace XYD.Common
                             var serialRecord = db.SerialRecord.Where(n => n.MessageID == bizTrip.MessageID).FirstOrDefault();
                             detail.Memo += string.Format("今日出差，出差编号:{0}", serialRecord == null ? string.Empty : serialRecord.Sn);
                         }
-                        // 加入午休时间逻辑
-                        if (attence.StartTime > shouldStartTime)
+                        // 加入午休时间逻辑，迟到只比较到分
+                        if (DateTime.Parse(attence.StartTime.Value.ToString("yyyy-MM-dd HH:mm:00")) > shouldStartTime)
                         {
                             if ((hasLeave || hasBizTrip) && workHours >= Normal_Work_Hours)
                             {
@@ -333,7 +333,7 @@ namespace XYD.Common
                 detail.EndTime = attence.EndTime == null ? "" : attence.EndTime.Value.ToString("yyyy-MM-dd HH:mm");
             }
             // 如果休息、节日、加班、工作时间或请假时间满足8小时，则视为正常
-            if (entity.Type == CALENDAR_TYPE.Holiday || entity.Type == CALENDAR_TYPE.Rest || workHours >= 8 || leaveHour >= 8)
+            if (entity.Type != CALENDAR_TYPE.Late && entity.Type != CALENDAR_TYPE.LeaveEarly && (entity.Type == CALENDAR_TYPE.Holiday || entity.Type == CALENDAR_TYPE.Rest || workHours >= 8 || leaveHour >= 8))
             {
                 detail.isNormal = true;
             }
