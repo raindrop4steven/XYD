@@ -90,11 +90,19 @@ namespace XYD.Controllers
         {
             // 检查用户是否具有领导权限
             var employee = (User.Identity as AppkizIdentity).Employee;
-            var isLeader = PermUtil.CheckPermission(employee.EmplID, DEP_Constants.Module_Information_Code, DEP_Constants.Perm_Info_Leader);
-            if (!isLeader)
+            if (string.IsNullOrEmpty(EmplID))
             {
-                return ResponseUtil.Error("您没有权限查看数据");
+                EmplID = employee.EmplID;
             }
+            else
+            {
+                var isLeader = PermUtil.CheckPermission(employee.EmplID, DEP_Constants.Module_Information_Code, DEP_Constants.Perm_Info_Leader);
+                if (!isLeader)
+                {
+                    return ResponseUtil.Error("您没有权限查看数据");
+                }
+            }
+            
             var calendarResult = CalendarUtil.CaculateUserCalendarDetail(orgMgr.GetEmployee(EmplID), BeginDate, EndDate);
             return ResponseUtil.OK(calendarResult);
         }
