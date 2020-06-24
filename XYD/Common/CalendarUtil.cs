@@ -512,7 +512,7 @@ namespace XYD.Common
                     attence = new XYD_Attence();
                     attence.EmplNo = employee.EmplNO;
                     attence.EmplName = employee.EmplName;
-                    if (leave.Category == "补打卡")
+                    if (UpdateOnlyHalfAttence(leave.Category))
                     {
                         if (leave.StartDate.Hour < 12)
                         {
@@ -674,6 +674,17 @@ namespace XYD.Common
                     leftOffTimeHour = 0.0d;
                 }
             }
+        }
+        #endregion
+
+        #region 判断是否只更新上下午打卡
+        public static bool UpdateOnlyHalfAttence(string Category)
+        {
+            if (Category == "补打卡")
+            {
+                return true;
+            }
+            return false;
         }
         #endregion
     }
