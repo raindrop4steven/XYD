@@ -538,14 +538,20 @@ namespace XYD.Controllers
 
         #region 员工信息统计
         [Authorize]
-        public ActionResult Employee(string Area)
+        public ActionResult Employee(string Area, string Name)
         {
             try
             {
                 var AreaName = string.Empty;
                 var db = new DefaultConnection();
                 string[] educationOrder = { "博士", "硕士", "本科", "专科", "高中" };
-                var sql = @"SELECT
+                var conditionSql = string.Empty;
+                if (!string.IsNullOrEmpty(Name))
+                {
+                    conditionSql = string.Format(@" and a.EmplName like '%{0}%'", Name);
+                }
+
+                var sql = string.Format(@"SELECT
 	                            ISNULL( a.EmplID, '' ) AS EmplID,
 	                            ISNULL( a.EmplName, '' ) AS EmplName,
 	                            a.EmplSex AS EmplSex,
@@ -569,9 +575,11 @@ namespace XYD.Controllers
 	                            LEFT JOIN XYD_UserCompanyInfo e ON a.EmplID = e.EmplID
 	                            LEFT JOIN XYD_UserInfo f ON a.EmplID = f.EmplID 
                             WHERE
-	                            a.EmplEnabled = 1 
+	                            a.EmplEnabled = 1
+                                {0}
                             ORDER BY
-	                            GlobalSortNo DESC";
+	                            GlobalSortNo DESC", conditionSql);
+                
                 var results = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetUserReport);
                 var filterResults = new List<XYD_UserReport>();
                 List<string> excludeReportUsers = OrgUtil.GetUsersByRole("非员工统计用户").Select(n => n.EmplID).ToList();
