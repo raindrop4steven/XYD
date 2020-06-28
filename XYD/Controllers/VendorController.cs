@@ -215,12 +215,19 @@ namespace XYD.Controllers
 	                                    Vendor 
                                     WHERE
 	                                    cVenCode LIKE 'OA%'";
+                var allSql = @"SELECT
+	                                    cVenCode AS Code,
+	                                    cVenName AS Name 
+                                    FROM
+	                                    Vendor";
                 var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
                 var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetUnSyncVendor);
+                var allResult = DbUtil.ExecuteSqlCommand(connectionString, allSql, DbUtil.GetUnSyncVendor);
                 StringBuilder sb = new StringBuilder();
                 using (var db = new DefaultConnection())
                 {
                     var OACodeList = db.Vendor.ToList();
+                    var InsertList = new List<string>();
                     foreach(XYD_Vendor oaVendor in OACodeList)
                     {
                         int flag = 0;
@@ -247,15 +254,40 @@ namespace XYD.Controllers
                         // 检查flag
                         if (flag == 2)
                         {
-                            sb.Append(string.Format("UPDATE Vendor SET cVenName = '{0}', cVenAbbName = '{1}' WHERE cVenCode = '{2}';", oaVendor.Name, oaVendor.Name, oaVendor.Code));
+                            if (!string.IsNullOrEmpty(oaVendor.Name))
+                            {
+                                sb.Append(string.Format("UPDATE Vendor SET cVenName = '{0}', cVenAbbName = '{1}' WHERE cVenCode = '{2}';", oaVendor.Name, oaVendor.Name, oaVendor.Code));
+                                InsertList.Add(oaVendor.Name);
+                            }
                         }
                         else if (flag == 3)
                         {
-                            sb.Append(string.Format("INSERT INTO Vendor ( cVenCode, cVenName, cVenAbbName) VALUES( '{0}', '{1}', '{2}');", oaVendor.Code, oaVendor.Name, oaVendor.Name));
+                            if (!string.IsNullOrEmpty(oaVendor.Name))
+                            {
+                                sb.Append(string.Format("INSERT INTO Vendor ( cVenCode, cVenName, cVenAbbName) VALUES( '{0}', '{1}', '{2}');", oaVendor.Code, oaVendor.Name, oaVendor.Name));
+                                InsertList.Add(oaVendor.Name);
+                            }
                         }
                         else
                         {
                             continue;
+                        }
+                    }
+                    // 检查是否有名称相同但Code不同的
+                    if (InsertList.Count > 0)
+                    {
+                        var ConflictVendors = new List<string>();
+                        foreach(XYD_Vendor allU8Vendor in allResult)
+                        {
+                            if (InsertList.Contains(allU8Vendor.Name))
+                            {
+                                ConflictVendors.Add(allU8Vendor.Name);
+                            }
+                        }
+                        if (ConflictVendors.Count > 0)
+                        {
+                            var ConflictMsg = string.Join(",", ConflictVendors);
+                            return ResponseUtil.Error(string.Format("供应商已存在:{0}",ConflictMsg));
                         }
                     }
                 }
