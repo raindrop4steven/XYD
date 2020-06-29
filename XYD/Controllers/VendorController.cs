@@ -257,7 +257,7 @@ namespace XYD.Controllers
                 StringBuilder sb = new StringBuilder();
                 using (var db = new DefaultConnection())
                 {
-                    var OACodeList = db.Vendor.ToList();
+                    var OACodeList = db.Vendor.Where(n => n.Code.Contains("OAGYS")).ToList();
                     var InsertList = new List<string>();
                     foreach(XYD_Vendor oaVendor in OACodeList)
                     {
