@@ -115,7 +115,7 @@ namespace XYD.Controllers
                 //var u8PersonDict = OrgUtil.GetU8Person();
                 using (var db = new DefaultConnection())
                 {
-                    var list = db.Voucher.Where(n => n.CreateTime > BeginDate.Date && n.CreateTime <= EndDate).OrderBy(n => n.CreateTime).ToList();
+                    var list = db.Voucher.Where(n => n.CreateTime >= BeginDate.Date && n.CreateTime <= EndDate).OrderBy(n => n.CreateTime).ToList();
                     for (int i = 0; i < list.Count; i++)
                     {
                         var record = list.ElementAt(i);
