@@ -1,5 +1,6 @@
 ﻿using Appkiz.Library.Security;
 using Appkiz.Library.Security.Authentication;
+using DocumentFormat.OpenXml.Drawing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -261,16 +262,17 @@ namespace XYD.Controllers
                 {
                     if (!string.IsNullOrEmpty(Area))
                     {
-                        var AreaName = string.Empty;
-                        if (Area == "001")
+                        string specialSql = string.Empty;
+                        var normalSql = GetLeaderQuerySql(selectClause, BeginDate, EndDate, Area, UserName);
+                        if (Area == "002") // SH里需要把翁杰去掉，单独查询
                         {
-                            AreaName = "无锡";
+                            specialSql = GetSpecialQuerySql(selectClause, BeginDate, EndDate, Area, UserName);
+                            sql = string.Format("select * from ({0} union {1}) a order by a.cDepCode, a.iYear, a.iMonth", normalSql, specialSql);
                         }
                         else
                         {
-                            AreaName = "上海";
-                        }
-                        sql = string.Format("select * from ({0}) a order by a.cDepCode, a.iYear, a.iMonth", GetLeaderQuerySql(selectClause, BeginDate, EndDate, Area, UserName));
+                            sql = string.Format("select * from ({0}) a order by a.cDepCode, a.iYear, a.iMonth", normalSql);
+                        }                   
                     }
                     else
                     {
@@ -278,7 +280,8 @@ namespace XYD.Controllers
                         var wxSql = GetLeaderQuerySql(selectClause, BeginDate, EndDate, "001", UserName);
                         // 上海sql
                         var shSql = GetLeaderQuerySql(selectClause, BeginDate, EndDate, "002", UserName);
-                        sql = string.Format("select * from ({0} union {1}) a order by a.cDepCode, a.iYear, a.iMonth", wxSql, shSql);
+                        var specialSql = GetSpecialQuerySql(selectClause, BeginDate, EndDate, Area, UserName);
+                        sql = string.Format("select * from ({0} union {1} union {2}) a order by a.cDepCode, a.iYear, a.iMonth", wxSql, shSql, specialSql);
                     }
                 }
                 else
@@ -326,6 +329,33 @@ namespace XYD.Controllers
             }
         }
 
+        public string GetSpecialQuerySql(string selectClause, DateTime BeginDate, DateTime EndDate, string Area, string UserName)
+        {
+            // 部门反转
+            if (Area == "001")
+            {
+                Area = "002";
+            }
+            else
+            {
+                Area = "001";
+            }
+            List<string> idList = OrgUtil.GetUsersByRole("部门与工资不同人员").Where(n => n.EmplName.Contains(UserName)).Select(n => "'" + n.EmplNO + "'").ToList();
+
+            string inClause = string.Join(",", idList);
+            // 构造查询 
+            var sql = string.Format(@"SELECT
+                                            {0}
+                                            WHERE
+	                                            cGZGradeNum LIKE '{6}%' 
+	                                            AND cPsn_Num in ({1})
+	                                            AND iYear >= {2}
+                                                AND iYear <= {3}
+	                                            AND iMonth >= {4}
+	                                            AND iMonth <= {5} ", selectClause, inClause, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month, Area);
+            return sql;
+        }
+
         public string GetLeaderQuerySql(string selectClause, DateTime BeginDate, DateTime EndDate, string Area, string UserName)
         {
             var AreaName = string.Empty;
@@ -346,7 +376,8 @@ namespace XYD.Controllers
                                                                                         WHERE
                                                                                             a.EmplName LIKE '%{1}%'
                                                                                             AND a.EmplNO != ''", areaCondition, UserName));
-            List<string> idList = employees.Select(n => "'" + n.EmplNO + "'").ToList();
+            List<string> excludeIds = OrgUtil.GetUsersByRole("部门与工资不同人员").Select(n => n.EmplID).ToList();
+            List<string> idList = employees.Where(n => !excludeIds.Contains(n.EmplID)).Select(n => "'" + n.EmplNO + "'").ToList();
             string inClause = string.Join(",", idList);
             // 构造查询 
             var sql = string.Format(@"SELECT
