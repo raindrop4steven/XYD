@@ -341,8 +341,11 @@ namespace XYD.Controllers
                 Area = "001";
             }
             List<string> idList = OrgUtil.GetUsersByRole("部门与工资不同人员").Where(n => n.EmplName.Contains(UserName)).Select(n => "'" + n.EmplNO + "'").ToList();
-
-            string inClause = string.Join(",", idList);
+            string inClause = "''";
+            if (idList.Count > 0)
+            {
+                inClause = string.Join(",", idList);
+            }
             // 构造查询 
             var sql = string.Format(@"SELECT
                                             {0}
@@ -378,7 +381,11 @@ namespace XYD.Controllers
                                                                                             AND a.EmplNO != ''", areaCondition, UserName));
             List<string> excludeIds = OrgUtil.GetUsersByRole("部门与工资不同人员").Select(n => n.EmplID).ToList();
             List<string> idList = employees.Where(n => !excludeIds.Contains(n.EmplID)).Select(n => "'" + n.EmplNO + "'").ToList();
-            string inClause = string.Join(",", idList);
+            string inClause = "''";
+            if (idList.Count > 0)
+            {
+                inClause = string.Join(",", idList);
+            }
             // 构造查询 
             var sql = string.Format(@"SELECT
                                             {0}
