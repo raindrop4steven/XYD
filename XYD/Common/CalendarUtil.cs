@@ -198,7 +198,7 @@ namespace XYD.Common
                     entity.Type = isHoliday ? CALENDAR_TYPE.Holiday : CALENDAR_TYPE.Rest;
                     entity.Name = leave.Category;
                     // 增加备注
-                    detail.Memo += string.Format("今日{0}{1}小时", leave.Category, workHours);
+                    detail.Memo += GenerateLeaveMemo(leave, leaveHour);
                 }
                 else if (holidayDict.ContainsKey(date))
                 {
@@ -248,7 +248,7 @@ namespace XYD.Common
                             }
                             
                             // 增加备注
-                            detail.Memo += string.Format("今日{0}{1}小时", leave.Category, leaveHour);
+                            detail.Memo += GenerateLeaveMemo(leave, leaveHour);
                         }
                         else
                         {
@@ -276,12 +276,12 @@ namespace XYD.Common
                         if (hasLeave)
                         {
                             leaveHour =  GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
-                            if(IsLeaveAsWork(leave) && !NeedUpdateAttence(leave))
+                            if(IsLeaveAsWork(leave) && !NeedUpdateAttence(leave) && ShouldAddLeaveHour(leave, attence))
                             {
                                 workHours += leaveHour;
                             }
                             
-                            detail.Memo += string.Format("今日{0}{1}小时", leave.Category, leaveHour);
+                            detail.Memo += GenerateLeaveMemo(leave, leaveHour);
                         }
                         // 判断是否有出差
                         if (hasBizTrip)
@@ -340,6 +340,33 @@ namespace XYD.Common
             detail.WorkHours = workHours;
             detail.Name = entity.Name;
             detail.Type = entity.Type;
+        }
+        #endregion
+
+        #region 格式化出勤日志
+        public static string GenerateLeaveMemo(XYD_Leave_Record leave, double leaveHour)
+        {
+            string memo;
+            if (NeedUpdateAttence(leave))
+            {
+                memo = string.Format("今日{0} {1}", leave.Category, leave.StartDate.ToString("HH:mm:00"));
+            }
+            else
+            {
+                memo = string.Format("今日{0}{1}小时", leave.Category, leaveHour);
+            }
+            return memo;
+        }
+        #endregion
+
+        #region 考勤是否应算到工作时间中
+        public static bool ShouldAddLeaveHour(XYD_Leave_Record leave, XYD_Attence attence)
+        {
+            if (attence != null && attence.StartTime != null && attence.EndTime != null && leave.StartDate >= attence.StartTime.Value && leave.EndDate <= attence.EndTime.Value)
+            {
+                return false;
+            }
+            return true;
         }
         #endregion
 
