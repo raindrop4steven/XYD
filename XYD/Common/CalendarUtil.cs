@@ -398,7 +398,9 @@ namespace XYD.Common
                 }
             }
             // 计算工作时长
-            workHours = CaculateTimeWithoutRest(StartTime.Value, EndTime.Value, restStartTime, restEndTime);
+            var startTimeWithoutSec = DateTime.Parse(StartTime.Value.ToString("yyyy-MM-dd HH:mm:00"));
+            var endTimeWithoutSec = DateTime.Parse(EndTime.Value.ToString("yyyy-MM-dd HH:mm:00"));
+            workHours = CaculateTimeWithoutRest(startTimeWithoutSec, endTimeWithoutSec, restStartTime, restEndTime);
             return Math.Round(workHours, 2);
         }
         #endregion
@@ -412,15 +414,15 @@ namespace XYD.Common
             {
                 workHours = endTime.Subtract(startTime).TotalHours;
             }
-            else if (startTime < restStartTime && endTime > restStartTime && endTime < restEndTime)
+            else if (startTime <= restStartTime && endTime >= restStartTime && endTime <= restEndTime)
             {
                 workHours = restStartTime.Subtract(startTime).TotalHours;
             }
-            else if (startTime > restStartTime && startTime < restEndTime && endTime > restEndTime)
+            else if (startTime >= restStartTime && startTime <= restEndTime && endTime >= restEndTime)
             {
                 workHours = endTime.Subtract(restEndTime).TotalHours;
             }
-            else if (startTime < restStartTime && endTime > restEndTime)
+            else if (startTime <= restStartTime && endTime >= restEndTime)
             {
                 workHours = restStartTime.Subtract(startTime).TotalHours + endTime.Subtract(restEndTime).TotalHours;
             }
