@@ -915,5 +915,32 @@ namespace XYD.Controllers
             return cells.Count(n => string.IsNullOrEmpty(n.WorkcellValue)) == 0;
         }
         #endregion
+
+        #region 根据用户发起对应出勤申请
+        [Authorize]
+        public ActionResult StartLeaveWorkflow()
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var redirectUrl = string.Empty;
+                if (OrgUtil.CheckRole(employee.EmplID, DEP_Constants.Role_Name_ShangHai))
+                {
+                    redirectUrl = "/Apps/Workflow/Running/Open?mid=e68007bf-fce8-40ca-9f0c-95c7fdc23152";
+                }
+                else
+                {
+                    redirectUrl = "/Apps/Workflow/Running/Open?mid=18b1736d-9360-4129-b7b3-384cb5b510cb";
+                }
+                return ResponseUtil.OK(new {
+                    redirectUrl = redirectUrl
+                });
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }
