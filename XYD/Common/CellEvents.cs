@@ -284,11 +284,15 @@ namespace XYD.Common
                 var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 7);
                 endTimeCellValue.Type = 2;
                 endTimeCellValue.Value = "";
+                endTimeCellValue.Required = true;
+                endTimeCellValue.CanEdit = true;
                 // 更新表单中选到小时
                 WorkflowUtil.UpdateCell(worksheet, 7, 9, "天数", "");
                 var deltaHourCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 11);
                 deltaHourCellValue.Title = "天数";
                 deltaHourCellValue.Value = "";
+                deltaHourCellValue.Required = true;
+                deltaHourCellValue.CanEdit = true;
                 // 更新Cell
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, dateTimeTypeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, startTimeCellValue);
@@ -312,11 +316,15 @@ namespace XYD.Common
                 var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 7);
                 endTimeCellValue.Type = 4;
                 endTimeCellValue.Value = "";
+                endTimeCellValue.Required = true;
+                endTimeCellValue.CanEdit = true;
                 // 更新表单中选到小时
                 WorkflowUtil.UpdateCell(worksheet, 7, 9, "小时数", "");
                 var deltaHourCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 11);
                 deltaHourCellValue.Title = "小时数";
                 deltaHourCellValue.Value = "";
+                deltaHourCellValue.Required = true;
+                deltaHourCellValue.CanEdit = true;
                 // 更新Cell
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, dateTimeTypeCellValue);
                 WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, startTimeCellValue);
