@@ -667,7 +667,7 @@ namespace XYD.Common
                     WorkflowId = WorkflowId,
                     MessageTitle = MessageTitle,
                     CreateTime = CreateTime,
-                    ReceiveTime = ReceiveTime,
+                    ReceiveTime = CreateTime,
                     MessageStatus = MessageStatus,
                     MessageIssuedBy = MessageIssuedBy
                 });
@@ -865,8 +865,8 @@ namespace XYD.Common
             var ResultList = new List<object>();
             while (reader.Read())
             {
-                string Value = reader.GetString(0);
-                string InterValue = reader.GetString(1);
+                string Value = reader.IsDBNull(0) ? string.Empty : reader.GetString(0);
+                string InterValue = reader.IsDBNull(1) ? string.Empty : reader.GetString(1);
                 ResultList.Add(new XYD_Cell_Options
                 {
                     Value = Value,
