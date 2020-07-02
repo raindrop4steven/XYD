@@ -1045,7 +1045,8 @@ namespace XYD.Controllers
                                      FROM WKF_Message a
                                     INNER JOIN {0} b
                                     ON a.MessageID = b.MessageId
-                                    WHERE a.MessageIssuedBy = '{1}'", tableName, emplId));
+                                    WHERE a.MessageIssuedBy = '{1}'
+                                    and a.MessageStatus != 3 ", tableName, emplId));
 
                     //公文标题
                     if (!string.IsNullOrWhiteSpace(query.Title))
