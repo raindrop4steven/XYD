@@ -325,6 +325,35 @@ namespace XYD.Common
                 // 更新计算公式
                 fields.Operations.FirstOrDefault().Type = "hour";
             }
+            else if (category == "补打卡")
+            {
+                //$('#C-6-7').text('小时');
+                //SaveCellValue($('#C-6-7'), '小时', '');
+                //SetReadonlyCells(['#C-6-7', '#C-7-7']);
+                //dateSelectTypeUpdate('小时');
+                // 选到小时
+                // 控件类别
+                var dateTimeTypeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 6, 7);
+                dateTimeTypeCellValue.CanEdit = false;
+                dateTimeTypeCellValue.Value = "小时";
+                // 开始时间
+                var startTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 3);
+                startTimeCellValue.Type = 4;
+                startTimeCellValue.Value = "";
+                // 结束时间
+                var endTimeCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 7);
+                endTimeCellValue.Type = 4;
+                endTimeCellValue.Value = "";
+                endTimeCellValue.Required = false;
+                endTimeCellValue.CanEdit = false;
+                // 更新表单中选到小时
+                WorkflowUtil.UpdateCell(worksheet, 7, 9, "小时数", "");
+                var deltaHourCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 11);
+                deltaHourCellValue.Title = "小时数";
+                deltaHourCellValue.Value = "";
+                deltaHourCellValue.Required = false;
+                deltaHourCellValue.CanEdit = false;
+            }
             else
             {
                 // 均可
