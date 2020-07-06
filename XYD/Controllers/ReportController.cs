@@ -454,10 +454,10 @@ namespace XYD.Controllers
                         DeptName = user.DeptName,
                         EmplNo = user.EmplNO,
                         Position = user.DeptAndPosStr,
-                        LeftYearHour = leftYearHour,
-                        LeftWorfHour = leftOffTimeHour,
-                        LeftLeaveHour = leftLeaveHour,
-                        RestYearHour = totalYearHour
+                        LeftYearHour = Math.Round(leftYearHour, 2),
+                        LeftWorfHour = Math.Round(leftOffTimeHour, 2),
+                        LeftLeaveHour = Math.Round(leftLeaveHour, 2),
+                        RestYearHour = Math.Round(totalYearHour, 2)
                     });
                 }
                 return ResponseUtil.OK(results);
@@ -523,16 +523,16 @@ namespace XYD.Controllers
                         EmplNo = employee.EmplNO,
                         EmplName = employee.EmplName,
                         OffTimeWork = offTimeWork,
-                        LeaveHours = vocationReport.leaveHour,
-                        SickHours = vocationReport.sickHour,
-                        YearHours = vocationReport.yearHour,
-                        MarryHours = vocationReport.marryHour,
-                        BirthHours = vocationReport.birthHour,
-                        MilkHours = vocationReport.milkHour,
-                        SadHours = vocationReport.deadHour,
-                        LeftYearHour = leftYearHour,
-                        LeftLeaveHour = leftLeaveHour,
-                        DeltaHour = adjustHour
+                        LeaveHours = Math.Round(vocationReport.leaveHour, 2),
+                        SickHours = Math.Round(vocationReport.sickHour, 2),
+                        YearHours = Math.Round(vocationReport.yearHour, 2),
+                        MarryHours = Math.Round(vocationReport.marryHour, 2),
+                        BirthHours = Math.Round(vocationReport.birthHour, 2),
+                        MilkHours = Math.Round(vocationReport.milkHour, 2),
+                        SadHours = Math.Round(vocationReport.deadHour, 2),
+                        LeftYearHour = Math.Round(leftYearHour, 2),
+                        LeftLeaveHour = Math.Round(leftLeaveHour, 2),
+                        DeltaHour = Math.Round(adjustHour, 2)
                     });
                 }
                 return ResponseUtil.OK(results);
