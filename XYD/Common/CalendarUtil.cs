@@ -593,7 +593,7 @@ namespace XYD.Common
         public static XYD_Vocation_Report CaculateVocation(string EmplID, DateTime startDate, DateTime endDate)
         {
             var db = new DefaultConnection();
-            var lastDayTime = CommonUtils.EndOfDay(endDate);
+            //var lastDayTime = CommonUtils.EndOfDay(endDate);
             // 年假
             var yearHour = GetHourByLeaveCategory(EmplID, "年假", startDate, endDate);
             // 加班
@@ -634,11 +634,11 @@ namespace XYD.Common
         {
             using(var db = new DefaultConnection())
             {
-                var lastDayTime = CommonUtils.EndOfDay(endDate);
+                //var lastDayTime = CommonUtils.EndOfDay(endDate);
                 var records = db.LeaveRecord.Where(n => n.EmplID == EmplID
                                                     && n.Category == category
                                                     && n.Status == DEP_Constants.Leave_Status_YES
-                                                    && ((n.StartDate <= startDate.Date && n.EndDate >= endDate.Date) || (n.StartDate >= startDate.Date && n.EndDate <= lastDayTime))).ToList();
+                                                    && ((n.StartDate <= startDate.Date && n.EndDate >= endDate.Date) || (n.StartDate >= startDate.Date && n.EndDate <= endDate))).ToList();
                 return getTotalHours(records);
             }
         }
