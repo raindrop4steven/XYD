@@ -1,5 +1,6 @@
 ﻿using Appkiz.Library.Security;
 using Appkiz.Library.Security.Authentication;
+using DocumentFormat.OpenXml.Office.CustomUI;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -672,6 +673,91 @@ namespace XYD.Controllers
             doc.LoadXml(xml);
             XmlElement root = doc.DocumentElement;
             return root.FirstChild.FirstChild.Attributes[1].Value;
+        }
+        #endregion
+
+        #region 出勤记录统计
+        [Authorize]
+        public ActionResult SearchLeave(string Year, string Area, string Name, int Page, int Size)
+        {
+            try
+            {
+                // 选择地区非空，则进行地区人员筛选
+                var AreaName = string.Empty;
+                var areaCondition = string.Empty;
+                if (!string.IsNullOrEmpty(Area))
+                {
+                    if (Area == "001")
+                    {
+                        AreaName = "无锡";
+                    }
+                    else
+                    {
+                        AreaName = "上海";
+                    }
+                    areaCondition = string.Format(@" INNER JOIN ORG_EmplRole b on a.EmplID = b.EmplID INNER JOIN ORG_Role c on b.RoleID = c.RoleID and c.RoleName = '{0}'", AreaName);
+                }
+                // 年份
+                var startYearDate = string.Format("{0}-01-01", Year);
+                var endYearDate =string.Format("{0}-12-31 23:59:59", Year);
+                var whereCondition = string.Format("and a.StartDate >= '{0}' and a.EndDate <= '{1}' and d.EmplName like '%{2}%'", startYearDate, endYearDate, Name);
+                
+                var sql = string.Format(@"SELECT
+                                d.EmplID,
+	                            d.EmplName,
+	                            d.EmplNO,
+	                            a.Category,
+	                            a.StartDate,
+	                            a.EndDate,
+	                            a.Reason 
+                            FROM
+	                            XYD_Leave_Record a
+	                            LEFT JOIN ORG_Employee d ON a.EmplID = d.EmplID 
+                                {0} 
+                            WHERE 1=1
+                                {1}", areaCondition, whereCondition);
+                var list = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetLeaveRecord);
+                // 记录总页数
+                var totalCount = list.Count();
+                var results = list.Skip(Page * Size).Take(Size);
+
+                foreach (XYD_Leave_Search item in results)
+                {
+                    // 获得对应城市工作时间配置
+                    var sysConfig = CalendarUtil.GetSysConfigByUser(item.EmplID);
+                    if (CalendarUtil.IsDayDate(item.StartDate))
+                    {
+                        item.TimeType = "天";    
+                    }
+                    else
+                    {
+                        item.TimeType = "小时";
+                    }
+                    item.Hours = CalendarUtil.GetRealLeaveHours(sysConfig, item.StartDate, item.EndDate.Value);
+                    if (item.Category == "补打卡")
+                    {
+                        item.EndDate = null;
+                    }
+                }
+                var totalPage = (int)Math.Ceiling((float)totalCount / Size);
+
+                return ResponseUtil.OK(new
+                {
+                    results = results,
+                    meta = new
+                    {
+                        current_page = Page,
+                        total_page = totalPage,
+                        current_count = Page * Size + results.Count(),
+                        total_count = totalCount,
+                        per_page = Size
+                    }
+                });
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
         }
         #endregion
     }

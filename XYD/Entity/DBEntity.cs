@@ -119,6 +119,29 @@ namespace XYD.Entity
     }
     #endregion
 
+    #region 出勤记录
+    public class XYD_Leave_Search
+    {
+        public string EmplID { get; set; }
+        // 姓名
+        public string EmplName { get; set; }
+        // 工号
+        public string EmplNO { get; set; }
+        // 事假类别
+        public string Category { get; set; }
+        // 开始时间
+        public DateTime StartDate { get; set; }
+        // 结束时间
+        public DateTime? EndDate { get; set; }
+        // 事由
+        public string Reason { get; set; }
+        // 时间类型
+        public string TimeType { get; set; }
+        // 小时数
+        public double Hours { get; set; }
+    }
+    #endregion
+
     #region 用户统计信息
     public class XYD_UserReport
     {

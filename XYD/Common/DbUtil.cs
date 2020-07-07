@@ -984,5 +984,34 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 获取考勤记录
+        public static List<object> GetLeaveRecord(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                var EmplID = reader.GetString(0);
+                var EmplName = reader.GetString(1);
+                var EmplNO = reader.GetString(2);
+                var Category = reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
+                var StartDate = reader.GetDateTime(4);
+                var EndDate = reader.GetDateTime(5);
+                var Reason = reader.IsDBNull(6) ? string.Empty : reader.GetString(6);
+                
+                ResultList.Add(new XYD_Leave_Search
+                {
+                    EmplID = EmplID,
+                    EmplName = EmplName,
+                    EmplNO = EmplNO,
+                    Category = Category,
+                    StartDate = StartDate,
+                    EndDate = EndDate,
+                    Reason = Reason
+                });
+            }
+            return ResultList;
+        }
+        #endregion
+
     }
 }
