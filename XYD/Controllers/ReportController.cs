@@ -531,7 +531,7 @@ namespace XYD.Controllers
                         MilkHours = Math.Round(vocationReport.milkHour, 2),
                         SadHours = Math.Round(vocationReport.deadHour, 2),
                         LeftYearHour = Math.Round(leftYearHour, 2),
-                        LeftLeaveHour = Math.Round(leftLeaveHour, 2),
+                        LeftOffTimeHour = Math.Round(leftOffTimeHour, 2),
                         DeltaHour = Math.Round(adjustHour, 2)
                     });
                 }

@@ -510,9 +510,11 @@ namespace XYD.Common
             }
             else
             {
+                var startTimeWithoutSec = DateTime.Parse(startTime.ToString("yyyy-MM-dd HH:mm:00"));
+                var endTimeWithoutSec = DateTime.Parse(endTime.ToString("yyyy-MM-dd HH:mm:00"));
                 var restStartTime = DateTime.Parse(startTime.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestStartTime)));
                 var restEndTime = DateTime.Parse(startTime.ToString(string.Format("yyyy-MM-dd {0}:00", sysConfig.RestEndTime)));
-                leaveHour = CaculateTimeWithoutRest(startTime, endTime, restStartTime, restEndTime);
+                leaveHour = CaculateTimeWithoutRest(startTimeWithoutSec, endTimeWithoutSec, restStartTime, restEndTime);
             }
             return leaveHour;
         }
@@ -689,6 +691,7 @@ namespace XYD.Common
             {
                 // 年假打空归零
                 leftYearHour = 0.0d;
+                leftOffTimeHour = offTimeWork;
                 // 计算剩余需要打的时间:请假时间-剩余年假
                 var remainLeaveHour = usedLeaveHour - remainYearHour;
 
