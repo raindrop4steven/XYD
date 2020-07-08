@@ -44,6 +44,13 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 判断是否是同一天
+        public static bool SameDay(DateTime d1, DateTime d2)
+        {
+            return d1.Date.Equals(d2.Date);
+        }
+        #endregion
+
         #region 解析自定义方法参数
         public static XYD_Custom_Func ParseCustomFunc(string originStr)
         {

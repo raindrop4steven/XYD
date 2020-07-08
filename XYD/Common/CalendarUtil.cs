@@ -87,7 +87,7 @@ namespace XYD.Common
         #endregion
 
         #region 考勤详情
-        public static XYD_Calendar_Result CaculateUserCalendarDetail(Employee employee, DateTime BeginDate, DateTime EndDate)
+        public static XYD_Calendar_Result CaculateUserCalendarDetail(Employee employee, DateTime BeginDate, DateTime EndDate, bool needLeave=false)
         {
             var calendarResult = new XYD_Calendar_Result();
             List<XYD_CalendarEntity> dates = new List<XYD_CalendarEntity>();
@@ -127,7 +127,7 @@ namespace XYD.Common
             {
                 var entity = new XYD_CalendarEntity();
                 var detail = new XYD_CalendarDetail();
-                CalendarCaculate(d, today, holidayDict, db, sysConfig, attenceRecords, leaveRecord.ToList(), bizTripRecord.ToList(), ref entity, ref detail);
+                CalendarCaculate(d, today, holidayDict, db, sysConfig, attenceRecords, leaveRecord, bizTripRecord, ref entity, ref detail);
                 
                 if (detail.isNormal && entity.Type != CALENDAR_TYPE.Rest && entity.Type != CALENDAR_TYPE.Holiday && entity.Type != CALENDAR_TYPE.Work)
                 {
@@ -139,6 +139,55 @@ namespace XYD.Common
                 }
                 dates.Add(entity);
                 details.Add(detail);
+            }
+            // 如果是app中请假则需要统计进去
+            if (needLeave)
+            {
+                // 调休
+                var adjustLeaveList = leaveRecord.Where(n => n.Category == "调休").ToList();
+                // 请假
+                var normalLeaveList = leaveRecord.Where(n => n.Category.Contains("假")).ToList();
+                summary[CALENDAR_TYPE.Adjust] += adjustLeaveList.Count;
+                summary[CALENDAR_TYPE.Leave] += normalLeaveList.Count;
+                summary[CALENDAR_TYPE.BizTrp] += bizTripRecord.Count;
+                // 转化成考情详情
+                foreach(var leave in adjustLeaveList)
+                {
+                    var detailEntity = new XYD_CalendarDetail();
+                    if (CommonUtils.SameDay(leave.StartDate, leave.EndDate))
+                    {
+                        detailEntity.Date = leave.StartDate.ToString("yyyy-MM-dd");
+                    }
+                    detailEntity.Type = CALENDAR_TYPE.Adjust;
+                    detailEntity.StartTime = leave.StartDate.ToString("yyyy-MM-dd HH:mm");
+                    detailEntity.EndTime = leave.EndDate.ToString("yyyy-MM-dd HH:mm");
+                    detailEntity.WorkHours = GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
+                    details.Add(detailEntity);
+                }
+                // 转化成考情详情
+                foreach (var leave in normalLeaveList)
+                {
+                    var detailEntity = new XYD_CalendarDetail();
+                    if (CommonUtils.SameDay(leave.StartDate, leave.EndDate))
+                    {
+                        detailEntity.Date = leave.StartDate.ToString("yyyy-MM-dd");
+                    }
+                    detailEntity.Type = CALENDAR_TYPE.Adjust;
+                    detailEntity.StartTime = leave.StartDate.ToString("yyyy-MM-dd HH:mm");
+                    detailEntity.EndTime = leave.EndDate.ToString("yyyy-MM-dd HH:mm");
+                    detailEntity.WorkHours = GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
+                    details.Add(detailEntity);
+                }
+                // 转化成考情详情
+                foreach (var trip in bizTripRecord)
+                {
+                    var detailEntity = new XYD_CalendarDetail();
+                    detailEntity.Type = CALENDAR_TYPE.Adjust;
+                    detailEntity.StartTime = trip.StartDate.ToString("yyyy-MM-dd HH:mm");
+                    detailEntity.EndTime = trip.EndDate.ToString("yyyy-MM-dd HH:mm");
+                    detailEntity.WorkHours = GetRealLeaveHours(sysConfig, trip.StartDate, trip.EndDate);
+                    details.Add(detailEntity);
+                }
             }
             calendarResult.summary = summary;
             calendarResult.details = details;
