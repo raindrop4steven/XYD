@@ -46,7 +46,8 @@ namespace XYD.Controllers
                         if (model.Category == "补打卡")
                         {
                             leave.EndDate = model.StartDate;
-                        } else
+                        }
+                        else
                         {
                             leave.EndDate = model.EndDate;
                         }

@@ -22,7 +22,15 @@ namespace XYD.Controllers
                 var employee = (User.Identity as AppkizIdentity).Employee;
                 // 获得指定年份放假和调休计划
                 var StartDate = new DateTime(currentMonth.Year, currentMonth.Month, 1);
-                var EndDate = CommonUtils.EndOfDay(StartDate.AddMonths(1).AddDays(-1));
+                DateTime EndDate;
+                if (currentMonth.Month == DateTime.Now.Month) // 本月数据截至到今天
+                {
+                    EndDate = DateTime.Now;
+                }
+                else // 本月前和本月后
+                {
+                    EndDate = CommonUtils.EndOfDay(StartDate.AddMonths(1).AddDays(-1));
+                }
                 var result = CalendarUtil.CaculateUserCalendarDetail(employee, StartDate, EndDate, true);
                 return ResponseUtil.OK(result);
             }
