@@ -22,7 +22,7 @@ namespace XYD.Controllers
         public ActionResult Add(XYD_Leave_Record model, string user, string mid)
         {
             try
-            {                
+            {
                 using (var db = new DefaultConnection())
                 {
                     var leave = db.LeaveRecord.Where(n => n.EmplID == user && n.MessageID == mid).FirstOrDefault();
@@ -51,11 +51,6 @@ namespace XYD.Controllers
                             leave.EndDate = model.EndDate;
                         }
                         leave.Status = DEP_Constants.Leave_Status_Auditing;
-                        // 如果是补打卡，则将开始时间和结束时间设置成相同
-                        if (model.Category == "补打卡")
-                        {
-                            leave.EndDate = leave.StartDate;
-                        }
                     }
                     
                     db.SaveChanges();
@@ -113,7 +108,7 @@ namespace XYD.Controllers
                                     var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
                                     if (userCompanyInfo != null)
                                     {
-                                        userCompanyInfo.UsedRestDays += Convert.ToInt32((leave.EndDate - leave.StartDate).TotalDays);
+                                        userCompanyInfo.UsedRestDays += Convert.ToInt32((leave.EndDate - leave.StartDate).TotalDays + 1);
                                     }
                                 }
                                 // 处理考勤记录，如果是*假、外勤、补打卡、补外勤
@@ -240,6 +235,69 @@ namespace XYD.Controllers
             else
             {
                 return DEP_Constants.System_Config_Area_SH;
+            }
+        }
+        #endregion
+
+        #region 添加用户出勤申请记录
+        public ActionResult AddLeaveRecord2(XYD_Leave_Record model, string node, string mid)
+        {
+            using (var db = new DefaultConnection())
+            {
+                Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+                Worksheet worksheet = doc.Worksheet;
+
+                var message = mgr.GetMessage(mid);
+                var user = message.MessageIssuedBy;
+                var employee = orgMgr.GetEmployee(user);
+
+                model.EmplID = user;
+                model.MessageID = mid;
+                model.CreateTime = DateTime.Now;
+                model.UpdateTime = DateTime.Now;
+                if (model.Category == "补打卡")
+                {
+                    model.EndDate = model.StartDate;
+                }
+
+                XYD_Audit_Node auditNode = WorkflowUtil.GetAuditNode(mid, node);
+                if (auditNode == null)
+                {
+                    return ResponseUtil.Error("没找到对应处理节点");
+                }
+                var operate = worksheet.GetWorkcell(auditNode.Operate.Row, auditNode.Operate.Col).WorkcellValue;
+
+                if (operate == DEP_Constants.Audit_Operate_Type_Disagree)
+                {
+                    model.Status = DEP_Constants.Leave_Status_NO;
+                }
+                else if (operate == DEP_Constants.Audit_Operate_Type_Agree)
+                {
+                    model.Status = DEP_Constants.Leave_Status_YES;
+                    // 处理年假
+                    if (model.Category == DEP_Constants.Leave_Year_Type)
+                    {
+                        var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
+                        if (userCompanyInfo != null)
+                        {
+                            userCompanyInfo.UsedRestDays += Convert.ToInt32((model.EndDate - model.StartDate).TotalDays + 1);
+                        }
+                    }
+                    // 处理考勤记录，如果是*假、外勤、补打卡、补外勤
+                    if (CalendarUtil.NeedUpdateAttence(model))
+                    {
+                        // 更新或插入考勤记录表
+                        // 如果是小时假，才更新
+                        if (CommonUtils.SameDay(model.StartDate, model.EndDate))
+                        {
+                            CalendarUtil.UpdateAttence(employee, model);
+                        }
+                    }
+                }
+
+                db.LeaveRecord.Add(model);
+                db.SaveChanges();
+                return ResponseUtil.OK("添加请假记录成功");
             }
         }
         #endregion

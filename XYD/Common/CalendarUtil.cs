@@ -645,8 +645,13 @@ namespace XYD.Common
                 } else
                 {
                     // 更新，最早考勤取最早，最晚考勤取最晚
+                    // 如果是补打卡
                     if (attence.StartTime.Value > leave.StartDate)
                     {
+                        if (attence.EndTime == null)
+                        {
+                            attence.EndTime = attence.StartTime;
+                        }
                         attence.StartTime = leave.StartDate;
                     }
                     if (attence.EndTime == null || (attence.EndTime != null && attence.EndTime < leave.EndDate))
