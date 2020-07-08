@@ -43,7 +43,13 @@ namespace XYD.Controllers
                     {
                         leave.UpdateTime = DateTime.Now;
                         leave.StartDate = model.StartDate;
-                        leave.EndDate = model.EndDate;
+                        if (model.Category == "补打卡")
+                        {
+                            leave.EndDate = model.StartDate;
+                        } else
+                        {
+                            leave.EndDate = model.EndDate;
+                        }
                         leave.Status = DEP_Constants.Leave_Status_Auditing;
                         // 如果是补打卡，则将开始时间和结束时间设置成相同
                         if (model.Category == "补打卡")
