@@ -319,8 +319,12 @@ namespace XYD.Common
                             {
                                 if(IsLeaveAsWork(leave))
                                 {
-                                    entity.Type = CALENDAR_TYPE.Work;
+                                    if (IsDayDate(leave.StartDate) && IsDayDate(leave.EndDate))
+                                    {
+                                        leaveHour = Normal_Work_Hours;
+                                    }
                                     workHours += leaveHour;
+                                    entity.Type = CALENDAR_TYPE.Work;
                                 }
                                 else
                                 {
