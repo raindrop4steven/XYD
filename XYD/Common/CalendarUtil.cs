@@ -118,7 +118,9 @@ namespace XYD.Common
             var attenceRecords = db.Attence.Where(n => n.EmplNo == employee.EmplNO).ToList().Where(n => DateTime.Parse(n.Day) >= StartDate.Date && DateTime.Parse(n.Day) <= lastDayTime).OrderBy(n => n.StartTime).ToList();
             // 区分按人和按日查询的条件，如果按照人查询，则条件开始时间<出勤开始 && 出勤结束 <条件结束;如果按照日查询，则出勤时间区间应包括条件时间
             var leaveRecord = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID && ((n.StartDate <= StartDate.Date && n.EndDate >= EndDate.Date) || (n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime))).ToList();
-            var bizTripRecord = db.BizTrip.Where(n => n.EmplID == employee.EmplID && ((n.StartDate <= StartDate.Date && n.EndDate >= EndDate.Date) || (n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime))).ToList();
+            var bizTripRecord = db.BizTrip.Where(n => n.EmplID == employee.EmplID && ((n.StartDate <= StartDate.Date && n.EndDate >= EndDate.Date) || 
+                                                                                      (n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime)  ||
+                                                                                      (n.StartDate >= StartDate.Date && n.EndDate >= EndDate.Date))).ToList();
             
             // 获得对应城市工作时间配置
             var sysConfig = GetSysConfigByUser(employee.EmplID);
@@ -180,22 +182,28 @@ namespace XYD.Common
         public static XYD_CalendarDetail CreateLeaveCalendarDetail(XYD_System_Config sysConfig, XYD_Leave_Record leave)
         {
             var detailEntity = new XYD_CalendarDetail();
-            if (CommonUtils.SameDay(leave.StartDate, leave.EndDate))
+            if (IsDayDate(leave.StartDate))
+            {
+                detailEntity.StartTime = leave.StartDate.ToString("yyyy-MM-dd");
+                detailEntity.EndTime = leave.EndDate.ToString("yyyy-MM-dd");
+                detailEntity.WorkHours = (int)(GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate) / 8);
+            }
+            else
             {
                 detailEntity.StartTime = leave.StartDate.ToString("yyyy-MM-dd HH:mm");
                 detailEntity.EndTime = leave.EndDate.ToString("yyyy-MM-dd HH:mm");
                 detailEntity.WorkHours = GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
             }
-            else
-            {
-                detailEntity.StartTime = leave.StartDate.ToString("yyyy-MM-dd");
-                detailEntity.EndTime = leave.EndDate.ToString("yyyy-MM-dd");
-                detailEntity.WorkHours = (int)(GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate)/8);
-            }
             detailEntity.Date = leave.StartDate.ToString("yyyy-MM-dd");
             detailEntity.Name = leave.Category;
-            detailEntity.Type = CALENDAR_TYPE.Adjust;
-            
+            if (leave.Category == "调休")
+            {
+                detailEntity.Type = CALENDAR_TYPE.Adjust;
+            }
+            else
+            {
+                detailEntity.Type = CALENDAR_TYPE.Leave;
+            }
             
             return detailEntity;
         }
@@ -205,17 +213,17 @@ namespace XYD.Common
         public static XYD_CalendarDetail CreateTripCalendarDetail(XYD_System_Config sysConfig, XYD_BizTrip trip)
         {
             var detailEntity = new XYD_CalendarDetail();
-            if (CommonUtils.SameDay(trip.StartDate, trip.EndDate))
-            {
-                detailEntity.StartTime = trip.StartDate.ToString("yyyy-MM-dd HH:mm");
-                detailEntity.EndTime = trip.EndDate.ToString("yyyy-MM-dd HH:mm");
-                detailEntity.WorkHours = GetRealLeaveHours(sysConfig, trip.StartDate, trip.EndDate);
-            }
-            else
+            if (IsDayDate(trip.StartDate))
             {
                 detailEntity.StartTime = trip.StartDate.ToString("yyyy-MM-dd");
                 detailEntity.EndTime = trip.EndDate.ToString("yyyy-MM-dd");
                 detailEntity.WorkHours = (int)(GetRealLeaveHours(sysConfig, trip.StartDate, trip.EndDate) / 8);
+            }
+            else
+            {
+                detailEntity.StartTime = trip.StartDate.ToString("HH:mm");
+                detailEntity.EndTime = trip.EndDate.ToString("HH:mm");
+                detailEntity.WorkHours = GetRealLeaveHours(sysConfig, trip.StartDate, trip.EndDate);
             }
             detailEntity.Date = trip.StartDate.ToString("yyyy-MM-dd");
             detailEntity.Name = "出差";
@@ -414,7 +422,7 @@ namespace XYD.Common
             {
                 detail.isNormal = true;
             }
-            detail.WorkHours = workHours;
+            detail.WorkHours = Math.Round(workHours, 2);
             detail.Name = entity.Name;
             detail.Type = entity.Type;
         }
