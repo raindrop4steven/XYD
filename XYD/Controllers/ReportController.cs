@@ -489,7 +489,7 @@ namespace XYD.Controllers
                 for (int i = 0; i < now.Month; i++)
                 {
                     var startMonthDate = yearStartDate.AddMonths(i);
-                    var endMonthDate = startMonthDate.AddMonths(1);
+                    var endMonthDate = startMonthDate.AddMonths(1).AddTicks(-1);
 
                     // 剩余时间纬度
                     var leftYearHour = 0.0d;
