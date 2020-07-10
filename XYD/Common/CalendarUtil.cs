@@ -426,7 +426,7 @@ namespace XYD.Common
             {
                 detail.isNormal = true;
             }
-            detail.WorkHours = Math.Round(workHours, 2);
+            detail.WorkHours = FillUpToHalfHour(Math.Round(workHours, 2));
             detail.Name = entity.Name;
             detail.Type = entity.Type;
         }
@@ -712,15 +712,15 @@ namespace XYD.Common
             var adjustHour = 0.0d;
             return new XYD_Vocation_Report()
             {
-                yearHour = yearHour,
-                extraHour = extraHour,
-                leaveHour = leaveHour + changeHour,
-                sickHour = sickHour,
-                marryHour = marryHour,
-                birthHour = birthHour,
-                milkHour = milkHour,
-                deadHour = deadHour,
-                adjustHour = adjustHour
+                yearHour = FillUpToHalfHour(yearHour),
+                extraHour = FillUpToHalfHour(extraHour),
+                leaveHour = FillUpToHalfHour(leaveHour + changeHour),
+                sickHour = FillUpToHalfHour(sickHour),
+                marryHour = FillUpToHalfHour(marryHour),
+                birthHour = FillUpToHalfHour(birthHour),
+                milkHour = FillUpToHalfHour(milkHour),
+                deadHour = FillUpToHalfHour(deadHour),
+                adjustHour = FillUpToHalfHour(adjustHour)
             };
         }
         #endregion
@@ -811,6 +811,13 @@ namespace XYD.Common
                 return true;
             }
             return false;
+        }
+        #endregion
+
+        #region 补满时间到半小时
+        public static double FillUpToHalfHour(double hour)
+        {
+            return Math.Ceiling(hour * 2) / 2;
         }
         #endregion
     }
