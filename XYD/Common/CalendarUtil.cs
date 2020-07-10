@@ -708,8 +708,8 @@ namespace XYD.Common
             var milkHour = GetHourByLeaveCategory(EmplID, "哺乳假", startDate, endDate);
             // 丧假
             var deadHour = GetHourByLeaveCategory(EmplID, "丧假", startDate, endDate);
-            // TODO: 特殊调整
-            var adjustHour = 0.0d;
+            // 特殊调整
+            var adjustHour = GetAdjustHourByUser(EmplID, startDate, endDate);
             return new XYD_Vocation_Report()
             {
                 yearHour = FillUpToHalfHour(yearHour),
@@ -736,6 +736,22 @@ namespace XYD.Common
                                                     && n.Status == DEP_Constants.Leave_Status_YES
                                                     && ((n.StartDate <= startDate.Date && n.EndDate >= endDate.Date) || (n.StartDate >= startDate.Date && n.EndDate <= endDate))).ToList();
                 return getTotalHours(records);
+            }
+        }
+        #endregion
+
+        #region 获取用户待调整时间
+        public static double GetAdjustHourByUser(string EmplID, DateTime startDate, DateTime endDate)
+        {
+            using (var db = new DefaultConnection())
+            {
+                var sum = 0.0;
+                var list = db.Adjust.Where(n => n.EmplID == EmplID && n.Date >= startDate && n.Date <= endDate).ToList();
+                foreach(var item in list)
+                {
+                    sum += item.Hours;
+                }
+                return sum;
             }
         }
         #endregion
@@ -773,7 +789,7 @@ namespace XYD.Common
         public static void CaculateLeftHour(double totalYearHour, double usedYearHour, double usedLeaveHour, double offTimeWork, double adjustHour, ref double leftYearHour, ref double leftLeaveHour, ref double leftOffTimeHour)
         {
             // 已剩年假
-            var remainYearHour = totalYearHour - usedYearHour - adjustHour;
+            var remainYearHour = totalYearHour - usedYearHour + adjustHour;
             // 计算剩余年假、剩余加班、剩余事假
             if (usedLeaveHour <= remainYearHour) // 先打年假
             {
