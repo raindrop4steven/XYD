@@ -700,6 +700,20 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 特殊调整
+    public class XYD_Adjust
+    {
+        [Key]
+        public int ID { get; set; }
+        // 用户ID
+        public string EmplID { get; set; }
+        // 日期
+        public DateTime Date { get; set; }
+        // 小时数
+        public double Hours { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -731,6 +745,7 @@ namespace XYD.Models
         public DbSet<XYD_Express> Express { get; set; }
         public DbSet<XYD_Attence> Attence { get; set; }
         public DbSet<XYD_BizTrip> BizTrip { get; set; }
+        public DbSet<XYD_Adjust> Adjust { get; set; }
     }
     #endregion
 }
