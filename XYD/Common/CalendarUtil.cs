@@ -118,9 +118,7 @@ namespace XYD.Common
             var attenceRecords = db.Attence.Where(n => n.EmplNo == employee.EmplNO).ToList().Where(n => DateTime.Parse(n.Day) >= StartDate.Date && DateTime.Parse(n.Day) <= lastDayTime).OrderBy(n => n.StartTime).ToList();
             // 区分按人和按日查询的条件，如果按照人查询，则条件开始时间<出勤开始 && 出勤结束 <条件结束;如果按照日查询，则出勤时间区间应包括条件时间
             var leaveRecord = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID && ((n.StartDate <= StartDate.Date && n.EndDate >= EndDate.Date) || (n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime))).ToList();
-            var bizTripRecord = db.BizTrip.Where(n => n.EmplID == employee.EmplID && ((n.StartDate <= StartDate.Date && n.EndDate >= EndDate.Date) || 
-                                                                                      (n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime)  ||
-                                                                                      (n.StartDate >= StartDate.Date && n.EndDate >= EndDate.Date))).ToList();
+            var bizTripRecord = db.BizTrip.Where(n => n.EmplID == employee.EmplID && n.StartDate <= lastDayTime && n.EndDate >= StartDate.Date).ToList();
             
             // 获得对应城市工作时间配置
             var sysConfig = GetSysConfigByUser(employee.EmplID);
@@ -142,9 +140,12 @@ namespace XYD.Common
                 dates.Add(entity);
                 details.Add(detail);
             }
+            
             // 如果是app中请假则需要统计进去
             if (needLeave)
             {
+                // 替换对应请假出差记录
+                var originDict = details.ToDictionary(n => n.Date, n => n);
                 // 调休
                 var adjustLeaveList = leaveRecord.Where(n => n.Category == "调休").ToList();
                 // 请假
@@ -156,20 +157,30 @@ namespace XYD.Common
                 foreach(var leave in adjustLeaveList)
                 {
                     var detailEntity = CreateLeaveCalendarDetail(sysConfig, leave);
-                    details.Add(detailEntity);
+                    if (originDict.ContainsKey(detailEntity.Date))
+                    {
+                        originDict[detailEntity.Date] = detailEntity;
+                    }
                 }
                 // 转化成考情详情
                 foreach (var leave in normalLeaveList)
                 {
                     var detailEntity = CreateLeaveCalendarDetail(sysConfig, leave);
-                    details.Add(detailEntity);
+                    if (originDict.ContainsKey(detailEntity.Date))
+                    {
+                        originDict[detailEntity.Date] = detailEntity;
+                    }
                 }
                 // 转化成考情详情
                 foreach (var trip in bizTripRecord)
                 {
                     var detailEntity = CreateTripCalendarDetail(sysConfig, trip);
-                    details.Add(detailEntity);
+                    if (originDict.ContainsKey(detailEntity.Date))
+                    {
+                        originDict[detailEntity.Date] = detailEntity;
+                    }
                 }
+                details = originDict.Values.Where(n => !(n.Type != CALENDAR_TYPE.Absent && n.StartTime == null)).ToList();
             }
             calendarResult.summary = summary;
             calendarResult.details = details;
@@ -227,7 +238,7 @@ namespace XYD.Common
             }
             detailEntity.Date = trip.StartDate.ToString("yyyy-MM-dd");
             detailEntity.Name = "出差";
-            detailEntity.Type = CALENDAR_TYPE.Adjust;
+            detailEntity.Type = CALENDAR_TYPE.BizTrp;
             return detailEntity;
         }
         #endregion

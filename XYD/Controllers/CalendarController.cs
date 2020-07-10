@@ -1,4 +1,5 @@
-﻿using Appkiz.Library.Security.Authentication;
+﻿using Appkiz.Library.Security;
+using Appkiz.Library.Security.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace XYD.Controllers
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
+                OrgMgr orgMgr = new OrgMgr();
+                employee = orgMgr.GetEmployee("100004");
                 // 获得指定年份放假和调休计划
                 var StartDate = new DateTime(currentMonth.Year, currentMonth.Month, 1);
                 DateTime EndDate;

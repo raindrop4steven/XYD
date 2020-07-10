@@ -458,6 +458,7 @@ namespace XYD.Controllers
                         LeftYearHour = Math.Round(leftYearHour, 2),
                         LeftWorfHour = Math.Round(leftOffTimeHour, 2),
                         LeftLeaveHour = Math.Round(leftLeaveHour, 2),
+                        AdjustHour = adjustHour,
                         RestYearHour = Math.Round(totalYearHour, 2)
                     });
                 }
@@ -715,35 +716,49 @@ namespace XYD.Controllers
 	                            LEFT JOIN ORG_Employee d ON a.EmplID = d.EmplID 
                                 {0} 
                             WHERE 1=1
-                                {1}", areaCondition, whereCondition);
+                            AND a.Status = 'YES'
+                                {1}
+                            ORDER BY
+                                a.StartDate DESC", areaCondition, whereCondition);
                 var list = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetLeaveRecord);
                 // 记录总页数
                 var totalCount = list.Count();
                 var results = list.Skip(Page * Size).Take(Size);
-
+                var vos = new List<XYD_Leave_Search_VO>();
                 foreach (XYD_Leave_Search item in results)
                 {
+                    XYD_Leave_Search_VO vo = new XYD_Leave_Search_VO();
+                    vo.EmplID = item.EmplID;
+                    vo.EmplName = item.EmplName;
+                    vo.EmplNO = item.EmplNO;
+                    vo.Category = item.Category;
+                    vo.Reason = item.Reason;
                     // 获得对应城市工作时间配置
                     var sysConfig = CalendarUtil.GetSysConfigByUser(item.EmplID);
                     if (CalendarUtil.IsDayDate(item.StartDate))
                     {
-                        item.TimeType = "天";    
+                        vo.TimeType = "天";
+                        vo.StartDate = item.StartDate.ToString("yyyy-MM-dd");
+                        vo.EndDate = item.EndDate == null ? string.Empty : item.EndDate.Value.ToString("yyyy-MM-dd");
                     }
                     else
                     {
-                        item.TimeType = "小时";
+                        vo.TimeType = "小时";
+                        vo.StartDate = item.StartDate.ToString("yyyy-MM-dd HH:mm");
+                        vo.EndDate = item.EndDate == null ? string.Empty : item.EndDate.Value.ToString("yyyy-MM-dd HH:mm");
                     }
-                    item.Hours = CalendarUtil.GetRealLeaveHours(sysConfig, item.StartDate, item.EndDate.Value);
                     if (item.Category == "补打卡")
                     {
-                        item.EndDate = null;
+                        vo.EndDate = string.Empty;
                     }
+                    vo.Hours = CalendarUtil.FillUpToHalfHour(CalendarUtil.GetRealLeaveHours(sysConfig, item.StartDate, item.EndDate.Value));
+                    vos.Add(vo);
                 }
                 var totalPage = (int)Math.Ceiling((float)totalCount / Size);
 
                 return ResponseUtil.OK(new
                 {
-                    results = results,
+                    results = vos,
                     meta = new
                     {
                         current_page = Page,
