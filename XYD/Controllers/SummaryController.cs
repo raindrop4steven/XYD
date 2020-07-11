@@ -48,7 +48,7 @@ namespace XYD.Controllers
                             userId = n.FirstOrDefault().ApplyUser,
                             userName = orgMgr.GetEmployee(n.FirstOrDefault().ApplyUser).EmplName,
                             deptName = orgMgr.GetEmployee(n.FirstOrDefault().ApplyUser).DeptName,
-                            amount = n.Sum(x => float.Parse(x.TotalAmount))
+                            amount = n.Sum(x => decimal.Parse(x.TotalAmount))
                         }).OrderByDescending(n => n.amount).ToList();
                     var totalCount = filterList.Count();
                     var results = filterList.Skip(Page * Size).Take(Size);

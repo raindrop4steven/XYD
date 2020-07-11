@@ -189,7 +189,7 @@ namespace XYD.Controllers
                                 // 科目已确定，一条借
                                 voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, record.TotalTaxFreeNum, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, VendorNo, string.Empty, string.Empty);
                                 Results.Add(voucher);
-                                if (float.Parse(record.TotalTaxNum) > 0)
+                                if (decimal.Parse(record.TotalTaxNum) > 0)
                                 {
                                     // 加一条税金科目
                                     voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, subCode.Tax.Code, record.TotalTaxNum, 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, string.Empty, string.Empty, string.Empty);
@@ -240,12 +240,12 @@ namespace XYD.Controllers
                                 }
                                 brief = string.Format("{0} {1} {2} {3}", invoiceInfo.billingTime, invoiceInfo.invoiceNumber, invoiceInfo.salesName, voucherName);
                                 // 累计总额，最后一个借需要税前-累计，因为有四舍五入
-                                float currentSum = 0.0f;
+                                decimal currentSum = 0;
                                 // 按照人员，多个借，多个税金，一个贷
                                 for(int j = 0; j < expressList.Count; j++)
                                 {
                                     var express = expressList[j];
-                                    var amount = 0.0f;
+                                    decimal amount = 0;
                                     // 申请人从快递表里取
                                     ApplyUser = orgMgr.GetEmployee(express.SenderId);
                                     if (subCode.Debit.DeptNo)
@@ -258,18 +258,18 @@ namespace XYD.Controllers
                                     if (j == expressList.Count - 1)
                                     {
                                         // 最后一条
-                                        amount = float.Parse(record.TotalAmount) - currentSum;
+                                        amount = decimal.Parse(record.TotalAmount) - currentSum;
                                     }
                                     else
                                     {
-                                        amount = float.Parse(express.Amount.ToString());
-                                        currentSum += float.Parse(express.Amount.ToString());
+                                        amount = decimal.Parse(express.Amount.ToString());
+                                        currentSum += decimal.Parse(express.Amount.ToString());
                                     }
                                     // 科目已确定，一条借
                                     voucher = string.Format(VoucherFormat, CreateTime, "记", index, brief, VoucherCode, amount.ToString(), 0, string.Empty, 0, DeptNo, ApplyUser.EmplNO, string.Empty, VendorNo, string.Empty, string.Empty);
                                     Results.Add(voucher);
                                 }
-                                if (float.Parse(record.TotalTaxNum) > 0)
+                                if (decimal.Parse(record.TotalTaxNum) > 0)
                                 {
                                     var addDeptNo = string.Empty;
                                     var addUserEmplNo = string.Empty;
