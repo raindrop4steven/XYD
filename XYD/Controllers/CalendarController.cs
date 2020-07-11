@@ -22,7 +22,6 @@ namespace XYD.Controllers
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
                 OrgMgr orgMgr = new OrgMgr();
-                employee = orgMgr.GetEmployee("100004");
                 // 获得指定年份放假和调休计划
                 var StartDate = new DateTime(currentMonth.Year, currentMonth.Month, 1);
                 DateTime EndDate;
