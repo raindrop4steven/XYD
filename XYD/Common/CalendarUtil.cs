@@ -249,7 +249,8 @@ namespace XYD.Common
             //var attence = attenceRecords.Where(n => n.StartTime >= d.Date && (n.EndTime <= lastDayTime || n.EndTime == null)).FirstOrDefault();
             var attence = attenceRecords.Where(n => DateTime.Parse(n.Day) == d.Date).FirstOrDefault();
             // 出勤记录: 一种是出勤时间在一天内，属于小时，为条件1；第二种隔天是天数，为条件2
-            var leave = leaveRecord.Where(n => n.StartDate <= lastDayTime && n.EndDate >= d.Date && n.Status == Leave_Status_YES).FirstOrDefault();
+            var orignLeaves = leaveRecord.Where(n => n.StartDate <= lastDayTime && n.EndDate >= d.Date && n.Status == Leave_Status_YES).ToList();
+            var leave = orignLeaves.FirstOrDefault();
             // 出差记录
             var bizTrip = bizTripRecord.Where(n => n.StartDate <= lastDayTime && n.EndDate >= d.Date).FirstOrDefault();
 
@@ -284,7 +285,7 @@ namespace XYD.Common
                     entity.Type = isHoliday ? CALENDAR_TYPE.Holiday : CALENDAR_TYPE.Rest;
                     entity.Name = leave.Category;
                     // 增加备注
-                    detail.Memo += GenerateLeaveMemo(leave, leaveHour);
+                    detail.Memo = GenerateLeaveMemo(leave, leaveHour, detail.Memo);
                 }
                 else if (holidayDict.ContainsKey(date))
                 {
@@ -338,7 +339,7 @@ namespace XYD.Common
                             }
                             
                             // 增加备注
-                            detail.Memo += GenerateLeaveMemo(leave, leaveHour);
+                            detail.Memo = GenerateLeaveMemo(leave, leaveHour, detail.Memo);
                         }
                         else
                         {
@@ -365,13 +366,16 @@ namespace XYD.Common
                         // 有考勤，又请假，说明是小时假
                         if (hasLeave)
                         {
-                            leaveHour =  GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
-                            if(IsLeaveAsWork(leave) && !NeedUpdateAttence(leave) && ShouldAddLeaveHour(leave, attence))
+                            foreach(var subLeave in orignLeaves)
                             {
-                                workHours += leaveHour;
+                                var subLeaveHour = GetRealLeaveHours(sysConfig, subLeave.StartDate, subLeave.EndDate);
+                                leaveHour += subLeaveHour;
+                                if (IsLeaveAsWork(subLeave) && !NeedUpdateAttence(subLeave) && ShouldAddLeaveHour(subLeave, attence))
+                                {
+                                    workHours += subLeaveHour;
+                                }
+                                detail.Memo = GenerateLeaveMemo(subLeave, subLeaveHour, detail.Memo);
                             }
-                            
-                            detail.Memo += GenerateLeaveMemo(leave, leaveHour);
                         }
                         // 判断是否有出差
                         if (hasBizTrip)
@@ -434,7 +438,7 @@ namespace XYD.Common
         #endregion
 
         #region 格式化出勤日志
-        public static string GenerateLeaveMemo(XYD_Leave_Record leave, double leaveHour)
+        public static string GenerateLeaveMemo(XYD_Leave_Record leave, double leaveHour, string currentMemo)
         {
             string memo;
             if (leave.Category == "补打卡")
@@ -445,7 +449,15 @@ namespace XYD.Common
             {
                 memo = string.Format("今日{0}{1}小时", leave.Category, leaveHour);
             }
-            return memo;
+            if (string.IsNullOrEmpty(currentMemo))
+            {
+                currentMemo = memo;
+            }
+            else
+            {
+                currentMemo += string.Format(";{0}", memo);
+            }
+            return currentMemo;
         }
         #endregion
 
