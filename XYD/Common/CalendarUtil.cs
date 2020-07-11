@@ -117,7 +117,7 @@ namespace XYD.Common
             //var attenceRecords = db.Attence.Where(n => n.EmplNo == employee.EmplNO && n.StartTime >= StartDate.Date && (n.EndTime <= lastDayTime || n.EndTime == null)).OrderBy(n => n.StartTime).ToList();
             var attenceRecords = db.Attence.Where(n => n.EmplNo == employee.EmplNO).ToList().Where(n => DateTime.Parse(n.Day) >= StartDate.Date && DateTime.Parse(n.Day) <= lastDayTime).OrderBy(n => n.StartTime).ToList();
             // 区分按人和按日查询的条件，如果按照人查询，则条件开始时间<出勤开始 && 出勤结束 <条件结束;如果按照日查询，则出勤时间区间应包括条件时间
-            var leaveRecord = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID && ((n.StartDate <= StartDate.Date && n.EndDate >= EndDate.Date) || (n.StartDate >= StartDate.Date && n.EndDate <= lastDayTime))).ToList();
+            var leaveRecord = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID && n.StartDate <= lastDayTime && n.EndDate >= StartDate.Date).ToList();
             var bizTripRecord = db.BizTrip.Where(n => n.EmplID == employee.EmplID && n.StartDate <= lastDayTime && n.EndDate >= StartDate.Date).ToList();
             
             // 获得对应城市工作时间配置
@@ -249,9 +249,9 @@ namespace XYD.Common
             //var attence = attenceRecords.Where(n => n.StartTime >= d.Date && (n.EndTime <= lastDayTime || n.EndTime == null)).FirstOrDefault();
             var attence = attenceRecords.Where(n => DateTime.Parse(n.Day) == d.Date).FirstOrDefault();
             // 出勤记录: 一种是出勤时间在一天内，属于小时，为条件1；第二种隔天是天数，为条件2
-            var leave = leaveRecord.Where(n => ((n.StartDate >= d.Date && n.EndDate <= lastDayTime) || (n.StartDate <= d.Date && CommonUtils.EndOfDay(n.EndDate) >= d.Date)) && n.Status == Leave_Status_YES).FirstOrDefault();
+            var leave = leaveRecord.Where(n => n.StartDate <= lastDayTime && n.EndDate >= d.Date && n.Status == Leave_Status_YES).FirstOrDefault();
             // 出差记录
-            var bizTrip = bizTripRecord.Where(n => ((n.StartDate >= d.Date && n.EndDate <= lastDayTime) || (n.StartDate <= d.Date && CommonUtils.EndOfDay(n.EndDate) >= d.Date))).FirstOrDefault();
+            var bizTrip = bizTripRecord.Where(n => n.StartDate <= lastDayTime && n.EndDate >= d.Date).FirstOrDefault();
 
             // 定义对应考勤请假出差变量
             var hasAttence = attence != null;
@@ -437,9 +437,9 @@ namespace XYD.Common
         public static string GenerateLeaveMemo(XYD_Leave_Record leave, double leaveHour)
         {
             string memo;
-            if (NeedUpdateAttence(leave))
+            if (leave.Category == "补打卡")
             {
-                memo = string.Format("今日{0} {1}", leave.Category, leave.StartDate.ToString("HH:mm:00"));
+                memo = string.Format("今日{0} {1}", leave.Category, leave.StartDate.ToString("HH:mm"));
             }
             else
             {
