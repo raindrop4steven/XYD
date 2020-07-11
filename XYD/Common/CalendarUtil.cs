@@ -145,42 +145,32 @@ namespace XYD.Common
             if (needLeave)
             {
                 // 替换对应请假出差记录
-                var originDict = details.ToDictionary(n => n.Date, n => n);
                 // 调休
                 var adjustLeaveList = leaveRecord.Where(n => n.Category == "调休").ToList();
                 // 请假
                 var normalLeaveList = leaveRecord.Where(n => n.Category.Contains("假")).ToList();
-                summary[CALENDAR_TYPE.Adjust] += adjustLeaveList.Count;
-                summary[CALENDAR_TYPE.Leave] += normalLeaveList.Count;
-                summary[CALENDAR_TYPE.BizTrp] += bizTripRecord.Count;
+                summary[CALENDAR_TYPE.Adjust] = adjustLeaveList.Count;
+                summary[CALENDAR_TYPE.Leave] = normalLeaveList.Count;
+                summary[CALENDAR_TYPE.BizTrp] = bizTripRecord.Count;
                 // 转化成考情详情
                 foreach(var leave in adjustLeaveList)
                 {
                     var detailEntity = CreateLeaveCalendarDetail(sysConfig, leave);
-                    if (originDict.ContainsKey(detailEntity.Date))
-                    {
-                        originDict[detailEntity.Date] = detailEntity;
-                    }
+                    details.Add(detailEntity);
                 }
                 // 转化成考情详情
                 foreach (var leave in normalLeaveList)
                 {
                     var detailEntity = CreateLeaveCalendarDetail(sysConfig, leave);
-                    if (originDict.ContainsKey(detailEntity.Date))
-                    {
-                        originDict[detailEntity.Date] = detailEntity;
-                    }
+                    details.Add(detailEntity);
                 }
                 // 转化成考情详情
                 foreach (var trip in bizTripRecord)
                 {
                     var detailEntity = CreateTripCalendarDetail(sysConfig, trip);
-                    if (originDict.ContainsKey(detailEntity.Date))
-                    {
-                        originDict[detailEntity.Date] = detailEntity;
-                    }
+                    details.Add(detailEntity);
                 }
-                details = originDict.Values.Where(n => !(n.Type != CALENDAR_TYPE.Absent && n.StartTime == null)).ToList();
+                details = details.Where(n => !(n.Type != CALENDAR_TYPE.Absent && n.StartTime == null)).ToList();
             }
             calendarResult.summary = summary;
             calendarResult.details = details;
