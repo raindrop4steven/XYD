@@ -679,7 +679,7 @@ namespace XYD.Controllers
 
         #region 出勤记录统计
         [Authorize]
-        public ActionResult SearchLeave(string Year, string Area, string Name, int Page, int Size)
+        public ActionResult SearchLeave(string Year, string Area, string Name, string Category,  int Page, int Size)
         {
             try
             {
@@ -701,7 +701,7 @@ namespace XYD.Controllers
                 // 年份
                 var startYearDate = string.Format("{0}-01-01", Year);
                 var endYearDate =string.Format("{0}-12-31 23:59:59", Year);
-                var whereCondition = string.Format("and a.StartDate >= '{0}' and a.EndDate <= '{1}' and d.EmplName like '%{2}%'", startYearDate, endYearDate, Name);
+                var whereCondition = string.Format("and a.StartDate >= '{0}' and a.EndDate <= '{1}' and d.EmplName like '%{2}%' and a.Category like '{3}%'", startYearDate, endYearDate, Name, Category);
                 
                 var sql = string.Format(@"SELECT
                                 d.EmplID,
