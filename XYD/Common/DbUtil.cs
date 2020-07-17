@@ -1013,5 +1013,31 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 统计详情
+        public static List<object> ExpenseDetailHandler(SqlDataReader reader)
+        {
+            var ResultList = new List<object>();
+            while (reader.Read())
+            {
+                var MessageID = reader.GetString(1);
+                var MessageTitle = reader.GetString(2);
+                var CreateTime = reader.GetDateTime(3);
+                var Sn = reader.GetString(4);
+                var TotalAmount = reader.GetString(5);
+                var EmplName = reader.GetString(7);
+                var DeptName = reader.GetString(8);
+                var expense = new XYD_Expense();
+                expense.MessageID = MessageID;
+                expense.MessageTitle = MessageTitle;
+                expense.CreateTime = CreateTime;
+                expense.Sn = Sn;
+                expense.TotalAmount = TotalAmount;
+                expense.EmplName = EmplName;
+                expense.DeptName = DeptName;
+                ResultList.Add(expense);
+            }
+            return ResultList;
+        }
+        #endregion
     }
 }

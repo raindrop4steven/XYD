@@ -235,4 +235,17 @@ namespace XYD.Entity
         public double adjustHour;
     }
     #endregion
+
+    #region 报销统计
+    public class XYD_Expense
+    {
+        public string MessageID { get; set; }
+        public string MessageTitle { get; set; }
+        public DateTime CreateTime { get; set; }
+        public string Sn { get; set; }
+        public string TotalAmount { get; set; }
+        public string EmplName { get; set; }
+        public string DeptName { get; set; }
+    }
+    #endregion
 }

@@ -3,6 +3,7 @@ using Appkiz.Library.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using XYD.Common;
@@ -71,6 +72,70 @@ namespace XYD.Controllers
             {
                 return ResponseUtil.Error(e.Message);
             }
+        }
+        #endregion
+
+        #region 报销统计详情
+        [Authorize]
+        public ActionResult ExpenseDetail(string EmplID, string Category, DateTime? StartDate, DateTime? EndDate, int Page=0, int Size=10)
+        {
+            var whereBudier = new StringBuilder();
+            whereBudier.Append(string.Format(" AND a.ApplyUser = '{0}'", EmplID));
+            whereBudier.Append(string.Format(" AND b.MessageTitle LIKE '{0}%'", Category));
+            if (StartDate != null)
+            {
+                whereBudier.Append(string.Format(" AND a.CreateTime >= '{0}'", CommonUtils.StartOfDay(StartDate.Value)));
+            }
+            if (EndDate != null)
+            {
+                whereBudier.Append(string.Format(" AND a.CreateTime <= '{0}'", CommonUtils.EndOfDay(EndDate.Value)));
+            }
+            var sql = string.Format(@"SELECT
+	                        a.MessageID,
+	                        b.MessageTitle,
+	                        a.CreateTime,
+	                        a.Sn,
+	                        a.TotalAmount,
+	                        a.ApplyUser,
+	                        c.EmplName,
+	                        d.DeptName
+                        FROM
+	                        XYD_Voucher a
+	                        LEFT JOIN WKF_Message b ON a.MessageID = b.MessageID
+	                        LEFT JOIN ORG_Employee c ON a.ApplyUser = c.EmplID
+	                        LEFT JOIN ORG_Department d ON c.DeptID = d.DeptID
+                        WHERE
+	                        a.MessageID != 'Invoice' 
+                            {0}", whereBudier.ToString());
+            //开始位置
+            var startPage = Size * Page;
+            //结束位置
+            var endPage = startPage + Size;
+
+            // 获得Union语句
+            var finalSql = string.Format("select ROW_NUMBER () OVER (ORDER BY t.CreateTime DESC) number, t.* from ({0}) t", sql);
+
+            // 总数
+            int totalRecouds = DbUtil.ExecuteScalar(string.Format(@"select count(0) from ({0}) as a", finalSql));
+            //总页数
+            var totalPages = totalRecouds % Size == 0 ? totalRecouds / Size : totalRecouds / Size + 1;
+
+            var sqlPage = string.Format(@"select a.* from ({0}) a where a.number >= {1} and a.number < {2}", finalSql, startPage, endPage);
+
+            var results = DbUtil.ExecuteSqlCommand(sqlPage, DbUtil.ExpenseDetailHandler);
+            return ResponseUtil.OK(new
+            {
+                results = results,
+                meta = new
+                {
+                    current_page = Page,
+                    total_page = totalPages,
+                    current_count = Page * Size + results.Count(),
+                    total_count = totalRecouds,
+                    per_page = Size
+                }
+            });
+
         }
         #endregion
     }

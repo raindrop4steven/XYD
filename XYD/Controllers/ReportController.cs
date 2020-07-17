@@ -775,5 +775,27 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 出勤类型
+        public ActionResult LeaveCategory()
+        {
+            var categoryList = new List<string>()
+            {
+                "事假",
+                "病假",
+                "年假",
+                "婚假",
+                "产假",
+                "哺乳假",
+                "丧假",
+                "加班",
+                "调休",
+                "外勤",
+                "补打卡",
+                "补外勤"
+            };
+            return ResponseUtil.OK(categoryList);
+        }
+        #endregion
     }
 }
