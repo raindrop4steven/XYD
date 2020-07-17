@@ -797,5 +797,23 @@ namespace XYD.Controllers
             return ResponseUtil.OK(categoryList);
         }
         #endregion
+
+        #region 报销统计类型
+        [Authorize]
+        public ActionResult ExpenseCategory()
+        {
+            var categoryList = new List<string>()
+            {
+                "车辆费用报销",
+                "出差费用报销",
+                "代付费用报销",
+                "付款申请",
+                "其他现金支付报销",
+                "物品采购费用报销",
+                "业务接待费报销"
+            };
+            return ResponseUtil.OK(categoryList);
+        }
+        #endregion
     }
 }
