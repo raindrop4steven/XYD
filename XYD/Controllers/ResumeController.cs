@@ -220,6 +220,10 @@ namespace XYD.Controllers
         {
             try
             {
+                // 开始月第一天零点
+                BeginDate = DateTime.Parse(BeginDate.ToString("yyyy-MM-01 00:00:00"));
+                // 结束月最后一天最后一秒
+                EndDate = DateTime.Parse(EndDate.ToString("yyyy-MM-01")).AddMonths(1).AddTicks(-1);
                 // 检查用户是否具有领导权限
                 var employee = (User.Identity as AppkizIdentity).Employee;
                 var isLeader = PermUtil.CheckPermission(employee.EmplID, DEP_Constants.Module_Information_Code, DEP_Constants.Perm_Info_Leader);
