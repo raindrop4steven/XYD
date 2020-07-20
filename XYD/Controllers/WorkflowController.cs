@@ -142,7 +142,7 @@ namespace XYD.Controllers
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
 
-                XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, NodeId, MessageID);
+                XYD_Fields fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, NodeId, MessageID);
                 return ResponseUtil.OK(fields);
             }
             catch (Exception e)
@@ -636,7 +636,7 @@ namespace XYD.Controllers
                         worksheet.SetCellValue(row, col, sn, string.Empty);
                         worksheet.Save();
                     }
-                    XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, DEP_Constants.Start_Node_Key, mid);
+                    XYD_Fields fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, DEP_Constants.Start_Node_Key, mid);
                     return ResponseUtil.OK(fields);
                 }
             }

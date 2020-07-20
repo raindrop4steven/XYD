@@ -122,7 +122,7 @@ namespace XYD.Controllers
                     worksheet.Document = xmlDocument.InnerXml;
                     smgr.UpdateWorksheet(worksheet);
                 }
-                var fields = WorkflowUtil.GetStartFields(employee.EmplID, nid, mid);
+                var fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, nid, mid);
                 return ResponseUtil.OK(EventResult.OK(fields));
             }
             catch (Exception e)
@@ -174,7 +174,7 @@ namespace XYD.Controllers
                 worksheet.SetCellValue(workcell.WorkcellRow, workcell.WorkcellCol, NewValue, NewInternalValue);
                 worksheet.Save();
                 this.wmgr.DelAttachment(attId);
-                var fields = WorkflowUtil.GetStartFields(employee.EmplID, nid, mid);
+                var fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, nid, mid);
                 return ResponseUtil.OK(EventResult.OK(fields));
             }
             catch (Exception e)

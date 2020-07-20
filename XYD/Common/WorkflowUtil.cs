@@ -37,7 +37,7 @@ namespace XYD.Common
         /// <returns></returns>
         public static string GetConfigPath(string templateID, string mid, string type)
         {
-            string version = GetConfigVersion(mid);
+            string version = GetConfigVersion(templateID, mid);
             string folderPath = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], templateID, version);
             string configName = string.Empty;
             if (type == DEP_Constants.Config_Type_Main)
@@ -83,8 +83,7 @@ namespace XYD.Common
             Message message = mgr.GetMessage(mid);
             var templateID = message.FromTemplate;
             var defaultVersion = GetDefaultConfigVersion(templateID);
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], templateID, defaultVersion, "main.json");
-
+            var filePathName = GetConfigPath(templateID, mid, DEP_Constants.Config_Type_Main);
             using (StreamReader sr = new StreamReader(filePathName))
             {
                 var config = JsonConvert.DeserializeObject<DEP_Node>(sr.ReadToEnd());
@@ -320,93 +319,144 @@ namespace XYD.Common
         #endregion
 
         #region 填充cell的值
-        public static void FillCellValue(string emplId, string NodeId, string MessageID, Worksheet worksheet, XYD_Base_Cell cell, bool canEdit)
+        public static XYD_Base_Cell FillCellValue(string emplId, string NodeId, string MessageID, Worksheet worksheet, XYD_Base_Cell cell)
         {
-            XYD_Single_Cell singleCell = null;
-            XYD_Array_Cell arrayCell = null;
+            Dictionary<string, int> nodeFeildDict = GetNodeFieldDict(MessageID, NodeId);
             if (cell.Type == 0)
             {
-                singleCell = (XYD_Single_Cell)cell;
-                var workcell = worksheet.GetWorkcell(singleCell.Value.Row, singleCell.Value.Col);
-                if (singleCell.Value.Type != 10) // 除附件之外
-                {
-                    singleCell.Value.Value = workcell.WorkcellValue;
-                    singleCell.Value.InterValue = workcell.WorkcellInternalValue;
-                } else
-                {
-                    // 10，附件
-                    var attachments = new List<object>();
-                    var internalAttachs = workcell.WorkcellInternalValue.Split(';').ToList();
-                    foreach (var attachId in internalAttachs)
-                    {
-                        if (string.IsNullOrEmpty(attachId))
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            var attachment = mgr.GetAttachment(attachId);
-                            attachment.AttFileSize = attachment.AttFileSize / 1000;
-                            attachments.Add(attachment);
-                        }
-                    }
-                    singleCell.Value.Atts = attachments;
-                }
-                
-                singleCell.Value = CommonUtils.ParseCellValue(emplId, NodeId, MessageID, singleCell.Value);
-                if (!canEdit)
-                {
-                    singleCell.Value.CanEdit = canEdit;
-                    singleCell.Value.Required = false;
-                }
+                var singleCell = (XYD_Single_Cell) cell;
+                singleCell.Value = ParseInnerCell(emplId, NodeId, MessageID, worksheet, singleCell.Value, nodeFeildDict);
+                return singleCell;
             }
             else if (cell.Type == 3)
             {
-                arrayCell = (XYD_Array_Cell)cell;
+                var arrayCell = (XYD_Array_Cell)cell;
                 foreach (List<XYD_Cell_Value> rowCells in arrayCell.Array)
                 {
                     for (int i= 0; i < rowCells.Count; i++)
                     {
-                        XYD_Cell_Value innerCell = rowCells[i];
-                        var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
-                        if (innerCell.Type != 10)
-                        {
-                            innerCell.Value = workcell.WorkcellValue;
-                            innerCell.InterValue = workcell.WorkcellInternalValue;
-                        }
-                        else
-                        {
-                            // 10，附件
-                            var attachments = new List<object>();
-                            var internalAttachs = workcell.WorkcellInternalValue.Split(';').ToList();
-                            foreach (var attachId in internalAttachs)
-                            {
-                                if (string.IsNullOrEmpty(attachId))
-                                {
-                                    continue;
-                                }
-                                else
-                                {
-                                    var attachment = mgr.GetAttachment(attachId);
-                                    attachments.Add(attachment);
-                                }
-                            }
-                            innerCell.Atts = attachments;
-                        }
-                        
-                        innerCell = CommonUtils.ParseCellValue(emplId, NodeId, MessageID, innerCell);
-                        if (!canEdit)
-                        {
-                            innerCell.CanEdit = canEdit;
-                            innerCell.Required = false;
-                        }
+                        var innerCell = rowCells[i];
+                        rowCells[i] = ParseInnerCell(emplId, NodeId, MessageID, worksheet, innerCell, nodeFeildDict);
                     }
                 }
+
+                return arrayCell;
             }
             else
             {
                 throw new Exception("不支持的类型");
             }
+        }
+        #endregion
+
+        #region 解析内部Cell
+        public static XYD_Cell_Value ParseInnerCell(string emplId, string NodeId, string MessageID, Worksheet worksheet, 
+            XYD_Cell_Value innerCell, Dictionary<string, int> NodeFieldDict)
+        {
+            var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
+            if (innerCell.Type != 10)
+            {
+                innerCell.Value = workcell.WorkcellValue;
+                innerCell.InterValue = workcell.WorkcellInternalValue;
+            }
+            else
+            {
+                // 10，附件
+                var attachments = new List<object>();
+                var internalAttachs = workcell.WorkcellInternalValue.Split(';').ToList();
+                foreach (var attachId in internalAttachs)
+                {
+                    if (string.IsNullOrEmpty(attachId))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        var attachment = mgr.GetAttachment(attachId);
+                        attachments.Add(attachment);
+                    }
+                }
+                innerCell.Atts = attachments;
+            }
+            // 解析CanEdit和Required在前，最后解析#customFunc
+            if (innerCell.CanEdit != null && innerCell.CanEdit is bool)
+            {
+                var canEdit = false;
+                var required = false;
+                var workcellId = ConvertToWorkcellId(innerCell.Row, innerCell.Col);
+                // Cell是否能编辑包含2个条件：
+                // 1. Cell是否在改节点NodeField中
+                // 2. Cell的控件类型是否是可编辑的
+                if (NodeFieldDict.ContainsKey(workcellId))
+                {
+                    int control = NodeFieldDict[workcellId];
+                    canEdit = !isReadonlyCell(workcell.WorkcellDataSource);
+                    required = control == 2; // 1:可空；2：必填
+                }
+                innerCell.CanEdit = canEdit;
+                innerCell.Required = required;
+            }
+            
+            innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
+            return innerCell;
+        }
+        #endregion
+
+        #region 判断Cell是否可以编辑
+        public static bool isReadonlyCell(Enum_WorkcellDataSource source)
+        {   
+            // //以下类型不允许单元格有“进入”的动作
+            var readonlySource = new List<Enum_WorkcellDataSource>()
+            {
+                Enum_WorkcellDataSource.AutoNum,
+                Enum_WorkcellDataSource.DataGrid,
+                Enum_WorkcellDataSource.CurrentUser,
+                Enum_WorkcellDataSource.CurrentPeopleName,
+                Enum_WorkcellDataSource.CurrentPeopleDepartment,
+                Enum_WorkcellDataSource.CurrentDate,
+                Enum_WorkcellDataSource.CurrentTime,
+                Enum_WorkcellDataSource.CurrentDateTime,
+                Enum_WorkcellDataSource.CurrentPeopleOrg,
+                Enum_WorkcellDataSource.CurrentPeopleDeptAndPos,
+                Enum_WorkcellDataSource.CurrentPeoplePosition,
+                Enum_WorkcellDataSource.CurrentPeopleManageOrg,
+                Enum_WorkcellDataSource.CurrentPeopleDepartmentID,
+                Enum_WorkcellDataSource.CurrentPeopleDepartmentShortName,
+                Enum_WorkcellDataSource.CurrentPeopleEmail
+            };
+            return readonlySource.Contains(source);
+        }
+
+        #endregion
+
+        #region 行列转成WorkCellID
+        public static string ConvertToWorkcellId(int row, int col)
+        {
+            return ((char) (col + 65 - 1)).ToString() + row.ToString();
+        }
+        #endregion
+
+        #region 获取NodeField
+
+        public static Dictionary<string, int> GetNodeFieldDict(string mid, string nid)
+        {
+            var doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+            List<NodeField> nodeFields = mgr.FindNodeField("MessageID=@MessageID AND NodeKey=@NodeKey AND DocId=@DocId", new Dictionary<string, object>()
+            {
+                {
+                    "@MessageID",
+                    mid
+                },
+                {
+                    "@NodeKey",
+                    nid
+                },
+                {
+                    "@DocId",
+                    doc.DocID
+                }
+            }, "");
+            return nodeFields.ToDictionary(n => n.FieldKey, n => n.Control);
         }
         #endregion
 
@@ -757,30 +807,6 @@ namespace XYD.Common
         }
         #endregion
 
-        #region 获得发起流程的表单配置
-        public static XYD_Fields GetStartFields(string emplId, string NodeId, string MessageID)
-        {
-            Message message = mgr.GetMessage(MessageID);
-            Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
-            Worksheet worksheet = doc.Worksheet;
-            var templateId = message.FromTemplate;
-            var defaultVersion = GetDefaultConfigVersion(templateId);
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], templateId, defaultVersion, "start.json");
-
-            using (StreamReader sr = new StreamReader(filePathName))
-            {
-                var fields = JsonConvert.DeserializeObject<XYD_Fields>(sr.ReadToEnd(), new XYDCellJsonConverter());
-
-                foreach (XYD_Base_Cell cell in fields.Fields)
-                {
-                    // 查找对应的值
-                    FillCellValue(emplId, NodeId, MessageID, worksheet, cell, true);
-                }
-                return fields;
-            }
-        }
-        #endregion
-
         #region 获得表单详情
         public static XYD_Fields GetWorkflowFields(string emplId, string NodeId, string MessageID)
         {
@@ -789,16 +815,15 @@ namespace XYD.Common
             Worksheet worksheet = doc.Worksheet;
             var templateId = message.FromTemplate;
             var filePathName = GetConfigPath(templateId, message.MessageID, DEP_Constants.Config_Type_Start);
-            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-start.json", message.FromTemplate));
 
             using (StreamReader sr = new StreamReader(filePathName))
             {
                 var fields = JsonConvert.DeserializeObject<XYD_Fields>(sr.ReadToEnd(), new XYDCellJsonConverter());
 
-                foreach (XYD_Base_Cell cell in fields.Fields)
+                for (int i = 0; i < fields.Fields.Count; i++)
                 {
-                    // 查找对应的值
-                    FillCellValue(emplId, NodeId, MessageID, worksheet, cell, false);
+                    XYD_Base_Cell cell = fields.Fields[i];
+                    fields.Fields[i] = FillCellValue(emplId, NodeId, MessageID, worksheet, cell);
                 }
                 return fields;
             }
@@ -878,11 +903,9 @@ namespace XYD.Common
                 if (cell.Type == 0)
                 {
                     singleCell = (XYD_Single_Cell)cell;
-                    var workcell = worksheet.GetWorkcell(singleCell.Value.Row, singleCell.Value.Col);
-                    if (workcell != null && singleCell.Value.Type != 10)
+                    var workcell = AssignWorkCell(worksheet, singleCell.Value);
+                    if (workcell != null)
                     {
-                        workcell.WorkcellValue = singleCell.Value.Value;
-                        workcell.WorkcellInternalValue = singleCell.Value.InterValue;
                         workCellList.Add(workcell);
                     }
                 }
@@ -893,11 +916,9 @@ namespace XYD.Common
                     {
                         foreach (XYD_Cell_Value innerCell in rowCells)
                         {
-                            var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
-                            if (workcell != null && innerCell.Type != 10)
+                            var workcell = AssignWorkCell(worksheet, innerCell);
+                            if (workcell != null)
                             {
-                                workcell.WorkcellValue = innerCell.Value;
-                                workcell.WorkcellInternalValue = innerCell.InterValue;
                                 workCellList.Add(workcell);
                             }
                         }
@@ -912,6 +933,22 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 表单数据赋值Worksheet
+
+        public static Workcell AssignWorkCell(Worksheet worksheet, XYD_Cell_Value innerCell)
+        {
+            var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
+            if (workcell != null && innerCell.Type != 10 && innerCell.CanEdit == true)
+            {
+                workcell.WorkcellValue = innerCell.Value;
+                workcell.WorkcellInternalValue = innerCell.InterValue;
+                return workcell;
+            }
+
+            return null;
+        }
+        #endregion
+
         #region 签批申请
         public static void AuditMessage(string mid, string nid, string operate, string opinion)
         {
@@ -921,7 +958,6 @@ namespace XYD.Common
             Worksheet worksheet = doc.Worksheet;
             var templateId = message.FromTemplate;
             var filePathName = GetConfigPath(templateId, message.MessageID, DEP_Constants.Config_Type_Audit);
-            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-audit.json", message.FromTemplate));
             using (StreamReader sr = new StreamReader(filePathName))
             {
                 var nodes = JsonConvert.DeserializeObject<XYD_Audit>(sr.ReadToEnd(), new XYDCellJsonConverter());
@@ -962,7 +998,6 @@ namespace XYD.Common
             var message = mgr.GetMessage(mid);
             var templateId = message.FromTemplate;
             var filePathName = GetConfigPath(templateId, message.MessageID, DEP_Constants.Config_Type_Audit);
-            //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-audit.json", message.FromTemplate));
             using (StreamReader sr = new StreamReader(filePathName))
             {
                 var nodes = JsonConvert.DeserializeObject<XYD_Audit>(sr.ReadToEnd(), new XYDCellJsonConverter());
@@ -1169,48 +1204,38 @@ namespace XYD.Common
         #region 获得节点事件
         public static XYD_Event GetCellEvent(string mid, int row, int col)
         {
-            try
+            /*
+             * 根据模板ID获得对应的配置
+             */
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            XYD_Event resultEvent = null;
+
+            Message message = mgr.GetMessage(mid);
+            var templateID = message.FromTemplate;
+            var filePathName = GetConfigPath(templateID, mid, DEP_Constants.Config_Type_Event);
+            using (StreamReader sr = new StreamReader(filePathName))
             {
-                /*
-                 * 根据模板ID获得对应的配置
-                 */
-                Dictionary<string, object> dict = new Dictionary<string, object>();
+                var config = JsonConvert.DeserializeObject<XYD_EventCells>(sr.ReadToEnd());
 
-                XYD_Event resultEvent = null;
-
-                Message message = mgr.GetMessage(mid);
-                var templateID = message.FromTemplate;
-                var defaultVersion = GetDefaultConfigVersion(templateID);
-                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], templateID, defaultVersion, "event.json");
-                //var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], string.Format("{0}-event.json", templateID));
-
-                using (StreamReader sr = new StreamReader(filePathName))
+                foreach (var eventCell in config.cells)
                 {
-                    var config = JsonConvert.DeserializeObject<XYD_EventCells>(sr.ReadToEnd());
-
-                    foreach (var eventCell in config.cells)
+                    if (eventCell.Row == row && eventCell.Col == col)
                     {
-                        if (eventCell.Row == row && eventCell.Col == col)
-                        {
-                            resultEvent = eventCell;
-                            break;
-                        }
-                        else
-                        {
-                            continue;
-                        }
+                        resultEvent = eventCell;
+                        break;
                     }
-
-                    return resultEvent;
+                    else
+                    {
+                        continue;
+                    }
                 }
-            }
-            catch (Exception e)
-            {
-                throw e;
+
+                return resultEvent;
             }
         }
         #endregion
-
+        
         #region 根据用户职位、城市、时常获得住宿标准
         public static int GetHotelStandard(string emplId, string city, int hour)
         {
@@ -1554,13 +1579,13 @@ namespace XYD.Common
         #endregion
 
         #region 根据流程ID获取配置版本
-        public static string GetConfigVersion(string mid)
+        public static string GetConfigVersion(string templetId, string mid)
         {
             var checkSql = string.Format(@"SELECT Version FROM XYD_ReceiveFile WHERE MessageId = '{0}'", mid);
             var checkResultList = DbUtil.ExecuteSqlCommand(checkSql, DbUtil.GetReceiveFile).ToList();
             if (checkResultList.Count == 0)
             {
-                throw new Exception("流程不存在");
+                return GetDefaultConfigVersion(templetId);
             }
             else
             {
