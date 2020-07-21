@@ -27,6 +27,8 @@ namespace XYD.Common
         private static OrgMgr orgMgr = new OrgMgr();
         // 工作流管理
         private static WorkflowMgr mgr = new WorkflowMgr();
+        // 表单管理
+        private static SheetMgr sheetMgr = new SheetMgr();
 
         #region 根据流程ID获取对应版本配置路径
         /// <summary>
@@ -892,7 +894,7 @@ namespace XYD.Common
         {
             Message message = mgr.GetMessage(MessageID);
             Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(MessageID));
-            Worksheet worksheet = doc.Worksheet;
+            Worksheet worksheet = sheetMgr.GetWorksheet(doc.DocHelperID);
 
             var fields = JsonConvert.DeserializeObject<XYD_Fields>(jsonString, new XYDCellJsonConverter());
             List<Workcell> workCellList = new List<Workcell>();
@@ -929,7 +931,12 @@ namespace XYD.Common
                     throw new Exception("不支持的类型");
                 }
             }
-            worksheet.UpdateWorkcells(workCellList);
+            // 使用SetCellValue可以更新InternalValue，不要使用UpdateWorkCells
+            foreach(var workCell in workCellList)
+            {
+                worksheet.SetCellValue(workCell.WorkcellRow, workCell.WorkcellCol, workCell.WorkcellValue, workCell.WorkcellInternalValue);
+            }
+            sheetMgr.UpdateWorksheet(worksheet);
         }
         #endregion
 
