@@ -396,7 +396,10 @@ namespace XYD.Common
                     required = control == 2; // 1:可空；2：必填
                 }
                 innerCell.CanEdit = canEdit;
-                innerCell.Required = required;
+                if (!innerCell.Required)
+                {
+                    innerCell.Required = required;
+                }
             }
             
             innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
