@@ -30,7 +30,7 @@ namespace XYD.Common
          */
         public static string Audit_Operate_Type_Agree = "同意";
         public static string Audit_Operate_Type_Disagree = "驳回";
-        public static string Audit_Operate_Type_Start = "发起申请";
+        public static string Audit_Operate_Type_Start = "发起";
         public static string Audit_Operate_Type_End = "结束";
 
         /*

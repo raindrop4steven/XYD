@@ -393,13 +393,10 @@ namespace XYD.Common
                 {
                     int control = NodeFieldDict[workcellId];
                     canEdit = !isReadonlyCell(workcell.WorkcellDataSource);
-                    required = control == 2; // 1:可空；2：必填
+                    required = innerCell.Required ? true : control == 2; // 1:可空；2：必填
                 }
                 innerCell.CanEdit = canEdit;
-                if (!innerCell.Required)
-                {
-                    innerCell.Required = required;
-                }
+                innerCell.Required = required;
             }
             
             innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
@@ -948,7 +945,7 @@ namespace XYD.Common
         public static Workcell AssignWorkCell(Worksheet worksheet, XYD_Cell_Value innerCell)
         {
             var workcell = worksheet.GetWorkcell(innerCell.Row, innerCell.Col);
-            if (workcell != null && innerCell.Type != 10 && innerCell.CanEdit == true)
+            if (workcell != null && innerCell.Type != 10)
             {
                 workcell.WorkcellValue = innerCell.Value;
                 workcell.WorkcellInternalValue = innerCell.InterValue;
