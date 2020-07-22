@@ -285,7 +285,7 @@ namespace XYD.Controllers
                         // 上海sql
                         var shSql = GetLeaderQuerySql(selectClause, BeginDate, EndDate, "002", UserName);
                         var specialSql = GetSpecialQuerySql(selectClause, BeginDate, EndDate, Area, UserName);
-                        sql = string.Format("select * from ({0} union {1} union {2}) a order by a.cDepCode, a.iYear, a.iMonth", wxSql, shSql, specialSql);
+                        sql = string.Format("select * from ({0} union {1} union {2}) a order by a.iYear, a.iMonth, a.cDepCode", wxSql, shSql, specialSql);
                     }
                 }
                 else
