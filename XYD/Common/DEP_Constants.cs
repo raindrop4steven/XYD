@@ -218,5 +218,11 @@ namespace XYD.Common
          * 每日正常工作小时数
          */
         public static double Normal_Work_Hours = 8;
+
+        /*
+         * 审批类型：0-只编辑无审批;1-正常审批
+         */
+        public static int Workflow_Submit_Edit = 0;
+        public static int Workflow_Submit_Audit = 1;
     }
 }

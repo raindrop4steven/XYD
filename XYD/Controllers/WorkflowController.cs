@@ -317,7 +317,7 @@ namespace XYD.Controllers
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
-                var isReadOnly = false;
+                var isReadOnly = false; // 是否只读
                 List<Node> source = mgr.ListNodeToBeHandle(employee.EmplID, "");
                 foreach (Node node in source)
                 {
@@ -372,11 +372,14 @@ namespace XYD.Controllers
                     var stringDetail = JsonConvert.SerializeObject(detail);
                     string transformedString = JsonTransformer.Transform(transformer, stringDetail);
 
+                    var needOpinion = WorkflowUtil.NeedOpinion(MessageID, NodeID); // 是否需要审批/纯编辑
+
                     JObject result = JObject.Parse(transformedString);
 
                     return ResponseUtil.OK(new
                     {
                         readOnly = isReadOnly,
+                        needOpinion = needOpinion,
                         detail = result,
                         control = action,
                         action = control,

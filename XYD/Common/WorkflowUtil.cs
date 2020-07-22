@@ -956,6 +956,33 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 判断是否需要审批
+        public static bool NeedOpinion(string mid, string nid)
+        {
+            // 如果是首个节点，则说明是再次发起，不需要编辑
+            if (nid == DEP_Constants.Start_Node_Key)
+            {
+                return false;
+            }
+            var message = mgr.GetMessage(mid);
+            var templateId = message.FromTemplate;
+            var filePathName = GetConfigPath(templateId, message.MessageID, DEP_Constants.Config_Type_Audit);
+            XYD_Audit_Node auditNode = null;
+            using (StreamReader sr = new StreamReader(filePathName))
+            {
+                var nodes = JsonConvert.DeserializeObject<XYD_Audit>(sr.ReadToEnd(), new XYDCellJsonConverter());
+                foreach (XYD_Audit_Node node in nodes.Nodes)
+                {
+                    if (node.NodeID == nid)
+                    {
+                        auditNode = node;
+                    }
+                }
+                return auditNode != null;
+            }
+        }
+        #endregion
+
         #region 签批申请
         public static void AuditMessage(string mid, string nid, string operate, string opinion)
         {
