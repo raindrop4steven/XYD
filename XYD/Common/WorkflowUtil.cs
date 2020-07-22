@@ -380,26 +380,36 @@ namespace XYD.Common
                 }
                 innerCell.Atts = attachments;
             }
-            // 解析CanEdit和Required在前，最后解析#customFunc
-            if (innerCell.CanEdit != null && innerCell.CanEdit is bool)
+
+            // TODO: 对于发起节点，直接使用配置中的值；后续节点属于编辑，进行解析i8的操作
+            if (DEP_Constants.Start_Node_Key == NodeId)
             {
-                var canEdit = false;
-                var required = false;
+                innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
+            }
+            else
+            {
+                // 后续编辑节点
                 var workcellId = ConvertToWorkcellId(innerCell.Row, innerCell.Col);
                 // Cell是否能编辑包含2个条件：
                 // 1. Cell是否在改节点NodeField中
                 // 2. Cell的控件类型是否是可编辑的
                 if (NodeFieldDict.ContainsKey(workcellId))
                 {
+                    // 解析CanEdit和Required，这是和i8一致的
                     int control = NodeFieldDict[workcellId];
-                    canEdit = !isReadonlyCell(workcell.WorkcellDataSource);
-                    required = innerCell.Required ? true : control == 2; // 1:可空；2：必填
+                    innerCell.CanEdit = !isReadonlyCell(workcell.WorkcellDataSource);
+                    innerCell.Required = innerCell.Required ? true : control == 2; // 配置中优先，因为网页上可能没有设置必填项。1:可空；2：必填
+                    innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
                 }
-                innerCell.CanEdit = canEdit;
-                innerCell.Required = required;
+                else
+                {
+                    // 非本节点的Cell均不可编辑且不Required
+                    innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
+                    innerCell.CanEdit = false;
+                    innerCell.Required = false;
+                }
             }
-            
-            innerCell = ReflectionUtil.ParseCellValue(emplId, NodeId, MessageID, innerCell);
+
             return innerCell;
         }
         #endregion
