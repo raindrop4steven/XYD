@@ -60,11 +60,107 @@
                         "Col": 1,
                         "Options": [ {"Value": "","InterValue": ""},
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "快递费",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "文印费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "制作费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "报刊费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "装饰品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "咨询费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "培训费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电话费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "宽带费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "零星维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "安装费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服装打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "面料放样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "辅料打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "样衣采购费用",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "汽车保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "财产保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "雇员保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服务费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "设备租赁费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "工作签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "市内交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "福利费",
                                 "InterValue": ""
                             }
                         ],
@@ -115,11 +211,107 @@
                         "Col": 1,
                         "Options": [ {"Value": "","InterValue": ""},
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "快递费",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "文印费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "制作费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "报刊费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "装饰品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "咨询费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "培训费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电话费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "宽带费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "零星维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "安装费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服装打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "面料放样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "辅料打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "样衣采购费用",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "汽车保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "财产保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "雇员保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服务费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "设备租赁费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "工作签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "市内交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "福利费",
                                 "InterValue": ""
                             }
                         ],
@@ -170,11 +362,107 @@
                         "Col": 1,
                         "Options": [ {"Value": "","InterValue": ""},
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "快递费",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "文印费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "制作费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "报刊费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "装饰品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "咨询费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "培训费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电话费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "宽带费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "零星维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "安装费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服装打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "面料放样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "辅料打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "样衣采购费用",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "汽车保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "财产保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "雇员保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服务费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "设备租赁费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "工作签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "市内交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "福利费",
                                 "InterValue": ""
                             }
                         ],
@@ -225,11 +513,107 @@
                         "Col": 1,
                         "Options": [ {"Value": "","InterValue": ""},
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "快递费",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "文印费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "制作费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "报刊费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "装饰品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "咨询费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "培训费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电话费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "宽带费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "零星维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "安装费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服装打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "面料放样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "辅料打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "样衣采购费用",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "汽车保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "财产保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "雇员保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服务费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "设备租赁费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "工作签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "市内交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "福利费",
                                 "InterValue": ""
                             }
                         ],
@@ -280,11 +664,107 @@
                         "Col": 1,
                         "Options": [ {"Value": "","InterValue": ""},
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "快递费",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "文印费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "制作费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "报刊费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "装饰品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "咨询费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "培训费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电话费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "宽带费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "零星维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "安装费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服装打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "面料放样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "辅料打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "样衣采购费用",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "汽车保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "财产保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "雇员保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服务费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "设备租赁费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "工作签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "市内交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "福利费",
                                 "InterValue": ""
                             }
                         ],
@@ -335,11 +815,107 @@
                         "Col": 1,
                         "Options": [ {"Value": "","InterValue": ""},
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "快递费",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "文印费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "制作费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "报刊费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "装饰品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "咨询费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "培训费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电话费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "宽带费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "零星维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "安装费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服装打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "面料放样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "辅料打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "样衣采购费用",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "汽车保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "财产保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "雇员保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服务费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "设备租赁费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "工作签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "市内交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "福利费",
                                 "InterValue": ""
                             }
                         ],
@@ -390,11 +966,107 @@
                         "Col": 1,
                         "Options": [ {"Value": "","InterValue": ""},
                             {
-                                "Value": "客用日常饮品",
+                                "Value": "快递费",
                                 "InterValue": ""
                             },
                             {
-                                "Value": "客用日常食品",
+                                "Value": "文印费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "制作费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "印刷品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "报刊费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "装饰品",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "咨询费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "培训费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电话费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "宽带费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "零星维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "电脑维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "打印机维修",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "安装费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服装打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "面料放样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "辅料打样费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "样衣采购费用",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "汽车保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "财产保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "雇员保险",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "服务费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "设备租赁费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "工作签证费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "市内交通费",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "福利费",
                                 "InterValue": ""
                             }
                         ],
@@ -485,6 +1157,44 @@
         }
     ],
     "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 6,
+                    "Col": 5
+                },
+                {
+                    "Row": 7,
+                    "Col": 5
+                },
+                {
+                    "Row": 8,
+                    "Col": 5
+                },
+                {
+                    "Row": 9,
+                    "Col": 5
+                },
+                {
+                    "Row": 10,
+                    "Col": 5
+                },
+                {
+                    "Row": 11,
+                    "Col": 5
+                },
+                {
+                    "Row": 12,
+                    "Col": 5
+                }
+            ],
+            "Dest": {
+                "Row": 13,
+                "Col": 3
+            },
+            "Operation": "sum",
+            "Type": "int"
+        },
         {
             "Origin": [
                 {
