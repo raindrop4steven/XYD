@@ -801,8 +801,16 @@ namespace XYD.Common
         #region 事假调休假打年假加班
         public static void CaculateLeftHour(double totalYearHour, double usedYearHour, double usedLeaveHour, double offTimeWork, double adjustHour, ref double leftYearHour, ref double leftLeaveHour, ref double leftOffTimeHour)
         {
+            // 需求调整：特殊调整先往加班里打，如果加班变成负数，再扣年假
+            offTimeWork += adjustHour;
+            var deltaAdjustHour = 0.0d;
+            if (offTimeWork < 0)
+            {
+                deltaAdjustHour = offTimeWork;
+                offTimeWork = 0.0d;
+            }
             // 已剩年假
-            var remainYearHour = totalYearHour - usedYearHour + adjustHour;
+            var remainYearHour = totalYearHour - usedYearHour + deltaAdjustHour;
             // 计算剩余年假、剩余加班、剩余事假
             if (usedLeaveHour <= remainYearHour) // 先打年假
             {
