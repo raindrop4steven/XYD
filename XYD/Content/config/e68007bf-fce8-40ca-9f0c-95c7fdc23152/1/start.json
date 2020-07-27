@@ -111,14 +111,6 @@
                     {
                         "Value": "补打卡",
                         "InterValue": ""
-                    },
-                    {
-                        "Value": "补外勤",
-                        "InterValue": ""
-                    },
-                    {
-                        "Value": "其他",
-                        "InterValue": ""
                     }
                 ],
                 "Required": true,
