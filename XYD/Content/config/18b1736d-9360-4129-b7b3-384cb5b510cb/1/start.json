@@ -176,7 +176,7 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "小时数",
+                "Title": "#custom(XYD.Common.TransformUtil, GetTimeTitle)",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,

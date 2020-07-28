@@ -139,6 +139,22 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 获取时间差标题 天数/小时
+        public static string GetTimeTitle(string user, string nid, string mid)
+        {
+            Worksheet worksheet = WorkflowUtil.GetWorksheet(mid);
+            var workcell = worksheet.GetWorkcell(6, 7);
+            if (workcell.WorkcellValue != "天")
+            {
+                return "小时数";
+            }
+            else
+            {
+                return "天数";
+            }
+        }
+        #endregion
+
         #region 测试event方法
         public static object TestFunc(XYD_Event_Argument eventArgument, string arg1, string arg2, string arg3, string arg4)
         {
