@@ -854,7 +854,16 @@ namespace XYD.Common
         #region 补满时间到半小时
         public static double FillUpToHalfHour(double hour)
         {
-            return Math.Ceiling(hour * 2) / 2;
+            int intHour = (int)hour;
+            double presiceValue = hour - intHour;
+            if (presiceValue <= 0.5)
+            {
+                return (double)intHour;
+            }
+            else
+            {
+                return (double)intHour + 0.5;
+            }
         }
         #endregion
     }
