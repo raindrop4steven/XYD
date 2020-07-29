@@ -751,7 +751,15 @@ namespace XYD.Controllers
                     {
                         vo.EndDate = string.Empty;
                     }
-                    vo.Hours = CalendarUtil.FillUpToHalfHour(CalendarUtil.GetRealLeaveHours(sysConfig, item.StartDate, item.EndDate.Value));
+                    if (item.Category.Contains("假") || item.Category == "调休")
+                    {
+                        vo.Hours = CalendarUtil.FillUpToHalfHour(CalendarUtil.GetRealLeaveHours(sysConfig, item.StartDate, item.EndDate.Value));
+                    }
+                    else
+                    {
+                        // 外勤和加班
+                        vo.Hours = CalendarUtil.FillDownToHalfHour(CalendarUtil.GetRealLeaveHours(sysConfig, item.StartDate, item.EndDate.Value));
+                    }
                     vos.Add(vo);
                 }
                 var totalPage = (int)Math.Ceiling((float)totalCount / Size);
@@ -791,8 +799,7 @@ namespace XYD.Controllers
                 "加班",
                 "调休",
                 "外勤",
-                "补打卡",
-                "补外勤"
+                "补打卡"
             };
             return ResponseUtil.OK(categoryList);
         }

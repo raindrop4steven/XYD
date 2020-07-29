@@ -431,7 +431,7 @@ namespace XYD.Common
             {
                 detail.isNormal = true;
             }
-            detail.WorkHours = FillUpToHalfHour(Math.Round(workHours, 2));
+            detail.WorkHours = FillDownToHalfHour(Math.Round(workHours, 2));
             detail.Name = entity.Name;
             detail.Type = entity.Type;
         }
@@ -725,15 +725,15 @@ namespace XYD.Common
             var adjustHour = GetAdjustHourByUser(EmplID, startDate, endDate);
             return new XYD_Vocation_Report()
             {
-                yearHour = FillUpToHalfHour(yearHour),
-                extraHour = FillUpToHalfHour(extraHour),
-                leaveHour = FillUpToHalfHour(leaveHour + changeHour),
-                sickHour = FillUpToHalfHour(sickHour),
-                marryHour = FillUpToHalfHour(marryHour),
-                birthHour = FillUpToHalfHour(birthHour),
-                milkHour = FillUpToHalfHour(milkHour),
-                deadHour = FillUpToHalfHour(deadHour),
-                adjustHour = FillUpToHalfHour(adjustHour)
+                yearHour = FillDownToHalfHour(yearHour),
+                extraHour = FillDownToHalfHour(extraHour),
+                leaveHour = FillDownToHalfHour(leaveHour + changeHour),
+                sickHour = FillDownToHalfHour(sickHour),
+                marryHour = FillDownToHalfHour(marryHour),
+                birthHour = FillDownToHalfHour(birthHour),
+                milkHour = FillDownToHalfHour(milkHour),
+                deadHour = FillDownToHalfHour(deadHour),
+                adjustHour = FillDownToHalfHour(adjustHour)
             };
         }
         #endregion
@@ -852,11 +852,11 @@ namespace XYD.Common
         #endregion
 
         #region 补满时间到半小时
-        public static double FillUpToHalfHour(double hour)
+        public static double FillDownToHalfHour(double hour)
         {
             int intHour = (int)hour;
             double presiceValue = hour - intHour;
-            if (presiceValue <= 0.5)
+            if (presiceValue < 0.5)
             {
                 return (double)intHour;
             }
@@ -864,6 +864,13 @@ namespace XYD.Common
             {
                 return (double)intHour + 0.5;
             }
+        }
+        #endregion
+
+        #region 请假时间往前进，不满半小时为半小时
+        public static double FillUpToHalfHour(double hour)
+        {
+            return Math.Ceiling(hour * 2) / 2;
         }
         #endregion
     }
