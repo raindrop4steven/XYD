@@ -150,23 +150,11 @@
                 "Col": 11,
                 "Options": [
                     {
-                        "Value": "接待",
+                        "Value": "公司会议",
                         "InterValue": ""
                     },
                     {
-                        "Value": "培训",
-                        "InterValue": ""
-                    },
-                    {
-                        "Value": "例会",
-                        "InterValue": ""
-                    },
-                    {
-                        "Value": "谈判",
-                        "InterValue": ""
-                    },
-                    {
-                        "Value": "其他",
+                        "Value": "客户会议",
                         "InterValue": ""
                     }
                 ],

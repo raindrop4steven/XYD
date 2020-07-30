@@ -108,6 +108,10 @@
                         "Value": "调休",
                         "InterValue": ""
                     },
+		            {
+                        "Value": "外勤",
+                        "InterValue": ""
+                    },
                     {
                         "Value": "补打卡",
                         "InterValue": ""

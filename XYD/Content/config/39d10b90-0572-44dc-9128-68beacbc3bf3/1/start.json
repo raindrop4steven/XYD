@@ -1066,7 +1066,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": false,
+                "CanEdit": true,
                 "Row": 19,
                 "Col": 3,
                 "Options": null,
