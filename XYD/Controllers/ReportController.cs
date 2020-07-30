@@ -351,12 +351,12 @@ namespace XYD.Controllers
                             WHERE
                                 CreateTime >= '{0}'
                             AND
-                                CreateTime < '{1}'
+                                CreateTime <= '{1}'
                             GROUP BY
 	                            EmplName,
 	                            DeptName 
                             ORDER BY
-	                            Amount DESC", BeginDate.Date, EndDate.AddMonths(1));
+	                            Amount DESC", BeginDate.Date, CommonUtils.EndOfDay(EndDate));
                 var list = DbUtil.ExecuteSqlCommand(sql, DbUtil.BackupMoneyReport);
                 decimal total = 0;
                 foreach(XYD_BackupMoneyReport item in list)
