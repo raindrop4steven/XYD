@@ -563,7 +563,7 @@ namespace XYD.Controllers
                         EmplNo = employee.EmplNO,
                         EmplName = employee.EmplName,
                         OffTimeWork = offTimeWork,
-                        LeaveHours = Math.Round(vocationReport.leaveHour, 2),
+                        LeaveHours = Math.Round(leftLeaveHour, 2),
                         SickHours = Math.Round(vocationReport.sickHour, 2),
                         YearHours = Math.Round(vocationReport.yearHour, 2),
                         MarryHours = Math.Round(vocationReport.marryHour, 2),
