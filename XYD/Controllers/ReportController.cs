@@ -563,7 +563,7 @@ namespace XYD.Controllers
                         EmplNo = employee.EmplNO,
                         EmplName = employee.EmplName,
                         OffTimeWork = offTimeWork,
-                        LeaveHours = Math.Round(leftLeaveHour, 2),
+                        LeaveHours = Math.Round(vocationReport.leaveHour, 2),
                         SickHours = Math.Round(vocationReport.sickHour, 2),
                         YearHours = Math.Round(vocationReport.yearHour, 2),
                         MarryHours = Math.Round(vocationReport.marryHour, 2),
@@ -572,6 +572,7 @@ namespace XYD.Controllers
                         SadHours = Math.Round(vocationReport.deadHour, 2),
                         LeftYearHour = Math.Round(leftYearHour, 2),
                         LeftOffTimeHour = Math.Round(leftOffTimeHour, 2),
+                        LeftLeaveHour = Math.Round(leftLeaveHour, 2),
                         DeltaHour = Math.Round(adjustHour, 2)
                     });
                 }
