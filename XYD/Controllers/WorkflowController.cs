@@ -954,7 +954,7 @@ namespace XYD.Controllers
             var leftYearHour = GetUserLeftYearHour(employee.EmplID);
             if (leftYearHour < day * 8)
             {
-                return ResponseUtil.Error("申请年假不能超过剩余年假");
+                return ResponseUtil.Error(string.Format("最多可申请的年假为{0}小时", leftYearHour));
             }
             else
             {
@@ -975,7 +975,7 @@ namespace XYD.Controllers
                 var leftYearHour = GetUserLeftYearHour(user);
                 if (leftYearHour < day*8)
                 {
-                    return ResponseUtil.Error("申请年假不能超过剩余年假");
+                    return ResponseUtil.Error(string.Format("最多可申请的年假为{0}小时", leftYearHour));
                 }
                 else
                 {
