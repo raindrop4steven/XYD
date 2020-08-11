@@ -137,6 +137,16 @@ namespace XYD.Controllers
                 {
                     key = DEP_Constants.Education_Level_High,
                     value = DEP_Constants.Education_Level_High
+                },
+                new
+                {
+                    key = DEP_Constants.Education_Level_ZhiGao,
+                    value = DEP_Constants.Education_Level_ZhiGao
+                },
+                new
+                {
+                    key = DEP_Constants.Education_Level_ZhongZhuan,
+                    value = DEP_Constants.Education_Level_ZhongZhuan
                 }
             });
         }
