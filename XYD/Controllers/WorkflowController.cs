@@ -964,7 +964,7 @@ namespace XYD.Controllers
         #endregion
 
         #region 提交前检查用户年假是否超过
-        public ActionResult CheckUserLeftYear(string user, string category, double day)
+        public ActionResult CheckUserLeftYear(string user, string category, string day)
         {
             try
             {
@@ -972,8 +972,13 @@ namespace XYD.Controllers
                 {
                     return ResponseUtil.OK("非年假不检测");
                 }
+                if (string.IsNullOrEmpty(day))
+                {
+                    return ResponseUtil.Error("天数不能为空");
+                }
+                double realDay = double.Parse(day);
                 var leftYearHour = GetUserLeftYearHour(user);
-                if (leftYearHour < day*8)
+                if (leftYearHour < realDay * 8)
                 {
                     return ResponseUtil.Error(string.Format("最多可申请的年假为{0}小时", leftYearHour));
                 }
