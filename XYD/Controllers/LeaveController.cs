@@ -1,6 +1,7 @@
 ﻿using Appkiz.Apps.Workflow.Library;
 using Appkiz.Library.Security;
 using Appkiz.Library.Security.Authentication;
+using FluentDate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -158,7 +159,7 @@ namespace XYD.Controllers
                 {
                     if (record.Status == DEP_Constants.Leave_Status_YES)
                     {
-                        totalRestDays += (record.EndDate - record.StartDate).TotalDays;
+                        totalRestDays += (record.EndDate - record.StartDate).TotalDays + 1;
                     }
                     var result = new
                     {
@@ -174,11 +175,30 @@ namespace XYD.Controllers
                     results.Add(result);
                 }
                 // 查询剩余年假
+                var leftYearHour = 0.0d;
+                var leftOffTimeHour = 0.0d;
+                var leftLeaveHour = 0.0d;
+
+                // 计算总年假
                 var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
-                var userRestDays = CaculateYearRestDays(userCompanyInfo);
+                var totalYearHour = CalendarUtil.GetUserYearHour(employee.EmplID);
+                var vocationReport = CalendarUtil.CaculateVocation(employee.EmplID, startYearDate, endYearDate);
+
+                // 已使用年假
+                var usedYearHour = vocationReport.yearHour;
+                // 已使用事假、调休
+                var usedLeaveHour = vocationReport.leaveHour;
+                // 加班时间
+                var offTimeWork = vocationReport.extraHour;
+                // 特殊调整
+                var adjustHour = vocationReport.adjustHour;
+                // 开始计算剩余
+                CalendarUtil.CaculateLeftHour(totalYearHour, usedYearHour, usedLeaveHour, offTimeWork, adjustHour, ref leftYearHour, ref leftLeaveHour, ref leftOffTimeHour);
+
+                // 已使用年假天数
                 return ResponseUtil.OK(new {
-                    remainDays = userRestDays - userCompanyInfo.UsedRestDays,
-                    totalRestDays = userCompanyInfo.UsedRestDays,
+                    remainDays = (int)(leftYearHour/8),
+                    totalRestDays = (int)((totalYearHour-leftYearHour)/8),
                     records = results
                 });
             }

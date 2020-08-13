@@ -62,7 +62,7 @@
         },
         {
             "Type": 3,
-            "Header": [ "凭证名称", "借出日期", "办事地点", "预计归还时间" ],
+            "Header": [ "凭证名称", "办事地点", "借出日期", "预计归还时间" ],
             "Array": [
                 [
                     {
@@ -77,10 +77,10 @@
                         "Required": false
                     },
                     {
-                        "Title": "借出日期",
+                        "Title": "办事地点",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 2,
+                        "Type": 0,
                         "CanEdit": true,
                         "Row": 7,
                         "Col": 6,
@@ -88,10 +88,10 @@
                         "Required": false
                     },
                     {
-                        "Title": "办事地点",
+                        "Title": "借出日期",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
+                        "Type": 2,
                         "CanEdit": true,
                         "Row": 7,
                         "Col": 11,
@@ -123,10 +123,10 @@
                         "Required": false
                     },
                     {
-                        "Title": "借出日期",
+                        "Title": "办事地点",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 2,
+                        "Type": 0,
                         "CanEdit": true,
                         "Row": 8,
                         "Col": 6,
@@ -134,10 +134,10 @@
                         "Required": false
                     },
                     {
-                        "Title": "办事地点",
+                        "Title": "借出日期",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
+                        "Type": 2,
                         "CanEdit": true,
                         "Row": 8,
                         "Col": 11,
@@ -169,10 +169,10 @@
                         "Required": false
                     },
                     {
-                        "Title": "借出日期",
+                        "Title": "办事地点",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 2,
+                        "Type": 0,
                         "CanEdit": true,
                         "Row": 9,
                         "Col": 6,
@@ -180,10 +180,10 @@
                         "Required": false
                     },
                     {
-                        "Title": "办事地点",
+                        "Title": "借出日期",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
+                        "Type": 2,
                         "CanEdit": true,
                         "Row": 9,
                         "Col": 11,
@@ -215,10 +215,10 @@
                         "Required": false
                     },
                     {
-                        "Title": "借出日期",
+                        "Title": "办事地点",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 2,
+                        "Type": 0,
                         "CanEdit": true,
                         "Row": 10,
                         "Col": 6,
@@ -226,10 +226,10 @@
                         "Required": false
                     },
                     {
-                        "Title": "办事地点",
+                        "Title": "借出日期",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
+                        "Type": 2,
                         "CanEdit": true,
                         "Row": 10,
                         "Col": 11,
@@ -261,10 +261,10 @@
                         "Required": false
                     },
                     {
-                        "Title": "借出日期",
+                        "Title": "办事地点",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 2,
+                        "Type": 0,
                         "CanEdit": true,
                         "Row": 11,
                         "Col": 6,
@@ -272,10 +272,10 @@
                         "Required": false
                     },
                     {
-                        "Title": "办事地点",
+                        "Title": "借出日期",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
+                        "Type": 2,
                         "CanEdit": true,
                         "Row": 11,
                         "Col": 11,
@@ -307,10 +307,10 @@
                         "Required": false
                     },
                     {
-                        "Title": "借出日期",
+                        "Title": "办事地点",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 2,
+                        "Type": 0,
                         "CanEdit": true,
                         "Row": 12,
                         "Col": 6,
@@ -318,10 +318,10 @@
                         "Required": false
                     },
                     {
-                        "Title": "办事地点",
+                        "Title": "借出日期",
                         "Value": "",
                         "InterValue": "",
-                        "Type": 0,
+                        "Type": 2,
                         "CanEdit": true,
                         "Row": 12,
                         "Col": 11,

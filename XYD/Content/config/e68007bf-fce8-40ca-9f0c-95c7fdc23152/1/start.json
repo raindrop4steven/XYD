@@ -108,16 +108,12 @@
                         "Value": "调休",
                         "InterValue": ""
                     },
+		            {
+                        "Value": "外勤",
+                        "InterValue": ""
+                    },
                     {
                         "Value": "补打卡",
-                        "InterValue": ""
-                    },
-                    {
-                        "Value": "补外勤",
-                        "InterValue": ""
-                    },
-                    {
-                        "Value": "其他",
                         "InterValue": ""
                     }
                 ],
@@ -157,7 +153,7 @@
                 "Title": "开始日期",
                 "Value": "",
                 "InterValue": "",
-                "Type": 3,
+                "Type": 4,
                 "CanEdit": true,
                 "Row": 7,
                 "Col": 3,
@@ -172,7 +168,7 @@
                 "Title": "结束日期",
                 "Value": "",
                 "InterValue": "",
-                "Type": 3,
+                "Type": 4,
                 "CanEdit": true,
                 "Row": 7,
                 "Col": 7,
@@ -184,7 +180,7 @@
             "Type": 0,
             "Header": null,
             "Value": {
-                "Title": "小时数",
+                "Title": "#custom(XYD.Common.TransformUtil, GetTimeTitle)",
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,

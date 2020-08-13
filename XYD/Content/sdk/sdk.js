@@ -778,8 +778,25 @@ function CaculateDays(beingID, endID, destID) {
             alert("结束日期不能小于开始日期");
         }
         //讲两个时间相减，求出相隔的天数
-        var dayCount = (Math.abs(time2 - time1)) / 1000 / 60 / 60 / 24;
-        SaveCellValue($(destID), dayCount + 1);
+        var dayCount = 1 + (Math.abs(time2 - time1)) / 1000 / 60 / 60 / 24;
+        var category = $("#C-6-3").text();
+        if (category == "年假") {
+            $.ajax({
+                url: "/Apps/XYD/Workflow/CheckLeftYearWeb",
+                data: {
+                    day: dayCount
+                },
+                success: function (data) {
+                    if (data.Succeed == false) {
+                        alert(data.Message);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
+        SaveCellValue($(destID), dayCount);
     }
 }
 // 计算间隔小时数

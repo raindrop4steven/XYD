@@ -104,7 +104,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 2,
-                "CanEdit": true,
+                "CanEdit": false,
                 "Row": 7,
                 "Col": 3,
                 "Options": null,
@@ -120,7 +120,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 2,
-                "CanEdit": true,
+                "CanEdit": false,
                 "Row": 7,
                 "Col": 9,
                 "Options": null,
@@ -1007,7 +1007,7 @@
                 "Col": 9,
                 "Options": null,
                 "NeedRefresh": false,
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -1023,7 +1023,7 @@
                 "Col": 12,
                 "Options": null,
                 "NeedRefresh": false,
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -1039,7 +1039,7 @@
                 "Col": 14,
                 "Options": null,
                 "NeedRefresh": false,
-                "Required": true
+                "Required": false
             }
         },
         {
@@ -1066,7 +1066,7 @@
                 "Value": "",
                 "InterValue": "",
                 "Type": 0,
-                "CanEdit": true,
+                "CanEdit": false,
                 "Row": 19,
                 "Col": 3,
                 "Options": null,

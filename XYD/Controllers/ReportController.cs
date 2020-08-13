@@ -224,6 +224,8 @@ namespace XYD.Controllers
                     var wxSql = GetLeaderQuerySql(selectClause, BeginDate, EndDate, "001", string.Empty);
                     // 上海sql
                     var shSql = GetLeaderQuerySql(selectClause, BeginDate, EndDate, "002", string.Empty);
+                    var specialSql = GetSpecialQuerySql(selectClause, BeginDate, EndDate, string.Empty, string.Empty);
+
                     sql = string.Format(@"select 
                                             DISTINCT
 	                                            a.cPsn_Num,
@@ -267,13 +269,13 @@ namespace XYD.Controllers
 	                                            SUM ( a.F_2 ) AS F_2,
 	                                            SUM ( a.F_3 ) AS F_3,
 	                                            a.cDepCode 
-                                          from ({0} union {1}) a GROUP BY
+                                          from ({0} union {1} union {2}) a GROUP BY
 	                                        a.cPsn_Num,
 	                                        a.cPsn_Name,
 	                                        a.cDepName,
 	                                        a.cDepCode 
                                         ORDER BY
-	                                        a.cDepCode", wxSql, shSql);
+	                                        a.cDepCode", wxSql, shSql, specialSql);
                 }
                 else
                 {
@@ -315,8 +317,14 @@ namespace XYD.Controllers
                                                                                         WHERE
                                                                                             a.EmplName LIKE '%{1}%'
                                                                                             AND a.EmplNO != ''", areaCondition, UserName));
-            List<string> idList = employees.Select(n => "'" + n.EmplNO + "'").ToList();
-            string inClause = string.Join(",", idList);
+            //List<string> idList = employees.Select(n => "'" + n.EmplNO + "'").ToList();
+            List<string> excludeIds = OrgUtil.GetUsersByRole("部门与工资不同人员").Select(n => n.EmplID).ToList();
+            List<string> idList = employees.Where(n => !excludeIds.Contains(n.EmplID)).Select(n => "'" + n.EmplNO + "'").ToList();
+            string inClause = "''";
+            if (idList.Count > 0)
+            {
+                inClause = string.Join(",", idList);
+            }
             // 构造查询 
             var sql = string.Format(@"SELECT
                                             {0}
@@ -330,6 +338,36 @@ namespace XYD.Controllers
             return sql;
         }
         #endregion
+
+        public string GetSpecialQuerySql(string selectClause, DateTime BeginDate, DateTime EndDate, string Area, string UserName)
+        {
+            // 部门反转
+            if (Area == "001")
+            {
+                Area = "002";
+            }
+            else
+            {
+                Area = "001";
+            }
+            List<string> idList = OrgUtil.GetUsersByRole("部门与工资不同人员").Where(n => n.EmplName.Contains(UserName)).Select(n => "'" + n.EmplNO + "'").ToList();
+            string inClause = "''";
+            if (idList.Count > 0)
+            {
+                inClause = string.Join(",", idList);
+            }
+            // 构造查询 
+            var sql = string.Format(@"SELECT
+                                            {0}
+                                            WHERE
+	                                            cGZGradeNum LIKE '{6}%' 
+	                                            AND cPsn_Num in ({1})
+	                                            AND iYear >= {2}
+                                                AND iYear <= {3}
+	                                            AND iMonth >= {4}
+	                                            AND iMonth <= {5} ", selectClause, inClause, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month, Area);
+            return sql;
+        }
 
         #region 备用金统计
         public ActionResult BackupMoney(DateTime BeginDate, DateTime EndDate)
@@ -351,12 +389,12 @@ namespace XYD.Controllers
                             WHERE
                                 CreateTime >= '{0}'
                             AND
-                                CreateTime < '{1}'
+                                CreateTime <= '{1}'
                             GROUP BY
 	                            EmplName,
 	                            DeptName 
                             ORDER BY
-	                            Amount DESC", BeginDate.Date, EndDate.AddMonths(1));
+	                            Amount DESC", BeginDate.Date, CommonUtils.EndOfDay(EndDate));
                 var list = DbUtil.ExecuteSqlCommand(sql, DbUtil.BackupMoneyReport);
                 decimal total = 0;
                 foreach(XYD_BackupMoneyReport item in list)
@@ -534,6 +572,7 @@ namespace XYD.Controllers
                         SadHours = Math.Round(vocationReport.deadHour, 2),
                         LeftYearHour = Math.Round(leftYearHour, 2),
                         LeftOffTimeHour = Math.Round(leftOffTimeHour, 2),
+                        LeftLeaveHour = Math.Round(leftLeaveHour, 2),
                         DeltaHour = Math.Round(adjustHour, 2)
                     });
                 }
@@ -751,7 +790,15 @@ namespace XYD.Controllers
                     {
                         vo.EndDate = string.Empty;
                     }
-                    vo.Hours = CalendarUtil.FillUpToHalfHour(CalendarUtil.GetRealLeaveHours(sysConfig, item.StartDate, item.EndDate.Value));
+                    if (item.Category.Contains("假") || item.Category == "调休")
+                    {
+                        vo.Hours = CalendarUtil.FillUpToHalfHour(CalendarUtil.GetRealLeaveHours(sysConfig, item.StartDate, item.EndDate.Value));
+                    }
+                    else
+                    {
+                        // 外勤和加班
+                        vo.Hours = CalendarUtil.FillDownToHalfHour(CalendarUtil.GetRealLeaveHours(sysConfig, item.StartDate, item.EndDate.Value));
+                    }
                     vos.Add(vo);
                 }
                 var totalPage = (int)Math.Ceiling((float)totalCount / Size);
@@ -791,8 +838,7 @@ namespace XYD.Controllers
                 "加班",
                 "调休",
                 "外勤",
-                "补打卡",
-                "补外勤"
+                "补打卡"
             };
             return ResponseUtil.OK(categoryList);
         }

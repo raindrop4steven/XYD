@@ -30,7 +30,7 @@ namespace XYD.Common
          */
         public static string Audit_Operate_Type_Agree = "同意";
         public static string Audit_Operate_Type_Disagree = "驳回";
-        public static string Audit_Operate_Type_Start = "发起申请";
+        public static string Audit_Operate_Type_Start = "发起";
         public static string Audit_Operate_Type_End = "结束";
 
         /*
@@ -59,8 +59,10 @@ namespace XYD.Common
         /*
          * 学历列表
          */
+        public static string Education_Level_ZhongZhuan = "中专";
+        public static string Education_Level_ZhiGao = "职高";
         public static string Education_Level_High = "高中";
-        public static string Education_Level_Zhuan = "专科";
+        public static string Education_Level_Zhuan = "大专";
         public static string Education_Level_Ben = "本科";
         public static string Education_Level_Shuo = "硕士";
         public static string Education_Level_Bo = "博士";
@@ -218,5 +220,11 @@ namespace XYD.Common
          * 每日正常工作小时数
          */
         public static double Normal_Work_Hours = 8;
+
+        /*
+         * 审批类型：0-只编辑无审批;1-正常审批
+         */
+        public static int Workflow_Submit_Edit = 0;
+        public static int Workflow_Submit_Audit = 1;
     }
 }

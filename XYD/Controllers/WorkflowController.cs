@@ -142,7 +142,7 @@ namespace XYD.Controllers
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
 
-                XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, NodeId, MessageID);
+                XYD_Fields fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, NodeId, MessageID);
                 return ResponseUtil.OK(fields);
             }
             catch (Exception e)
@@ -317,7 +317,7 @@ namespace XYD.Controllers
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
-                var isReadOnly = false;
+                var isReadOnly = false; // 是否只读
                 List<Node> source = mgr.ListNodeToBeHandle(employee.EmplID, "");
                 foreach (Node node in source)
                 {
@@ -372,11 +372,14 @@ namespace XYD.Controllers
                     var stringDetail = JsonConvert.SerializeObject(detail);
                     string transformedString = JsonTransformer.Transform(transformer, stringDetail);
 
+                    var needOpinion = WorkflowUtil.NeedOpinion(MessageID, NodeID); // 是否需要审批/纯编辑
+
                     JObject result = JObject.Parse(transformedString);
 
                     return ResponseUtil.OK(new
                     {
                         readOnly = isReadOnly,
+                        needOpinion = needOpinion,
                         detail = result,
                         control = action,
                         action = control,
@@ -636,7 +639,7 @@ namespace XYD.Controllers
                         worksheet.SetCellValue(row, col, sn, string.Empty);
                         worksheet.Save();
                     }
-                    XYD_Fields fields = WorkflowUtil.GetStartFields(employee.EmplID, DEP_Constants.Start_Node_Key, mid);
+                    XYD_Fields fields = WorkflowUtil.GetWorkflowFields(employee.EmplID, DEP_Constants.Start_Node_Key, mid);
                     return ResponseUtil.OK(fields);
                 }
             }
@@ -940,6 +943,86 @@ namespace XYD.Controllers
             {
                 return ResponseUtil.Error(e.Message);
             }
+        }
+        #endregion
+
+        #region 选择时间后检查年假
+        [Authorize]
+        public ActionResult CheckLeftYearWeb(double day)
+        {
+            var employee = (User.Identity as AppkizIdentity).Employee;
+            var leftYearHour = GetUserLeftYearHour(employee.EmplID);
+            if (leftYearHour < day * 8)
+            {
+                return ResponseUtil.Error(string.Format("最多可申请的年假为{0}小时", leftYearHour));
+            }
+            else
+            {
+                return ResponseUtil.OK("申请年假时长正常");
+            }
+        }
+        #endregion
+
+        #region 提交前检查用户年假是否超过
+        public ActionResult CheckUserLeftYear(string user, string category, string day)
+        {
+            try
+            {
+                if (category != "年假")
+                {
+                    return ResponseUtil.OK("非年假不检测");
+                }
+                if (string.IsNullOrEmpty(day))
+                {
+                    return ResponseUtil.Error("天数不能为空");
+                }
+                double realDay = double.Parse(day);
+                var leftYearHour = GetUserLeftYearHour(user);
+                if (leftYearHour < realDay * 8)
+                {
+                    return ResponseUtil.Error(string.Format("最多可申请的年假为{0}小时", leftYearHour));
+                }
+                else
+                {
+                    return ResponseUtil.OK("申请年假时长正常");
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+
+        private double GetUserLeftYearHour(string user)
+        {
+            var db = new DefaultConnection();
+
+            var employee = orgMgr.GetEmployee(user);
+            var year = DateTime.Now.Year;
+            // 剩余时间纬度
+            var leftYearHour = 0.0d;
+            var leftOffTimeHour = 0.0d;
+            var leftLeaveHour = 0.0d;
+
+            // 计算总年假
+            var startYearDate = DateTime.Parse(string.Format("{0}-01-01", year));
+            var endYearDate = DateTime.Parse(string.Format("{0}-12-31 23:59:59", year));
+            var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == user).FirstOrDefault();
+            var totalYearHour = CalendarUtil.GetUserYearHour(user);
+            var vocationReport = CalendarUtil.CaculateVocation(user, startYearDate, endYearDate);
+
+            // 已使用年假
+            var usedYearHour = vocationReport.yearHour;
+            // 已使用事假、调休
+            var usedLeaveHour = vocationReport.leaveHour;
+            // 加班时间
+            var offTimeWork = vocationReport.extraHour;
+            // 特殊调整
+            var adjustHour = vocationReport.adjustHour;
+            // 开始计算剩余
+            CalendarUtil.CaculateLeftHour(totalYearHour, usedYearHour, usedLeaveHour, offTimeWork, adjustHour, ref leftYearHour, ref leftLeaveHour, ref leftOffTimeHour);
+
+            return leftYearHour;
         }
         #endregion
     }
