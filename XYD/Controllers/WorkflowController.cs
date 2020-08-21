@@ -513,8 +513,19 @@ namespace XYD.Controllers
                 {
                     record.Sn = serialNumber;
                     db.SaveChanges();
+                    // 更新编号配置
+                    var entity = db.SerialNo.Where(n => n.Name == message.FromTemplate).FirstOrDefault();
+                    if (entity == null)
+                    {
+                        return ResponseUtil.Error("未找到对应编号配置");
+                    }
+                    else
+                    {
+                        entity.Number += 1;
+                        db.SaveChanges();
+                        return ResponseUtil.OK("更新编号成功");
+                    }
                 }
-                return ResponseUtil.OK("记录事务编号成功");
             }
         }
         #endregion
