@@ -645,22 +645,8 @@ namespace XYD.Common
                     attence = new XYD_Attence();
                     attence.EmplNo = employee.EmplNO;
                     attence.EmplName = employee.EmplName;
-                    if (UpdateOnlyHalfAttence(leave.Category))
-                    {
-                        if (leave.StartDate.Hour < 12)
-                        {
-                            attence.StartTime = leave.StartDate;
-                        }
-                        else
-                        {
-                            attence.EndTime = leave.EndDate;
-                        }
-                    }
-                    else
-                    {
-                        attence.StartTime = leave.StartDate;
-                        attence.EndTime = leave.EndDate;
-                    }
+                    attence.StartTime = leave.StartDate;
+                    attence.EndTime = leave.EndDate;
                     attence.Day = leave.StartDate.ToString("yyyy-MM-dd");
                     attence.DeviceID = "新友达";
                     db.Attence.Add(attence);
