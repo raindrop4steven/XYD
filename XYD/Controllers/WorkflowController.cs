@@ -1036,5 +1036,32 @@ namespace XYD.Controllers
             return leftYearHour;
         }
         #endregion
+
+        #region 检查用户是否可以补打卡
+        public ActionResult CheckCouldAddAttence(string user, string category, string date)
+        {
+            if (category == "补打卡" && !string.IsNullOrEmpty(date))
+            {
+                var day = DateTime.Parse(date).ToString("yyyy-MM-dd");
+                using (var db = new DefaultConnection())
+                {
+                    var employee = orgMgr.GetEmployee(user);
+                    var attence = db.Attence.Where(n => n.EmplNo == employee.EmplNO && n.Day == day).FirstOrDefault();
+                    if (attence == null)
+                    {
+                        return ResponseUtil.Error(string.Format("您在{0}没有打卡记录，请选择其他出勤类型", day));
+                    }
+                    else
+                    {
+                        return ResponseUtil.OK("可以申请补打卡");
+                    }
+                }
+            }
+            else
+            {
+                return ResponseUtil.OK("可以申请补打卡");
+            }
+        }
+        #endregion
     }
 }
