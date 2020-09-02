@@ -387,9 +387,15 @@ namespace XYD.Common
                             var serialRecord = db.SerialRecord.Where(n => n.MessageID == bizTrip.MessageID).FirstOrDefault();
                             detail.Memo += string.Format("今日出差，出差编号:{0}", serialRecord == null ? string.Empty : serialRecord.Sn);
                         }
-                        // 加入午休时间逻辑，迟到只比较到分
-                        if (DateTime.Parse(attence.StartTime.Value.ToString("yyyy-MM-dd HH:mm:00")) > shouldStartTime)
+                        // 却考勤，直接迟到
+                        if (attence.StartTime == null)
                         {
+                            entity.Name = "迟到";
+                            entity.Type = CALENDAR_TYPE.Late;
+                        }
+                        else if (DateTime.Parse(attence.StartTime.Value.ToString("yyyy-MM-dd HH:mm:00")) > shouldStartTime)
+                        {
+                            // 加入午休时间逻辑，迟到只比较到分
                             if ((hasLeave || hasBizTrip) && workHours >= Normal_Work_Hours)
                             {
                                 // 早上请假，然后打卡上班，总时长超过8小时
