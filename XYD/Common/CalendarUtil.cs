@@ -364,17 +364,33 @@ namespace XYD.Common
                     else
                     {
                         // 有考勤，又请假，说明是小时假
+                        // 判断是否考勤时间和请假时间是否相交，计算单独的请假时长、工作时长、最早最晚时长
                         if (hasLeave)
                         {
+                            XYD_Attence newAttence = new XYD_Attence()
+                            {
+                                StartTime = attence.StartTime,
+                                EndTime = attence.EndTime
+                            };
                             foreach(var subLeave in orignLeaves)
                             {
                                 var subLeaveHour = GetRealLeaveHours(sysConfig, subLeave.StartDate, subLeave.EndDate);
-                                leaveHour += subLeaveHour;
-                                if (IsLeaveAsWork(subLeave) && !NeedUpdateAttence(subLeave) && ShouldAddLeaveHour(subLeave, attence))
-                                {
-                                    workHours += subLeaveHour;
-                                }
                                 detail.Memo = GenerateLeaveMemo(subLeave, subLeaveHour, detail.Memo);
+                                var isIntersect = CheckTimeSpansIntersect(newAttence.StartTime, newAttence.EndTime, leave.StartDate, leave.EndDate);
+                                if (isIntersect)
+                                {
+                                    newAttence.StartTime = new DateTime(Math.Min(attence.StartTime.Value.Ticks, leave.StartDate.Ticks));
+                                    newAttence.EndTime = new DateTime(Math.Max(attence.EndTime.Value.Ticks, leave.EndDate.Ticks));
+                                    workHours = CaculateWorkHours(d, newAttence, sysConfig);
+                                }
+                                else
+                                {
+                                    leaveHour += subLeaveHour;
+                                    if (IsLeaveAsWork(subLeave) && !NeedUpdateAttence(subLeave) && ShouldAddLeaveHour(subLeave, attence))
+                                    {
+                                        workHours += subLeaveHour;
+                                    }
+                                }
                             }
                         }
                         // 判断是否有出差
@@ -470,6 +486,7 @@ namespace XYD.Common
         #region 考勤是否应算到工作时间中
         public static bool ShouldAddLeaveHour(XYD_Leave_Record leave, XYD_Attence attence)
         {
+            // 如果请假起始已经包括在考勤起始，则不用加时间
             if (attence != null && attence.StartTime != null && attence.EndTime != null && leave.StartDate >= attence.StartTime.Value && leave.EndDate <= attence.EndTime.Value)
             {
                 return false;
@@ -482,7 +499,7 @@ namespace XYD.Common
         public static bool IsLeaveAsWork(XYD_Leave_Record leave)
         {
             string category = leave.Category;
-            if (category == "加班" || category.Contains("补") || category == "外勤" || category.Contains("假"))
+            if (category == "加班" || category.Contains("补") || category == "外勤" || category.Contains("假") || category == "调休")
             {
                 return true;
             }
@@ -863,6 +880,29 @@ namespace XYD.Common
         public static double FillUpToHalfHour(double hour)
         {
             return Math.Ceiling(hour * 2) / 2;
+        }
+        #endregion
+
+        #region 判断两时间段是否相交
+        public static bool CheckTimeSpansIntersect(DateTime? workStart, DateTime? workEnd, DateTime leaveStart, DateTime leaveEnd)
+        {
+            if (workStart == null || workEnd == null)
+            {
+                return false;
+            }
+            else
+            {
+                return DateTimeWithoutSecond(workStart.Value) < DateTimeWithoutSecond(leaveEnd)
+                && DateTimeWithoutSecond(workEnd.Value) > DateTimeWithoutSecond(leaveStart);
+            }
+        }
+        #endregion
+
+        #region 时间精确到分
+        public static DateTime DateTimeWithoutSecond(DateTime dateTime)
+        {
+            var s = dateTime.ToString("yyyy-MM-dd HH:mm:00");
+            return DateTime.Parse(s);
         }
         #endregion
     }
