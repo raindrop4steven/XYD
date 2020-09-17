@@ -158,5 +158,15 @@ namespace XYD.Controllers
             return ResponseUtil.OK(resultList);
         }
         #endregion
+
+        #region 测试webservice
+        public ActionResult TestWebService()
+        {
+            var u8Service = new U8Service.U8ServiceSoapClient();
+            var results = u8Service.Test();
+            var list = JsonConvert.DeserializeObject<List<object>>(results);
+            return ResponseUtil.OK(list);
+        }
+        #endregion
     }
 }
