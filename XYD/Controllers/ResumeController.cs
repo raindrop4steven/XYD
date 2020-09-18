@@ -517,17 +517,20 @@ namespace XYD.Controllers
                 var U8Persons = JsonConvert.DeserializeObject<List<XYD_U8_Person>>(dbPersons);
                 var personCodes = U8Persons.Select(n => string.Format("'{0}'", n.cPersonCode)).ToList();
                 var inString = string.Join(",", personCodes);
-                var sql = string.Format(@"SELECT
-	                                            a.EmplNO AS cPersonCode,
-	                                            a.EmplName AS cPersonName,
-	                                            b.DeptDescr AS cDepCode 
-                                            FROM
-	                                            ORG_Employee a
-	                                            INNER JOIN ORG_Department b ON a.DeptID = b.DeptID 
-                                            WHERE
-	                                            a.EmplNO != '' 
-                                                AND a.EmplEnabled = 1
-	                                            AND a.EmplNO NOT IN ( {0});", inString);
+                var sql = @"SELECT
+	                            a.EmplNO AS cPersonCode,
+	                            a.EmplName AS cPersonName,
+	                            b.DeptDescr AS cDepCode 
+                            FROM
+	                            ORG_Employee a
+	                            INNER JOIN ORG_Department b ON a.DeptID = b.DeptID 
+                            WHERE
+	                            a.EmplNO != '' 
+                                AND a.EmplEnabled = 1";
+                if (!string.IsNullOrEmpty(inString))
+                {
+                    sql += string.Format(" AND a.EmplNO NOT IN ({0}) ", inString);
+                }
                 var personList = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetU8Person);
                 if (personList.ToList().Count > 0)
                 {
