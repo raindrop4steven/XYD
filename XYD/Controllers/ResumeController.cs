@@ -1,8 +1,10 @@
 ﻿using Appkiz.Library.Security;
 using Appkiz.Library.Security.Authentication;
 using DocumentFormat.OpenXml.Drawing;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,6 +13,7 @@ using System.Web.Mvc;
 using XYD.Common;
 using XYD.Entity;
 using XYD.Models;
+using XYD.U8Service;
 
 namespace XYD.Controllers
 {
@@ -18,6 +21,7 @@ namespace XYD.Controllers
     {
         // 用户管理
         OrgMgr orgMgr = new OrgMgr();
+        U8ServiceSoapClient client = new U8ServiceSoapClient();
 
         #region 用户简历信息
         [Authorize]
@@ -112,23 +116,9 @@ namespace XYD.Controllers
                 {
                     cGzGradeNum = "001";
                 }
-                // 构造查询 
-                // sql 
-                var sql = string.Format(@"SELECT
-	                                            F_1 as shouldPay, F_3 as salary, iYear, iMonth
-                                            FROM
-	                                            WA_GZData 
-                                            WHERE
-	                                            cGZGradeNum = '{5}' 
-	                                            AND cPsn_Num = '{0}'
-	                                            AND iYear >= {1}
-                                                AND iYear <= {2}
-	                                            AND iMonth >= {3}
-	                                            AND iMonth <= {4}
-	                                            ORDER BY iYear DESC, iMonth DESC", employee.EmplNO, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month, cGzGradeNum);
                 // SQL 连接字符串
-                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
-                var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetSalary);
+                var key = ConfigurationManager.AppSettings["WSDL_Key"];
+                var result = client.QuerySalary(key, BeginDate, EndDate, employee.EmplNO, cGzGradeNum);
                 return ResponseUtil.OK(new
                 {
                     result = result
@@ -149,58 +139,16 @@ namespace XYD.Controllers
             {
                 // 检查用户是否具有领导权限
                 var employee = (User.Identity as AppkizIdentity).Employee;
-                var selectClause = @" cPsn_Num, cPsn_Name, b.cDepName, F_9, F_10, F_12, F_11, F_26, F_1, F_13, F_14, F_15, F_16, F_17,
-	                                        F_18,
-	                                        F_19,
-	                                        F_20,
-	                                        F_21,
-	                                        F_22,
-	                                        F_23,
-	                                        F_1102,
-	                                        F_1103,
-	                                        F_1104,
-	                                        F_1105,
-	                                        F_1106,
-	                                        F_1108,
-	                                        F_1112,
-	                                        F_1116,
-	                                        F_1115,
-	                                        F_1114,
-	                                        F_1113,
-	                                        F_1001,
-	                                        F_1002,
-	                                        F_6,
-	                                        F_1003,
-	                                        F_25,
-	                                        F_24,
-	                                        F_1004,
-	                                        F_2,
-	                                        F_3,
-                                            b.cDepCode,
-                                            iYear,
-                                            iMonth
-                                        FROM
-	                                        WA_GZData a
-	                                        LEFT JOIN Department b ON b.cDepCode = a.cDept_Num ";
                 // 参数校验
                 if (string.IsNullOrEmpty(employee.EmplNO))
                 {
                     return ResponseUtil.Error("用户工号为空，请先补充相关信息再查询");
                 }
                 var cGZGradeNum = OrgUtil.CheckRole(employee.EmplID, "上海") ? "002" : "001";
-                // sql 
-                var sql = string.Format(@"SELECT
-	                                           {0}
-                                            WHERE
-	                                            cPsn_Num = '{1}'
-	                                            AND iYear = {2}
-	                                            AND iMonth = {3}
-                                                AND cGZGradeNum = '{4}'
-                                                ORDER BY iYear, iMonth", selectClause, employee.EmplNO, Year, Month, cGZGradeNum);
-                // SQL 连接字符串
-                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
+
                 // 记录总页数
-                var list = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetDetailSalary);
+                var key = ConfigurationManager.AppSettings["WSDL_Key"];
+                var list = client.SalaryDetail(key, Year, Month, employee.EmplNO, cGZGradeNum);
 
                 return ResponseUtil.OK(new
                 {
@@ -231,55 +179,10 @@ namespace XYD.Controllers
                 {
                     return ResponseUtil.Error("用户工号为空，请先补充相关信息再查询");
                 }
-                string sql = string.Empty;
-                string orderBy = string.Empty;
-                var selectClause = @" cPsn_Num, cPsn_Name, b.cDepName, F_9, F_10, F_12, F_11, F_26, F_1, F_13, F_14, F_15, F_16, F_17,
-	                                        F_18,
-	                                        F_19,
-	                                        F_20,
-	                                        F_21,
-	                                        F_22,
-	                                        F_23,
-	                                        F_1102,
-	                                        F_1103,
-	                                        F_1104,
-	                                        F_1105,
-	                                        F_1106,
-	                                        F_1108,
-	                                        F_1112,
-	                                        F_1116,
-	                                        F_1115,
-	                                        F_1114,
-	                                        F_1113,
-	                                        F_1001,
-	                                        F_1002,
-	                                        F_6,
-	                                        F_1003,
-	                                        F_25,
-	                                        F_24,
-	                                        F_1004,
-	                                        F_2,
-	                                        F_3,
-                                            b.cDepCode,
-                                            iYear,
-                                            iMonth
-                                        FROM
-	                                        WA_GZData a
-	                                        LEFT JOIN Department b ON b.cDepCode = a.cDept_Num ";
-                // sql 
-                sql = string.Format(@"SELECT
-	                                           {0}
-                                            WHERE
-	                                            cPsn_Num = '{1}'
-	                                            AND iYear >= {2}
-                                                AND iYear <= {3}
-	                                            AND iMonth >= {4}
-	                                            AND iMonth <= {5}
-                                                ORDER BY iYear, iMonth", selectClause, employee.EmplNO, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month);
-                // SQL 连接字符串
-                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
                 // 记录总页数
-                var list = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetDetailSalary);
+                var key = ConfigurationManager.AppSettings["WSDL_Key"];
+                var dbList = client.QueryMyDetailSalary(key, BeginDate, EndDate, employee.EmplNO);
+                var list = JsonConvert.DeserializeObject<List<object>>(dbList);
                 var totalCount = list.Count();
                 var results = list.Skip(Page * Size).Take(Size);
                 var totalPage = (int)Math.Ceiling((float)totalCount / Size);
@@ -317,105 +220,57 @@ namespace XYD.Controllers
                 // 检查用户是否具有领导权限
                 var employee = (User.Identity as AppkizIdentity).Employee;
                 var isLeader = PermUtil.CheckPermission(employee.EmplID, DEP_Constants.Module_Information_Code, DEP_Constants.Perm_Info_Leader);
-                string sql = string.Empty;
-                string orderBy = string.Empty;
-                var selectClause = @" cPsn_Num, cPsn_Name, b.cDepName, F_9, F_10, F_12, F_11, F_26, F_1, F_13, F_14, F_15, F_16, F_17,
-	                                        F_18,
-	                                        F_19,
-	                                        F_20,
-	                                        F_21,
-	                                        F_22,
-	                                        F_23,
-	                                        F_1102,
-	                                        F_1103,
-	                                        F_1104,
-	                                        F_1105,
-	                                        F_1106,
-	                                        F_1108,
-	                                        F_1112,
-	                                        F_1116,
-	                                        F_1115,
-	                                        F_1114,
-	                                        F_1113,
-	                                        F_1001,
-	                                        F_1002,
-	                                        F_6,
-	                                        F_1003,
-	                                        F_25,
-	                                        F_24,
-	                                        F_1004,
-	                                        F_2,
-	                                        F_3,
-                                            b.cDepCode,
-                                            iYear,
-                                            iMonth
-                                        FROM
-	                                        WA_GZData a
-	                                        LEFT JOIN Department b ON b.cDepCode = a.cDept_Num ";
                 if (isLeader)
                 {
+                    string wxIdList = string.Empty;
+                    string shIdList = string.Empty;
+                    string specialIdList = string.Empty;
+
                     if (!string.IsNullOrEmpty(Area))
                     {
-                        string specialSql = string.Empty;
-                        var normalSql = GetLeaderQuerySql(selectClause, BeginDate, EndDate, Area, UserName);
-                        if (Area == "002") // SH里需要把翁杰去掉，单独查询
+                        if (Area == "001")
                         {
-                            specialSql = GetSpecialQuerySql(selectClause, BeginDate, EndDate, Area, UserName);
-                            sql = string.Format("select * from ({0} union {1}) a order by a.cDepCode, a.iYear, a.iMonth", normalSql, specialSql);
+                            wxIdList = OrgUtil.GetQueryIdList(Area, UserName);
                         }
                         else
                         {
-                            sql = string.Format("select * from ({0}) a order by a.cDepCode, a.iYear, a.iMonth", normalSql);
-                        }                   
+                            shIdList = OrgUtil.GetQueryIdList(Area, UserName);
+                            specialIdList = OrgUtil.GetSpecialQueryList(Area, UserName);
+                        }         
                     }
                     else
                     {
                         // 无锡sql
-                        var wxSql = GetLeaderQuerySql(selectClause, BeginDate, EndDate, "001", UserName);
+                        wxIdList = OrgUtil.GetQueryIdList(Area, UserName);
                         // 上海sql
-                        var shSql = GetLeaderQuerySql(selectClause, BeginDate, EndDate, "002", UserName);
-                        var specialSql = GetSpecialQuerySql(selectClause, BeginDate, EndDate, Area, UserName);
-                        sql = string.Format("select * from ({0} union {1} union {2}) a order by a.iYear, a.iMonth, a.cDepCode", wxSql, shSql, specialSql);
+                        shIdList = OrgUtil.GetQueryIdList(Area, UserName);
+                        specialIdList = OrgUtil.GetSpecialQueryList(Area, UserName);
                     }
+                    var key = ConfigurationManager.AppSettings["WSDL_Key"];
+                    var dblist = client.QueryDetailSalary(key, BeginDate, EndDate, Area, wxIdList, shIdList, specialIdList);
+                    var list = JsonConvert.DeserializeObject<List<object>>(dblist);
+                    var totalCount = list.Count();
+                    var results = list.Skip(Page * Size).Take(Size);
+                    var totalPage = (int)Math.Ceiling((float)totalCount / Size);
+
+                    return ResponseUtil.OK(new
+                    {
+                        results = results,
+                        meta = new
+                        {
+                            current_page = Page,
+                            total_page = totalPage,
+                            current_count = Page * Size + results.Count(),
+                            total_count = totalCount,
+                            per_page = Size
+                        }
+                    });
                 }
                 else
                 {
-                    // 参数校验
-                    if (string.IsNullOrEmpty(employee.EmplNO))
-                    {
-                        return ResponseUtil.Error("用户工号为空，请先补充相关信息再查询");
-                    }
-                    // sql 
-                    sql = string.Format(@"SELECT
-	                                           {0}
-                                            WHERE
-	                                            cPsn_Num = '{1}'
-	                                            AND iYear >= {2}
-                                                AND iYear <= {3}
-	                                            AND iMonth >= {4}
-	                                            AND iMonth <= {5}
-                                                ORDER BY iYear, iMonth", selectClause, employee.EmplNO, BeginDate.Year, EndDate.Year, BeginDate.Month, EndDate.Month);
+                    return ResponseUtil.Error("您没有权限查看数据");
                 }
-                // SQL 连接字符串
-                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
-                // 记录总页数
-                var list = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetDetailSalary);
-                var totalCount = list.Count();
-                var results = list.Skip(Page * Size).Take(Size);
-                var totalPage = (int)Math.Ceiling((float)totalCount / Size);
-
-                return ResponseUtil.OK(new
-                {
-                    results = results,
-                    meta = new
-                    {
-                        current_page = Page,
-                        total_page = totalPage,
-                        current_count = Page * Size + results.Count(),
-                        total_count = totalCount,
-                        per_page = Size
-                    }
-                });
+                
             }
             catch (Exception e)
             {
@@ -657,8 +512,9 @@ namespace XYD.Controllers
         {
             try
             {
-                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
-                var U8Persons = OrgUtil.GetU8Users();
+                var key = ConfigurationManager.AppSettings["WSDL_Key"];
+                var dbPersons = client.GetU8Users(key);
+                var U8Persons = JsonConvert.DeserializeObject<List<XYD_U8_Person>>(dbPersons);
                 var personCodes = U8Persons.Select(n => string.Format("'{0}'", n.cPersonCode)).ToList();
                 var inString = string.Join(",", personCodes);
                 var sql = string.Format(@"SELECT
@@ -673,18 +529,11 @@ namespace XYD.Controllers
                                                 AND a.EmplEnabled = 1
 	                                            AND a.EmplNO NOT IN ( {0});", inString);
                 var personList = DbUtil.ExecuteSqlCommand(sql, DbUtil.GetU8Person);
-                var insertSqlList = new StringBuilder();
-                foreach(XYD_U8_Person person in personList)
+                if (personList.ToList().Count > 0)
                 {
-                    string insertSql = string.Format(@"INSERT INTO Person (cPersonCode, cPersonName, cDepCode) VALUES ('{0}', '{1}', '{2}');", person.cPersonCode, person.cPersonName, person.cDepCode);
-                    insertSqlList.Append(insertSql);
-                }
-                // 检查是否有更新
-                var batchSql = insertSqlList.ToString();
-                if (!string.IsNullOrEmpty(batchSql))
-                {
-                    DbUtil.ExecuteSqlCommand(connectionString, batchSql);
-                    return ResponseUtil.OK("同步成功");
+                    var persons = JsonConvert.SerializeObject(personList);
+                    var result = client.SyncPerson(key, persons);
+                    return ResponseUtil.OK(result);
                 }
                 else
                 {

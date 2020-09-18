@@ -59,26 +59,142 @@
             <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="BeginDate" type="s:dateTime" />
             <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
-            <s:element minOccurs="0" maxOccurs="1" name="wxIdList" type="tns:ArrayOfString" />
-            <s:element minOccurs="0" maxOccurs="1" name="shIdList" type="tns:ArrayOfString" />
-            <s:element minOccurs="0" maxOccurs="1" name="specialIdList" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="wxIdList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="shIdList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="specialIdList" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="SalaryResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="SalaryResult" />
+            <s:element minOccurs="0" maxOccurs="1" name="SalaryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySalary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="BeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmplNO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cGzGradeNum" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuerySalaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QuerySalaryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SalaryDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Month" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmplNO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cGZGradeNum" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SalaryDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SalaryDetailResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryMyDetailSalary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="BeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmplNO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryMyDetailSalaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryMyDetailSalaryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryDetailSalary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="BeginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Area" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wxIdList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="shIdList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="specialIdList" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryDetailSalaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryDetailSalaryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SyncPerson">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="persons" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SyncPersonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SyncPersonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetU8Users">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetU8UsersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetU8UsersResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindTargetVendor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindTargetVendorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindTargetVendorResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
       <s:element name="Test">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="TestResponse">
         <s:complexType>
@@ -113,6 +229,48 @@
   <wsdl:message name="SalarySoapOut">
     <wsdl:part name="parameters" element="tns:SalaryResponse" />
   </wsdl:message>
+  <wsdl:message name="QuerySalarySoapIn">
+    <wsdl:part name="parameters" element="tns:QuerySalary" />
+  </wsdl:message>
+  <wsdl:message name="QuerySalarySoapOut">
+    <wsdl:part name="parameters" element="tns:QuerySalaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="SalaryDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:SalaryDetail" />
+  </wsdl:message>
+  <wsdl:message name="SalaryDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:SalaryDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryMyDetailSalarySoapIn">
+    <wsdl:part name="parameters" element="tns:QueryMyDetailSalary" />
+  </wsdl:message>
+  <wsdl:message name="QueryMyDetailSalarySoapOut">
+    <wsdl:part name="parameters" element="tns:QueryMyDetailSalaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryDetailSalarySoapIn">
+    <wsdl:part name="parameters" element="tns:QueryDetailSalary" />
+  </wsdl:message>
+  <wsdl:message name="QueryDetailSalarySoapOut">
+    <wsdl:part name="parameters" element="tns:QueryDetailSalaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="SyncPersonSoapIn">
+    <wsdl:part name="parameters" element="tns:SyncPerson" />
+  </wsdl:message>
+  <wsdl:message name="SyncPersonSoapOut">
+    <wsdl:part name="parameters" element="tns:SyncPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetU8UsersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetU8Users" />
+  </wsdl:message>
+  <wsdl:message name="GetU8UsersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetU8UsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="FindTargetVendorSoapIn">
+    <wsdl:part name="parameters" element="tns:FindTargetVendor" />
+  </wsdl:message>
+  <wsdl:message name="FindTargetVendorSoapOut">
+    <wsdl:part name="parameters" element="tns:FindTargetVendorResponse" />
+  </wsdl:message>
   <wsdl:message name="TestSoapIn">
     <wsdl:part name="parameters" element="tns:Test" />
   </wsdl:message>
@@ -135,6 +293,34 @@
     <wsdl:operation name="Salary">
       <wsdl:input message="tns:SalarySoapIn" />
       <wsdl:output message="tns:SalarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySalary">
+      <wsdl:input message="tns:QuerySalarySoapIn" />
+      <wsdl:output message="tns:QuerySalarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SalaryDetail">
+      <wsdl:input message="tns:SalaryDetailSoapIn" />
+      <wsdl:output message="tns:SalaryDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryMyDetailSalary">
+      <wsdl:input message="tns:QueryMyDetailSalarySoapIn" />
+      <wsdl:output message="tns:QueryMyDetailSalarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryDetailSalary">
+      <wsdl:input message="tns:QueryDetailSalarySoapIn" />
+      <wsdl:output message="tns:QueryDetailSalarySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SyncPerson">
+      <wsdl:input message="tns:SyncPersonSoapIn" />
+      <wsdl:output message="tns:SyncPersonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetU8Users">
+      <wsdl:input message="tns:GetU8UsersSoapIn" />
+      <wsdl:output message="tns:GetU8UsersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindTargetVendor">
+      <wsdl:input message="tns:FindTargetVendorSoapIn" />
+      <wsdl:output message="tns:FindTargetVendorSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Test">
       <wsdl:input message="tns:TestSoapIn" />
@@ -172,6 +358,69 @@
     </wsdl:operation>
     <wsdl:operation name="Salary">
       <soap:operation soapAction="http://tempuri.org/Salary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySalary">
+      <soap:operation soapAction="http://tempuri.org/QuerySalary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SalaryDetail">
+      <soap:operation soapAction="http://tempuri.org/SalaryDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryMyDetailSalary">
+      <soap:operation soapAction="http://tempuri.org/QueryMyDetailSalary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryDetailSalary">
+      <soap:operation soapAction="http://tempuri.org/QueryDetailSalary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncPerson">
+      <soap:operation soapAction="http://tempuri.org/SyncPerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetU8Users">
+      <soap:operation soapAction="http://tempuri.org/GetU8Users" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindTargetVendor">
+      <soap:operation soapAction="http://tempuri.org/FindTargetVendor" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -220,6 +469,69 @@
     </wsdl:operation>
     <wsdl:operation name="Salary">
       <soap12:operation soapAction="http://tempuri.org/Salary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySalary">
+      <soap12:operation soapAction="http://tempuri.org/QuerySalary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SalaryDetail">
+      <soap12:operation soapAction="http://tempuri.org/SalaryDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryMyDetailSalary">
+      <soap12:operation soapAction="http://tempuri.org/QueryMyDetailSalary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryDetailSalary">
+      <soap12:operation soapAction="http://tempuri.org/QueryDetailSalary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncPerson">
+      <soap12:operation soapAction="http://tempuri.org/SyncPerson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetU8Users">
+      <soap12:operation soapAction="http://tempuri.org/GetU8Users" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindTargetVendor">
+      <soap12:operation soapAction="http://tempuri.org/FindTargetVendor" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

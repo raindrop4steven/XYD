@@ -9,16 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace XYD.U8Service {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.CollectionDataContractAttribute(Name="ArrayOfString", Namespace="http://tempuri.org/", ItemName="string")]
-    [System.SerializableAttribute()]
-    public class ArrayOfString : System.Collections.Generic.List<string> {
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="U8Service.U8ServiceSoap")]
@@ -52,7 +43,56 @@ namespace XYD.U8Service {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Salary", ReplyAction="*")]
         System.Threading.Tasks.Task<XYD.U8Service.SalaryResponse> SalaryAsync(XYD.U8Service.SalaryRequest request);
         
-        // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 TestResult 以后生成的消息协定未标记为 nillable
+        // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 key 以后生成的消息协定未标记为 nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/QuerySalary", ReplyAction="*")]
+        XYD.U8Service.QuerySalaryResponse QuerySalary(XYD.U8Service.QuerySalaryRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/QuerySalary", ReplyAction="*")]
+        System.Threading.Tasks.Task<XYD.U8Service.QuerySalaryResponse> QuerySalaryAsync(XYD.U8Service.QuerySalaryRequest request);
+        
+        // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 key 以后生成的消息协定未标记为 nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SalaryDetail", ReplyAction="*")]
+        XYD.U8Service.SalaryDetailResponse SalaryDetail(XYD.U8Service.SalaryDetailRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SalaryDetail", ReplyAction="*")]
+        System.Threading.Tasks.Task<XYD.U8Service.SalaryDetailResponse> SalaryDetailAsync(XYD.U8Service.SalaryDetailRequest request);
+        
+        // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 key 以后生成的消息协定未标记为 nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/QueryMyDetailSalary", ReplyAction="*")]
+        XYD.U8Service.QueryMyDetailSalaryResponse QueryMyDetailSalary(XYD.U8Service.QueryMyDetailSalaryRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/QueryMyDetailSalary", ReplyAction="*")]
+        System.Threading.Tasks.Task<XYD.U8Service.QueryMyDetailSalaryResponse> QueryMyDetailSalaryAsync(XYD.U8Service.QueryMyDetailSalaryRequest request);
+        
+        // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 key 以后生成的消息协定未标记为 nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/QueryDetailSalary", ReplyAction="*")]
+        XYD.U8Service.QueryDetailSalaryResponse QueryDetailSalary(XYD.U8Service.QueryDetailSalaryRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/QueryDetailSalary", ReplyAction="*")]
+        System.Threading.Tasks.Task<XYD.U8Service.QueryDetailSalaryResponse> QueryDetailSalaryAsync(XYD.U8Service.QueryDetailSalaryRequest request);
+        
+        // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 key 以后生成的消息协定未标记为 nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SyncPerson", ReplyAction="*")]
+        XYD.U8Service.SyncPersonResponse SyncPerson(XYD.U8Service.SyncPersonRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SyncPerson", ReplyAction="*")]
+        System.Threading.Tasks.Task<XYD.U8Service.SyncPersonResponse> SyncPersonAsync(XYD.U8Service.SyncPersonRequest request);
+        
+        // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 key 以后生成的消息协定未标记为 nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetU8Users", ReplyAction="*")]
+        XYD.U8Service.GetU8UsersResponse GetU8Users(XYD.U8Service.GetU8UsersRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetU8Users", ReplyAction="*")]
+        System.Threading.Tasks.Task<XYD.U8Service.GetU8UsersResponse> GetU8UsersAsync(XYD.U8Service.GetU8UsersRequest request);
+        
+        // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 key 以后生成的消息协定未标记为 nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FindTargetVendor", ReplyAction="*")]
+        XYD.U8Service.FindTargetVendorResponse FindTargetVendor(XYD.U8Service.FindTargetVendorRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FindTargetVendor", ReplyAction="*")]
+        System.Threading.Tasks.Task<XYD.U8Service.FindTargetVendorResponse> FindTargetVendorAsync(XYD.U8Service.FindTargetVendorRequest request);
+        
+        // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 key 以后生成的消息协定未标记为 nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Test", ReplyAction="*")]
         XYD.U8Service.TestResponse Test(XYD.U8Service.TestRequest request);
         
@@ -333,18 +373,18 @@ namespace XYD.U8Service {
         public System.DateTime EndDate;
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
-        public XYD.U8Service.ArrayOfString wxIdList;
+        public string wxIdList;
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
-        public XYD.U8Service.ArrayOfString shIdList;
+        public string shIdList;
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
-        public XYD.U8Service.ArrayOfString specialIdList;
+        public string specialIdList;
         
         public SalaryRequestBody() {
         }
         
-        public SalaryRequestBody(string key, System.DateTime BeginDate, System.DateTime EndDate, XYD.U8Service.ArrayOfString wxIdList, XYD.U8Service.ArrayOfString shIdList, XYD.U8Service.ArrayOfString specialIdList) {
+        public SalaryRequestBody(string key, System.DateTime BeginDate, System.DateTime EndDate, string wxIdList, string shIdList, string specialIdList) {
             this.key = key;
             this.BeginDate = BeginDate;
             this.EndDate = EndDate;
@@ -378,13 +418,565 @@ namespace XYD.U8Service {
     public partial class SalaryResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public object SalaryResult;
+        public string SalaryResult;
         
         public SalaryResponseBody() {
         }
         
-        public SalaryResponseBody(object SalaryResult) {
+        public SalaryResponseBody(string SalaryResult) {
             this.SalaryResult = SalaryResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class QuerySalaryRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="QuerySalary", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.QuerySalaryRequestBody Body;
+        
+        public QuerySalaryRequest() {
+        }
+        
+        public QuerySalaryRequest(XYD.U8Service.QuerySalaryRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class QuerySalaryRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string key;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public System.DateTime BeginDate;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public System.DateTime EndDate;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string EmplNO;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string cGzGradeNum;
+        
+        public QuerySalaryRequestBody() {
+        }
+        
+        public QuerySalaryRequestBody(string key, System.DateTime BeginDate, System.DateTime EndDate, string EmplNO, string cGzGradeNum) {
+            this.key = key;
+            this.BeginDate = BeginDate;
+            this.EndDate = EndDate;
+            this.EmplNO = EmplNO;
+            this.cGzGradeNum = cGzGradeNum;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class QuerySalaryResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="QuerySalaryResponse", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.QuerySalaryResponseBody Body;
+        
+        public QuerySalaryResponse() {
+        }
+        
+        public QuerySalaryResponse(XYD.U8Service.QuerySalaryResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class QuerySalaryResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string QuerySalaryResult;
+        
+        public QuerySalaryResponseBody() {
+        }
+        
+        public QuerySalaryResponseBody(string QuerySalaryResult) {
+            this.QuerySalaryResult = QuerySalaryResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SalaryDetailRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="SalaryDetail", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.SalaryDetailRequestBody Body;
+        
+        public SalaryDetailRequest() {
+        }
+        
+        public SalaryDetailRequest(XYD.U8Service.SalaryDetailRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class SalaryDetailRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string key;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public int Year;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public int Month;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string EmplNO;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string cGZGradeNum;
+        
+        public SalaryDetailRequestBody() {
+        }
+        
+        public SalaryDetailRequestBody(string key, int Year, int Month, string EmplNO, string cGZGradeNum) {
+            this.key = key;
+            this.Year = Year;
+            this.Month = Month;
+            this.EmplNO = EmplNO;
+            this.cGZGradeNum = cGZGradeNum;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SalaryDetailResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="SalaryDetailResponse", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.SalaryDetailResponseBody Body;
+        
+        public SalaryDetailResponse() {
+        }
+        
+        public SalaryDetailResponse(XYD.U8Service.SalaryDetailResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class SalaryDetailResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string SalaryDetailResult;
+        
+        public SalaryDetailResponseBody() {
+        }
+        
+        public SalaryDetailResponseBody(string SalaryDetailResult) {
+            this.SalaryDetailResult = SalaryDetailResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class QueryMyDetailSalaryRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="QueryMyDetailSalary", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.QueryMyDetailSalaryRequestBody Body;
+        
+        public QueryMyDetailSalaryRequest() {
+        }
+        
+        public QueryMyDetailSalaryRequest(XYD.U8Service.QueryMyDetailSalaryRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class QueryMyDetailSalaryRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string key;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public System.DateTime BeginDate;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public System.DateTime EndDate;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string EmplNO;
+        
+        public QueryMyDetailSalaryRequestBody() {
+        }
+        
+        public QueryMyDetailSalaryRequestBody(string key, System.DateTime BeginDate, System.DateTime EndDate, string EmplNO) {
+            this.key = key;
+            this.BeginDate = BeginDate;
+            this.EndDate = EndDate;
+            this.EmplNO = EmplNO;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class QueryMyDetailSalaryResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="QueryMyDetailSalaryResponse", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.QueryMyDetailSalaryResponseBody Body;
+        
+        public QueryMyDetailSalaryResponse() {
+        }
+        
+        public QueryMyDetailSalaryResponse(XYD.U8Service.QueryMyDetailSalaryResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class QueryMyDetailSalaryResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string QueryMyDetailSalaryResult;
+        
+        public QueryMyDetailSalaryResponseBody() {
+        }
+        
+        public QueryMyDetailSalaryResponseBody(string QueryMyDetailSalaryResult) {
+            this.QueryMyDetailSalaryResult = QueryMyDetailSalaryResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class QueryDetailSalaryRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="QueryDetailSalary", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.QueryDetailSalaryRequestBody Body;
+        
+        public QueryDetailSalaryRequest() {
+        }
+        
+        public QueryDetailSalaryRequest(XYD.U8Service.QueryDetailSalaryRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class QueryDetailSalaryRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string key;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public System.DateTime BeginDate;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public System.DateTime EndDate;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string Area;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string wxIdList;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
+        public string shIdList;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=6)]
+        public string specialIdList;
+        
+        public QueryDetailSalaryRequestBody() {
+        }
+        
+        public QueryDetailSalaryRequestBody(string key, System.DateTime BeginDate, System.DateTime EndDate, string Area, string wxIdList, string shIdList, string specialIdList) {
+            this.key = key;
+            this.BeginDate = BeginDate;
+            this.EndDate = EndDate;
+            this.Area = Area;
+            this.wxIdList = wxIdList;
+            this.shIdList = shIdList;
+            this.specialIdList = specialIdList;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class QueryDetailSalaryResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="QueryDetailSalaryResponse", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.QueryDetailSalaryResponseBody Body;
+        
+        public QueryDetailSalaryResponse() {
+        }
+        
+        public QueryDetailSalaryResponse(XYD.U8Service.QueryDetailSalaryResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class QueryDetailSalaryResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string QueryDetailSalaryResult;
+        
+        public QueryDetailSalaryResponseBody() {
+        }
+        
+        public QueryDetailSalaryResponseBody(string QueryDetailSalaryResult) {
+            this.QueryDetailSalaryResult = QueryDetailSalaryResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SyncPersonRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="SyncPerson", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.SyncPersonRequestBody Body;
+        
+        public SyncPersonRequest() {
+        }
+        
+        public SyncPersonRequest(XYD.U8Service.SyncPersonRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class SyncPersonRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string key;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string persons;
+        
+        public SyncPersonRequestBody() {
+        }
+        
+        public SyncPersonRequestBody(string key, string persons) {
+            this.key = key;
+            this.persons = persons;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SyncPersonResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="SyncPersonResponse", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.SyncPersonResponseBody Body;
+        
+        public SyncPersonResponse() {
+        }
+        
+        public SyncPersonResponse(XYD.U8Service.SyncPersonResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class SyncPersonResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string SyncPersonResult;
+        
+        public SyncPersonResponseBody() {
+        }
+        
+        public SyncPersonResponseBody(string SyncPersonResult) {
+            this.SyncPersonResult = SyncPersonResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetU8UsersRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetU8Users", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.GetU8UsersRequestBody Body;
+        
+        public GetU8UsersRequest() {
+        }
+        
+        public GetU8UsersRequest(XYD.U8Service.GetU8UsersRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetU8UsersRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string key;
+        
+        public GetU8UsersRequestBody() {
+        }
+        
+        public GetU8UsersRequestBody(string key) {
+            this.key = key;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class GetU8UsersResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetU8UsersResponse", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.GetU8UsersResponseBody Body;
+        
+        public GetU8UsersResponse() {
+        }
+        
+        public GetU8UsersResponse(XYD.U8Service.GetU8UsersResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class GetU8UsersResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string GetU8UsersResult;
+        
+        public GetU8UsersResponseBody() {
+        }
+        
+        public GetU8UsersResponseBody(string GetU8UsersResult) {
+            this.GetU8UsersResult = GetU8UsersResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class FindTargetVendorRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="FindTargetVendor", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.FindTargetVendorRequestBody Body;
+        
+        public FindTargetVendorRequest() {
+        }
+        
+        public FindTargetVendorRequest(XYD.U8Service.FindTargetVendorRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class FindTargetVendorRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string key;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string Name;
+        
+        public FindTargetVendorRequestBody() {
+        }
+        
+        public FindTargetVendorRequestBody(string key, string Name) {
+            this.key = key;
+            this.Name = Name;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class FindTargetVendorResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="FindTargetVendorResponse", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.FindTargetVendorResponseBody Body;
+        
+        public FindTargetVendorResponse() {
+        }
+        
+        public FindTargetVendorResponse(XYD.U8Service.FindTargetVendorResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class FindTargetVendorResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string FindTargetVendorResult;
+        
+        public FindTargetVendorResponseBody() {
+        }
+        
+        public FindTargetVendorResponseBody(string FindTargetVendorResult) {
+            this.FindTargetVendorResult = FindTargetVendorResult;
         }
     }
     
@@ -408,10 +1000,17 @@ namespace XYD.U8Service {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute()]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
     public partial class TestRequestBody {
         
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string key;
+        
         public TestRequestBody() {
+        }
+        
+        public TestRequestBody(string key) {
+            this.key = key;
         }
     }
     
@@ -574,7 +1173,7 @@ namespace XYD.U8Service {
             return base.Channel.Salary(request);
         }
         
-        public object Salary(string key, System.DateTime BeginDate, System.DateTime EndDate, XYD.U8Service.ArrayOfString wxIdList, XYD.U8Service.ArrayOfString shIdList, XYD.U8Service.ArrayOfString specialIdList) {
+        public string Salary(string key, System.DateTime BeginDate, System.DateTime EndDate, string wxIdList, string shIdList, string specialIdList) {
             XYD.U8Service.SalaryRequest inValue = new XYD.U8Service.SalaryRequest();
             inValue.Body = new XYD.U8Service.SalaryRequestBody();
             inValue.Body.key = key;
@@ -592,7 +1191,7 @@ namespace XYD.U8Service {
             return base.Channel.SalaryAsync(request);
         }
         
-        public System.Threading.Tasks.Task<XYD.U8Service.SalaryResponse> SalaryAsync(string key, System.DateTime BeginDate, System.DateTime EndDate, XYD.U8Service.ArrayOfString wxIdList, XYD.U8Service.ArrayOfString shIdList, XYD.U8Service.ArrayOfString specialIdList) {
+        public System.Threading.Tasks.Task<XYD.U8Service.SalaryResponse> SalaryAsync(string key, System.DateTime BeginDate, System.DateTime EndDate, string wxIdList, string shIdList, string specialIdList) {
             XYD.U8Service.SalaryRequest inValue = new XYD.U8Service.SalaryRequest();
             inValue.Body = new XYD.U8Service.SalaryRequestBody();
             inValue.Body.key = key;
@@ -605,13 +1204,227 @@ namespace XYD.U8Service {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        XYD.U8Service.QuerySalaryResponse XYD.U8Service.U8ServiceSoap.QuerySalary(XYD.U8Service.QuerySalaryRequest request) {
+            return base.Channel.QuerySalary(request);
+        }
+        
+        public string QuerySalary(string key, System.DateTime BeginDate, System.DateTime EndDate, string EmplNO, string cGzGradeNum) {
+            XYD.U8Service.QuerySalaryRequest inValue = new XYD.U8Service.QuerySalaryRequest();
+            inValue.Body = new XYD.U8Service.QuerySalaryRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.BeginDate = BeginDate;
+            inValue.Body.EndDate = EndDate;
+            inValue.Body.EmplNO = EmplNO;
+            inValue.Body.cGzGradeNum = cGzGradeNum;
+            XYD.U8Service.QuerySalaryResponse retVal = ((XYD.U8Service.U8ServiceSoap)(this)).QuerySalary(inValue);
+            return retVal.Body.QuerySalaryResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<XYD.U8Service.QuerySalaryResponse> XYD.U8Service.U8ServiceSoap.QuerySalaryAsync(XYD.U8Service.QuerySalaryRequest request) {
+            return base.Channel.QuerySalaryAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<XYD.U8Service.QuerySalaryResponse> QuerySalaryAsync(string key, System.DateTime BeginDate, System.DateTime EndDate, string EmplNO, string cGzGradeNum) {
+            XYD.U8Service.QuerySalaryRequest inValue = new XYD.U8Service.QuerySalaryRequest();
+            inValue.Body = new XYD.U8Service.QuerySalaryRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.BeginDate = BeginDate;
+            inValue.Body.EndDate = EndDate;
+            inValue.Body.EmplNO = EmplNO;
+            inValue.Body.cGzGradeNum = cGzGradeNum;
+            return ((XYD.U8Service.U8ServiceSoap)(this)).QuerySalaryAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        XYD.U8Service.SalaryDetailResponse XYD.U8Service.U8ServiceSoap.SalaryDetail(XYD.U8Service.SalaryDetailRequest request) {
+            return base.Channel.SalaryDetail(request);
+        }
+        
+        public string SalaryDetail(string key, int Year, int Month, string EmplNO, string cGZGradeNum) {
+            XYD.U8Service.SalaryDetailRequest inValue = new XYD.U8Service.SalaryDetailRequest();
+            inValue.Body = new XYD.U8Service.SalaryDetailRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.Year = Year;
+            inValue.Body.Month = Month;
+            inValue.Body.EmplNO = EmplNO;
+            inValue.Body.cGZGradeNum = cGZGradeNum;
+            XYD.U8Service.SalaryDetailResponse retVal = ((XYD.U8Service.U8ServiceSoap)(this)).SalaryDetail(inValue);
+            return retVal.Body.SalaryDetailResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<XYD.U8Service.SalaryDetailResponse> XYD.U8Service.U8ServiceSoap.SalaryDetailAsync(XYD.U8Service.SalaryDetailRequest request) {
+            return base.Channel.SalaryDetailAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<XYD.U8Service.SalaryDetailResponse> SalaryDetailAsync(string key, int Year, int Month, string EmplNO, string cGZGradeNum) {
+            XYD.U8Service.SalaryDetailRequest inValue = new XYD.U8Service.SalaryDetailRequest();
+            inValue.Body = new XYD.U8Service.SalaryDetailRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.Year = Year;
+            inValue.Body.Month = Month;
+            inValue.Body.EmplNO = EmplNO;
+            inValue.Body.cGZGradeNum = cGZGradeNum;
+            return ((XYD.U8Service.U8ServiceSoap)(this)).SalaryDetailAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        XYD.U8Service.QueryMyDetailSalaryResponse XYD.U8Service.U8ServiceSoap.QueryMyDetailSalary(XYD.U8Service.QueryMyDetailSalaryRequest request) {
+            return base.Channel.QueryMyDetailSalary(request);
+        }
+        
+        public string QueryMyDetailSalary(string key, System.DateTime BeginDate, System.DateTime EndDate, string EmplNO) {
+            XYD.U8Service.QueryMyDetailSalaryRequest inValue = new XYD.U8Service.QueryMyDetailSalaryRequest();
+            inValue.Body = new XYD.U8Service.QueryMyDetailSalaryRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.BeginDate = BeginDate;
+            inValue.Body.EndDate = EndDate;
+            inValue.Body.EmplNO = EmplNO;
+            XYD.U8Service.QueryMyDetailSalaryResponse retVal = ((XYD.U8Service.U8ServiceSoap)(this)).QueryMyDetailSalary(inValue);
+            return retVal.Body.QueryMyDetailSalaryResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<XYD.U8Service.QueryMyDetailSalaryResponse> XYD.U8Service.U8ServiceSoap.QueryMyDetailSalaryAsync(XYD.U8Service.QueryMyDetailSalaryRequest request) {
+            return base.Channel.QueryMyDetailSalaryAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<XYD.U8Service.QueryMyDetailSalaryResponse> QueryMyDetailSalaryAsync(string key, System.DateTime BeginDate, System.DateTime EndDate, string EmplNO) {
+            XYD.U8Service.QueryMyDetailSalaryRequest inValue = new XYD.U8Service.QueryMyDetailSalaryRequest();
+            inValue.Body = new XYD.U8Service.QueryMyDetailSalaryRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.BeginDate = BeginDate;
+            inValue.Body.EndDate = EndDate;
+            inValue.Body.EmplNO = EmplNO;
+            return ((XYD.U8Service.U8ServiceSoap)(this)).QueryMyDetailSalaryAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        XYD.U8Service.QueryDetailSalaryResponse XYD.U8Service.U8ServiceSoap.QueryDetailSalary(XYD.U8Service.QueryDetailSalaryRequest request) {
+            return base.Channel.QueryDetailSalary(request);
+        }
+        
+        public string QueryDetailSalary(string key, System.DateTime BeginDate, System.DateTime EndDate, string Area, string wxIdList, string shIdList, string specialIdList) {
+            XYD.U8Service.QueryDetailSalaryRequest inValue = new XYD.U8Service.QueryDetailSalaryRequest();
+            inValue.Body = new XYD.U8Service.QueryDetailSalaryRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.BeginDate = BeginDate;
+            inValue.Body.EndDate = EndDate;
+            inValue.Body.Area = Area;
+            inValue.Body.wxIdList = wxIdList;
+            inValue.Body.shIdList = shIdList;
+            inValue.Body.specialIdList = specialIdList;
+            XYD.U8Service.QueryDetailSalaryResponse retVal = ((XYD.U8Service.U8ServiceSoap)(this)).QueryDetailSalary(inValue);
+            return retVal.Body.QueryDetailSalaryResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<XYD.U8Service.QueryDetailSalaryResponse> XYD.U8Service.U8ServiceSoap.QueryDetailSalaryAsync(XYD.U8Service.QueryDetailSalaryRequest request) {
+            return base.Channel.QueryDetailSalaryAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<XYD.U8Service.QueryDetailSalaryResponse> QueryDetailSalaryAsync(string key, System.DateTime BeginDate, System.DateTime EndDate, string Area, string wxIdList, string shIdList, string specialIdList) {
+            XYD.U8Service.QueryDetailSalaryRequest inValue = new XYD.U8Service.QueryDetailSalaryRequest();
+            inValue.Body = new XYD.U8Service.QueryDetailSalaryRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.BeginDate = BeginDate;
+            inValue.Body.EndDate = EndDate;
+            inValue.Body.Area = Area;
+            inValue.Body.wxIdList = wxIdList;
+            inValue.Body.shIdList = shIdList;
+            inValue.Body.specialIdList = specialIdList;
+            return ((XYD.U8Service.U8ServiceSoap)(this)).QueryDetailSalaryAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        XYD.U8Service.SyncPersonResponse XYD.U8Service.U8ServiceSoap.SyncPerson(XYD.U8Service.SyncPersonRequest request) {
+            return base.Channel.SyncPerson(request);
+        }
+        
+        public string SyncPerson(string key, string persons) {
+            XYD.U8Service.SyncPersonRequest inValue = new XYD.U8Service.SyncPersonRequest();
+            inValue.Body = new XYD.U8Service.SyncPersonRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.persons = persons;
+            XYD.U8Service.SyncPersonResponse retVal = ((XYD.U8Service.U8ServiceSoap)(this)).SyncPerson(inValue);
+            return retVal.Body.SyncPersonResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<XYD.U8Service.SyncPersonResponse> XYD.U8Service.U8ServiceSoap.SyncPersonAsync(XYD.U8Service.SyncPersonRequest request) {
+            return base.Channel.SyncPersonAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<XYD.U8Service.SyncPersonResponse> SyncPersonAsync(string key, string persons) {
+            XYD.U8Service.SyncPersonRequest inValue = new XYD.U8Service.SyncPersonRequest();
+            inValue.Body = new XYD.U8Service.SyncPersonRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.persons = persons;
+            return ((XYD.U8Service.U8ServiceSoap)(this)).SyncPersonAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        XYD.U8Service.GetU8UsersResponse XYD.U8Service.U8ServiceSoap.GetU8Users(XYD.U8Service.GetU8UsersRequest request) {
+            return base.Channel.GetU8Users(request);
+        }
+        
+        public string GetU8Users(string key) {
+            XYD.U8Service.GetU8UsersRequest inValue = new XYD.U8Service.GetU8UsersRequest();
+            inValue.Body = new XYD.U8Service.GetU8UsersRequestBody();
+            inValue.Body.key = key;
+            XYD.U8Service.GetU8UsersResponse retVal = ((XYD.U8Service.U8ServiceSoap)(this)).GetU8Users(inValue);
+            return retVal.Body.GetU8UsersResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<XYD.U8Service.GetU8UsersResponse> XYD.U8Service.U8ServiceSoap.GetU8UsersAsync(XYD.U8Service.GetU8UsersRequest request) {
+            return base.Channel.GetU8UsersAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<XYD.U8Service.GetU8UsersResponse> GetU8UsersAsync(string key) {
+            XYD.U8Service.GetU8UsersRequest inValue = new XYD.U8Service.GetU8UsersRequest();
+            inValue.Body = new XYD.U8Service.GetU8UsersRequestBody();
+            inValue.Body.key = key;
+            return ((XYD.U8Service.U8ServiceSoap)(this)).GetU8UsersAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        XYD.U8Service.FindTargetVendorResponse XYD.U8Service.U8ServiceSoap.FindTargetVendor(XYD.U8Service.FindTargetVendorRequest request) {
+            return base.Channel.FindTargetVendor(request);
+        }
+        
+        public string FindTargetVendor(string key, string Name) {
+            XYD.U8Service.FindTargetVendorRequest inValue = new XYD.U8Service.FindTargetVendorRequest();
+            inValue.Body = new XYD.U8Service.FindTargetVendorRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.Name = Name;
+            XYD.U8Service.FindTargetVendorResponse retVal = ((XYD.U8Service.U8ServiceSoap)(this)).FindTargetVendor(inValue);
+            return retVal.Body.FindTargetVendorResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<XYD.U8Service.FindTargetVendorResponse> XYD.U8Service.U8ServiceSoap.FindTargetVendorAsync(XYD.U8Service.FindTargetVendorRequest request) {
+            return base.Channel.FindTargetVendorAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<XYD.U8Service.FindTargetVendorResponse> FindTargetVendorAsync(string key, string Name) {
+            XYD.U8Service.FindTargetVendorRequest inValue = new XYD.U8Service.FindTargetVendorRequest();
+            inValue.Body = new XYD.U8Service.FindTargetVendorRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.Name = Name;
+            return ((XYD.U8Service.U8ServiceSoap)(this)).FindTargetVendorAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         XYD.U8Service.TestResponse XYD.U8Service.U8ServiceSoap.Test(XYD.U8Service.TestRequest request) {
             return base.Channel.Test(request);
         }
         
-        public string Test() {
+        public string Test(string key) {
             XYD.U8Service.TestRequest inValue = new XYD.U8Service.TestRequest();
             inValue.Body = new XYD.U8Service.TestRequestBody();
+            inValue.Body.key = key;
             XYD.U8Service.TestResponse retVal = ((XYD.U8Service.U8ServiceSoap)(this)).Test(inValue);
             return retVal.Body.TestResult;
         }
@@ -621,9 +1434,10 @@ namespace XYD.U8Service {
             return base.Channel.TestAsync(request);
         }
         
-        public System.Threading.Tasks.Task<XYD.U8Service.TestResponse> TestAsync() {
+        public System.Threading.Tasks.Task<XYD.U8Service.TestResponse> TestAsync(string key) {
             XYD.U8Service.TestRequest inValue = new XYD.U8Service.TestRequest();
             inValue.Body = new XYD.U8Service.TestRequestBody();
+            inValue.Body.key = key;
             return ((XYD.U8Service.U8ServiceSoap)(this)).TestAsync(inValue);
         }
     }

@@ -59,37 +59,6 @@ namespace XYD.Common
         }
         #endregion
 
-        #region 获得U8用户表数据
-        public static Dictionary<string, string> GetU8Person()
-        {
-            var u8PersonDict = new Dictionary<string, string>();
-            var sql = @"SELECT cPersonCode, cPersonName, cDepCode from Person";
-            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
-            var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetU8Person);
-            foreach(XYD_U8_Person person in result)
-            {
-                u8PersonDict.Add(person.cPersonCode, person.cDepCode);
-            }
-            return u8PersonDict;
-        }
-        #endregion
-
-        #region 获得U8用户
-        public static List<XYD_U8_Person> GetU8Users()
-        {
-            var u8PersonDict = new Dictionary<string, string>();
-            var sql = @"SELECT cPersonCode, cPersonName, cDepCode from Person";
-            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
-            var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetU8Person);
-            List<XYD_U8_Person> persons = new List<XYD_U8_Person>();
-            foreach(XYD_U8_Person person in result)
-            {
-                persons.Add(person);
-            }
-            return persons;
-        }
-        #endregion
-
         #region 获取当前部门及子部门所有用户
         public static List<Employee> GetChildrenDeptRecursive(string deptId)
         {
@@ -115,6 +84,60 @@ namespace XYD.Common
 	                                    AND c.RoleName = '{0}'", RoleName);
             var roleUsers = orgMgr.FindEmployeeBySQL(sql);
             return roleUsers;
+        }
+        #endregion
+
+        #region 根据地区获取用户工号列表
+        public static string GetQueryIdList(string Area, string UserName)
+        {
+            var AreaName = string.Empty;
+            if (Area == "001")
+            {
+                AreaName = "无锡";
+            }
+            else
+            {
+                AreaName = "上海";
+            }
+            var areaCondition = string.Format(@" INNER JOIN ORG_EmplRole b on a.EmplID = b.EmplID INNER JOIN ORG_Role c on b.RoleID = c.RoleID and c.RoleName = '{0}'", AreaName);
+            List<Employee> employees = orgMgr.FindEmployeeBySQL(string.Format(@"SELECT
+                                                                                            *
+                                                                                        FROM
+                                                                                            ORG_Employee a
+                                                                                            {0}
+                                                                                        WHERE
+                                                                                            a.EmplName LIKE '%{1}%'
+                                                                                            AND a.EmplNO != ''", areaCondition, UserName));
+            List<string> excludeIds = OrgUtil.GetUsersByRole("部门与工资不同人员").Select(n => n.EmplID).ToList();
+            List<string> idList = employees.Where(n => !excludeIds.Contains(n.EmplID)).Select(n => "'" + n.EmplNO + "'").ToList();
+            string inClause = "''";
+            if (idList.Count > 0)
+            {
+                inClause = string.Join(",", idList);
+            }
+            return inClause;
+        }
+        #endregion
+
+        #region 获取部门与工资地区不同人员的列表
+        public static string GetSpecialQueryList(string Area, string UserName)
+        {
+            // 部门反转
+            if (Area == "001")
+            {
+                Area = "002";
+            }
+            else
+            {
+                Area = "001";
+            }
+            List<string> idList = OrgUtil.GetUsersByRole("部门与工资不同人员").Where(n => n.EmplName.Contains(UserName)).Select(n => "'" + n.EmplNO + "'").ToList();
+            string inClause = "''";
+            if (idList.Count > 0)
+            {
+                inClause = string.Join(",", idList);
+            }
+            return inClause;
         }
         #endregion
     }

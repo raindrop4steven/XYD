@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -162,8 +163,9 @@ namespace XYD.Controllers
         #region 测试webservice
         public ActionResult TestWebService()
         {
+            var key = ConfigurationManager.AppSettings["WSDL_Key"];
             var u8Service = new U8Service.U8ServiceSoapClient();
-            var results = u8Service.Test();
+            var results = u8Service.Test(key);
             var list = JsonConvert.DeserializeObject<List<object>>(results);
             return ResponseUtil.OK(list);
         }
