@@ -189,6 +189,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="SyncVendor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="oaVendors" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SyncVendorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SyncVendorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Test">
         <s:complexType>
           <s:sequence>
@@ -271,6 +286,12 @@
   <wsdl:message name="FindTargetVendorSoapOut">
     <wsdl:part name="parameters" element="tns:FindTargetVendorResponse" />
   </wsdl:message>
+  <wsdl:message name="SyncVendorSoapIn">
+    <wsdl:part name="parameters" element="tns:SyncVendor" />
+  </wsdl:message>
+  <wsdl:message name="SyncVendorSoapOut">
+    <wsdl:part name="parameters" element="tns:SyncVendorResponse" />
+  </wsdl:message>
   <wsdl:message name="TestSoapIn">
     <wsdl:part name="parameters" element="tns:Test" />
   </wsdl:message>
@@ -321,6 +342,10 @@
     <wsdl:operation name="FindTargetVendor">
       <wsdl:input message="tns:FindTargetVendorSoapIn" />
       <wsdl:output message="tns:FindTargetVendorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SyncVendor">
+      <wsdl:input message="tns:SyncVendorSoapIn" />
+      <wsdl:output message="tns:SyncVendorSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Test">
       <wsdl:input message="tns:TestSoapIn" />
@@ -421,6 +446,15 @@
     </wsdl:operation>
     <wsdl:operation name="FindTargetVendor">
       <soap:operation soapAction="http://tempuri.org/FindTargetVendor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncVendor">
+      <soap:operation soapAction="http://tempuri.org/SyncVendor" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -532,6 +566,15 @@
     </wsdl:operation>
     <wsdl:operation name="FindTargetVendor">
       <soap12:operation soapAction="http://tempuri.org/FindTargetVendor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SyncVendor">
+      <soap12:operation soapAction="http://tempuri.org/SyncVendor" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -93,6 +93,13 @@ namespace XYD.U8Service {
         System.Threading.Tasks.Task<XYD.U8Service.FindTargetVendorResponse> FindTargetVendorAsync(XYD.U8Service.FindTargetVendorRequest request);
         
         // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 key 以后生成的消息协定未标记为 nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SyncVendor", ReplyAction="*")]
+        XYD.U8Service.SyncVendorResponse SyncVendor(XYD.U8Service.SyncVendorRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SyncVendor", ReplyAction="*")]
+        System.Threading.Tasks.Task<XYD.U8Service.SyncVendorResponse> SyncVendorAsync(XYD.U8Service.SyncVendorRequest request);
+        
+        // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 key 以后生成的消息协定未标记为 nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Test", ReplyAction="*")]
         XYD.U8Service.TestResponse Test(XYD.U8Service.TestRequest request);
         
@@ -984,6 +991,78 @@ namespace XYD.U8Service {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SyncVendorRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="SyncVendor", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.SyncVendorRequestBody Body;
+        
+        public SyncVendorRequest() {
+        }
+        
+        public SyncVendorRequest(XYD.U8Service.SyncVendorRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class SyncVendorRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string key;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string oaVendors;
+        
+        public SyncVendorRequestBody() {
+        }
+        
+        public SyncVendorRequestBody(string key, string oaVendors) {
+            this.key = key;
+            this.oaVendors = oaVendors;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class SyncVendorResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="SyncVendorResponse", Namespace="http://tempuri.org/", Order=0)]
+        public XYD.U8Service.SyncVendorResponseBody Body;
+        
+        public SyncVendorResponse() {
+        }
+        
+        public SyncVendorResponse(XYD.U8Service.SyncVendorResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class SyncVendorResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string SyncVendorResult;
+        
+        public SyncVendorResponseBody() {
+        }
+        
+        public SyncVendorResponseBody(string SyncVendorResult) {
+            this.SyncVendorResult = SyncVendorResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class TestRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="Test", Namespace="http://tempuri.org/", Order=0)]
@@ -1414,6 +1493,33 @@ namespace XYD.U8Service {
             inValue.Body.key = key;
             inValue.Body.Name = Name;
             return ((XYD.U8Service.U8ServiceSoap)(this)).FindTargetVendorAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        XYD.U8Service.SyncVendorResponse XYD.U8Service.U8ServiceSoap.SyncVendor(XYD.U8Service.SyncVendorRequest request) {
+            return base.Channel.SyncVendor(request);
+        }
+        
+        public string SyncVendor(string key, string oaVendors) {
+            XYD.U8Service.SyncVendorRequest inValue = new XYD.U8Service.SyncVendorRequest();
+            inValue.Body = new XYD.U8Service.SyncVendorRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.oaVendors = oaVendors;
+            XYD.U8Service.SyncVendorResponse retVal = ((XYD.U8Service.U8ServiceSoap)(this)).SyncVendor(inValue);
+            return retVal.Body.SyncVendorResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<XYD.U8Service.SyncVendorResponse> XYD.U8Service.U8ServiceSoap.SyncVendorAsync(XYD.U8Service.SyncVendorRequest request) {
+            return base.Channel.SyncVendorAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<XYD.U8Service.SyncVendorResponse> SyncVendorAsync(string key, string oaVendors) {
+            XYD.U8Service.SyncVendorRequest inValue = new XYD.U8Service.SyncVendorRequest();
+            inValue.Body = new XYD.U8Service.SyncVendorRequestBody();
+            inValue.Body.key = key;
+            inValue.Body.oaVendors = oaVendors;
+            return ((XYD.U8Service.U8ServiceSoap)(this)).SyncVendorAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
