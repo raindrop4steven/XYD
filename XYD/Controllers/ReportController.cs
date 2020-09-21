@@ -1,6 +1,7 @@
 ﻿using Appkiz.Library.Security;
 using Appkiz.Library.Security.Authentication;
 using DocumentFormat.OpenXml.Office.CustomUI;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -196,8 +197,8 @@ namespace XYD.Controllers
 
                     // 记录总页数
                     var key = ConfigurationManager.AppSettings["WSDL_Key"];
-                    var list = client.Salary(key, BeginDate, EndDate, wxIdList, shIdList, specialIdList);
-
+                    var dblist = client.Salary(key, BeginDate, EndDate, wxIdList, shIdList, specialIdList);
+                    var list = JsonConvert.DeserializeObject<List<object>>(dblist);
                     return ResponseUtil.OK(new
                     {
                         results = list

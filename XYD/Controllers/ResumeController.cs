@@ -118,7 +118,8 @@ namespace XYD.Controllers
                 }
                 // SQL 连接字符串
                 var key = ConfigurationManager.AppSettings["WSDL_Key"];
-                var result = client.QuerySalary(key, BeginDate, EndDate, employee.EmplNO, cGzGradeNum);
+                var dbresult = client.QuerySalary(key, BeginDate, EndDate, employee.EmplNO, cGzGradeNum);
+                var result = JsonConvert.DeserializeObject<List<object>>(dbresult);
                 return ResponseUtil.OK(new
                 {
                     result = result
@@ -148,8 +149,8 @@ namespace XYD.Controllers
 
                 // 记录总页数
                 var key = ConfigurationManager.AppSettings["WSDL_Key"];
-                var list = client.SalaryDetail(key, Year, Month, employee.EmplNO, cGZGradeNum);
-
+                var dblist = client.SalaryDetail(key, Year, Month, employee.EmplNO, cGZGradeNum);
+                var list = JsonConvert.DeserializeObject<List<object>>(dblist);
                 return ResponseUtil.OK(new
                 {
                     detail = list
@@ -241,10 +242,10 @@ namespace XYD.Controllers
                     else
                     {
                         // 无锡sql
-                        wxIdList = OrgUtil.GetQueryIdList(Area, UserName);
+                        wxIdList = OrgUtil.GetQueryIdList("001", UserName);
                         // 上海sql
-                        shIdList = OrgUtil.GetQueryIdList(Area, UserName);
-                        specialIdList = OrgUtil.GetSpecialQueryList(Area, UserName);
+                        shIdList = OrgUtil.GetQueryIdList("002", UserName);
+                        specialIdList = OrgUtil.GetSpecialQueryList(string.Empty, UserName);
                     }
                     var key = ConfigurationManager.AppSettings["WSDL_Key"];
                     var dblist = client.QueryDetailSalary(key, BeginDate, EndDate, Area, wxIdList, shIdList, specialIdList);
