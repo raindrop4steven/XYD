@@ -156,16 +156,5 @@ namespace XYD.Controllers
             return ResponseUtil.OK(resultList);
         }
         #endregion
-
-        #region 测试webservice
-        public ActionResult TestWebService()
-        {
-            var key = ConfigurationManager.AppSettings["WSDL_Key"];
-            var u8Service = new U8Service.U8ServiceSoapClient();
-            var results = u8Service.Test(key);
-            var list = JsonConvert.DeserializeObject<List<object>>(results);
-            return ResponseUtil.OK(list);
-        }
-        #endregion
     }
 }

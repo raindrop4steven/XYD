@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d32d6f35-7087-44ed-b885-87128318e7ee" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="6afe63e3-48bb-442e-a305-3270722f8515" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8088/U8Service.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://58.215.195.242:8082/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="U8Service.disco" MetadataType="Disco" ID="f5f4c8c3-82ad-4882-ae2e-0d37861c00fd" SourceId="1" SourceUrl="http://localhost:8088/U8Service.asmx?disco" />
-    <MetadataFile FileName="U8Service.wsdl" MetadataType="Wsdl" ID="b85b3853-15b8-433a-8820-81e665526151" SourceId="1" SourceUrl="http://localhost:8088/U8Service.asmx?wsdl" />
+    <MetadataFile FileName="U8Service.wsdl" MetadataType="Wsdl" ID="1c42fa50-cb9e-4f03-826d-5791713ace55" SourceId="1" SourceUrl="http://58.215.195.242:8082/U8Service.asmx?wsdl" />
+    <MetadataFile FileName="U8Service.disco" MetadataType="Disco" ID="34f67f49-4a78-4112-8023-d133986e5019" SourceId="1" SourceUrl="http://58.215.195.242:8082/U8Service.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

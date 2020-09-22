@@ -98,13 +98,6 @@ namespace XYD.U8Service {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SyncVendor", ReplyAction="*")]
         System.Threading.Tasks.Task<XYD.U8Service.SyncVendorResponse> SyncVendorAsync(XYD.U8Service.SyncVendorRequest request);
-        
-        // CODEGEN: 命名空间 http://tempuri.org/ 的元素名称 key 以后生成的消息协定未标记为 nillable
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Test", ReplyAction="*")]
-        XYD.U8Service.TestResponse Test(XYD.U8Service.TestRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Test", ReplyAction="*")]
-        System.Threading.Tasks.Task<XYD.U8Service.TestResponse> TestAsync(XYD.U8Service.TestRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1059,74 +1052,6 @@ namespace XYD.U8Service {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class TestRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="Test", Namespace="http://tempuri.org/", Order=0)]
-        public XYD.U8Service.TestRequestBody Body;
-        
-        public TestRequest() {
-        }
-        
-        public TestRequest(XYD.U8Service.TestRequestBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class TestRequestBody {
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string key;
-        
-        public TestRequestBody() {
-        }
-        
-        public TestRequestBody(string key) {
-            this.key = key;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class TestResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="TestResponse", Namespace="http://tempuri.org/", Order=0)]
-        public XYD.U8Service.TestResponseBody Body;
-        
-        public TestResponse() {
-        }
-        
-        public TestResponse(XYD.U8Service.TestResponseBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class TestResponseBody {
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string TestResult;
-        
-        public TestResponseBody() {
-        }
-        
-        public TestResponseBody(string TestResult) {
-            this.TestResult = TestResult;
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface U8ServiceSoapChannel : XYD.U8Service.U8ServiceSoap, System.ServiceModel.IClientChannel {
     }
@@ -1520,31 +1445,6 @@ namespace XYD.U8Service {
             inValue.Body.key = key;
             inValue.Body.oaVendors = oaVendors;
             return ((XYD.U8Service.U8ServiceSoap)(this)).SyncVendorAsync(inValue);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        XYD.U8Service.TestResponse XYD.U8Service.U8ServiceSoap.Test(XYD.U8Service.TestRequest request) {
-            return base.Channel.Test(request);
-        }
-        
-        public string Test(string key) {
-            XYD.U8Service.TestRequest inValue = new XYD.U8Service.TestRequest();
-            inValue.Body = new XYD.U8Service.TestRequestBody();
-            inValue.Body.key = key;
-            XYD.U8Service.TestResponse retVal = ((XYD.U8Service.U8ServiceSoap)(this)).Test(inValue);
-            return retVal.Body.TestResult;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<XYD.U8Service.TestResponse> XYD.U8Service.U8ServiceSoap.TestAsync(XYD.U8Service.TestRequest request) {
-            return base.Channel.TestAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<XYD.U8Service.TestResponse> TestAsync(string key) {
-            XYD.U8Service.TestRequest inValue = new XYD.U8Service.TestRequest();
-            inValue.Body = new XYD.U8Service.TestRequestBody();
-            inValue.Body.key = key;
-            return ((XYD.U8Service.U8ServiceSoap)(this)).TestAsync(inValue);
         }
     }
 }
