@@ -76,7 +76,7 @@ namespace XYD.Common
                 var entity = new XYD_CalendarEntity();
                 entity.Date = date;
                 // 首先判断是否是节日
-                if (holidayDict.ContainsKey(date) || d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday)
+                if (!adjustDict.ContainsKey(date) && (holidayDict.ContainsKey(date) || d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday))
                 {
                     continue;
                 }
@@ -127,7 +127,7 @@ namespace XYD.Common
             {
                 var entity = new XYD_CalendarEntity();
                 var detail = new XYD_CalendarDetail();
-                CalendarCaculate(d, today, holidayDict, db, sysConfig, attenceRecords, leaveRecord, bizTripRecord, ref entity, ref detail);
+                CalendarCaculate(d, today, holidayDict, adjustDict, db, sysConfig, attenceRecords, leaveRecord, bizTripRecord, ref entity, ref detail);
                 
                 if (detail.isNormal && entity.Type != CALENDAR_TYPE.Rest && entity.Type != CALENDAR_TYPE.Holiday && entity.Type != CALENDAR_TYPE.Work)
                 {
@@ -234,7 +234,7 @@ namespace XYD.Common
         #endregion
 
         #region 判断用户当日考勤
-        public static void CalendarCaculate(DateTime d, DateTime today, Dictionary<string, string> holidayDict, DefaultConnection db, XYD_System_Config sysConfig, List<XYD_Attence> attenceRecords, List<XYD_Leave_Record> leaveRecord, List<XYD_BizTrip> bizTripRecord, ref XYD_CalendarEntity entity, ref XYD_CalendarDetail detail)
+        public static void CalendarCaculate(DateTime d, DateTime today, Dictionary<string, string> holidayDict, Dictionary<string, string> adjustDict, DefaultConnection db, XYD_System_Config sysConfig, List<XYD_Attence> attenceRecords, List<XYD_Leave_Record> leaveRecord, List<XYD_BizTrip> bizTripRecord, ref XYD_CalendarEntity entity, ref XYD_CalendarDetail detail)
         {
             var date = d.ToString("yyyy-MM-dd");
             var lastDayTime = CommonUtils.EndOfDay(d);
@@ -267,7 +267,7 @@ namespace XYD.Common
              * 2. 是否该上班
              */
             // 当天是否该休息
-            if (holidayDict.ContainsKey(date) || d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday)
+            if (!adjustDict.ContainsKey(date) && (holidayDict.ContainsKey(date) || d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday))
             {
                 var isHoliday = holidayDict.ContainsKey(date);
                 if (hasAttence)
@@ -275,7 +275,7 @@ namespace XYD.Common
                     entity.Name = "上班";
                     entity.Type = CALENDAR_TYPE.Work;
                 }
-                if (hasLeave && !NeedUpdateAttence(leave))
+                else if (hasLeave && !NeedUpdateAttence(leave))
                 {
                     leaveHour = GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
                     if (workHours == 0)
