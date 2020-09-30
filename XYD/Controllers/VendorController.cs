@@ -143,14 +143,14 @@ namespace XYD.Controllers
                     // 判断用友里是否已有该供应商
                     var key = ConfigurationManager.AppSettings["WSDL_Key"];
                     var dbresult = client.FindTargetVendor(key, model.Name);
-                    var targetVendor = JsonConvert.DeserializeObject<XYD_Vendor>(dbresult);
-                    if (targetVendor == null)
+                    var targetVendorList = JsonConvert.DeserializeObject<List<XYD_Vendor>>(dbresult);
+                    if (targetVendorList == null || targetVendorList.Count == 0)
                     {
                         model.Code = string.Format("OAGYS{0}", newNumber);
                     }
                     else
                     {
-                        model.Code = targetVendor.Code;
+                        model.Code = targetVendorList.FirstOrDefault().Code;
                     }
                     db.Vendor.Add(model);
                     db.SaveChanges();
