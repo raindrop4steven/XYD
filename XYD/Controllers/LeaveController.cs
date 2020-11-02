@@ -210,12 +210,11 @@ namespace XYD.Controllers
         #endregion
 
         #region 年假查询新
-        public ActionResult QueryRest2(DateTime date)
+        public ActionResult QueryRest2(DateTime date, string user)
         {
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
-                var areaKey = GetUserArea(employee.EmplID);
                 var totalYearHour = CalendarUtil.GetUserYearHour(employee.EmplID);
                 var sysConfig = CalendarUtil.GetSysConfigByUser(employee.EmplID);
                 // 获得当前起始日期
@@ -242,16 +241,24 @@ namespace XYD.Controllers
                 // 明细
                 var db = new DefaultConnection();
                 // 年假、事假、调休列表
-                var leaveList = db.LeaveRecord.Where(n => n.Category == "年假" || n.Category == "事假" || n.Category == "调休").OrderByDescending(n => n.CreateTime).ToList();
+                var leaveList = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID
+                                                       && n.CreateTime >= startYearDate
+                                                       && n.CreateTime < endYearDate 
+                                                       && (n.Category == "年假" || n.Category == "事假" || n.Category == "调休"))
+                                              .OrderByDescending(n => n.CreateTime).ToList();
                 // 加班列表
-                var extraWorkList = db.LeaveRecord.Where(n => n.Category == "加班").OrderByDescending(n => n.CreateTime).ToList();
+                var extraWorkList = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID 
+                                                           && n.Category == "加班"
+                                                           && n.CreateTime >= startYearDate
+                                                           && n.CreateTime < endYearDate)
+                                                  .OrderByDescending(n => n.CreateTime).ToList();
                 // 计算总的请假时间，剩余年假
                 var totalLeaveHour = 0.0d;
                 var yearList = new List<object>();
                 var workList = new List<object>();
                 foreach(var leave in leaveList)
                 {
-                    var subLeaveHour = CalendarUtil.GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
+                    var subLeaveHour = CalendarUtil.FillUpToHalfHour(CalendarUtil.GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate));
                     // 总请假时间
                     totalLeaveHour += subLeaveHour;
                     yearList.Add(new
@@ -265,21 +272,13 @@ namespace XYD.Controllers
                 foreach(var leave in extraWorkList)
                 {
                     var subLeaveHour = CalendarUtil.GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
-                    // 总请假时间
-                    totalLeaveHour += subLeaveHour;
                     workList.Add(new
                     {
                         startDate = leave.StartDate,
                         endDate = leave.EndDate,
-                        hour = subLeaveHour
+                        hour = string.Format("+{0}", subLeaveHour)
                     });
                 }
-                workList.Insert(0, new
-                {
-                    startDate = startYearDate,
-                    endDate = endYearDate,
-                    hour = usedWorkAsLeaveHour
-                });
                 
                 return ResponseUtil.OK(new
                 {
