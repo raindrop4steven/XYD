@@ -209,10 +209,105 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 年假查询新
+        public ActionResult QueryRest2(DateTime date)
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                var areaKey = GetUserArea(employee.EmplID);
+                var totalYearHour = CalendarUtil.GetUserYearHour(employee.EmplID);
+                var sysConfig = CalendarUtil.GetSysConfigByUser(employee.EmplID);
+                // 获得当前起始日期
+                var startYearDate = DateTime.Parse(string.Format("{0}/01/01 00:00:00", date.Year));
+                var endYearDate = DateTime.Parse(string.Format("{0}/01/01 00:00:00", date.Year + 1));
+                var vocationReport = CalendarUtil.CaculateVocation(employee.EmplID, startYearDate, endYearDate);
+                
+                // 查询剩余年假
+                var leftYearHour = 0.0d;
+                var leftOffTimeHour = 0.0d;
+                var leftLeaveHour = 0.0d;
+                // 已使用年假
+                var usedYearHour = vocationReport.yearHour;
+                // 已使用事假、调休
+                var usedLeaveHour = vocationReport.leaveHour;
+                // 加班时间
+                var offTimeWork = vocationReport.extraHour;
+                // 特殊调整
+                var adjustHour = vocationReport.adjustHour;
+                // 已使用加班请假
+                var usedWorkAsLeaveHour = offTimeWork - leftOffTimeHour;
+                CalendarUtil.CaculateLeftHour(totalYearHour, usedYearHour, usedLeaveHour, offTimeWork, adjustHour, ref leftYearHour, ref leftLeaveHour, ref leftOffTimeHour);
+
+                // 明细
+                var db = new DefaultConnection();
+                // 年假、事假、调休列表
+                var leaveList = db.LeaveRecord.Where(n => n.Category == "年假" || n.Category == "事假" || n.Category == "调休").OrderByDescending(n => n.CreateTime).ToList();
+                // 加班列表
+                var extraWorkList = db.LeaveRecord.Where(n => n.Category == "加班").OrderByDescending(n => n.CreateTime).ToList();
+                // 计算总的请假时间，剩余年假
+                var totalLeaveHour = 0.0d;
+                var yearList = new List<object>();
+                var workList = new List<object>();
+                foreach(var leave in leaveList)
+                {
+                    var subLeaveHour = CalendarUtil.GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
+                    // 总请假时间
+                    totalLeaveHour += subLeaveHour;
+                    yearList.Add(new
+                    {
+                        startDate = leave.StartDate,
+                        endDate = leave.EndDate,
+                        hour = string.Format("-{0}", subLeaveHour)
+                    });
+                }
+                // 计算总的从加班中扣除的时间
+                foreach(var leave in extraWorkList)
+                {
+                    var subLeaveHour = CalendarUtil.GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
+                    // 总请假时间
+                    totalLeaveHour += subLeaveHour;
+                    workList.Add(new
+                    {
+                        startDate = leave.StartDate,
+                        endDate = leave.EndDate,
+                        hour = subLeaveHour
+                    });
+                }
+                workList.Insert(0, new
+                {
+                    startDate = startYearDate,
+                    endDate = endYearDate,
+                    hour = usedWorkAsLeaveHour
+                });
+                
+                return ResponseUtil.OK(new
+                {
+                    leave = new
+                    {
+                        leftYearHour,
+                        totalLeaveHour,
+                        data = yearList
+                    },
+                    extraWork = new
+                    {
+                        leftOffTimeHour,
+                        usedWorkAsLeaveHour,
+                        data = workList
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
         #region 计算年假
         /// <summary>
         /// * 根据实际工龄计算年假
-        /// * 实际工龄不满十年，年假5天
+                /// * 实际工龄不满十年，年假5天
         /// * 满十年不满二十年，年假10天
         /// * 满20年，年假15天
         /// </summary>
