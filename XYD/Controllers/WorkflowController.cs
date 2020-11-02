@@ -1062,5 +1062,47 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 检查重复使用编号问题
+        public ActionResult RemoveRepeatAllowance(string mid, string user, string sn)
+        {
+            try
+            {
+                // 无补贴人员不用检查
+                var noAllowanceUser = OrgUtil.CheckRole(user, "无补贴人员");
+                if (noAllowanceUser == true)
+                {
+                    return ResponseUtil.OK("无补贴人员不检查");
+                }
+
+                using (var db = new DefaultConnection())
+                {
+                    var snArray = sn.Split(' ').ToList();
+                    var realSn = snArray[1];
+                    var record = db.SerialRecord.Where(n => n.Sn == realSn && n.Used == true).FirstOrDefault();
+                    if (record == null)
+                    {
+                        return ResponseUtil.OK("编号未被使用，正常");
+                    }
+                    else
+                    {
+                        // 编号被使用，补贴不算
+                        var formula = "N18=M7 &gt; 0 ? (M7-1)*100+65 : ''";
+                        var message = mgr.GetMessage(mid);
+                        Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+                        Worksheet worksheet = doc.Worksheet;
+                        var oldDocument = worksheet.Document.Replace(formula, "N18=0");
+                        worksheet.Document = oldDocument;
+                        sheetMgr.UpdateWorksheet(worksheet);
+                        return ResponseUtil.OK("移除补贴成功");
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
     }
 }
