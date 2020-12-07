@@ -552,10 +552,10 @@
   </wsdl:binding>
   <wsdl:service name="U8Service">
     <wsdl:port name="U8ServiceSoap" binding="tns:U8ServiceSoap">
-      <soap:address location="http://58.215.195.242:8082/U8Service.asmx" />
+      <soap:address location="http://61.160.68.138:3179/U8Service.asmx" />
     </wsdl:port>
     <wsdl:port name="U8ServiceSoap12" binding="tns:U8ServiceSoap12">
-      <soap12:address location="http://58.215.195.242:8082/U8Service.asmx" />
+      <soap12:address location="http://61.160.68.138:3179/U8Service.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

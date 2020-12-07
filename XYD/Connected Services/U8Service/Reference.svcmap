@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://58.215.195.242:8082/" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://61.160.68.138:3179/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="U8Service.wsdl" MetadataType="Wsdl" ID="1c42fa50-cb9e-4f03-826d-5791713ace55" SourceId="1" SourceUrl="http://58.215.195.242:8082/U8Service.asmx?wsdl" />
-    <MetadataFile FileName="U8Service.disco" MetadataType="Disco" ID="34f67f49-4a78-4112-8023-d133986e5019" SourceId="1" SourceUrl="http://58.215.195.242:8082/U8Service.asmx?disco" />
+    <MetadataFile FileName="U8Service1.wsdl" MetadataType="Wsdl" ID="865d679b-5160-42ae-ac5e-e1c548f6b1a0" SourceId="1" SourceUrl="http://61.160.68.138:3179/U8Service.asmx?wsdl" />
+    <MetadataFile FileName="U8Service1.disco" MetadataType="Disco" ID="d3d48f98-4234-4644-a42c-4d39dba758e8" SourceId="1" SourceUrl="http://61.160.68.138:3179/U8Service.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -305,13 +305,13 @@
     <Content Include="App\search.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Connected Services\U8Service\U8Service.disco" />
     <None Include="Connected Services\U8Service\configuration91.svcinfo" />
     <None Include="Connected Services\U8Service\configuration.svcinfo" />
     <None Include="Connected Services\U8Service\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Connected Services\U8Service\U8Service1.disco" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\deptMonitor.css" />
@@ -754,7 +754,6 @@
     <Content Include="Content\config\18b1736d-9360-4129-b7b3-384cb5b510cb\1\event.json" />
     <Content Include="Content\config\18b1736d-9360-4129-b7b3-384cb5b510cb\1\main.json" />
     <Content Include="Content\config\18b1736d-9360-4129-b7b3-384cb5b510cb\1\start.json" />
-    <None Include="Connected Services\U8Service\U8Service.wsdl" />
     <Content Include="Connected Services\U8Service\XYD.U8Service.FindTargetVendorResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -791,6 +790,7 @@
     <Content Include="Connected Services\U8Service\XYD.U8Service.UpdateSupplierResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <None Include="Connected Services\U8Service\U8Service1.wsdl" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -899,7 +899,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" />
+      <UserProperties content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

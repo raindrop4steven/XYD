@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="P1qMuyx5CwAbDe4SrSjZeNMPIqEaUyvANxFm9hFfu98=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="Yxv+Hmx1Qq3m8FqDeIPxleFmP6IgWnLrnXUebodQfYM=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="U8ServiceSoap">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="U8ServiceSoap" contract="U8Service.U8ServiceSoap" bindingType="basicHttpBinding" address="http://58.215.195.242:8082/U8Service.asmx" bindingConfiguration="U8ServiceSoap">
+    <endpoint name="U8ServiceSoap" contract="U8Service.U8ServiceSoap" bindingType="basicHttpBinding" address="http://61.160.68.138:3179/U8Service.asmx" bindingConfiguration="U8ServiceSoap">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://58.215.195.242:8082/U8Service.asmx</serializedValue>
+          <serializedValue>http://61.160.68.138:3179/U8Service.asmx</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
