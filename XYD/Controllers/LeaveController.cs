@@ -215,6 +215,9 @@ namespace XYD.Controllers
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
+                // DELETE
+                employee = orgMgr.GetEmployee(user);
+                // DELETE
                 var sysConfig = CalendarUtil.GetSysConfigByUser(employee.EmplID);
                 // 获得当前起始日期
                 var startYearDate = DateTime.Parse(string.Format("{0}/01/01 00:00:00", date.Year));
@@ -252,11 +255,16 @@ namespace XYD.Controllers
                 var sumOffTimeWork = 0.0d;
                 var sumAdjustHour = 0.0d;
                 var sumUsedLeaveHour = 0.0d;
-                var sumLeftOffTimeWork = 0.0d;
                 var sumDeductHour = 0.0d;
                 var now = DateTime.Now;
                 var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
                 var totalYearHour = CalendarUtil.GetUserYearHour(employee.EmplID);
+                
+                // 剩余时间纬度
+                var leftYearHour = 0.0d;
+                var leftLeaveHour = 0.0d;
+                var leftOffTimeHour = 0.0d;
+                var lastLeftOffTimeHour = 0.0d;
 
                 for (int i = 0; i < now.Month; i++)
                 {
@@ -277,14 +285,9 @@ namespace XYD.Controllers
                             type = work.Category,
                             startDate = work.StartDate,
                             endDate = work.EndDate,
-                            hour = CalendarUtil.IsDayDate(work.StartDate) ? string.Format("-{0}天", (int)(fillHour / 8)) : string.Format("-{0}h", fillHour)
+                            hour = CalendarUtil.IsDayDate(work.StartDate) ? string.Format("-{0}天", (int)(fillHour / 8)) : string.Format("{0}h", fillHour)
                         });
                     }
-
-                    // 剩余时间纬度
-                    var leftYearHour = 0.0d;
-                    var leftOffTimeHour = 0.0d;
-                    var leftLeaveHour = 0.0d;
 
                     // 计算总年假
                     var vocationReport = CalendarUtil.CaculateVocation(employee.EmplID, startMonthDate, endMonthDate);
@@ -305,11 +308,11 @@ namespace XYD.Controllers
                     // 开始计算剩余
                     CalendarUtil.CaculateLeftHour(totalYearHour, sumUsedYearHour, sumUsedLeaveHour, sumOffTimeWork, sumAdjustHour,
                         ref leftYearHour, ref leftLeaveHour, ref leftOffTimeHour);
-                    sumLeftOffTimeWork += leftOffTimeHour;
 
-                    if (sumOffTimeWork > leftOffTimeHour)
+                    // 如果出现剩余加班减少情况，则计算抵扣时间
+                    if (lastLeftOffTimeHour > leftOffTimeHour)
                     {
-                        double deductHour = sumOffTimeWork - leftOffTimeHour;
+                        double deductHour = lastLeftOffTimeHour - leftOffTimeHour;
                         workList.Add(new
                         {
                             type = "请假抵扣",
@@ -319,9 +322,9 @@ namespace XYD.Controllers
                         });
                         sumDeductHour += deductHour;
                     }
+                    // 包括2种情况：初始状态都为0，都被扣完都为0
+                    lastLeftOffTimeHour = leftOffTimeHour;
                 }
-                // 剩余年假
-                var leftYear = totalYearHour - sumUsedYearHour;
                 // 共请假
                 var sumLeave = sumUsedYearHour + sumUsedLeaveHour;
 
@@ -329,13 +332,13 @@ namespace XYD.Controllers
                 {
                     leave = new
                     {
-                        leftYar = leftYear,
+                        leftYearHour = leftYearHour,
                         sumLeave = sumLeave,
                         list = leaveList
                     },
                     work = new
                     {
-                        sumLeftOffTimeWork = sumLeftOffTimeWork,
+                        leftOffTimeHour = leftOffTimeHour,
                         sumDeductHour = sumDeductHour,
                         list = workList
                     }
