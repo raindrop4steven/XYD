@@ -215,84 +215,129 @@ namespace XYD.Controllers
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
-                var totalYearHour = CalendarUtil.GetUserYearHour(employee.EmplID);
                 var sysConfig = CalendarUtil.GetSysConfigByUser(employee.EmplID);
                 // 获得当前起始日期
                 var startYearDate = DateTime.Parse(string.Format("{0}/01/01 00:00:00", date.Year));
                 var endYearDate = DateTime.Parse(string.Format("{0}/01/01 00:00:00", date.Year + 1));
-                var vocationReport = CalendarUtil.CaculateVocation(employee.EmplID, startYearDate, endYearDate);
                 
-                // 查询剩余年假
-                var leftYearHour = 0.0d;
-                var leftOffTimeHour = 0.0d;
-                var leftLeaveHour = 0.0d;
-                // 已使用年假
-                var usedYearHour = vocationReport.yearHour;
-                // 已使用事假、调休
-                var usedLeaveHour = vocationReport.leaveHour;
-                // 加班时间
-                var offTimeWork = vocationReport.extraHour;
-                // 特殊调整
-                var adjustHour = vocationReport.adjustHour;
-                // 已使用加班请假
-                var usedWorkAsLeaveHour = offTimeWork - leftOffTimeHour;
-                CalendarUtil.CaculateLeftHour(totalYearHour, usedYearHour, usedLeaveHour, offTimeWork, adjustHour, ref leftYearHour, ref leftLeaveHour, ref leftOffTimeHour);
-
                 // 明细
                 var db = new DefaultConnection();
                 // 年假、事假、调休列表
-                var leaveList = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID
+                var dbLeaveList = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID
                                                        && n.CreateTime >= startYearDate
                                                        && n.CreateTime < endYearDate 
                                                        && (n.Category == "年假" || n.Category == "事假" || n.Category == "调休"))
                                               .OrderByDescending(n => n.CreateTime).ToList();
-                // 加班列表
-                var extraWorkList = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID 
-                                                           && n.Category == "加班"
-                                                           && n.CreateTime >= startYearDate
-                                                           && n.CreateTime < endYearDate)
-                                                  .OrderByDescending(n => n.CreateTime).ToList();
+
                 // 计算总的请假时间，剩余年假
-                var totalLeaveHour = 0.0d;
-                var yearList = new List<object>();
+                var leaveList = new List<object>();
                 var workList = new List<object>();
-                foreach(var leave in leaveList)
+
+                foreach(var leave in dbLeaveList)
                 {
-                    var subLeaveHour = CalendarUtil.FillUpToHalfHour(CalendarUtil.GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate));
-                    // 总请假时间
-                    totalLeaveHour += subLeaveHour;
-                    yearList.Add(new
+                    double fillHour = 0.0;
+                    var realHour = CalendarUtil.GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
+                    fillHour = CalendarUtil.FillUpToHalfHour(realHour);
+                    leaveList.Add(new
                     {
+                        type = leave.Category,
                         startDate = leave.StartDate,
                         endDate = leave.EndDate,
-                        hour = string.Format("-{0}", subLeaveHour)
+                        hour = CalendarUtil.IsDayDate(leave.StartDate) ? string.Format("-{0}天", (int)(fillHour / 8)) : string.Format("-{0}h", fillHour)
                     });
                 }
-                // 计算总的从加班中扣除的时间
-                foreach(var leave in extraWorkList)
+                // 按月计算加班抵扣
+                // 累计使用的年假、加班
+                var sumUsedYearHour = 0.0d;
+                var sumOffTimeWork = 0.0d;
+                var sumAdjustHour = 0.0d;
+                var sumUsedLeaveHour = 0.0d;
+                var sumLeftOffTimeWork = 0.0d;
+                var sumDeductHour = 0.0d;
+                var now = DateTime.Now;
+                var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
+                var totalYearHour = CalendarUtil.GetUserYearHour(employee.EmplID);
+
+                for (int i = 0; i < now.Month; i++)
                 {
-                    var subLeaveHour = CalendarUtil.GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
-                    workList.Add(new
+                    var startMonthDate = startYearDate.AddMonths(i);
+                    var endMonthDate = startMonthDate.AddMonths(1).AddTicks(-1);
+                    var dbWorkList = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID
+                                                       && n.CreateTime >= startMonthDate
+                                                       && n.CreateTime < endMonthDate
+                                                       && n.Category == "加班")
+                                              .OrderByDescending(n => n.CreateTime).ToList();
+                    foreach (var work in dbWorkList)
                     {
-                        startDate = leave.StartDate,
-                        endDate = leave.EndDate,
-                        hour = string.Format("+{0}", subLeaveHour)
-                    });
+                        double fillHour = 0.0;
+                        var realHour = CalendarUtil.GetRealLeaveHours(sysConfig, work.StartDate, work.EndDate);
+                        fillHour = CalendarUtil.FillUpToHalfHour(realHour);
+                        workList.Add(new
+                        {
+                            type = work.Category,
+                            startDate = work.StartDate,
+                            endDate = work.EndDate,
+                            hour = CalendarUtil.IsDayDate(work.StartDate) ? string.Format("-{0}天", (int)(fillHour / 8)) : string.Format("-{0}h", fillHour)
+                        });
+                    }
+
+                    // 剩余时间纬度
+                    var leftYearHour = 0.0d;
+                    var leftOffTimeHour = 0.0d;
+                    var leftLeaveHour = 0.0d;
+
+                    // 计算总年假
+                    var vocationReport = CalendarUtil.CaculateVocation(employee.EmplID, startMonthDate, endMonthDate);
+
+                    // 已使用年假
+                    var usedYearHour = vocationReport.yearHour;
+                    // 已使用事假、调休
+                    var usedLeaveHour = vocationReport.leaveHour;
+                    // 加班时间
+                    var offTimeWork = vocationReport.extraHour;
+                    // 特殊调整
+                    var adjustHour = vocationReport.adjustHour;
+
+                    sumUsedYearHour += usedYearHour;
+                    sumOffTimeWork += offTimeWork;
+                    sumUsedLeaveHour += usedLeaveHour;
+                    sumAdjustHour += adjustHour;
+                    // 开始计算剩余
+                    CalendarUtil.CaculateLeftHour(totalYearHour, sumUsedYearHour, sumUsedLeaveHour, sumOffTimeWork, sumAdjustHour,
+                        ref leftYearHour, ref leftLeaveHour, ref leftOffTimeHour);
+                    sumLeftOffTimeWork += leftOffTimeHour;
+
+                    if (sumOffTimeWork > leftOffTimeHour)
+                    {
+                        double deductHour = sumOffTimeWork - leftOffTimeHour;
+                        workList.Add(new
+                        {
+                            type = "请假抵扣",
+                            startDate = startMonthDate,
+                            endDate = endMonthDate,
+                            hour = string.Format("-{0}h", deductHour)
+                        });
+                        sumDeductHour += deductHour;
+                    }
                 }
-                
+                // 剩余年假
+                var leftYear = totalYearHour - sumUsedYearHour;
+                // 共请假
+                var sumLeave = sumUsedYearHour + sumUsedLeaveHour;
+
                 return ResponseUtil.OK(new
                 {
                     leave = new
                     {
-                        leftYearHour,
-                        totalLeaveHour,
-                        data = yearList
+                        leftYar = leftYear,
+                        sumLeave = sumLeave,
+                        list = leaveList
                     },
-                    extraWork = new
+                    work = new
                     {
-                        leftOffTimeHour,
-                        usedWorkAsLeaveHour,
-                        data = workList
+                        sumLeftOffTimeWork = sumLeftOffTimeWork,
+                        sumDeductHour = sumDeductHour,
+                        list = workList
                     }
                 });
             }
