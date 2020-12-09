@@ -210,14 +210,17 @@ namespace XYD.Controllers
         #endregion
 
         #region 年假查询新
-        public ActionResult QueryRest2(DateTime date, string user)
+        public ActionResult QueryRest2(DateTime date)
         {
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
-                // DELETE
+                
+                // TODO
+                var user = "100004";
                 employee = orgMgr.GetEmployee(user);
-                // DELETE
+                // TODO
+
                 var sysConfig = CalendarUtil.GetSysConfigByUser(employee.EmplID);
                 // 获得当前起始日期
                 var startYearDate = DateTime.Parse(string.Format("{0}/01/01 00:00:00", date.Year));
@@ -225,30 +228,11 @@ namespace XYD.Controllers
                 
                 // 明细
                 var db = new DefaultConnection();
-                // 年假、事假、调休列表
-                var dbLeaveList = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID
-                                                       && n.CreateTime >= startYearDate
-                                                       && n.CreateTime < endYearDate 
-                                                       && (n.Category == "年假" || n.Category == "事假" || n.Category == "调休"))
-                                              .OrderByDescending(n => n.CreateTime).ToList();
 
                 // 计算总的请假时间，剩余年假
                 var leaveList = new List<object>();
                 var workList = new List<object>();
 
-                foreach(var leave in dbLeaveList)
-                {
-                    double fillHour = 0.0;
-                    var realHour = CalendarUtil.GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
-                    fillHour = CalendarUtil.FillUpToHalfHour(realHour);
-                    leaveList.Add(new
-                    {
-                        type = leave.Category,
-                        startDate = leave.StartDate,
-                        endDate = leave.EndDate,
-                        hour = CalendarUtil.IsDayDate(leave.StartDate) ? string.Format("-{0}天", (int)(fillHour / 8)) : string.Format("-{0}h", fillHour)
-                    });
-                }
                 // 按月计算加班抵扣
                 // 累计使用的年假、加班
                 var sumUsedYearHour = 0.0d;
@@ -270,22 +254,62 @@ namespace XYD.Controllers
                 {
                     var startMonthDate = startYearDate.AddMonths(i);
                     var endMonthDate = startMonthDate.AddMonths(1).AddTicks(-1);
+                    var monthLeaveList = new List<object>();
+                    var monthWorkList = new List<object>();
+
+                    // 年假、事假、调休列表
+                    var dbLeaveList = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID
+                                                           && n.CreateTime >= startMonthDate
+                                                           && n.CreateTime < endMonthDate
+                                                           && (n.Category == "年假" || n.Category == "事假" || n.Category == "调休"))
+                                                  .OrderByDescending(n => n.CreateTime).ToList();
+                    if (dbLeaveList.Count > 0)
+                    {
+                        foreach (var leave in dbLeaveList)
+                        {
+                            double fillHour = 0.0;
+                            var realHour = CalendarUtil.GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
+                            fillHour = CalendarUtil.FillUpToHalfHour(realHour);
+                            monthLeaveList.Add(new
+                            {
+                                type = leave.Category,
+                                startDate = leave.StartDate,
+                                endDate = leave.EndDate,
+                                hour = CalendarUtil.IsDayDate(leave.StartDate) ? string.Format("-{0}天", (int)(fillHour / 8)) : string.Format("-{0}h", fillHour)
+                            });
+                        }
+                        leaveList.Add(new
+                        {
+                            month = CommonUtils.GetChineseMonth(startMonthDate.Month),
+                            list = monthLeaveList
+                        });
+                    }
+
+                    // 加班列表
                     var dbWorkList = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID
                                                        && n.CreateTime >= startMonthDate
                                                        && n.CreateTime < endMonthDate
                                                        && n.Category == "加班")
                                               .OrderByDescending(n => n.CreateTime).ToList();
-                    foreach (var work in dbWorkList)
+                    if (dbWorkList.Count > 0)
                     {
-                        double fillHour = 0.0;
-                        var realHour = CalendarUtil.GetRealLeaveHours(sysConfig, work.StartDate, work.EndDate);
-                        fillHour = CalendarUtil.FillUpToHalfHour(realHour);
+                        foreach (var work in dbWorkList)
+                        {
+                            double fillHour = 0.0;
+                            var realHour = CalendarUtil.GetRealLeaveHours(sysConfig, work.StartDate, work.EndDate);
+                            fillHour = CalendarUtil.FillUpToHalfHour(realHour);
+                            monthWorkList.Add(new
+                            {
+                                type = work.Category,
+                                startDate = work.StartDate,
+                                endDate = work.EndDate,
+                                hour = CalendarUtil.IsDayDate(work.StartDate) ? string.Format("-{0}天", (int)(fillHour / 8)) : string.Format("{0}h", fillHour)
+                            });
+                        }
                         workList.Add(new
                         {
-                            type = work.Category,
-                            startDate = work.StartDate,
-                            endDate = work.EndDate,
-                            hour = CalendarUtil.IsDayDate(work.StartDate) ? string.Format("-{0}天", (int)(fillHour / 8)) : string.Format("{0}h", fillHour)
+                            month = CommonUtils.GetChineseMonth(startMonthDate.Month),
+                            list = monthWorkList
                         });
                     }
 
@@ -313,7 +337,7 @@ namespace XYD.Controllers
                     if (lastLeftOffTimeHour > leftOffTimeHour)
                     {
                         double deductHour = lastLeftOffTimeHour - leftOffTimeHour;
-                        workList.Add(new
+                        monthWorkList.Add(new
                         {
                             type = "请假抵扣",
                             startDate = startMonthDate,
@@ -346,7 +370,8 @@ namespace XYD.Controllers
             }
             catch (Exception e)
             {
-                return ResponseUtil.Error(e.Message);
+                //return ResponseUtil.Error(e.Message);
+                throw e;
             }
         }
         #endregion
