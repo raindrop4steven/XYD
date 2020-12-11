@@ -210,14 +210,13 @@ namespace XYD.Controllers
         #endregion
 
         #region 年假查询新
-        public ActionResult QueryRest2(DateTime date)
+        public ActionResult QueryRest2(DateTime date, String user)
         {
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
                 
                 // TODO
-                var user = "100004";
                 employee = orgMgr.GetEmployee(user);
                 // TODO
 
@@ -259,8 +258,9 @@ namespace XYD.Controllers
 
                     // 年假、事假、调休列表
                     var dbLeaveList = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID
-                                                           && n.CreateTime >= startMonthDate
-                                                           && n.CreateTime < endMonthDate
+                                                           && n.StartDate >= startMonthDate
+                                                           && n.EndDate < endMonthDate
+                                                           && n.Status == DEP_Constants.Leave_Status_YES
                                                            && (n.Category == "年假" || n.Category == "事假" || n.Category == "调休"))
                                                   .OrderByDescending(n => n.CreateTime).ToList();
                     if (dbLeaveList.Count > 0)
@@ -273,8 +273,8 @@ namespace XYD.Controllers
                             monthLeaveList.Add(new
                             {
                                 type = leave.Category,
-                                startDate = leave.StartDate,
-                                endDate = leave.EndDate,
+                                startDate = CalendarUtil.IsDayDate(leave.StartDate) ? leave.StartDate.ToString("yyyy-MM-dd") : leave.StartDate.ToString("yyyy-MM-dd HH:mm"),
+                                endDate = CalendarUtil.IsDayDate(leave.EndDate) ? leave.EndDate.ToString("yyyy-MM-dd") : leave.EndDate.ToString("yyyy-MM-dd HH:mm"),
                                 hour = CalendarUtil.IsDayDate(leave.StartDate) ? string.Format("-{0}天", (int)(fillHour / 8)) : string.Format("-{0}h", fillHour)
                             });
                         }
@@ -287,8 +287,9 @@ namespace XYD.Controllers
 
                     // 加班列表
                     var dbWorkList = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID
-                                                       && n.CreateTime >= startMonthDate
-                                                       && n.CreateTime < endMonthDate
+                                                       && n.StartDate >= startMonthDate
+                                                       && n.EndDate < endMonthDate
+                                                       && n.Status == DEP_Constants.Leave_Status_YES
                                                        && n.Category == "加班")
                                               .OrderByDescending(n => n.CreateTime).ToList();
                     if (dbWorkList.Count > 0)
@@ -301,8 +302,8 @@ namespace XYD.Controllers
                             monthWorkList.Add(new
                             {
                                 type = work.Category,
-                                startDate = work.StartDate,
-                                endDate = work.EndDate,
+                                startDate = CalendarUtil.IsDayDate(work.StartDate) ? work.StartDate.ToString("yyyy-MM-dd") : work.StartDate.ToString("yyyy-MM-dd HH:mm"),
+                                endDate = CalendarUtil.IsDayDate(work.EndDate) ? work.EndDate.ToString("yyyy-MM-dd") : work.EndDate.ToString("yyyy-MM-dd HH:mm"),
                                 hour = CalendarUtil.IsDayDate(work.StartDate) ? string.Format("-{0}天", (int)(fillHour / 8)) : string.Format("{0}h", fillHour)
                             });
                         }
@@ -334,14 +335,14 @@ namespace XYD.Controllers
                         ref leftYearHour, ref leftLeaveHour, ref leftOffTimeHour);
 
                     // 如果出现剩余加班减少情况，则计算抵扣时间
-                    if (lastLeftOffTimeHour > leftOffTimeHour)
+                    if (sumOffTimeWork - leftOffTimeHour > 0)
                     {
-                        double deductHour = lastLeftOffTimeHour - leftOffTimeHour;
+                        double deductHour = sumOffTimeWork - leftOffTimeHour;
                         monthWorkList.Add(new
                         {
                             type = "请假抵扣",
-                            startDate = startMonthDate,
-                            endDate = endMonthDate,
+                            startDate = startMonthDate.ToString("yyyy-MM-dd"),
+                            endDate = endMonthDate.ToString("yyyy-MM-dd"),
                             hour = string.Format("-{0}h", deductHour)
                         });
                         sumDeductHour += deductHour;

@@ -734,15 +734,15 @@ namespace XYD.Common
             var adjustHour = GetAdjustHourByUser(EmplID, startDate, endDate);
             return new XYD_Vocation_Report()
             {
-                yearHour = FillDownToHalfHour(yearHour),
+                yearHour = FillUpToHalfHour (yearHour),
                 extraHour = FillDownToHalfHour(extraHour),
-                leaveHour = FillDownToHalfHour(leaveHour + changeHour),
-                sickHour = FillDownToHalfHour(sickHour),
-                marryHour = FillDownToHalfHour(marryHour),
-                birthHour = FillDownToHalfHour(birthHour),
-                milkHour = FillDownToHalfHour(milkHour),
-                deadHour = FillDownToHalfHour(deadHour),
-                adjustHour = FillDownToHalfHour(adjustHour)
+                leaveHour = FillUpToHalfHour(leaveHour + changeHour),
+                sickHour = FillUpToHalfHour(sickHour),
+                marryHour = FillUpToHalfHour(marryHour),
+                birthHour = FillUpToHalfHour(birthHour),
+                milkHour = FillUpToHalfHour(milkHour),
+                deadHour = FillUpToHalfHour(deadHour),
+                adjustHour = FillUpToHalfHour(adjustHour)
             };
         }
         #endregion
