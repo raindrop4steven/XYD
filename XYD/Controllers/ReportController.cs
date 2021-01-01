@@ -365,7 +365,11 @@ namespace XYD.Controllers
                 var employee = orgMgr.GetEmployee(EmplID);
                 var db = new DefaultConnection();
                 var yearStartDate = DateTime.Parse(string.Format("{0}-01-01", Year));
+                var endYearDate = DateTime.Parse(string.Format("{0}/01/01 00:00:00", Convert.ToInt32(Year) + 1));
                 var now = DateTime.Now;
+                if (now > endYearDate) {
+                    now = DateTime.Parse(string.Format("{0}/12/31 23:59:59", Year));
+                }
                 var results = new List<object>();
                 // 累计使用的年假、加班
                 var sumUsedYearHour = 0.0d;

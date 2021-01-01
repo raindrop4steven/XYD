@@ -210,14 +210,14 @@ namespace XYD.Controllers
         #endregion
 
         #region 年假查询新
-        public ActionResult QueryRest2(DateTime date, String user)
+        public ActionResult QueryRest2(DateTime date)
         {
             try
             {
                 var employee = (User.Identity as AppkizIdentity).Employee;
                 
                 // TODO
-                employee = orgMgr.GetEmployee(user);
+                // employee = orgMgr.GetEmployee(user);
                 // TODO
 
                 var sysConfig = CalendarUtil.GetSysConfigByUser(employee.EmplID);
@@ -240,6 +240,9 @@ namespace XYD.Controllers
                 var sumUsedLeaveHour = 0.0d;
                 var sumDeductHour = 0.0d;
                 var now = DateTime.Now;
+                if (now > endYearDate) {
+                    now = DateTime.Parse(string.Format("{0}/12/31 23:59:59", date.Year));
+                }
                 var userCompanyInfo = db.UserCompanyInfo.Where(n => n.EmplID == employee.EmplID).FirstOrDefault();
                 var totalYearHour = CalendarUtil.GetUserYearHour(employee.EmplID);
                 
