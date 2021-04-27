@@ -17,7 +17,6 @@ using Appkiz.Library.Common;
 using JUST;
 using Newtonsoft.Json.Linq;
 using Appkiz.Apps.Workflow.Web.Controllers;
-using XYD.Common;
 using System.Reflection;
 using Appkiz.Apps.Workflow.Web.Models;
 
@@ -513,8 +512,19 @@ namespace XYD.Controllers
                 {
                     record.Sn = serialNumber;
                     db.SaveChanges();
+                    // 更新编号配置
+                    var entity = db.SerialNo.Where(n => n.Name == message.FromTemplate).FirstOrDefault();
+                    if (entity == null)
+                    {
+                        return ResponseUtil.Error("未找到对应编号配置");
+                    }
+                    else
+                    {
+                        entity.Number += 1;
+                        db.SaveChanges();
+                        return ResponseUtil.OK("更新编号成功");
+                    }
                 }
-                return ResponseUtil.OK("记录事务编号成功");
             }
         }
         #endregion
@@ -1023,6 +1033,75 @@ namespace XYD.Controllers
             CalendarUtil.CaculateLeftHour(totalYearHour, usedYearHour, usedLeaveHour, offTimeWork, adjustHour, ref leftYearHour, ref leftLeaveHour, ref leftOffTimeHour);
 
             return leftYearHour;
+        }
+        #endregion
+
+        #region 检查用户是否可以补打卡
+        public ActionResult CheckCouldAddAttence(string user, string category, string date)
+        {
+            if (category == "补打卡" && !string.IsNullOrEmpty(date))
+            {
+                var day = DateTime.Parse(date).ToString("yyyy-MM-dd");
+                using (var db = new DefaultConnection())
+                {
+                    var employee = orgMgr.GetEmployee(user);
+                    var attence = db.Attence.Where(n => n.EmplNo == employee.EmplNO && n.Day == day).FirstOrDefault();
+                    if (attence == null)
+                    {
+                        return ResponseUtil.Error(string.Format("您在{0}没有打卡记录，请选择其他出勤类型", day));
+                    }
+                    else
+                    {
+                        return ResponseUtil.OK("可以申请补打卡");
+                    }
+                }
+            }
+            else
+            {
+                return ResponseUtil.OK("可以申请补打卡");
+            }
+        }
+        #endregion
+
+        #region 检查重复使用编号问题
+        public ActionResult RemoveRepeatAllowance(string mid, string user, string sn)
+        {
+            try
+            {
+                // 无补贴人员不用检查
+                var noAllowanceUser = OrgUtil.CheckRole(user, "无补贴人员");
+                if (noAllowanceUser == true)
+                {
+                    return ResponseUtil.OK("无补贴人员不检查");
+                }
+
+                using (var db = new DefaultConnection())
+                {
+                    var snArray = sn.Split(' ').ToList();
+                    var realSn = snArray[1];
+                    var record = db.SerialRecord.Where(n => n.Sn == realSn && n.Used == true).FirstOrDefault();
+                    if (record == null)
+                    {
+                        return ResponseUtil.OK("编号未被使用，正常");
+                    }
+                    else
+                    {
+                        // 编号被使用，补贴不算
+                        var formula = "N18=M7 &gt; 0 ? (M7-1)*100+65 : ''";
+                        var message = mgr.GetMessage(mid);
+                        Doc doc = mgr.GetDocByWorksheetID(mgr.GetDocHelperIdByMessageId(mid));
+                        Worksheet worksheet = doc.Worksheet;
+                        var oldDocument = worksheet.Document.Replace(formula, "N18=0");
+                        worksheet.Document = oldDocument;
+                        sheetMgr.UpdateWorksheet(worksheet);
+                        return ResponseUtil.OK("移除补贴成功");
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
         }
         #endregion
     }

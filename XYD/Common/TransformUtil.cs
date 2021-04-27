@@ -49,7 +49,7 @@ namespace XYD.Common
                 }
                 return resultOptions;
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }

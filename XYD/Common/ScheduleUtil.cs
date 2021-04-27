@@ -12,7 +12,7 @@ namespace XYD.Common
         public static void ScheduleGlobalUpdate()
         {
             // 除了第一个季度的开始，其他季度都需要将上一个季度余额移动到下一个季度
-            RecurringJob.AddOrUpdate(() => RestUsedYearDays(), "59 23 31 12 *");
+            RecurringJob.AddOrUpdate(() => RestUsedYearDays(), "59 23 31 12 *", TimeZoneInfo.Local);
         }
         #endregion
 

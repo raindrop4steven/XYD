@@ -76,7 +76,7 @@ namespace XYD.Common
                 var entity = new XYD_CalendarEntity();
                 entity.Date = date;
                 // 首先判断是否是节日
-                if (holidayDict.ContainsKey(date) || d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday)
+                if (!adjustDict.ContainsKey(date) && (holidayDict.ContainsKey(date) || d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday))
                 {
                     continue;
                 }
@@ -127,7 +127,7 @@ namespace XYD.Common
             {
                 var entity = new XYD_CalendarEntity();
                 var detail = new XYD_CalendarDetail();
-                CalendarCaculate(d, today, holidayDict, db, sysConfig, attenceRecords, leaveRecord, bizTripRecord, ref entity, ref detail);
+                CalendarCaculate(d, today, holidayDict, adjustDict, db, sysConfig, attenceRecords, leaveRecord, bizTripRecord, ref entity, ref detail);
                 
                 if (detail.isNormal && entity.Type != CALENDAR_TYPE.Rest && entity.Type != CALENDAR_TYPE.Holiday && entity.Type != CALENDAR_TYPE.Work)
                 {
@@ -234,7 +234,7 @@ namespace XYD.Common
         #endregion
 
         #region 判断用户当日考勤
-        public static void CalendarCaculate(DateTime d, DateTime today, Dictionary<string, string> holidayDict, DefaultConnection db, XYD_System_Config sysConfig, List<XYD_Attence> attenceRecords, List<XYD_Leave_Record> leaveRecord, List<XYD_BizTrip> bizTripRecord, ref XYD_CalendarEntity entity, ref XYD_CalendarDetail detail)
+        public static void CalendarCaculate(DateTime d, DateTime today, Dictionary<string, string> holidayDict, Dictionary<string, string> adjustDict, DefaultConnection db, XYD_System_Config sysConfig, List<XYD_Attence> attenceRecords, List<XYD_Leave_Record> leaveRecord, List<XYD_BizTrip> bizTripRecord, ref XYD_CalendarEntity entity, ref XYD_CalendarDetail detail)
         {
             var date = d.ToString("yyyy-MM-dd");
             var lastDayTime = CommonUtils.EndOfDay(d);
@@ -267,7 +267,7 @@ namespace XYD.Common
              * 2. 是否该上班
              */
             // 当天是否该休息
-            if (holidayDict.ContainsKey(date) || d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday)
+            if (!adjustDict.ContainsKey(date) && (holidayDict.ContainsKey(date) || d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday))
             {
                 var isHoliday = holidayDict.ContainsKey(date);
                 if (hasAttence)
@@ -275,7 +275,7 @@ namespace XYD.Common
                     entity.Name = "上班";
                     entity.Type = CALENDAR_TYPE.Work;
                 }
-                if (hasLeave && !NeedUpdateAttence(leave))
+                else if (hasLeave && !NeedUpdateAttence(leave))
                 {
                     leaveHour = GetRealLeaveHours(sysConfig, leave.StartDate, leave.EndDate);
                     if (workHours == 0)
@@ -364,17 +364,33 @@ namespace XYD.Common
                     else
                     {
                         // 有考勤，又请假，说明是小时假
+                        // 判断是否考勤时间和请假时间是否相交，计算单独的请假时长、工作时长、最早最晚时长
                         if (hasLeave)
                         {
+                            XYD_Attence newAttence = new XYD_Attence()
+                            {
+                                StartTime = attence.StartTime,
+                                EndTime = attence.EndTime
+                            };
                             foreach(var subLeave in orignLeaves)
                             {
                                 var subLeaveHour = GetRealLeaveHours(sysConfig, subLeave.StartDate, subLeave.EndDate);
-                                leaveHour += subLeaveHour;
-                                if (IsLeaveAsWork(subLeave) && !NeedUpdateAttence(subLeave) && ShouldAddLeaveHour(subLeave, attence))
-                                {
-                                    workHours += subLeaveHour;
-                                }
                                 detail.Memo = GenerateLeaveMemo(subLeave, subLeaveHour, detail.Memo);
+                                var isIntersect = CheckTimeSpansIntersect(newAttence.StartTime, newAttence.EndTime, leave.StartDate, leave.EndDate);
+                                if (isIntersect)
+                                {
+                                    newAttence.StartTime = new DateTime(Math.Min(attence.StartTime.Value.Ticks, leave.StartDate.Ticks));
+                                    newAttence.EndTime = new DateTime(Math.Max(attence.EndTime.Value.Ticks, leave.EndDate.Ticks));
+                                    workHours = CaculateWorkHours(d, newAttence, sysConfig);
+                                }
+                                else
+                                {
+                                    leaveHour += subLeaveHour;
+                                    if (IsLeaveAsWork(subLeave) && !NeedUpdateAttence(subLeave) && ShouldAddLeaveHour(subLeave, attence))
+                                    {
+                                        workHours += subLeaveHour;
+                                    }
+                                }
                             }
                         }
                         // 判断是否有出差
@@ -387,9 +403,15 @@ namespace XYD.Common
                             var serialRecord = db.SerialRecord.Where(n => n.MessageID == bizTrip.MessageID).FirstOrDefault();
                             detail.Memo += string.Format("今日出差，出差编号:{0}", serialRecord == null ? string.Empty : serialRecord.Sn);
                         }
-                        // 加入午休时间逻辑，迟到只比较到分
-                        if (DateTime.Parse(attence.StartTime.Value.ToString("yyyy-MM-dd HH:mm:00")) > shouldStartTime)
+                        // 却考勤，直接迟到
+                        if (attence.StartTime == null)
                         {
+                            entity.Name = "迟到";
+                            entity.Type = CALENDAR_TYPE.Late;
+                        }
+                        else if (DateTime.Parse(attence.StartTime.Value.ToString("yyyy-MM-dd HH:mm:00")) > shouldStartTime)
+                        {
+                            // 加入午休时间逻辑，迟到只比较到分
                             if ((hasLeave || hasBizTrip) && workHours >= Normal_Work_Hours)
                             {
                                 // 早上请假，然后打卡上班，总时长超过8小时
@@ -464,6 +486,7 @@ namespace XYD.Common
         #region 考勤是否应算到工作时间中
         public static bool ShouldAddLeaveHour(XYD_Leave_Record leave, XYD_Attence attence)
         {
+            // 如果请假起始已经包括在考勤起始，则不用加时间
             if (attence != null && attence.StartTime != null && attence.EndTime != null && leave.StartDate >= attence.StartTime.Value && leave.EndDate <= attence.EndTime.Value)
             {
                 return false;
@@ -476,7 +499,7 @@ namespace XYD.Common
         public static bool IsLeaveAsWork(XYD_Leave_Record leave)
         {
             string category = leave.Category;
-            if (category == "加班" || category.Contains("补") || category == "外勤" || category.Contains("假"))
+            if (category == "加班" || category.Contains("补") || category == "外勤" || category.Contains("假") || category == "调休")
             {
                 return true;
             }
@@ -645,22 +668,8 @@ namespace XYD.Common
                     attence = new XYD_Attence();
                     attence.EmplNo = employee.EmplNO;
                     attence.EmplName = employee.EmplName;
-                    if (UpdateOnlyHalfAttence(leave.Category))
-                    {
-                        if (leave.StartDate.Hour < 12)
-                        {
-                            attence.StartTime = leave.StartDate;
-                        }
-                        else
-                        {
-                            attence.EndTime = leave.EndDate;
-                        }
-                    }
-                    else
-                    {
-                        attence.StartTime = leave.StartDate;
-                        attence.EndTime = leave.EndDate;
-                    }
+                    attence.StartTime = leave.StartDate;
+                    attence.EndTime = leave.EndDate;
                     attence.Day = leave.StartDate.ToString("yyyy-MM-dd");
                     attence.DeviceID = "新友达";
                     db.Attence.Add(attence);
@@ -725,15 +734,15 @@ namespace XYD.Common
             var adjustHour = GetAdjustHourByUser(EmplID, startDate, endDate);
             return new XYD_Vocation_Report()
             {
-                yearHour = FillDownToHalfHour(yearHour),
+                yearHour = FillUpToHalfHour (yearHour),
                 extraHour = FillDownToHalfHour(extraHour),
-                leaveHour = FillDownToHalfHour(leaveHour + changeHour),
-                sickHour = FillDownToHalfHour(sickHour),
-                marryHour = FillDownToHalfHour(marryHour),
-                birthHour = FillDownToHalfHour(birthHour),
-                milkHour = FillDownToHalfHour(milkHour),
-                deadHour = FillDownToHalfHour(deadHour),
-                adjustHour = FillDownToHalfHour(adjustHour)
+                leaveHour = FillUpToHalfHour(leaveHour + changeHour),
+                sickHour = FillUpToHalfHour(sickHour),
+                marryHour = FillUpToHalfHour(marryHour),
+                birthHour = FillUpToHalfHour(birthHour),
+                milkHour = FillUpToHalfHour(milkHour),
+                deadHour = FillUpToHalfHour(deadHour),
+                adjustHour = FillUpToHalfHour(adjustHour)
             };
         }
         #endregion
@@ -871,6 +880,29 @@ namespace XYD.Common
         public static double FillUpToHalfHour(double hour)
         {
             return Math.Ceiling(hour * 2) / 2;
+        }
+        #endregion
+
+        #region 判断两时间段是否相交
+        public static bool CheckTimeSpansIntersect(DateTime? workStart, DateTime? workEnd, DateTime leaveStart, DateTime leaveEnd)
+        {
+            if (workStart == null || workEnd == null)
+            {
+                return false;
+            }
+            else
+            {
+                return DateTimeWithoutSecond(workStart.Value) < DateTimeWithoutSecond(leaveEnd)
+                && DateTimeWithoutSecond(workEnd.Value) > DateTimeWithoutSecond(leaveStart);
+            }
+        }
+        #endregion
+
+        #region 时间精确到分
+        public static DateTime DateTimeWithoutSecond(DateTime dateTime)
+        {
+            var s = dateTime.ToString("yyyy-MM-dd HH:mm:00");
+            return DateTime.Parse(s);
         }
         #endregion
     }

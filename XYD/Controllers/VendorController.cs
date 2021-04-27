@@ -6,11 +6,16 @@ using System.Web.Mvc;
 using XYD.Models;
 using XYD.Common;
 using System.Text;
+using XYD.U8Service;
+using System.Configuration;
+using Newtonsoft.Json;
 
 namespace XYD.Controllers
 {
     public class VendorController : Controller
     {
+        U8ServiceSoapClient client = new U8ServiceSoapClient();
+
         #region 供应商列表
         [Authorize]
         public ActionResult List(string Name, int Page = 0, int Size = 10)
@@ -136,14 +141,16 @@ namespace XYD.Controllers
                         return ResponseUtil.Error("不能与现有供应商重复");
                     }
                     // 判断用友里是否已有该供应商
-                    var targetVendor = FindTargetVendor(model.Name);
-                    if (targetVendor == null)
+                    var key = ConfigurationManager.AppSettings["WSDL_Key"];
+                    var dbresult = client.FindTargetVendor(key, model.Name);
+                    var targetVendorList = JsonConvert.DeserializeObject<List<XYD_Vendor>>(dbresult);
+                    if (targetVendorList == null || targetVendorList.Count == 0)
                     {
                         model.Code = string.Format("OAGYS{0}", newNumber);
                     }
                     else
                     {
-                        model.Code = targetVendor.Code;
+                        model.Code = targetVendorList.FirstOrDefault().Code;
                     }
                     db.Vendor.Add(model);
                     db.SaveChanges();
@@ -154,28 +161,6 @@ namespace XYD.Controllers
             {
                 return ResponseUtil.Error(e.Message);
             }
-        }
-
-        // 查找用友数据库，是否已有该供应商
-        private XYD_Vendor FindTargetVendor(string Name)
-        {
-            XYD_Vendor targetVendor = null;
-            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
-            var allSql = @"SELECT
-	                                    cVenCode AS Code,
-	                                    cVenName AS Name 
-                                    FROM
-	                                    Vendor";
-            var allResult = DbUtil.ExecuteSqlCommand(connectionString, allSql, DbUtil.GetUnSyncVendor);
-            foreach (XYD_Vendor u8Vendor in allResult)
-            {
-                if (u8Vendor.Name == Name)
-                {
-                    targetVendor = u8Vendor;
-                    break;
-                }
-            }
-            return targetVendor;
         }
         #endregion
 
@@ -239,99 +224,13 @@ namespace XYD.Controllers
         {
             try
             {   
-                var sql = @"SELECT
-	                                    cVenCode AS Code,
-	                                    cVenName AS Name 
-                                    FROM
-	                                    Vendor 
-                                    WHERE
-	                                    cVenCode LIKE 'OA%'";
-                var allSql = @"SELECT
-	                                    cVenCode AS Code,
-	                                    cVenName AS Name 
-                                    FROM
-	                                    Vendor";
-                var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["YongYouConnection"].ConnectionString;
-                var result = DbUtil.ExecuteSqlCommand(connectionString, sql, DbUtil.GetUnSyncVendor);
-                var allResult = DbUtil.ExecuteSqlCommand(connectionString, allSql, DbUtil.GetUnSyncVendor);
-                StringBuilder sb = new StringBuilder();
                 using (var db = new DefaultConnection())
                 {
                     var OACodeList = db.Vendor.Where(n => n.Code.Contains("OAGYS")).ToList();
-                    var InsertList = new List<string>();
-                    foreach(XYD_Vendor oaVendor in OACodeList)
-                    {
-                        int flag = 0;
-                        foreach(XYD_Vendor u8Vendor in result)
-                        {
-                            if (u8Vendor.Code == oaVendor.Code)
-                            {
-                                if (u8Vendor.Name == oaVendor.Name)
-                                {
-                                    flag = 1;
-                                    break;
-                                }
-                                else
-                                {
-                                    flag = 2;
-                                    break;
-                                }
-                            }
-                            else
-                            {
-                                flag = 3;
-                            }
-                        }
-                        // 检查flag
-                        if (flag == 2)
-                        {
-                            if (!string.IsNullOrEmpty(oaVendor.Name))
-                            {
-                                sb.Append(string.Format("UPDATE Vendor SET cVenName = '{0}', cVenAbbName = '{1}' WHERE cVenCode = '{2}';", oaVendor.Name, oaVendor.Name, oaVendor.Code));
-                                InsertList.Add(oaVendor.Name);
-                            }
-                        }
-                        else if (flag == 3)
-                        {
-                            if (!string.IsNullOrEmpty(oaVendor.Name))
-                            {
-                                sb.Append(string.Format("INSERT INTO Vendor ( cVenCode, cVenName, cVenAbbName) VALUES( '{0}', '{1}', '{2}');", oaVendor.Code, oaVendor.Name, oaVendor.Name));
-                                InsertList.Add(oaVendor.Name);
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    // 检查是否有名称相同但Code不同的
-                    if (InsertList.Count > 0)
-                    {
-                        var ConflictVendors = new List<string>();
-                        foreach(XYD_Vendor allU8Vendor in allResult)
-                        {
-                            if (InsertList.Contains(allU8Vendor.Name))
-                            {
-                                ConflictVendors.Add(allU8Vendor.Name);
-                            }
-                        }
-                        if (ConflictVendors.Count > 0)
-                        {
-                            var ConflictMsg = string.Join(",", ConflictVendors);
-                            return ResponseUtil.Error(string.Format("供应商已存在:{0}",ConflictMsg));
-                        }
-                    }
-                }
-                // 检查是否有更新
-                var batchSql = sb.ToString();
-                if (!string.IsNullOrEmpty(batchSql))
-                {
-                    DbUtil.ExecuteSqlCommand(connectionString, batchSql);
-                    return ResponseUtil.OK("同步成功");
-                }
-                else
-                {
-                    return ResponseUtil.OK("记录已是最新，无需同步");
+                    var vendors = JsonConvert.SerializeObject(OACodeList);
+                    var key = ConfigurationManager.AppSettings["WSDL_Key"];
+                    var result = client.SyncVendor(key, vendors);
+                    return ResponseUtil.OK(result);
                 }
             }
             catch (Exception e)

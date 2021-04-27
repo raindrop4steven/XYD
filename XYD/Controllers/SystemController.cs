@@ -131,5 +131,37 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region app自动更新
+        public ActionResult CheckVersion()
+        {
+            // Package
+            var name = Request.Params["name"];
+            string AppVersion = System.Configuration.ConfigurationManager.AppSettings["AppVersion"];
+            string AppUrl = System.Configuration.ConfigurationManager.AppSettings["Appurl"];
+            string UpdateNote = System.Configuration.ConfigurationManager.AppSettings["UpdateNote"];
+
+            var dict = new Dictionary<string, object>();
+            var dictValue = new
+            {
+                Name = name,
+                Type = "AndroidApp",
+                Versions = new List<object>()
+                {
+                    new
+                    {
+                        Version = AppVersion,
+                        Type = "R",
+                        Note = UpdateNote,
+                        Url = AppUrl,
+                        Dependencies = new { }
+                    }
+                }
+            };
+            dict.Add(name, dictValue);
+
+            return new JsonNetResult(dict);
+        }
+        #endregion
     }
 }

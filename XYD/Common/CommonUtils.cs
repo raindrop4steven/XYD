@@ -51,6 +51,16 @@ namespace XYD.Common
         }
         #endregion
 
+        #region 根据月份返回日期
+        public static string GetChineseMonth(int month)
+        {
+            var dict = new Dictionary<int, string>() {
+                {1, "一月" },{2, "二月" },{3, "三月" },{4, "四月" },{5, "五月" },{6, "六月" },{7, "七月" },{8, "八月" },{9, "九月" },{10, "十月" },{11, "十一月" },{12, "十二月" },
+            };
+            return dict[month];
+        }
+        #endregion
+
         #region 解析自定义方法参数
         public static XYD_Custom_Func ParseCustomFunc(string originStr)
         {
