@@ -111,7 +111,7 @@ namespace XYD.Controllers
                     return ResponseUtil.OK("添加成功");
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }
@@ -127,7 +127,8 @@ namespace XYD.Controllers
                 var employee = (User.Identity as AppkizIdentity).Employee;
                 using (var db = new DefaultConnection())
                 {
-                    var list = db.AssetCategory.OrderBy(n => n.Order).Select(n => new {
+                    var list = db.AssetCategory.OrderBy(n => n.Order).Select(n => new
+                    {
                         Code = n.Code,
                         Name = n.Name
                     }).ToList();
@@ -251,7 +252,8 @@ namespace XYD.Controllers
                 using (var db = new DefaultConnection())
                 {
                     var entity = db.Asset.Where(n => n.ID == id).FirstOrDefault();
-                    return ResponseUtil.OK(new {
+                    return ResponseUtil.OK(new
+                    {
                         emplName = employee.EmplName,
                         detail = entity
                     });
@@ -298,7 +300,7 @@ namespace XYD.Controllers
                     return ResponseUtil.OK("申领成功");
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }
@@ -360,7 +362,7 @@ namespace XYD.Controllers
                         }
                     }
                     // 数量检测通过，准备扣除库存
-                    
+
                     foreach (var asset in applyAssets)
                     {
                         var assetRecord = new List<XYD_Asset_Record>();
@@ -374,7 +376,7 @@ namespace XYD.Controllers
                             currentAssetsQuery = currentAssetsQuery.Where(n => n.Unit == asset.Unit);
                         }
                         var currentAssets = currentAssetsQuery.ToList();
-                        foreach(var item in currentAssets)
+                        foreach (var item in currentAssets)
                         {
                             if (item.Count >= asset.Count)
                             {
@@ -440,7 +442,7 @@ namespace XYD.Controllers
                     var record = new XYD_Asset_Record();
                     record.AssetID = entity.ID;
                     record.Count = count;
-                    record.Operation = DEP_Constants.Asset_Operation_Return ;
+                    record.Operation = DEP_Constants.Asset_Operation_Return;
                     record.EmplName = employee.EmplName;
                     record.DeptName = employee.DeptName;
                     record.CreateTime = DateTime.Now;
@@ -530,7 +532,8 @@ namespace XYD.Controllers
                     // 记录总页数
                     var totalPage = (int)Math.Ceiling((float)totalCount / Size);
                     var results = list.OrderByDescending(n => n.CreateTime).Skip(Page * Size).Take(Size).ToList();
-                    return ResponseUtil.OK(new {
+                    return ResponseUtil.OK(new
+                    {
                         records = results,
                         meta = new
                         {
@@ -543,7 +546,7 @@ namespace XYD.Controllers
                     });
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return ResponseUtil.Error(e.InnerException.Message);
             }
@@ -583,7 +586,8 @@ namespace XYD.Controllers
                     };
                     results.Add(result);
                 }
-                return ResponseUtil.OK(new {
+                return ResponseUtil.OK(new
+                {
                     records = results,
                     meta = new
                     {
@@ -595,7 +599,7 @@ namespace XYD.Controllers
                     }
                 });
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }
@@ -682,7 +686,7 @@ namespace XYD.Controllers
                         query = query.Where(n => n.Name.Contains(Name));
                     }
                     var assets = query
-                        .GroupBy(n => new { n.Name, n.ModelName, n.Unit})
+                        .GroupBy(n => new { n.Name, n.ModelName, n.Unit })
                         .Select(n => new
                         {
                             Name = n.FirstOrDefault().Name,
@@ -710,7 +714,7 @@ namespace XYD.Controllers
                     });
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }
@@ -730,7 +734,7 @@ namespace XYD.Controllers
                     isLeader = isLeader
                 });
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return ResponseUtil.Error(e.Message);
             }
@@ -765,10 +769,19 @@ namespace XYD.Controllers
                 // 记录总页数
                 var totalPage = (int)Math.Ceiling((float)totalCount / Size);
                 var results = assets.OrderByDescending(n => n.Count).Skip(Page * Size).Take(Size).ToList();
-                var currentCount = assets.Sum(n => n.Count);
-                var usedCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Apply).ToList().Sum(n => n.Count);
-                var returnCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Return).ToList().Sum(n => n.Count);
-                var scrapedCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Scrap).ToList().Sum(n => n.Count);
+                var currentCount = 0;
+                var usedCount = 0;
+                var returnCount = 0;
+                var scrapedCount = 0;
+
+                if (results.Count > 0)
+                {
+                    currentCount = assets.Sum(n => n.Count);
+                    usedCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Apply).ToList().Sum(n => n.Count);
+                    returnCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Return).ToList().Sum(n => n.Count);
+                    scrapedCount = db.AssetRecord.Where(n => n.Operation == DEP_Constants.Asset_Operation_Scrap).ToList().Sum(n => n.Count);
+                }
+
                 return ResponseUtil.OK(new
                 {
                     assets = results,
