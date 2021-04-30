@@ -344,7 +344,12 @@ namespace XYD.Controllers
                             {
                                 assetQuery = assetQuery.Where(n => n.ModelName == modelName);
                             }
-                            var assetCount = assetQuery.Sum(n => n.Count);
+                            var assetList = assetQuery.ToList();
+                            if (assetList.Count == 0)
+                            {
+                                return ResponseUtil.Error(string.Format("{0} {1}的库存为零，无法申领", name, modelName));
+                            }
+                            var assetCount = assetList.Sum(n => n.Count);
                             if (assetCount < count)
                             {
                                 return ResponseUtil.Error(string.Format("{0}申领数量超过库存", name));
