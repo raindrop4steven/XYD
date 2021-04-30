@@ -620,6 +620,12 @@ namespace XYD.Models
         public string ApplyUser { get; set; }
         // 日期
         public DateTime ApplyDate { get; set; }
+        // 开始日期
+        public DateTime StartDate { get; set; }
+        // 结束日期
+        public DateTime EndDate { get; set; }
+        // 小时数
+        public double Hour { get; set; }
         // 事由
         public string Reason { get; set; }
         // 地点
