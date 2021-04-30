@@ -1,0 +1,183 @@
+﻿{
+    "Fields": [
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "部门",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "用车人",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 7,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 4,
+                "Col": 11,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "开始日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 4,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "结束日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 4,
+                "CanEdit": true,
+                "Row": 5,
+                "Col": 7,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "小时数",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 5,
+                "Col": 11,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "事由",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 6,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "地点",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 7,
+                "Col": 3,
+                "Options": null,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "驾驶员",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": false,
+                "Row": 8,
+                "Col": 3,
+                "Options": "#custom(XYD.Common.TransformUtil, GetDrivers)",
+                "Required": false
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "车号",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": false,
+                "Row": 8,
+                "Col": 7,
+                "Options": [
+                    {
+                        "Value": "苏B1R1U5",
+                        "InterValue": ""
+                    },
+                    {
+                        "Value": "沪DGP170",
+                        "InterValue": ""
+                    }
+                ],
+                "Required": false
+            }
+        }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 5,
+                    "Col": 3
+                },
+                {
+                    "Row": 5,
+                    "Col": 7
+                }
+            ],
+            "Dest": {
+                "Row": 5,
+                "Col": 11
+            },
+            "Operation": "minus",
+            "Type": "hour"
+        }
+    ]
+}
