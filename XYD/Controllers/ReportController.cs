@@ -56,11 +56,17 @@ namespace XYD.Controllers
                 var results = new List<XYD_Calendar_Report>();
 
                 List<string> excludeReportUsers = OrgUtil.GetUsersByRole("非考勤统计用户").Select(n => n.EmplID).ToList();
+                List<string> excludeExceedUsers = OrgUtil.GetExceedUsers(BeginDate);
                 // 计算应上班天数
                 var shouldWorkDays = CalendarUtil.CaculateShouldWorkDays(BeginDate, EndDate);
                 foreach(var user in employees)
                 {
                     if (excludeReportUsers.Contains(user.EmplID))
+                    {
+                        continue;
+                    }
+                    // 排除入职月份大于查询开始月份
+                    if (excludeExceedUsers.Contains(user.EmplID))
                     {
                         continue;
                     }
