@@ -768,7 +768,8 @@ namespace XYD.Controllers
                             Unit = n.FirstOrDefault().Unit,
                             Price = n.Sum(x => x.UnitPrice * x.Count),
                             Count = n.Sum(x => x.Count)
-                        });
+                        })
+                        .Where(n => n.Count > 0);
                 // 记录总数
                 var totalCount = assets.Count();
                 // 记录总页数
