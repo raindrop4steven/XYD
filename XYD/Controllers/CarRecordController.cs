@@ -106,7 +106,7 @@ namespace XYD.Controllers
 
         #region 列表
         [Authorize]
-        public ActionResult List(string status, int Page, int Size)
+        public ActionResult List(string status, string applyDept, string applyUser, int Page, int Size)
         {
             try
             {
@@ -126,6 +126,14 @@ namespace XYD.Controllers
                     if (!string.IsNullOrEmpty(status))
                     {
                         list = list.Where(n => n.Status == status);
+                    }
+                    if (!string.IsNullOrEmpty(applyDept))
+                    {
+                        list = list.Where(n => n.ApplyDept == applyDept);
+                    }
+                    if (!string.IsNullOrEmpty(applyUser))
+                    {
+                        list = list.Where(n => n.ApplyUser == applyUser);
                     }
                     // 记录总数
                     var totalCount = list.Count();
@@ -215,7 +223,6 @@ namespace XYD.Controllers
             }
         }
         #endregion
-
 
         #region 填写起始公里数
         [Authorize]
