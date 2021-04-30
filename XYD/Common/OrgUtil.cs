@@ -90,11 +90,9 @@ namespace XYD.Common
         #region 获取入职月份在查询开始月份后的用户
         public static List<string> GetExceedUsers(DateTime beginDate)
         {
-            var firstDayInMonth = DateTime.Parse(beginDate.ToString("yyyy-MM-01 00:00:00"));
-
             using(var db = new DefaultConnection())
             {
-                var exceedUsers = db.UserCompanyInfo.Where(n => n.EmployeeDate == null ||  n.EmployeeDate.Value > firstDayInMonth).Select(n => n.EmplID).ToList();
+                var exceedUsers = db.UserCompanyInfo.Where(n => n.EmployeeDate == null ||  n.EmployeeDate.Value > beginDate).Select(n => n.EmplID).ToList();
                 return exceedUsers;
             }
         }
