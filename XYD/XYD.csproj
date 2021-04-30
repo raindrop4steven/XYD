@@ -791,6 +791,14 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <None Include="Connected Services\U8Service\U8Service1.wsdl" />
+    <Content Include="Content\config\84f434ac-4626-4748-b294-fe94b16b953c\2\app-transformer.json" />
+    <Content Include="Content\config\84f434ac-4626-4748-b294-fe94b16b953c\2\audit.json" />
+    <Content Include="Content\config\84f434ac-4626-4748-b294-fe94b16b953c\2\main.json" />
+    <Content Include="Content\config\84f434ac-4626-4748-b294-fe94b16b953c\2\start.json" />
+    <Content Include="Content\config\06d9b887-ca03-4042-8202-2aafaeaa3634\2\app-transformer.json" />
+    <Content Include="Content\config\06d9b887-ca03-4042-8202-2aafaeaa3634\2\audit.json" />
+    <Content Include="Content\config\06d9b887-ca03-4042-8202-2aafaeaa3634\2\main.json" />
+    <Content Include="Content\config\06d9b887-ca03-4042-8202-2aafaeaa3634\2\start.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -899,7 +907,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" />
+      <UserProperties content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
