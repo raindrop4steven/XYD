@@ -613,13 +613,23 @@ namespace XYD.Controllers
 
         #region 资产操作记录
         [Authorize]
-        public ActionResult TotalRecords(string type, int Page = 0, int Size = 10)
+        public ActionResult TotalRecords(string type, string emplName, string asssetName, int Page = 0, int Size = 10)
         {
             try
             {
                 var results = new List<object>();
                 var db = new DefaultConnection();
-                var records = db.AssetRecord.Where(n => n.Operation == type).OrderByDescending(n => n.CreateTime);
+                var query = db.AssetRecord.Where(n => n.Operation == type);
+                if (!string.IsNullOrEmpty(asssetName))
+                {
+                    var inAssetIds = db.Asset.Where(n => n.Name.Contains(asssetName)).Select(n => n.ID).ToList();
+                    query = query.Where(n => inAssetIds.Contains(n.AssetID));
+                }
+                if (!string.IsNullOrEmpty(emplName))
+                {
+                    query = query.Where(n => n.EmplName.Contains(emplName));
+                }
+                var records = query.OrderByDescending(n => n.CreateTime);
                 // 记录总数
                 var totalCount = records.Count();
                 // 记录总页数
