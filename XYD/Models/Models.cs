@@ -720,6 +720,22 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 假期设定
+    public class XYD_Holiday
+    {
+        [Key]
+        public int ID { get; set; }
+        // 年份
+        public int Year { get; set; }
+        // 名称
+        public string Name { get; set; }
+        // 开始日期
+        public DateTime StartDate { get; set; }
+        // 结束日期
+        public DateTime EndDate { get; set; }
+    }
+    #endregion
+
     #region 数据库上下文
     /// <summary>
     /// 科室资金类别
@@ -752,6 +768,7 @@ namespace XYD.Models
         public DbSet<XYD_Attence> Attence { get; set; }
         public DbSet<XYD_BizTrip> BizTrip { get; set; }
         public DbSet<XYD_Adjust> Adjust { get; set; }
+        public DbSet<XYD_Holiday> Holiday { get; set; }
     }
     #endregion
 }

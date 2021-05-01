@@ -257,6 +257,7 @@
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
+    <Compile Include="Controllers\HolidayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
@@ -280,6 +281,10 @@
     <Compile Include="Entity\WorkflowQuery.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105010216589_add holiday.cs" />
+    <Compile Include="Migrations\202105010216589_add holiday.Designer.cs">
+      <DependentUpon>202105010216589_add holiday.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
@@ -847,6 +852,7 @@
     <Folder Include="Views\Content\" />
     <Folder Include="Views\Education\" />
     <Folder Include="Views\Favorite\" />
+    <Folder Include="Views\Holiday\" />
     <Folder Include="Views\Invoice\" />
     <Folder Include="Views\Leave\" />
     <Folder Include="Views\MettingBook\" />
@@ -883,6 +889,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\U8Service\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202105010216589_add holiday.resx">
+      <DependentUpon>202105010216589_add holiday.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
