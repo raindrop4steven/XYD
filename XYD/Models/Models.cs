@@ -725,6 +725,8 @@ namespace XYD.Models
     {
         [Key]
         public int ID { get; set; }
+        // 类型
+        public int Type { get; set; }
         // 年份
         public int Year { get; set; }
         // 名称

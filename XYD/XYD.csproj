@@ -286,6 +286,10 @@
     <Compile Include="Migrations\202105010216589_add holiday.Designer.cs">
       <DependentUpon>202105010216589_add holiday.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105080834417_add holiday type.cs" />
+    <Compile Include="Migrations\202105080834417_add holiday type.Designer.cs">
+      <DependentUpon>202105080834417_add holiday type.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -894,6 +898,9 @@
     <EmbeddedResource Include="Migrations\202105010216589_add holiday.resx">
       <DependentUpon>202105010216589_add holiday.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105080834417_add holiday type.resx">
+      <DependentUpon>202105080834417_add holiday type.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -921,7 +928,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" />
+      <UserProperties content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
