@@ -16,12 +16,52 @@ namespace XYD.Common
         #region 获得指定年份休假和调休安排
         public static XYD_Calendar GetPlanByYear(int currentYear)
         {
-            var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], "holidays", string.Format("{0}.json", currentYear));
-
-            using (StreamReader sr = new StreamReader(filePathName))
+            var Holiday_Source = System.Configuration.ConfigurationManager.AppSettings["Holiday_Source"];
+            if (Holiday_Source == "File")
             {
-                var calendar = JsonConvert.DeserializeObject<XYD_Calendar>(sr.ReadToEnd());
-                return calendar;
+                var filePathName = Path.Combine(System.Configuration.ConfigurationManager.AppSettings["ConfigFolderPath"], "holidays", string.Format("{0}.json", currentYear));
+
+                using (StreamReader sr = new StreamReader(filePathName))
+                {
+                    var calendar = JsonConvert.DeserializeObject<XYD_Calendar>(sr.ReadToEnd());
+                    return calendar;
+                }
+            }
+            else
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var holidays = parseHoliday(0);
+                    var adjust = parseHoliday(1);
+                    var calendar = new XYD_Calendar();
+                    calendar.holidays = holidays;
+                    calendar.adjust = adjust;
+                    return calendar;
+                }
+            }
+        }
+        #endregion
+
+        #region 解析假期设定
+        public static List<XYD_CalendarItem> parseHoliday(int Type)
+        {
+            using (var db = new DefaultConnection())
+            {
+                var list = db.Holiday.Where(n => n.Type == Type).ToList();
+                List<XYD_CalendarItem> results = new List<XYD_CalendarItem>();
+                foreach (var e in list)
+                {
+                    var item = new XYD_CalendarItem();
+                    item.Name = e.Name;
+                    item.Days = new List<string>();
+
+                    for (DateTime d = e.StartDate; d <= e.EndDate; d = d.AddDays(1))
+                    {
+                        item.Days.Add(d.ToString("yyyy-MM-dd"));
+                    }
+                    results.Add(item);
+                }
+                return results;
             }
         }
         #endregion
@@ -33,7 +73,7 @@ namespace XYD.Common
             var holidays = calendar.holidays;
             foreach (var item in holidays)
             {
-                foreach(var day in item.Days)
+                foreach (var day in item.Days)
                 {
                     dict.Add(day, item.Name);
                 }
@@ -87,7 +127,7 @@ namespace XYD.Common
         #endregion
 
         #region 考勤详情
-        public static XYD_Calendar_Result CaculateUserCalendarDetail(Employee employee, DateTime BeginDate, DateTime EndDate, bool needLeave=false)
+        public static XYD_Calendar_Result CaculateUserCalendarDetail(Employee employee, DateTime BeginDate, DateTime EndDate, bool needLeave = false)
         {
             var calendarResult = new XYD_Calendar_Result();
             List<XYD_CalendarEntity> dates = new List<XYD_CalendarEntity>();
@@ -119,7 +159,7 @@ namespace XYD.Common
             // 区分按人和按日查询的条件，如果按照人查询，则条件开始时间<出勤开始 && 出勤结束 <条件结束;如果按照日查询，则出勤时间区间应包括条件时间
             var leaveRecord = db.LeaveRecord.Where(n => n.EmplID == employee.EmplID && n.StartDate <= lastDayTime && n.EndDate >= StartDate.Date).ToList();
             var bizTripRecord = db.BizTrip.Where(n => n.EmplID == employee.EmplID && n.StartDate <= lastDayTime && n.EndDate >= StartDate.Date).ToList();
-            
+
             // 获得对应城市工作时间配置
             var sysConfig = GetSysConfigByUser(employee.EmplID);
             // 判断每一天状态
@@ -128,7 +168,7 @@ namespace XYD.Common
                 var entity = new XYD_CalendarEntity();
                 var detail = new XYD_CalendarDetail();
                 CalendarCaculate(d, today, holidayDict, adjustDict, db, sysConfig, attenceRecords, leaveRecord, bizTripRecord, ref entity, ref detail);
-                
+
                 if (detail.isNormal && entity.Type != CALENDAR_TYPE.Rest && entity.Type != CALENDAR_TYPE.Holiday && entity.Type != CALENDAR_TYPE.Work)
                 {
                     summary[CALENDAR_TYPE.Work] += 1;
@@ -140,7 +180,7 @@ namespace XYD.Common
                 dates.Add(entity);
                 details.Add(detail);
             }
-            
+
             // 如果是app中请假则需要统计进去
             if (needLeave)
             {
@@ -153,7 +193,7 @@ namespace XYD.Common
                 summary[CALENDAR_TYPE.Leave] = normalLeaveList.Count;
                 summary[CALENDAR_TYPE.BizTrp] = bizTripRecord.Count;
                 // 转化成考情详情
-                foreach(var leave in adjustLeaveList)
+                foreach (var leave in adjustLeaveList)
                 {
                     var detailEntity = CreateLeaveCalendarDetail(sysConfig, leave);
                     details.Add(detailEntity);
@@ -205,7 +245,7 @@ namespace XYD.Common
             {
                 detailEntity.Type = CALENDAR_TYPE.Leave;
             }
-            
+
             return detailEntity;
         }
         #endregion
@@ -319,7 +359,7 @@ namespace XYD.Common
                             // 是否是补外勤，补打卡，加班，外勤
                             if (!NeedUpdateAttence(leave))
                             {
-                                if(IsLeaveAsWork(leave))
+                                if (IsLeaveAsWork(leave))
                                 {
                                     if (IsDayDate(leave.StartDate) && IsDayDate(leave.EndDate))
                                     {
@@ -337,7 +377,7 @@ namespace XYD.Common
                                     }
                                 }
                             }
-                            
+
                             // 增加备注
                             detail.Memo = GenerateLeaveMemo(leave, leaveHour, detail.Memo);
                         }
@@ -372,7 +412,7 @@ namespace XYD.Common
                                 StartTime = attence.StartTime,
                                 EndTime = attence.EndTime
                             };
-                            foreach(var subLeave in orignLeaves)
+                            foreach (var subLeave in orignLeaves)
                             {
                                 var subLeaveHour = GetRealLeaveHours(sysConfig, subLeave.StartDate, subLeave.EndDate);
                                 detail.Memo = GenerateLeaveMemo(subLeave, subLeaveHour, detail.Memo);
@@ -673,7 +713,8 @@ namespace XYD.Common
                     attence.Day = leave.StartDate.ToString("yyyy-MM-dd");
                     attence.DeviceID = "新友达";
                     db.Attence.Add(attence);
-                } else
+                }
+                else
                 {
                     // 更新，最早考勤取最早，最晚考勤取最晚
                     // 如果是补打卡
@@ -734,7 +775,7 @@ namespace XYD.Common
             var adjustHour = GetAdjustHourByUser(EmplID, startDate, endDate);
             return new XYD_Vocation_Report()
             {
-                yearHour = FillUpToHalfHour (yearHour),
+                yearHour = FillUpToHalfHour(yearHour),
                 extraHour = FillDownToHalfHour(extraHour),
                 leaveHour = FillUpToHalfHour(leaveHour + changeHour),
                 sickHour = FillUpToHalfHour(sickHour),
@@ -750,7 +791,7 @@ namespace XYD.Common
         #region 根据类别获得出勤时间
         public static double GetHourByLeaveCategory(string EmplID, string category, DateTime startDate, DateTime endDate)
         {
-            using(var db = new DefaultConnection())
+            using (var db = new DefaultConnection())
             {
                 //var lastDayTime = CommonUtils.EndOfDay(endDate);
                 var records = db.LeaveRecord.Where(n => n.EmplID == EmplID
@@ -769,7 +810,7 @@ namespace XYD.Common
             {
                 var sum = 0.0;
                 var list = db.Adjust.Where(n => n.EmplID == EmplID && n.Date >= startDate && n.Date <= endDate).ToList();
-                foreach(var item in list)
+                foreach (var item in list)
                 {
                     sum += item.Hours;
                 }
@@ -790,7 +831,7 @@ namespace XYD.Common
                     yearHour = CaculateYearRestDays(userCompanyInfo) * Normal_Work_Hours; // 小时制
                 }
                 return Math.Round(yearHour, 2);
-            }  
+            }
         }
         #endregion
 

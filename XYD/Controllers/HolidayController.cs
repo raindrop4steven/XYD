@@ -96,5 +96,16 @@ namespace XYD.Controllers
             }
         }
         #endregion
+
+        #region 测试假期列表
+        public ActionResult TestHoliday()
+        {
+            using (var db = new DefaultConnection())
+            {
+                var calendar = CalendarUtil.GetPlanByYear(2021);
+                return ResponseUtil.OK(calendar);
+            }
+        }
+        #endregion
     }
 }
