@@ -290,6 +290,14 @@
     <Compile Include="Migrations\202105080834417_add holiday type.Designer.cs">
       <DependentUpon>202105080834417_add holiday type.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105102215318_add asset apply model.cs" />
+    <Compile Include="Migrations\202105102215318_add asset apply model.Designer.cs">
+      <DependentUpon>202105102215318_add asset apply model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105102359067_add asset save model.cs" />
+    <Compile Include="Migrations\202105102359067_add asset save model.Designer.cs">
+      <DependentUpon>202105102359067_add asset save model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -900,6 +908,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105080834417_add holiday type.resx">
       <DependentUpon>202105080834417_add holiday type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105102215318_add asset apply model.resx">
+      <DependentUpon>202105102215318_add asset apply model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105102359067_add asset save model.resx">
+      <DependentUpon>202105102359067_add asset save model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
