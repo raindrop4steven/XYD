@@ -268,6 +268,22 @@ namespace XYD.Models
     }
     #endregion
 
+    #region 保存到货记录
+    public class XYD_Asset_Save
+    {
+        [Key]
+        public int ID { get; set; }
+        // sn
+        public string Sn { get; set; }
+        // 入库记录ID列表
+        public string Ids { get; set; }
+        // 操作人
+        public string Operator { get; set; }
+        // 入库时间
+        public DateTime CreateTime { get; set; }
+    }
+    #endregion
+
     #region 固定资产操作记录
     public class XYD_Asset_Record
     {
@@ -725,6 +741,8 @@ namespace XYD.Models
     {
         [Key]
         public int ID { get; set; }
+        // 类型
+        public int Type { get; set; }
         // 年份
         public int Year { get; set; }
         // 名称
@@ -733,6 +751,24 @@ namespace XYD.Models
         public DateTime StartDate { get; set; }
         // 结束日期
         public DateTime EndDate { get; set; }
+    }
+    #endregion
+
+    #region 采购申请记录
+    public class XYD_AssetApply
+    {
+        [Key]
+        public int ID { get; set; }
+        // 流程ID
+        public string mid { get; set; }
+        // 地区
+        public string area { get; set; }
+        // 资产列表
+        public string assets { get; set; }
+        // 申请编号
+        public string sn { get; set; }
+        // 状态
+        public bool used { get; set; }
     }
     #endregion
 
@@ -769,6 +805,8 @@ namespace XYD.Models
         public DbSet<XYD_BizTrip> BizTrip { get; set; }
         public DbSet<XYD_Adjust> Adjust { get; set; }
         public DbSet<XYD_Holiday> Holiday { get; set; }
+        public DbSet<XYD_AssetApply> AssetApply { get; set; }
+        public DbSet<XYD_Asset_Save> AssetSave { get; set; }
     }
     #endregion
 }

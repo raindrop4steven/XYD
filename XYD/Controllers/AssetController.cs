@@ -2,6 +2,7 @@
 using Appkiz.Library.Security;
 using Appkiz.Library.Security.Authentication;
 using ClosedXML.Excel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -918,6 +919,206 @@ namespace XYD.Controllers
             excelWorkbook.SaveAs(fs);
             fs.Position = 0;
             return fs;
+        }
+        #endregion
+
+        #region 导入乳品申请记录
+        public ActionResult ImportApply(XYD_AssetApply model)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var record = db.AssetApply.Where(n => n.mid == model.mid).FirstOrDefault();
+                    if (record == null)
+                    {
+                        model.used = false;
+                        db.AssetApply.Add(model);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        record.sn = model.sn;
+                        record.area = model.area;
+                        record.assets = model.assets;
+                        db.SaveChanges();
+                    }
+                    return ResponseUtil.OK("记录成功");
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.OK(e.Message);
+            }
+        }
+        #endregion
+
+        #region 物品申请记录
+        [Authorize]
+        public ActionResult SearchApply(string sn)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var record = db.AssetApply.Where(n => n.sn == sn).FirstOrDefault();
+                    if (record == null)
+                    {
+                        return ResponseUtil.Error("对应申请记录不存在");
+                    }
+                    else if (record.used == true)
+                    {
+                        return ResponseUtil.Error("对应申请记录已被使用");
+                    }
+                    else
+                    {
+                        List<XYD_Asset> list = ParseAssets(record);
+                        return ResponseUtil.OK(new
+                        {
+                            sn = record.sn,
+                            list = list
+                        });
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 解析导入的物品申请
+        public List<XYD_Asset> ParseAssets(XYD_AssetApply apply)
+        {
+            string assets = apply.assets;
+            string area = apply.area;
+
+            var lines = assets.Split(';').ToList();
+            List<XYD_Asset> list = new List<XYD_Asset>();
+            foreach (string line in lines)
+            {
+                if (string.IsNullOrEmpty(line.Replace(",", "")))
+                {
+                    continue;
+                }
+                else
+                {
+                    var cols = line.Split(',').ToList();
+                    if (cols.Count < 2)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        string name = cols.ElementAt(0);
+                        string model = cols.ElementAt(1);
+                        int count = int.Parse(cols.ElementAt(2));
+                        string unit = cols.ElementAt(3);
+                        decimal unitPrice = decimal.Parse(cols.ElementAt(4));
+                        string memo = cols.ElementAt(2);
+                        string category = unitPrice >= 3000 ? DEP_Constants.ASSET_CATEGORY_ASSET : DEP_Constants.ASSET_CATEGORY_CONSUME;
+                        XYD_Asset asset = new XYD_Asset();
+                        asset.Name = name;
+                        asset.ModelName = model;
+                        asset.Count = count;
+                        asset.Unit = unit;
+                        asset.UnitPrice = unitPrice;
+                        asset.Category = category;
+                        asset.Area = area;
+                        asset.CreateTime = DateTime.Now;
+                        asset.UpdateTime = DateTime.Now;
+                        list.Add(asset);
+                    }
+                }
+            }
+            return list;
+        }
+        #endregion
+
+        #region 保存到货数量
+        [Authorize]
+        public ActionResult SaveGoods(string sn)
+        {
+            try
+            {
+                var employee = (User.Identity as AppkizIdentity).Employee;
+                Stream stream = Request.InputStream;
+                stream.Seek(0, SeekOrigin.Begin);
+                string json = new StreamReader(stream).ReadToEnd();
+                List<XYD_Asset> list = JsonConvert.DeserializeObject<List<XYD_Asset>>(json);
+                using (var db = new DefaultConnection())
+                {
+                    if (list.Count > 0)
+                    {
+                        var record = db.AssetApply.Where(n => n.sn == sn).FirstOrDefault();
+                        record.used = true;
+                        db.Asset.AddRange(list);
+                        db.SaveChanges();
+                        // 记录对应的ID到到货记录
+                        var ids = string.Join(",", list.Select(n => n.ID));
+                        var saveRecord = new XYD_Asset_Save();
+                        saveRecord.Sn = sn;
+                        saveRecord.Ids = ids;
+                        saveRecord.CreateTime = DateTime.Now;
+                        saveRecord.Operator = employee.EmplName;
+                        db.AssetSave.Add(saveRecord);
+                        db.SaveChanges();
+                    }
+                    return ResponseUtil.OK("保存到货成功");
+                }
+            }
+            catch (Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 入库记录
+        [Authorize]
+        public ActionResult SaveList()
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var list = db.AssetSave.ToList();
+                    return ResponseUtil.OK(new
+                    {
+                        list = list
+                    });
+                }
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
+        }
+        #endregion
+
+        #region 入库详情
+        [Authorize]
+        public ActionResult SaveDetail(int ID)
+        {
+            try
+            {
+                using (var db = new DefaultConnection())
+                {
+                    var record = db.AssetSave.Where(n => n.ID == ID).FirstOrDefault();
+                    var ids = record.Ids.Split(',').ToList().Select(int.Parse);
+                    var assets = db.Asset.Where(n => ids.Contains(n.ID)).ToList();
+                    return ResponseUtil.OK(new
+                    {
+                        record = record,
+                        assets = assets
+                    });
+                }
+            }
+            catch(Exception e)
+            {
+                return ResponseUtil.Error(e.Message);
+            }
         }
         #endregion
     }

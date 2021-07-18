@@ -1,7 +1,7 @@
 ﻿{
     "Nodes": [
         {
-            "NodeID": "NODE0003",
+            "NodeID": "NODE0002",
             "Operate": {
                 "Row": 12,
                 "Col": 7
@@ -12,13 +12,24 @@
             }
         },
         {
-            "NodeID": "NODE0004",
+            "NodeID": "NODE0003",
             "Operate": {
                 "Row": 13,
                 "Col": 7
             },
             "Opinion": {
                 "Row": 13,
+                "Col": 9
+            }
+        },
+        {
+            "NodeID": "NODE0004",
+            "Operate": {
+                "Row": 14,
+                "Col": 7
+            },
+            "Opinion": {
+                "Row": 14,
                 "Col": 9
             }
         }
