@@ -799,6 +799,72 @@ function CaculateDays(beingID, endID, destID) {
         SaveCellValue($(destID), dayCount);
     }
 }
+
+function CaculateDays2(beingID, endID, destID) {
+    var beginDateStr = $(beingID).text();
+    var endDateStr = $(endID).text();
+    if (beginDateStr.length > 0 && endDateStr.length > 0) {
+        var time1 = Date.parse(beginDateStr);
+        var time2 = Date.parse(endDateStr);
+        if (time1 > time2) {
+            alert("结束日期不能小于开始日期");
+        }
+        //讲两个时间相减，求出相隔的天数
+        var dayCount = 1 + caculateNaturalDays(time1, time2);
+        var category = $("#C-6-3").text();
+        if (category == "年假") {
+            $.ajax({
+                url: "/Apps/XYD/Workflow/CheckLeftYearWeb",
+                data: {
+                    day: dayCount
+                },
+                success: function (data) {
+                    if (data.Succeed == false) {
+                        alert(data.Message);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
+        SaveCellValue($(destID), dayCount);
+        // 计算津贴
+        var result = 0;
+        if (dayCount == 1) {
+            var deltaHours = (Math.abs(time2 - time1)) / 36e5;
+            if (deltaHours < 8) {
+                result = 65;
+            } else {
+                result = 100;
+            }
+        } else {
+            result = 65 + (dayCount - 1) * 100;
+        }
+        // 判断是否是无补贴人员
+        $.ajax({
+            url: "/Apps/XYD/Workflow/CheckHaveAllowance",
+            success: function (data) {
+                if (data.Data.haveAllowance == true) {
+                    SaveCellValue($("#C-18-14"), result);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
+}
+
+/**
+ * 日期之间几天
+ */
+function caculateNaturalDays(time1, time2) {
+    var date1 = new Date(time1).setHours(0, 0, 0, 0);
+    var date2 = new Date(time2).setHours(0, 0, 0, 0);
+    var dayCount = (Math.abs(date2 - date1)) / 1000 / 60 / 60 / 24;
+    return dayCount;
+}
 // 计算间隔小时数
 function CaculateHours(beginID, endID, destID) {
     var beginDateStr = $(beginID).text();

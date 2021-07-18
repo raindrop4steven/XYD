@@ -1,0 +1,54 @@
+﻿{
+    "cells": [
+        {
+            "Row": 5,
+            "Col": 3,
+            "Event": "#custom(XYD.Common.CellEvents, TR_02_SerialNoUpdate, #C-5-3)"
+        },
+        {
+            "Row": 7,
+            "Col": 3,
+            "Event": "#custom(XYD.Common.CellEvents, TR_01_CaculateDays, #C-7-3, #C-7-9)"
+        },
+        {
+            "Row": 7,
+            "Col": 9,
+            "Event": "#custom(XYD.Common.CellEvents, TR_01_CaculateDays, #C-7-3, #C-7-9)"
+        },
+        {
+            "Row": 11,
+            "Col": 12,
+            "Event": "#custom(XYD.Common.CellEvents, TR_01_HotelFeeUpdate, #C-8-3, #C-7-13, #C-11-12)"
+        },
+        {
+            "Row": 12,
+            "Col": 12,
+            "Event": "#custom(XYD.Common.CellEvents, TR_01_HotelFeeUpdate, #C-8-3, #C-7-13, #C-12-12)"
+        },
+        {
+            "Row": 13,
+            "Col": 12,
+            "Event": "#custom(XYD.Common.CellEvents, TR_01_HotelFeeUpdate, #C-8-3, #C-7-13, #C-13-12)"
+        },
+        {
+            "Row": 14,
+            "Col": 12,
+            "Event": "#custom(XYD.Common.CellEvents, TR_01_HotelFeeUpdate, #C-8-3, #C-7-13, #C-14-12)"
+        },
+        {
+            "Row": 15,
+            "Col": 12,
+            "Event": "#custom(XYD.Common.CellEvents, TR_01_HotelFeeUpdate, #C-8-3, #C-7-13, #C-15-12)"
+        },
+        {
+            "Row": 16,
+            "Col": 12,
+            "Event": "#custom(XYD.Common.CellEvents, TR_01_HotelFeeUpdate, #C-8-3, #C-7-13, #C-16-12)"
+        },
+        {
+            "Row": 17,
+            "Col": 12,
+            "Event": "#custom(XYD.Common.CellEvents, TR_01_HotelFeeUpdate, #C-8-3, #C-7-13, #C-17-12)"
+        }
+    ]
+}

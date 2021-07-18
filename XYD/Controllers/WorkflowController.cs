@@ -864,6 +864,19 @@ namespace XYD.Controllers
         }
         #endregion
 
+        #region 判断是否有补贴
+        [Authorize]
+        public ActionResult CheckHaveAllowance()
+        {
+            var employee = (User.Identity as AppkizIdentity).Employee;
+            var isNoAllowance = OrgUtil.CheckRole(employee.EmplID, "无补贴人员");
+            return ResponseUtil.OK(new
+            {
+                haveAllowance = !isNoAllowance
+            });
+        }
+        #endregion
+
         #region 判断两个日期是否是同一天
         public ActionResult CheckSameDay(string selectType, string BeginDate, string EndDate)
         {

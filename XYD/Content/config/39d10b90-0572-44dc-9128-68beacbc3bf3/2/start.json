@@ -1,0 +1,1227 @@
+﻿{
+    "Fields": [
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "事务编号",
+                "Value": "",
+                "InterValue": "",
+                "Type": 1,
+                "CanEdit": "#custom(XYD.Common.TransformUtil, CheckIsCEO)",
+                "Row": 5,
+                "Col": 3,
+                "Options": "#custom(XYD.Common.TransformUtil, GetSerialOptions)",
+                "NeedRefresh": true,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "填表日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 5,
+                "Col": 9,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "姓名",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 5,
+                "Col": 13,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "紧急联络人",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 6,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "联系方式",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 6,
+                "Col": 9,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "人数",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 6,
+                "Col": 13,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "开始日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 4,
+                "CanEdit": false,
+                "Row": 7,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "结束日期",
+                "Value": "",
+                "InterValue": "",
+                "Type": 4,
+                "CanEdit": false,
+                "Row": 7,
+                "Col": 9,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "往返天数",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 7,
+                "Col": 13,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "出差地",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 8,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "事由",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 9,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 3,
+            "Header": [ "日期", "出差行程", "交通方式", "交通费", "住宿方式", "住宿费", "备注" ],
+            "Array": [
+                [
+                    {
+                        "Title": "日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 1,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "出差行程",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 7,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "汽车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "火车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "飞机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "船舶",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "地铁",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 10,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "宾馆",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "短租",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 12,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 11,
+                        "Col": 13,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 1,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "出差行程",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 7,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "汽车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "火车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "飞机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "船舶",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "地铁",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 10,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "宾馆",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "短租",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 12,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 12,
+                        "Col": 13,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 1,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "出差行程",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 7,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "汽车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "火车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "飞机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "船舶",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "地铁",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 10,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "宾馆",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "短租",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 12,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 13,
+                        "Col": 13,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 14,
+                        "Col": 1,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "出差行程",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 14,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 14,
+                        "Col": 7,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "汽车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "火车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "飞机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "船舶",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "地铁",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 14,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 14,
+                        "Col": 10,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "宾馆",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "短租",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 14,
+                        "Col": 12,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 14,
+                        "Col": 13,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 15,
+                        "Col": 1,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "出差行程",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 15,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 15,
+                        "Col": 7,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "汽车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "火车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "飞机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "船舶",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "地铁",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 15,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 15,
+                        "Col": 10,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "宾馆",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "短租",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 15,
+                        "Col": 12,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 15,
+                        "Col": 13,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 16,
+                        "Col": 1,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "出差行程",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 16,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 16,
+                        "Col": 7,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "汽车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "火车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "飞机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "船舶",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "地铁",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 16,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 16,
+                        "Col": 10,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "宾馆",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "短租",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 16,
+                        "Col": 12,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 16,
+                        "Col": 13,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ],
+                [
+                    {
+                        "Title": "日期",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 2,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 1,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "出差行程",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 3,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 7,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "汽车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "火车",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "飞机",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "船舶",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "地铁",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "交通费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 9,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿方式",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 1,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 10,
+                        "Options": [ {"Value": "","InterValue": ""},
+                            {
+                                "Value": "宾馆",
+                                "InterValue": ""
+                            },
+                            {
+                                "Value": "短租",
+                                "InterValue": ""
+                            }
+                        ],
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "住宿费用",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 12,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    },
+                    {
+                        "Title": "备注",
+                        "Value": "",
+                        "InterValue": "",
+                        "Type": 0,
+                        "CanEdit": true,
+                        "Row": 17,
+                        "Col": 13,
+                        "Options": null,
+                        "NeedRefresh": false,
+                        "Required": false
+                    }
+                ]
+            ]
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "交通费小计",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 18,
+                "Col": 9,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": false
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "住宿费小计",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 18,
+                "Col": 12,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": false
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "补贴小计",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 18,
+                "Col": 14,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": false
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "总计",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": false,
+                "Row": 18,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "大写金额",
+                "Value": "",
+                "InterValue": "",
+                "Type": 0,
+                "CanEdit": true,
+                "Row": 19,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        },
+        {
+            "Type": 0,
+            "Header": null,
+            "Value": {
+                "Title": "附件",
+                "Value": "",
+                "InterValue": "",
+                "Atts": null,
+                "Type": 10,
+                "CanEdit": true,
+                "Row": 20,
+                "Col": 3,
+                "Options": null,
+                "NeedRefresh": false,
+                "Required": true
+            }
+        }
+    ],
+    "Operations": [
+        {
+            "Origin": [
+                {
+                    "Row": 7,
+                    "Col": 3
+                },
+                {
+                    "Row": 7,
+                    "Col": 9
+                }
+            ],
+            "Dest": {
+                "Row": 7,
+                "Col": 13
+            },
+            "Operation": "minus",
+            "Type": "date"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 11,
+                    "Col": 9
+                },
+                {
+                    "Row": 12,
+                    "Col": 9
+                },
+                {
+                    "Row": 13,
+                    "Col": 9
+                },
+                {
+                    "Row": 14,
+                    "Col": 9
+                },
+                {
+                    "Row": 15,
+                    "Col": 9
+                },
+                {
+                    "Row": 16,
+                    "Col": 9
+                },
+                {
+                    "Row": 17,
+                    "Col": 9
+                }
+            ],
+            "Dest": {
+                "Row": 18,
+                "Col": 9
+            },
+            "Operation": "sum",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 11,
+                    "Col": 12
+                },
+                {
+                    "Row": 12,
+                    "Col": 12
+                },
+                {
+                    "Row": 13,
+                    "Col": 12
+                },
+                {
+                    "Row": 14,
+                    "Col": 12
+                },
+                {
+                    "Row": 15,
+                    "Col": 12
+                },
+                {
+                    "Row": 16,
+                    "Col": 12
+                },
+                {
+                    "Row": 17,
+                    "Col": 12
+                }
+            ],
+            "Dest": {
+                "Row": 18,
+                "Col": 12
+            },
+            "Operation": "sum",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 18,
+                    "Col": 9
+                },
+                {
+                    "Row": 18,
+                    "Col": 12
+                },
+                {
+                    "Row": 18,
+                    "Col": 14
+                }
+            ],
+            "Dest": {
+                "Row": 18,
+                "Col": 3
+            },
+            "Operation": "sum",
+            "Type": "int"
+        },
+        {
+            "Origin": [
+                {
+                    "Row": 18,
+                    "Col": 3
+                }
+            ],
+            "Dest": {
+                "Row": 19,
+                "Col": 3
+            },
+            "Operation": "capital",
+            "Type": "int"
+        }
+    ]
+}

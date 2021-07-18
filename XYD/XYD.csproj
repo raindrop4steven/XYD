@@ -812,6 +812,16 @@
     <Content Include="Content\config\241e69ff-09ad-455c-b445-e1013cdbed2a\2\audit.json" />
     <Content Include="Content\config\241e69ff-09ad-455c-b445-e1013cdbed2a\2\main.json" />
     <Content Include="Content\config\241e69ff-09ad-455c-b445-e1013cdbed2a\2\start.json" />
+    <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\2\app-transformer.json" />
+    <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\2\audit.json" />
+    <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\2\event.json" />
+    <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\2\main.json" />
+    <Content Include="Content\config\37060b4d-bee6-4634-a9ae-add81ecaa511\2\start.json" />
+    <Content Include="Content\config\39d10b90-0572-44dc-9128-68beacbc3bf3\2\app-transformer.json" />
+    <Content Include="Content\config\39d10b90-0572-44dc-9128-68beacbc3bf3\2\audit.json" />
+    <Content Include="Content\config\39d10b90-0572-44dc-9128-68beacbc3bf3\2\event.json" />
+    <Content Include="Content\config\39d10b90-0572-44dc-9128-68beacbc3bf3\2\main.json" />
+    <Content Include="Content\config\39d10b90-0572-44dc-9128-68beacbc3bf3\2\start.json" />
     <None Include="Properties\PublishProfiles\production.pubxml" />
     <Content Include="Views\Home\gw_html.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -921,7 +931,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" />
+      <UserProperties content_4config_4voucher_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" content_4config_4c97fb2da-1507-4dd1-9d0b-ae28cfda7560_40_4start_1json__JsonSchema="http://json.schemastore.org/appveyor" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

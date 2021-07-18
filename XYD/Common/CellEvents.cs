@@ -102,6 +102,87 @@ namespace XYD.Common
                 return EventResult.OK(fields);
             }
         }
+
+        /// <summary>
+        /// 事务编号更新事件2，补贴需手动选择日期后计算
+        /// </summary>
+        /// <param name="eventArgument"></param>
+        /// <param name="serialNo"></param>
+        /// <returns></returns>
+        public static object TR_02_SerialNoUpdate(string user, XYD_Event_Argument eventArgument, string serialNo)
+        {
+            var mid = eventArgument.MessageId;
+            var sn = eventArgument.CurrentCellValue.Value;
+            XYD_Serial serial = WorkflowUtil.GetSourceSerial(mid);
+            // 设置编号已使用
+            using (var db = new DefaultConnection())
+            {
+                if (sn.Contains(" "))
+                {
+                    var snArray = sn.Split(' ');
+                    user = orgMgr.FindEmployee("EmplName=@EmplName", new System.Collections.Hashtable()
+                          {
+                            {
+                              "@EmplName",
+                              snArray[0]
+                            }
+                          }, string.Empty, 0, 1).FirstOrDefault().EmplID;
+                    sn = snArray[1];
+                }
+                var record = db.SerialRecord.Where(n => n.WorkflowID == serial.FromId && n.Used == false && n.EmplID == user && n.Sn == sn).FirstOrDefault();
+                if (record == null)
+                {
+                    throw new Exception("没有找到对应申请记录");
+                }
+                WorkflowUtil.MappingBetweenFlows(record.MessageID, mid, serial.MappingOut);
+                Worksheet worksheet = WorkflowUtil.GetWorksheet(mid);
+                // 填充编号
+                WorkflowUtil.UpdateCell(worksheet, 5, 3, eventArgument.CurrentCellValue.Value, string.Empty);
+                // 计算补贴
+                // CaculateAllowacne(ref worksheet, user, "#C-7-13", "#C-18-14");
+                XYD_Fields fields = WorkflowUtil.GetWorkflowFields(user, eventArgument.NodeId, mid);
+                return EventResult.OK(fields);
+            }
+        }
+
+        /// <summary>
+        /// 计算间隔天数
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="eventArguments"></param>
+        /// <param name="startDateStr"></param>
+        /// <param name="endDateStr"></param>
+        public static void TR_01_CaculateDays(string user, XYD_Event_Argument eventArgument, string startDateStr, string endDateStr)
+        {
+
+            var mid = eventArgument.MessageId;
+            var startDate = DateTime.Parse(startDateStr).Date;
+            var endDate = DateTime.Parse(endDateStr).Date;
+            var totalDays = (int)((endDate - startDate).TotalDays) + 1;
+            var allowance = 0;
+            if (startDate == endDate)
+            {
+                // 同一天，需要判断间隔小时
+                var hours = (DateTime.Parse(startDateStr) - DateTime.Parse(endDateStr)).Hours;
+                if (hours < 8)
+                {
+                    allowance = 65;
+                }
+                else
+                {
+                    allowance = 100;
+                }
+            }
+            else
+            {
+                allowance = (totalDays-1)*100 + 65;
+            }
+            // 更新画面
+            Worksheet worksheet = WorkflowUtil.GetWorksheet(mid);
+            WorkflowUtil.UpdateCell(worksheet, 7, 13, totalDays.ToString() , string.Empty);
+            WorkflowUtil.UpdateCell(worksheet, 18, 14, allowance.ToString(), string.Empty);
+        }
+
         /// <summary>
         /// 计算补贴
         /// </summary>
