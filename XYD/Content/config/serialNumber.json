@@ -6,10 +6,6 @@
             "NodeId": "NODE0001",
             "MappingOut": [
                 {
-                    "From": "出差申请.K5",
-                    "To": "出差费用报销.M7"
-                },
-                {
                     "From": "出差申请.C8",
                     "To": "出差费用报销.C8"
                 },
@@ -106,10 +102,6 @@
             "ToId": "37060b4d-bee6-4634-a9ae-add81ecaa511",
             "NodeId": "NODE0001",
             "MappingOut": [
-                {
-                    "From": "出差申请.K5",
-                    "To": "出差费用报销.M7"
-                },
                 {
                     "From": "出差申请.C8",
                     "To": "出差费用报销.C8"

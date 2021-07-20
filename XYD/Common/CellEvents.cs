@@ -152,10 +152,11 @@ namespace XYD.Common
         /// <param name="eventArguments"></param>
         /// <param name="startDateStr"></param>
         /// <param name="endDateStr"></param>
-        public static void TR_01_CaculateDays(string user, XYD_Event_Argument eventArgument, string startDateStr, string endDateStr)
+        public static object TR_01_CaculateDays(string user, XYD_Event_Argument eventArgument, string startDateStr, string endDateStr)
         {
-
             var mid = eventArgument.MessageId;
+            XYD_Fields fields = WorkflowUtil.GetWorkflowFields(user, eventArgument.NodeId, mid);
+
             var startDate = DateTime.Parse(startDateStr).Date;
             var endDate = DateTime.Parse(endDateStr).Date;
             var totalDays = (int)((endDate - startDate).TotalDays) + 1;
@@ -163,7 +164,7 @@ namespace XYD.Common
             if (startDate == endDate)
             {
                 // 同一天，需要判断间隔小时
-                var hours = (DateTime.Parse(startDateStr) - DateTime.Parse(endDateStr)).Hours;
+                var hours = (DateTime.Parse(endDateStr) - DateTime.Parse(startDateStr)).Hours;
                 if (hours < 8)
                 {
                     allowance = 65;
@@ -178,9 +179,17 @@ namespace XYD.Common
                 allowance = (totalDays-1)*100 + 65;
             }
             // 更新画面
-            Worksheet worksheet = WorkflowUtil.GetWorksheet(mid);
-            WorkflowUtil.UpdateCell(worksheet, 7, 13, totalDays.ToString() , string.Empty);
-            WorkflowUtil.UpdateCell(worksheet, 18, 14, allowance.ToString(), string.Empty);
+            // 开始时间
+            var totalDasysCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 7, 13);
+            totalDasysCellValue.Value = totalDays.ToString();
+            var allowanceCellValue = WorkflowUtil.GetFieldsCellValue(eventArgument.Fields, 18, 14);
+            allowanceCellValue.Value = allowance.ToString();
+
+            WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, totalDasysCellValue);
+            WorkflowUtil.UpdateFieldsCellValue(eventArgument.Fields, allowanceCellValue);
+
+            fields.Fields = eventArgument.Fields;
+            return EventResult.OK(fields);
         }
 
         /// <summary>

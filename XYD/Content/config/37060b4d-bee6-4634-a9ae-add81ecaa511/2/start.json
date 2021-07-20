@@ -108,7 +108,7 @@
                 "Row": 7,
                 "Col": 3,
                 "Options": null,
-                "NeedRefresh": false,
+                "NeedRefresh": true,
                 "Required": true
             }
         },
@@ -124,7 +124,7 @@
                 "Row": 7,
                 "Col": 9,
                 "Options": null,
-                "NeedRefresh": false,
+                "NeedRefresh": true,
                 "Required": true
             }
         },
@@ -1093,24 +1093,6 @@
         }
     ],
     "Operations": [
-        {
-            "Origin": [
-                {
-                    "Row": 7,
-                    "Col": 3
-                },
-                {
-                    "Row": 7,
-                    "Col": 9
-                }
-            ],
-            "Dest": {
-                "Row": 7,
-                "Col": 13
-            },
-            "Operation": "minus",
-            "Type": "date"
-        },
         {
             "Origin": [
                 {
